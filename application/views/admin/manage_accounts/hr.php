@@ -1,0 +1,790 @@
+<?php if($this->session->userdata('permission') != 'Administrator') { redirect(base_url() . 'index.php/404');} ?>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Manage HR Accounts - AMI</title>
+
+		<meta name="description" content="overview &amp; stats" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!--basic styles-->
+
+		<link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="<?php echo base_url();?>assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css" />
+
+		<!--[if IE 7]>
+		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+
+		<!--page specific plugin styles-->
+
+		<!--fonts-->
+
+		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
+
+		<!--ace styles-->
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
+
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
+
+		<!--[if lte IE 8]>
+		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
+		<![endif]-->
+
+		<!--inline styles if any-->
+	</head>
+
+	<body>
+		<div class="navbar navbar-inverse">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<a href="#" class="brand">
+						<small>
+							<i class="icon-group"></i>
+							AMI - HRTMS Adminintration
+						</small>
+					</a><!--/.brand-->
+
+					<ul class="nav ace-nav pull-right">
+						<li class="grey">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+								<i class="icon-tasks"></i>
+								<span class="badge badge-grey">4</span>
+							</a>
+
+							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
+								<li class="nav-header">
+									<i class="icon-ok"></i>
+									Tasks to complete
+								</li>
+
+								<li>
+									<a href="#">
+										<div class="clearfix">
+											<span class="pull-left">Task 1</span>
+											<span class="pull-right">65%</span>
+										</div>
+
+										<div class="progress progress-mini ">
+											<div style="width:65%" class="bar"></div>
+										</div>
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<div class="clearfix">
+											<span class="pull-left">Task 2</span>
+											<span class="pull-right">35%</span>
+										</div>
+
+										<div class="progress progress-mini progress-danger">
+											<div style="width:35%" class="bar"></div>
+										</div>
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<div class="clearfix">
+											<span class="pull-left">Task 3</span>
+											<span class="pull-right">15%</span>
+										</div>
+
+										<div class="progress progress-mini progress-warning">
+											<div style="width:15%" class="bar"></div>
+										</div>
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<div class="clearfix">
+											<span class="pull-left">Task 4</span>
+											<span class="pull-right">90%</span>
+										</div>
+
+										<div class="progress progress-mini progress-success progress-striped active">
+											<div style="width:90%" class="bar"></div>
+										</div>
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										See tasks with details
+										<i class="icon-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="purple">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+								<i class="icon-bell-alt icon-only icon-animated-bell"></i>
+								<span class="badge badge-important">8</span>
+							</a>
+
+							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
+								<li class="nav-header">
+									<i class="icon-warning-sign"></i>
+									Notifications
+								</li>
+
+								<li>
+									<a href="#">
+										<div class="clearfix">
+											<span class="pull-left">
+												<i class="btn btn-mini no-hover btn-pink icon-comment"></i>
+												New Comments
+											</span>
+											<span class="pull-right badge badge-info">+12</span>
+										</div>
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<i class="btn btn-mini btn-primary icon-user"></i>
+										Error Occured
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<div class="clearfix">
+											<span class="pull-left">
+												<i class="btn btn-mini no-hover btn-success icon-shopping-cart"></i>
+												New Members
+											</span>
+											<span class="pull-right badge badge-success">+8</span>
+										</div>
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<div class="clearfix">
+											<span class="pull-left">
+												<i class="btn btn-mini no-hover btn-info icon-twitter"></i>
+												Followers
+											</span>
+											<span class="pull-right badge badge-info">+11</span>
+										</div>
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										See all notifications
+										<i class="icon-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="green">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+								<span class="badge badge-success">5</span>
+							</a>
+
+							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
+								<li class="nav-header">
+									<i class="icon-envelope"></i>
+									5 Messages
+								</li>
+
+								<li>
+									<a href="#">
+										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+										<span class="msg-body">
+											<span class="msg-title">
+												<span class="blue">Alex:</span>
+												Ciao sociis natoque penatibus et auctor ...
+											</span>
+
+											<span class="msg-time">
+												<i class="icon-time"></i>
+												<span>a moment ago</span>
+											</span>
+										</span>
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+										<span class="msg-body">
+											<span class="msg-title">
+												<span class="blue">Susan:</span>
+												Vestibulum id ligula porta felis euismod ...
+											</span>
+
+											<span class="msg-time">
+												<i class="icon-time"></i>
+												<span>20 minutes ago</span>
+											</span>
+										</span>
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+										<span class="msg-body">
+											<span class="msg-title">
+												<span class="blue">Bob:</span>
+												Nullam quis risus eget urna mollis ornare ...
+											</span>
+
+											<span class="msg-time">
+												<i class="icon-time"></i>
+												<span>3:15 pm</span>
+											</span>
+										</span>
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										See all messages
+										<i class="icon-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="light-blue user-profile">
+							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
+								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
+								<span id="user_info">
+									<small>Welcome,</small>
+									<?php echo $this->session->userdata('username');?>
+								</span>
+
+								<i class="icon-caret-down"></i>
+							</a>
+
+							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
+								<li>
+									<a href="#">
+										<i class="icon-cog"></i>
+										Settings
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<i class="icon-user"></i>
+										Profile
+									</a>
+								</li>
+
+								<li class="divider"></li>
+
+								<li>
+									<a href="<?php echo base_url();?>index.php/logout">
+										<i class="icon-off"></i>
+										Logout
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul><!--/.ace-nav-->
+				</div><!--/.container-fluid-->
+			</div><!--/.navbar-inner-->
+		</div>
+
+		<div class="container-fluid" id="main-container">
+			<a id="menu-toggler" href="#">
+				<span></span>
+			</a>
+
+			<div id="sidebar">
+				<div id="sidebar-shortcuts">
+					<div id="sidebar-shortcuts-large">
+						<button class="btn btn-small btn-success">
+							<i class="icon-signal"></i>
+						</button>
+
+						<button class="btn btn-small btn-info">
+							<i class="icon-pencil"></i>
+						</button>
+
+						<button class="btn btn-small btn-warning">
+							<i class="icon-group"></i>
+						</button>
+
+						<button class="btn btn-small btn-danger">
+							<i class="icon-cogs"></i>
+						</button>
+					</div>
+
+					<div id="sidebar-shortcuts-mini">
+						<span class="btn btn-success"></span>
+
+						<span class="btn btn-info"></span>
+
+						<span class="btn btn-warning"></span>
+
+						<span class="btn btn-danger"></span>
+					</div>
+				</div>
+
+				<!--#sidebar-shortcuts-->
+
+				<ul class="nav nav-list">
+					
+					<li>
+						<a href="<?php echo base_url();?>index.php/dashboard">
+							<i class="icon-bar-chart"></i>
+							<span>Control Panel</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="<?php echo base_url();?>index.php/registration">
+							<i class="icon-archive"></i>
+							<span>Registration</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="<?php echo base_url();?>index.php/training">
+							<i class="icon-book"></i>
+							<span>Training</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="<?php echo base_url();?>index.php/client">
+							<i class="icon-building"></i>
+							<span>Client Companies</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="<?php echo base_url();?>index.php/deployment">
+							<i class="icon-tag"></i>
+							<span>Deployment Tagging</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="#" class="dropdown-toggle">
+							<i class="icon-shield"></i>
+							<span>Manage Accounts</span>
+
+							<b class="arrow icon-angle-down"></b>
+						</a>
+
+						<ul class="submenu">
+							<li class="active">
+								<a href="<?php echo base_url();?>index.php/manage/hr">
+									<i class="icon-user"></i>
+									HR Department
+								</a>
+							</li>
+
+							<li>
+								<a href="<?php echo base_url();?>index.php/manage/training">
+									<i class="icon-user"></i>
+									Training Department
+								</a>
+							</li>
+						</ul>
+					</li>
+
+					<li>
+						<a href="#" class="dropdown-toggle">
+							<i class="icon-cog"></i>
+							<span>Administrative Tools</span>
+
+							<b class="arrow icon-angle-down"></b>
+						</a>
+
+						<ul class="submenu">
+
+							<li>
+								<a href="<?php echo base_url();?>index.php/administrative/audit">
+									<i class="icon-list"></i>
+									Audit Logs
+								</a>
+							</li>
+
+							<li>
+								<a href="<?php echo base_url();?>index.php/administrative/backup">
+									<i class="icon-download-alt"></i>
+									Backup &amp; Maintenance
+								</a>
+							</li>
+
+							
+						</ul>
+					</li>
+
+					<li>
+						<a href="help">
+							<i class="icon-question-sign"></i>
+							<span>Help</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="about">
+							<i class="icon-info"></i>
+							<span>About the Developers</span>
+						</a>
+					</li>
+			
+				</ul>
+
+				<!--/.nav-list-->
+
+				<div id="sidebar-collapse">
+					<i class="icon-double-angle-left"></i>
+				</div>
+			</div>
+
+			<div id="main-content" class="clearfix">
+				<div id="breadcrumbs">
+					<ul class="breadcrumb">
+						<li>
+							<i class="icon-shield"></i>
+							<a href="#">Manage Accounts</a>
+
+							<span class="divider">
+								<i class="icon-angle-right"></i>
+							</span>
+						</li>
+						<li class="active">HR Department</li>
+					</ul><!--.breadcrumb-->
+
+					<div id="nav-search">
+						<form class="form-search">
+							<span class="input-icon">
+								<input type="text" placeholder="Search ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
+								<i class="icon-search" id="nav-search-icon"></i>
+							</span>
+						</form>
+					</div><!--#nav-search-->
+				</div>
+
+				<div id="page-content" class="clearfix">
+					<div class="page-header position-relative">
+						<h1>
+							Human Resource Department Management
+							<small>
+								<i class="icon-double-angle-right"></i>
+								Staff Accounts
+							</small>
+						</h1>
+					</div><!--/.page-header-->
+
+					<div class="row-fluid">
+						<!--PAGE CONTENT STARTS HERE-->
+
+						<div class="span8">
+
+							<div class="box">
+									<div class="box-header well" data-original-title>
+										<h2><i class="icon-key"></i> Login Accounts for HR Staffs</h2>
+										<div class="box-icon">
+											<!--
+											<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
+											<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+											<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+										-->
+										</div>
+									</div>
+									<div class="box-content">
+
+										<div class="row-fluid">
+											
+											<div class="table-header">
+												 Results for "Accounts"
+											</div>
+											<table id="table_report" class="table table-striped table-bordered table-hover">
+											<thead>
+											<tr>
+												<th class="center">
+													<label>
+													<input type="checkbox"/>
+													<span class="lbl"></span>
+													</label>
+												</th>
+												<th>
+													Domain
+												</th>
+												<th>
+													Price
+												</th>
+												<th class="hidden-480">
+													Clicks
+												</th>
+												<th class="hidden-phone">
+													<i class="icon-time hidden-phone"></i>
+													Update
+												</th>
+												<th class="hidden-480">
+													Status
+												</th>
+												<th>
+												</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr>
+												<td class="center">
+													<label>
+													<input type="checkbox"/>
+													<span class="lbl"></span>
+													</label>
+												</td>
+												<td>
+													<a href="#">ace.com</a>
+												</td>
+												<td>
+													$45
+												</td>
+												<td class="hidden-480">
+													3,330
+												</td>
+												<td class="hidden-phone">
+													Feb 12
+												</td>
+												<td class="hidden-480">
+													<span class="label label-warning">Expiring</span>
+												</td>
+												<td class="td-actions">
+													<div class="hidden-phone visible-desktop btn-group">
+														<button class="btn btn-mini btn-success">
+														<i class="icon-ok bigger-120"></i>
+														</button>
+														<button class="btn btn-mini btn-info">
+														<i class="icon-edit bigger-120"></i>
+														</button>
+														<button class="btn btn-mini btn-danger">
+														<i class="icon-trash bigger-120"></i>
+														</button>
+														<button class="btn btn-mini btn-warning">
+														<i class="icon-flag bigger-120"></i>
+														</button>
+													</div>
+													<div class="hidden-desktop visible-phone">
+														<div class="inline position-relative">
+															<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+															<i class="icon-caret-down icon-only bigger-120"></i>
+															</button>
+															<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+																<li>
+																<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit" data-placement="left">
+																<span class="green">
+																<i class="icon-edit"></i>
+																</span>
+																</a>
+																</li>
+																<li>
+																<a href="#" class="tooltip-warning" data-rel="tooltip" title="Flag" data-placement="left">
+																<span class="blue">
+																<i class="icon-flag"></i>
+																</span>
+																</a>
+																</li>
+																<li>
+																<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete" data-placement="left">
+																<span class="red">
+																<i class="icon-trash"></i>
+																</span>
+																</a>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</td>
+											</tr>
+											</tbody>
+											</table>
+										</div>
+
+										<small>Page rendered in: {elapsed_time} seconds</small>
+									</div>
+								</div>
+
+								
+							</div> 
+
+						<div class="span4">
+
+							<!-- ADD HR START -->
+							<div class="box">
+								<div class="box-header well" data-original-title>
+									<h2><i class="icon-user"></i> Add HR Account</h2>
+									<i class="light-red icon-asterisk"></i> - Required Fields
+								</div>
+								
+								<div class="box-content">
+									<?php if(!is_null($this->session->userdata('error_hr'))) echo $this->session->userdata('error_hr'); ?>
+									<form method="post" action="<?php echo base_url();?>index.php/user/hr/add_hr">
+										<table class="table">
+											
+						 					<tr>
+												<td>
+													<label><i class="light-red icon-asterisk"></i> Username:  </label>
+													<input autofocus type="text" id="username" name="username">
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<label><i class="light-red icon-asterisk"></i> Password: </label>
+													<input type="password" id="password" name="password">
+												</td>
+												
+											</tr>
+											<tr>
+												<td>
+													<label>Confirm Password: </label>
+													<input type="password" id="password_confirm" name="password_confirm">
+												</td>
+												
+											</tr>
+											<tr>
+												<td>
+													<label>First Name: </label>
+													<input  type="text" id="displayname" name="displayname">
+												</td>
+												
+											</tr>
+											<tr>
+												<td>
+													<label>Last Name: </label>
+													<input  type="text" id="displayname" name="displayname">
+												</td>
+												
+											</tr>
+											<tr>
+												<td>
+													<label>Middle Name: </label>
+													<input  type="text" id="displayname" name="displayname">
+												</td>
+												
+											</tr>
+
+											<tr>
+												<td>
+													<label>Email address: </label>
+													<input type="email" id="email" name="email" >
+												</td>
+												
+											</tr>
+											<tr>
+												<td>
+													<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Add HR</button>
+												</td>
+												<td>&nbsp;</td>
+											</tr>
+										</table>
+									</form>
+									
+									
+								</div>
+							</div>
+							<!-- ADD HR END -->
+
+						</div>
+
+						
+
+						<!--PAGE CONTENT ENDS HERE-->
+					</div><!--/row-->
+				</div><!--/#page-content-->
+
+			</div><!--/#main-content-->
+		</div><!--/.fluid-container#main-container-->
+
+		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+			<i class="icon-double-angle-up icon-only bigger-110"></i>
+		</a>
+
+		<!--basic scripts-->
+
+		<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+		<script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
+
+		<script type="text/javascript">
+			//window.jQuery || document.write("<script src='<?php echo base_url();?>assets/js/jquery-1.9.1.min.js'>"+"<"+"/script>");
+			window.jQuery || document.write("<script src='<?php echo base_url();?>assets/js/jquery.js'>"+"<"+"/script>");
+		</script>
+		<script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+
+		<!--page specific plugin scripts-->
+
+		<!--[if lte IE 8]>
+		  <script src="<?php echo base_url();?>assets/js/excanvas.min.js"></script>
+		<![endif]-->
+
+		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+
+		<!--ace scripts-->
+
+		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
+
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
+
+
+		<!--inline scripts related to this page-->
+
+		<script type="text/javascript">
+			$(function() {
+			
+				$('.dialogs,.comments').slimScroll({
+			        height: '300px'
+			    });
+				
+				$('#tasks').sortable();
+				$('#tasks').disableSelection();
+				$('#tasks input:checkbox').removeAttr('checked').on('click', function(){
+					if(this.checked) $(this).closest('li').addClass('selected');
+					else $(this).closest('li').removeClass('selected');
+				});
+
+				//datatable initializatino
+				var oTable1 = $('#table_report').dataTable( {
+				"aoColumns": [
+			      { "bSortable": false },
+			      null, null,null, null, null,
+				  { "bSortable": false }
+				] } );
+				
+				
+				$('table th input:checkbox').on('click' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+						
+				});
+			
+				$('[data-rel=tooltip]').tooltip();
+
+			});	
+		</script>
+	</body>
+</html>
