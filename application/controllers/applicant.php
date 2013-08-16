@@ -38,6 +38,16 @@ class Applicant extends CI_Controller {
 	
 	}
 
+	public function searchApplicant()
+    {
+
+        $id=$this->input->post('id');
+        $this->load->model('applicant_model');
+        $data = $this->applicant_model->getInfo($id);
+        $this->output->set_output(json_encode($data));
+
+
+    }
 
 }
 

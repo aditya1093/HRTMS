@@ -26,12 +26,49 @@ class Applicant_model extends CI_Model{
     $this->db->where('register_id',$id);
     $this->db->from('registration');
     $query = $this->db->get();
-     if( $query->num_rows() > 0 ) {
-            return $query->result();
+    return $query->result();
+     
+     /*if( $query->num_rows() > 0 ) {
+            echo json_encode($query);
         } else {
-            return array();
+            $output_string = "There is no result";
+            echo json_encode($output_string);
         }
+    */ 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -52,9 +89,7 @@ class Applicant_model extends CI_Model{
             */
             $row = $query->row();
 
-
-
-           $data = array(
+            $data = array(
                     /* Info */
                     'app_register_id' => $row->id,
                     'app_last_name' => $row->last_name,

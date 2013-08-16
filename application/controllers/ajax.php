@@ -12,13 +12,11 @@ class Ajax extends CI_Controller {
     {
 
         $id=$this->input->post('id');
-        //$id = "AMI1304-REG-0007";
         $this->load->model('applicant_model');
         $data = $this->applicant_model->getInfo($id);
-        //$data['records'] = $query;
-        //$this->load->model('my_model');
-        //$data['results'] = $this->site_model->getInfo();
         $this->output->set_output(json_encode($data));
+
+
     }
 
     public function user(){

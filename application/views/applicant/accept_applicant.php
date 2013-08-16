@@ -585,7 +585,7 @@
 			$("#getinfo").click(function(){
 			         var dataString = $("#id").val();
 			         $.ajax({ 
-			           url: "<?php echo base_url(); ?>ajax/user2",
+			           url: "<?php echo base_url();?>applicant/searchApplicant",
 			     	   async: false,
 			           type: "POST",			          
 			           data: "id="+dataString, 
@@ -602,19 +602,17 @@
 			           success: function(response){
 			               //alert(dataString); 
 			                //$('#result_table').html(output_string);
-			                if(response == null)
-			                {	
-			                	output_string="asd";
-			                	$('#result_table').html(output_string);
-			                }
-			                else{
-			                output_string = $( '#user' ).render( response );
-			              //  a = ${register_id};
-			               // $(".bcTarget").barcode("AMI1304-REG-0001", "code39");
-			                $('#result_table').html(output_string);
-			            	}
+			              if ( response.length == 0 ) {
+			              	output_string = '"There is no result"';
+			              	$('#result_table').html('<br><br><br><br><div class="center"><b>'+output_string +'</b></div><br><br><br><br><br><br>');
+			              }
+			              else{
+		                	output_string = $('#user').render(response);
+		              		$('#result_table').html(output_string);
+		              		}
+			            	
 			           }
-			 
+			  
 			         }); 
 			  
 			         return false;  //stop the actual form post !important!
@@ -635,14 +633,15 @@
 			      }); 
 
 			});*/
-
+ 
 
 										 
 		</script>
-
+ 
 		<script type="text/template" id="user">
 		<div class="row-fluid">
 		<div class="span6">
+		
 	    <table>
                 <tr> 
                     <td><h3>Personal Details</h3></td>
@@ -654,13 +653,17 @@
                 </tr>
 
                 <tr>
+
                     <td>Address: </td>
                     <td>${address}</td>
-                    
                 </tr>
+                <tr>
+         		
                 	<td>Address 2: </td>
                     <td>${address_2}</td>
-                    <tr>
+        
+                </tr>
+                <tr>
                     <td>City: </td>
                     <td>${city}</td>
                 </tr>  
@@ -703,90 +706,44 @@
         </table>
         </div>
         <div class="span6">
-	        <div class="widget-box">
-	        	<div class="widget-header widget-header-flat">
-					<h4>Documents</h4>
-				</div>
+        	<h3 class="header smaller lighter blue">
+				Documents
+				<small>Check the available documents.</small>
+			</h3>
+	    
+			<form>
+				<div class="control-group">
+					<label class="control-label"></label>
+ 
+					<div class="controls">
+						<label>
+							<input name="documents" type="checkbox" class="ace" />
+							<span class="lbl"> Registraton slip</span>
+						</label>
 
-				<div class="widget-body">
-					<form>
-						
-					</form>
-				</div>
+						<label>
+							<input name="documents" type="checkbox" class="ace" />
+							<span class="lbl"> Resume</span>
+						</label>
 
-			</div>
+						<label>
+							<input name="documents" class="ace" type="checkbox" />
+							<span class="lbl"> Diploma</span>
+						</label>
+
+						<label>
+							<input name="documents" class="ace" type="checkbox" />
+							<span class="lbl"> Form - 137</span>
+						</label>
+					</div>
+				</div>
+				<button class="btn btn-success btn-block" type="submit">Accept Applicant</button>
+			</form>
         </div>
         </div>
 		
 		</script>
-		<script type="text/javascript">
-    
-		      function generateBarcode(){
-		        var value = $("#barcodeValue").val();
-		        var btype = $("input[name=btype]:checked").val();
-		        var renderer = $("input[name=renderer]:checked").val();
-		        
-				var quietZone = false;
-		        if ($("#quietzone").is(':checked') || $("#quietzone").attr('checked')){
-		          quietZone = true;
-		        }
-				
-		        var settings = {
-		          output:renderer,
-		          bgColor: $("#bgColor").val(),
-		          color: $("#color").val(),
-		          barWidth: $("#barWidth").val(),
-		          barHeight: $("#barHeight").val(),
-		          moduleSize: $("#moduleSize").val(),
-		          posX: $("#posX").val(),
-		          posY: $("#posY").val(),
-		          addQuietZone: $("#quietZoneSize").val()
-		        };
-		        if ($("#rectangular").is(':checked') || $("#rectangular").attr('checked')){
-		          value = {code:value, rect: true};
-		        }
-		        if (renderer == 'canvas'){
-		          clearCanvas();
-		          $("#barcodeTarget").hide();
-		          $("#canvasTarget").show().barcode(value, btype, settings);
-		        } else {
-		          $("#canvasTarget").hide();
-		          $("#barcodeTarget").html("").show().barcode(value, btype, settings);
-		        }
-		      }
-		          
-		      function showConfig1D(){
-		        $('.config .barcode1D').show();
-		        $('.config .barcode2D').hide();
-		      }
-		      
-		      function showConfig2D(){
-		        $('.config .barcode1D').hide();
-		        $('.config .barcode2D').show();
-		      }
-		      
-		      function clearCanvas(){
-		        var canvas = $('#canvasTarget').get(0);
-		        var ctx = canvas.getContext('2d');
-		        ctx.lineWidth = 1;
-		        ctx.lineCap = 'butt';
-		        ctx.fillStyle = '#FFFFFF';
-		        ctx.strokeStyle  = '#000000';
-		        ctx.clearRect (0, 0, canvas.width, canvas.height);
-		        ctx.strokeRect (0, 0, canvas.width, canvas.height);
-		      }
-		      
-		      $(function(){
-		        $('input[name=btype]').click(function(){
-		          if ($(this).attr('id') == 'datamatrix') showConfig2D(); else showConfig1D();
-		        });
-		        $('input[name=renderer]').click(function(){
-		          if ($(this).attr('id') == 'canvas') $('#miscCanvas').show(); else $('#miscCanvas').hide();
-		        });
-		        generateBarcode();
-		      });
-		  
-  		</script>	
+		
 
 	</body>
 </html>
