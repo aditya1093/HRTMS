@@ -2,7 +2,7 @@
 
 class Login extends CI_Controller {
 
-	function index() {
+	function load_view($view_name) {
 
 		$data = array (
 			'error_msg' => NULL
@@ -15,8 +15,24 @@ class Login extends CI_Controller {
 		}
 		else {
 
-    		$this->load->view('login_view', $data);
+    		$this->load->view($view_name, $data);
 		}	
+
+	}
+
+	function index() {
+
+		$this->load_view('login_view');		
+	}
+
+	function client() {
+		
+		$this->load_view('login_view_client');	
+	}
+
+	function training() {
+		
+		$this->load_view('login_view_training');	
 	}
 }
 

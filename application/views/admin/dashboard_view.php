@@ -26,11 +26,12 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
-
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
+
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -40,13 +41,13 @@
 	</head>
 
 	<body>
-		<div class="navbar navbar-inverse">
+			<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - HRTMS Adminintration
+							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
 
@@ -252,7 +253,7 @@
 								</li>
 
 								<li>
-									<a href="#">
+									<a href="messenger">
 										See all messages
 										<i class="icon-arrow-right"></i>
 									</a>
@@ -289,7 +290,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="<?php echo base_url();?>index.php/logout">
+									<a href="<?php echo base_url();?>logout">
 										<i class="icon-off"></i>
 										Logout
 									</a>
@@ -302,6 +303,7 @@
 		</div>
 
 		<div class="container-fluid" id="main-container">
+		
 			<a id="menu-toggler" href="#">
 				<span></span>
 			</a>
@@ -342,41 +344,61 @@
 				<ul class="nav nav-list">
 					
 					<li class="active">
-						<a href="<?php echo base_url();?>index.php/dashboard">
+						<a href="<?php echo base_url();?>dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
+					
 					<li>
-						<a href="<?php echo base_url();?>index.php/registration">
-							<i class="icon-archive"></i>
+						<a href="#" class="dropdown-toggle">
+							<i class="icon-shield"></i>
 							<span>Registration</span>
+
+							<b class="arrow icon-angle-down"></b>
 						</a>
+
+						<ul class="submenu">
+							<li >
+								<a href="<?php echo base_url();?>applicant">
+									<i class="icon-archive"></i>
+									<span>Applicants</span>
+								</a>
+							</li>
+
+							<li>
+								<a href="<?php echo base_url();?>manage/training">
+									<i class="icon-user"></i>
+								   	<span>Accept</span>
+								</a>
+							</li>
+						</ul>
 					</li>
 
+
 					<li>
-						<a href="<?php echo base_url();?>index.php/training">
+						<a href="<?php echo base_url();?>training">
 							<i class="icon-book"></i>
 							<span>Training</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="<?php echo base_url();?>index.php/client">
+						<a href="<?php echo base_url();?>client">
 							<i class="icon-building"></i>
 							<span>Client Companies</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="<?php echo base_url();?>index.php/deployment">
+						<a href="<?php echo base_url();?>deployment">
 							<i class="icon-tag"></i>
 							<span>Deployment Tagging</span>
 						</a>
 					</li>
-
-					<li>
+ 
+					<li >
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
 							<span>Manage Accounts</span>
@@ -385,15 +407,15 @@
 						</a>
 
 						<ul class="submenu">
-							<li>
-								<a href="<?php echo base_url();?>index.php/manage/hr">
+							<li  >
+								<a href="<?php echo base_url();?>manage/hr">
 									<i class="icon-user"></i>
 									HR Department
 								</a>
 							</li>
 
 							<li>
-								<a href="<?php echo base_url();?>index.php/manage/training">
+								<a href="<?php echo base_url();?>manage/training">
 									<i class="icon-user"></i>
 									Training Department
 								</a>
@@ -412,14 +434,14 @@
 						<ul class="submenu">
 
 							<li>
-								<a href="<?php echo base_url();?>index.php/administrative/audit">
+								<a href="<?php echo base_url();?>administrative/audit">
 									<i class="icon-list"></i>
 									Audit Logs
 								</a>
 							</li>
 
 							<li>
-								<a href="<?php echo base_url();?>index.php/administrative/backup">
+								<a href="<?php echo base_url();?>administrative/backup">
 									<i class="icon-download-alt"></i>
 									Backup &amp; Maintenance
 								</a>
@@ -443,16 +465,15 @@
 						</a>
 					</li>
 			
-				</ul>
-
-				<!--/.nav-list-->
+				</ul><!--/.nav-list-->
 
 				<div id="sidebar-collapse">
 					<i class="icon-double-angle-left"></i>
 				</div>
 			</div>
 
-			<div id="main-content" class="clearfix">
+
+		<div id="main-content" class="clearfix">
 				<div id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
@@ -489,15 +510,38 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
+							<div class="span12">
 
-
+							<div class="alert alert-info">
+								<h2>Reports</h2>
+								
+								<a target ="_blank" href="<?php echo base_url();?>Reports/list_trainee">List of Trainee</a><br>
+								<a target ="_blank" href="<?php echo base_url();?>Reports/trainee_attendance">Trainee Attendance</a><br>
+								<a target ="_blank" href="<?php echo base_url();?>Reports/gradesheet">Gradesheet</a><br>
+								<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Certificate</a><br>
+								<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Completed Modules</a>
+										 
+							</div>
+							<div class="box-content">
+								<div class="row-fluid">
+									<form class="form-inline" id="student">
+														<input autofocus type="text" class="span11" name="id" />
+														<button class="btn btn-purple btn-small">
+															Get Data
+														</button>												
+									</form>
+									<div id='result_table'></div>
+								</div>								
+							</div> 
 
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
+
 				</div><!--/#page-content-->
 
 			</div><!--/#main-content-->
 		</div><!--/.fluid-container#main-container-->
+
 
 		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
@@ -528,6 +572,8 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
+
 
 		<!--ace scripts-->
 
@@ -536,20 +582,29 @@
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">
-			$(function() {
-			
-				$('.dialogs,.comments').slimScroll({
-			        height: '300px'
-			    });
-				
-				$('#tasks').sortable();
-				$('#tasks').disableSelection();
-				$('#tasks input:checkbox').removeAttr('checked').on('click', function(){
-					if(this.checked) $(this).closest('li').addClass('selected');
-					else $(this).closest('li').removeClass('selected');
-				});
+		<script type="text/javascript">	
+
+
+			$("#student").submit(function(){
+			         var dataString = $("#student").serialize();
+			         $.ajax({ 
+			           url: "<?php echo base_url(); ?>ajax/user",
+			     	   async: false,
+			           type: "POST",			          
+			           data: dataString, 
+			           dataType: 'json',
+			 
+			           success: function(output_string){
+			               //alert(dataString);
+			                $('#result_table').html(output_string);
+			           }
+			 
+			         });
+			 
+			         return false;  //stop the actual form post !important!
 			});
+ 
+										 
 		</script>
 	</body>
 </html>

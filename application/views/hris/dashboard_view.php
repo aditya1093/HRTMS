@@ -46,7 +46,7 @@
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - HRTMS Adminintration
+							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
 
@@ -252,7 +252,7 @@
 								</li>
 
 								<li>
-									<a href="#">
+									<a href="messenger">
 										See all messages
 										<i class="icon-arrow-right"></i>
 									</a>

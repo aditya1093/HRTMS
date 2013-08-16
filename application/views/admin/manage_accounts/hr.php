@@ -46,7 +46,7 @@
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - HRTMS Adminintration
+							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
 
@@ -252,7 +252,7 @@
 								</li>
 
 								<li>
-									<a href="#">
+									<a href="messenger">
 										See all messages
 										<i class="icon-arrow-right"></i>
 									</a>
@@ -289,7 +289,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="<?php echo base_url();?>index.php/logout">
+									<a href="<?php echo base_url();?>logout">
 										<i class="icon-off"></i>
 										Logout
 									</a>
@@ -342,35 +342,55 @@
 				<ul class="nav nav-list">
 					
 					<li>
-						<a href="<?php echo base_url();?>index.php/dashboard">
+						<a href="<?php echo base_url();?>dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
+					
 					<li>
-						<a href="<?php echo base_url();?>index.php/registration">
-							<i class="icon-archive"></i>
+						<a href="#" class="dropdown-toggle">
+							<i class="icon-shield"></i>
 							<span>Registration</span>
+
+							<b class="arrow icon-angle-down"></b>
 						</a>
+
+						<ul class="submenu">
+							<li >
+								<a href="<?php echo base_url();?>applicant">
+									<i class="icon-archive"></i>
+									<span>Applicants</span>
+								</a>
+							</li>
+
+							<li>
+								<a href="<?php echo base_url();?>manage/training">
+									<i class="icon-user"></i>
+								   	<span>Accept</span>
+								</a>
+							</li>
+						</ul>
 					</li>
 
+
 					<li>
-						<a href="<?php echo base_url();?>index.php/training">
+						<a href="<?php echo base_url();?>training">
 							<i class="icon-book"></i>
 							<span>Training</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="<?php echo base_url();?>index.php/client">
+						<a href="<?php echo base_url();?>client">
 							<i class="icon-building"></i>
 							<span>Client Companies</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="<?php echo base_url();?>index.php/deployment">
+						<a href="<?php echo base_url();?>deployment">
 							<i class="icon-tag"></i>
 							<span>Deployment Tagging</span>
 						</a>
@@ -386,14 +406,14 @@
 
 						<ul class="submenu">
 							<li class="active">
-								<a href="<?php echo base_url();?>index.php/manage/hr">
+								<a href="<?php echo base_url();?>manage/hr">
 									<i class="icon-user"></i>
 									HR Department
 								</a>
 							</li>
 
 							<li>
-								<a href="<?php echo base_url();?>index.php/manage/training">
+								<a href="<?php echo base_url();?>manage/training">
 									<i class="icon-user"></i>
 									Training Department
 								</a>
@@ -412,14 +432,14 @@
 						<ul class="submenu">
 
 							<li>
-								<a href="<?php echo base_url();?>index.php/administrative/audit">
+								<a href="<?php echo base_url();?>administrative/audit">
 									<i class="icon-list"></i>
 									Audit Logs
 								</a>
 							</li>
 
 							<li>
-								<a href="<?php echo base_url();?>index.php/administrative/backup">
+								<a href="<?php echo base_url();?>administrative/backup">
 									<i class="icon-download-alt"></i>
 									Backup &amp; Maintenance
 								</a>
@@ -490,7 +510,7 @@
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 
-						<div class="span8">
+						<div class="span9">
 
 							<div class="box">
 									<div class="box-header well" data-original-title>
@@ -620,82 +640,70 @@
 								
 							</div> 
 
-						<div class="span4">
+						<div class="span3">
 
 							<!-- ADD HR START -->
-							<div class="box">
-								<div class="box-header well" data-original-title>
-									<h2><i class="icon-user"></i> Add HR Account</h2>
-									<i class="light-red icon-asterisk"></i> - Required Fields
-								</div>
-								
-								<div class="box-content">
-									<?php if(!is_null($this->session->userdata('error_hr'))) echo $this->session->userdata('error_hr'); ?>
-									<form method="post" action="<?php echo base_url();?>index.php/user/hr/add_hr">
-										<table class="table">
-											
-						 					<tr>
-												<td>
-													<label><i class="light-red icon-asterisk"></i> Username:  </label>
-													<input autofocus type="text" id="username" name="username">
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<label><i class="light-red icon-asterisk"></i> Password: </label>
-													<input type="password" id="password" name="password">
-												</td>
-												
-											</tr>
-											<tr>
-												<td>
-													<label>Confirm Password: </label>
-													<input type="password" id="password_confirm" name="password_confirm">
-												</td>
-												
-											</tr>
-											<tr>
-												<td>
-													<label>First Name: </label>
-													<input  type="text" id="displayname" name="displayname">
-												</td>
-												
-											</tr>
-											<tr>
-												<td>
-													<label>Last Name: </label>
-													<input  type="text" id="displayname" name="displayname">
-												</td>
-												
-											</tr>
-											<tr>
-												<td>
-													<label>Middle Name: </label>
-													<input  type="text" id="displayname" name="displayname">
-												</td>
-												
-											</tr>
-
-											<tr>
-												<td>
-													<label>Email address: </label>
-													<input type="email" id="email" name="email" >
-												</td>
-												
-											</tr>
-											<tr>
-												<td>
-													<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Add HR</button>
-												</td>
-												<td>&nbsp;</td>
-											</tr>
-										</table>
-									</form>
-									
-									
-								</div>
-							</div>
+							
 							<!-- ADD HR END -->
+
+							<div class="widget-box">
+
+										<div class="widget-header">
+											<h4><i class="icon-user"></i> Add HR Account</h4>
+											
+											<span class="widget-toolbar">
+												<a href="#" data-action="collapse">
+													<i class="icon-chevron-up"></i>
+												</a>
+
+												<a href="#" data-action="reload">
+													<i class="icon-refresh"></i>
+												</a>
+
+												
+											</span>
+										</div>
+
+										<div class="widget-body"><div class="widget-body-inner">
+											<div class="widget-main">
+												<div class="row-fluid">
+
+													<?php if(!is_null($this->session->userdata('error_hr'))) echo $this->session->userdata('error_hr'); ?>
+													<form method="post" action="<?php echo base_url();?>user/hr/add_hr">
+
+														<label><i class="light-red icon-asterisk"></i> Username:  </label>
+														<input autofocus required style="width: 94%" placeholder="Enter Username" type="text" id="username" name="username">
+
+														<label><i class="light-red icon-asterisk"></i> Password: </label>
+														<input style="width: 94%" type="password" id="password" name="password">
+
+														<label><i class="light-red icon-asterisk"></i> Confirm Password: </label>
+														<input style="width: 94%" type="password" id="password_confirm" name="password_confirm">
+
+														<label><i class="light-red icon-asterisk"></i> First Name: </label>
+														<input style="width: 94%" type="text" id="displayname" name="displayname">
+
+														<label><i class="light-red icon-asterisk"></i> Last Name: </label>
+														<input style="width: 94%" type="text" id="displayname" name="displayname">
+
+														<label>Middle Name: </label>
+														<input style="width: 94%" type="text" id="displayname" name="displayname">
+
+														<label><i class="light-red icon-asterisk"></i> Email address: </label>
+														<input required style="width: 94%" type="email" id="email" name="email" >
+
+														<hr>
+
+														<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Add HR</button>
+
+														
+													</form>	
+												</div>
+
+												
+											</div>
+										</div></div>
+									</div>
 
 						</div>
 

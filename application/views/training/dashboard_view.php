@@ -252,7 +252,7 @@
 								</li>
 
 								<li>
-									<a href="#">
+									<a href="messenger">
 										See all messages
 										<i class="icon-arrow-right"></i>
 									</a>
@@ -340,64 +340,64 @@
 				<ul class="nav nav-list">
 					
 
-					<li>
-						<a href="#">
+					<li class="active">
+						<a href="dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="#">
+						<a href="modules">
 							<i class="icon-folder-open"></i>
 							<span>Manage Modules</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="#">
+						<a href="presenter">
 							<i class="icon-desktop"></i>
 							<span>Classroom Presenter</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="#">
+						<a href="examination">
 							<i class="icon-puzzle-piece"></i>
 							<span>Manage Examination</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="#">
+						<a href="attendance">
 							<i class="icon-ok"></i>
 							<span>Attendance Checker</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="#">
+						<a href="class_record">
 							<i class="icon-star"></i>
 							<span>Class Record</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="#">
+						<a href="reports">
 							<i class="icon-print"></i>
 							<span>Reports</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="#">
+						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="#">
+						<a href="about">
 							<i class="icon-info"></i>
 							<span>About the Developers</span>
 						</a>
@@ -416,7 +416,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="#">Home</a>
+							<a href="dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
@@ -449,8 +449,149 @@
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 
+						
+						<div class="span12">
+							<div class="alert alert-info">
+								<button type="button" class="close" data-dismiss="alert">
+									<i class="icon-remove"></i>
+								</button>
+								<strong>Hello there!</strong>
+									You are logged in an Instructor Account.
+								<br>
+							</div>
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										Introduction
+										<small>Training Center Admin</small>
+									</h4>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+										<p align="center">
+											In a Trainer Account, you are able to Manage training modules which 
+											of composed of the AMI and Client Company's Modules. You can create 
+											examinations, manage it and assess the item difficulty. You can view 
+											your students' detailed performance and see how effective teacher you are!
+										</p>
+										<p align="center">
+											<span class="btn btn-success btn-small tooltip-success" data-rel="tooltip" data-placement="right" title="" data-original-title="Right Success">Start A Tour</span>
+											<span class="btn btn-primary btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Read Help</span>
+											<span class="btn btn-warning btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Download Manual</span>
+											
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
+					<br>
+					<div class="row-fluid">
+						<!--PAGE CONTENT STARTS HERE-->
+						<div class="span8">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										AMI Board
+										<small>Announcements</small>
+									</h4>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+										<p>
+											<div class="tabbable">
+												<ul class="nav nav-tabs" id="myTab">
+													<li class="active">
+														<a data-toggle="tab" href="#home">
+															<i class="green icon-home bigger-110"></i>
+															News
+														</a>
+													</li>
+
+													<li>
+														<a data-toggle="tab" href="#profile">
+															Events
+															<span class="badge badge-important">4</span>
+														</a>
+													</li>
+
+													<li class="dropdown">
+														<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+															Notices
+															<b class="caret"></b>
+														</a>
+
+														<ul class="dropdown-menu dropdown-info">
+															<li>
+																<a data-toggle="tab" href="#dropdown1">@fat</a>
+															</li>
+
+															<li>
+																<a data-toggle="tab" href="#dropdown2">@mdo</a>
+															</li>
+														</ul>
+													</li>
+												</ul>
+
+												<div class="tab-content">
+													<div id="home" class="tab-pane in active">
+														<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor.
+															Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, 
+															quis ullamcorper ligula sodales at. Nulla tellus elit, varius non commodo eget, mattis vel
+															 eros. In sed ornare nulla. Donec consectetur, velit a pharetra ultricies, diam lorem lacinia
+															  risus, ac commodo orci erat eu massa. Sed sit amet nulla ipsum. Donec felis mauris, vulputate
+															   sed tempor at, aliquam a ligula. Pellentesque non pulvinar nisi.</p>
+													</div>
+
+													<div id="profile" class="tab-pane">
+														<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+													</div>
+
+													<div id="dropdown1" class="tab-pane">
+														<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+													</div>
+
+													<div id="dropdown2" class="tab-pane">
+														<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin.</p>
+													</div>
+												</div>
+											</div>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="span4">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										Batch Activity
+										<small>Training Status</small>
+									</h4>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+						<!--PAGE CONTENT ENDS HERE-->
+					</div><!--/row-->
+
 				</div><!--/#page-content-->
 
 			</div><!--/#main-content-->

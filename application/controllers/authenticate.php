@@ -21,13 +21,13 @@ class Authenticate extends CI_Controller {
             	'error_msg' => '<div class="alert alert-danger">Invalid username and/or password.</div>'
             );
         	
-            $this->load->view('includes/nocache');
+            $this->load->view('includes/nocache'); 
         	$this->load->view('login_view', $data);
 		}
 
 		else {
 				
-				redirect(base_url() . 'index.php/dashboard');
+				redirect(base_url() . 'dashboard');
 		}
 
 	}
