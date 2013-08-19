@@ -114,13 +114,13 @@ class Messenger extends CI_Controller {
 
 	}
 
-	public function talk2who() {
+	public function notify() {
 
-		if($this->input->post('ajax')) {
+		$this->load->model('Messenger_Model');
 
-			return $this->session->userdata('sender_id');
-		}
+		$query = $this->Messenger_Model->latest_noti();
 
+		echo json_encode($query);
 	}
 }
 /* End of file messenger.php */

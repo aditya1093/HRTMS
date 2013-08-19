@@ -162,13 +162,13 @@ assets/css/style-skins.min.css" />
 				<li class="green">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 				<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-				<span class="badge badge-success">5</span>
+				<span class="badge badge-success unread"></span>
 				</a>
 				<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 					<li class="nav-header">
 					<i class="icon-envelope"></i>
-					5 Messages </li>
-					<li>
+					<span class="unread"></span> Messages </li>
+					<!--<li>
 					<a href="#">
 					<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" /> <span class="msg-body">
 					<span class="msg-title">
@@ -180,33 +180,8 @@ assets/css/style-skins.min.css" />
 					</span>
 					</span>
 					</a>
-					</li>
-					<li>
-					<a href="#">
-					<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" /> <span class="msg-body">
-					<span class="msg-title">
-					<span class="blue">Susan:</span>
-					Vestibulum id ligula porta felis euismod ... </span>
-					<span class="msg-time">
-					<i class="icon-time"></i>
-					<span>20 minutes ago</span>
-					</span>
-					</span>
-					</a>
-					</li>
-					<li>
-					<a href="#">
-					<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" /> <span class="msg-body">
-					<span class="msg-title">
-					<span class="blue">Bob:</span>
-					Nullam quis risus eget urna mollis ornare ... </span>
-					<span class="msg-time">
-					<i class="icon-time"></i>
-					<span>3:15 pm</span>
-					</span>
-					</span>
-					</a>
-					</li>
+					</li>-->
+					
 					<li>
 					<a href="messenger">
 					See all messages <i class="icon-arrow-right"></i>
@@ -321,7 +296,7 @@ assets/css/style-skins.min.css" />
 						<div class="widget-header widget-header-small header-color-blue">
 							<h4 class="smaller">
 							<i class="icon-comment blue"></i>
-							Conversation <small>AMI Messenger</small>
+							Conversation <span id="thewho"></span> <small>AMI Messenger</small>
 							</h4>
 						</div>
 						<div class="widget-body">
@@ -400,7 +375,7 @@ assets/css/style-skins.min.css" />
 											<td>
 												<img class="nav-user-photo" src="assets/avatars/user.jpg" style="width: 30px; margin-right: 10px;">
 												<i class="icon-circle pull-right" style="color:#387038;"></i>
-												<a class="userchat" id="<?php echo $row->id?>"><?php echo $row->first_name?> <?php echo $row->last_name?></a>
+												<a style="cursor: pointer;" class="userchat" id="<?php echo $row->id?>"><?php echo $row->first_name?> <?php echo $row->last_name?></a>
 											</td>
 										</tr>
 										<?php endforeach;?>
@@ -453,7 +428,7 @@ assets/css/style-skins.min.css" />
 <!--inline scripts related to this page-->
 <script type="text/javascript">
 	
-	var recipient = 0;
+	var thewho="";
 
 	var getObjectSize = function(obj) {
    		var len = 0, key;
@@ -479,47 +454,79 @@ assets/css/style-skins.min.css" />
 
 	    /* Update Per Second */
 	    var interval = setInterval(function() { 
-		    
-	    	var form_data = {
-	        	ajax: '1'
-	        };
 
-	        var request = $.ajax({
-	        	url: "<?php echo base_url();?>messenger/load_messages",
-	        	type: 'POST',
-	        	data: form_data
-	        });
-
-	        request.done(function (response, textStatus, jqXHR) {
-
-				$(".dialogs").html("");
-
-				var obj = jQuery.parseJSON(response);
-
-				var str = "";
-
-				for (var i = 0; i < getObjectSize(obj); i++) {
-					
-					str += '<div class="itemdiv dialogdiv"><div class="user"><img alt="" src="assets/avatars/user.jpg"></div>';
-					str += '<div class="body"><div class="time"><i class="icon-time"></i><span class="orange"> '+obj[i].time_sent+'</span></div>';
-					str += '<div class="name"><a class="userchat" id="'+obj[i].id+'" href="#">'+obj[i].full_name+'</a> <span class="label label-info arrowed arrowed-in-right">'+obj[i].permission+'</span></div>';
-					str += '<div class="text">'+obj[i].message+'</div></div></div>';
-
-				};
-
-				//var str = str.replace(':)','<img src="<?php echo base_url();?>assets/images/emoticon/smile.jpg">');
-
-				$(".dialogs").html(str);
-
-				$('#scrollcontent').slimScroll({ scrollBy: $(".dialogs").height()});
-
-		    });
+	    	load_messages();
 
 		}, 500);
 
+	    notify();
 
 	});
 
+	/* Load notification */
+	var notify = function() {
+
+		var form_data = {
+        	ajax: '1'
+        };
+
+        var request = $.ajax({
+        	url: "<?php echo base_url();?>messenger/notify",
+        	type: 'POST',
+        	data: form_data
+        });
+
+        request.done(function (response, textStatus, jqXHR) {
+
+			var obj = jQuery.parseJSON(response);
+
+			console.log(obj.unread);
+			
+			$(".unread").text(obj.unread);
+			
+	    });
+	};
+
+	/* Load specific inbox messages */
+	var load_messages = function() {
+
+		var form_data = {
+        	ajax: '1'
+        };
+
+        var request = $.ajax({
+        	url: "<?php echo base_url();?>messenger/load_messages",
+        	type: 'POST',
+        	data: form_data
+        });
+
+        request.done(function (response, textStatus, jqXHR) {
+
+			$(".dialogs").html("");
+
+			var obj = jQuery.parseJSON(response);
+
+			var str = "";
+
+			for (var i = 0; i < getObjectSize(obj); i++) {
+				
+				str += '<div class="itemdiv dialogdiv"><div class="user"><img alt="" src="assets/avatars/user.jpg"></div>';
+				str += '<div class="body"><div class="time"><i class="icon-time"></i><span class="orange"> '+obj[i].time_sent+'</span></div>';
+				str += '<div class="name"><a class="userchat" id="'+obj[i].id+'" href="#">'+obj[i].full_name+'</a> <span class="label label-info arrowed arrowed-in-right">'+obj[i].permission+'</span></div>';
+				str += '<div class="text">'+obj[i].message+'</div></div></div>';
+
+			};
+
+			$("#thewho").text("("+thewho+")");
+
+			//var str = str.replace(':)','<img src="<?php echo base_url();?>assets/images/emoticon/smile.jpg">');
+
+			$(".dialogs").html(str);
+
+			$('#scrollcontent').slimScroll({ scrollBy: $(".dialogs").height()});
+
+	    });
+	};
 	
 	/* Chat Send */
 	var send_message = function() {
@@ -575,6 +582,7 @@ assets/css/style-skins.min.css" />
 		//alert($(this).attr('id'));
 
 		id = $(this).attr('id');
+		thewho = $(this).text();
 
 		var form_data = {
         	sender_id: id,

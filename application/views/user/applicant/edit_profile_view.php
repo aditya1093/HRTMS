@@ -353,7 +353,7 @@
 					</li>
 
 					<li class="active">
-						<a href="<?php echo base_url();?>dashboard">
+						<a href="<?php echo base_url();?>Profile">
 							<i class="icon-user"></i>
 							<span>Profile</span>
 						</a>
@@ -423,7 +423,7 @@
 						<?php if(isset($records)) : foreach($records as $row) : ?>
 						<div id="user-profile-2" class="user-profile row-fluid">
 									<div class="tabbable">
-					
+								
 										<div class="tab-content no-border padding-24">
 											<div id="home" class="tab-pane in active">
 												<div class="row-fluid">
@@ -450,25 +450,101 @@
 													</div><!--/span-->
 
 													<div class="span9">
+													<form class="form-horizontal">
+														<div class="alert alert-info">
+										                  <p>Items marked with an asterisk (<span class="mandatory_star">*</span>) are required.</p>  
+										              	</div>
+										               
+											              <div id="infoMessage" align="center"><?php 
+											              if ($message == null){
+
+											              }
+											              else{
+											              echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+											              echo '<div class="alert alert-error">';
+											              echo $message;
+											              echo '</div>';
+											              }
+											              ?>
+											              </div>
 
 														<div class="profile-user-info">
-															<form class="form-horizontal">
+													
 															<div class="profile-info-row">
 																<div class="profile-info-name">Full Name </div>
-																<div class="profile-info-value">
-																	<span><?php echo $row->first_name.' '.$row->middle_name.', '.$row->last_name;?></span>			
-																</div>
+																
 																<div class="profile-info-value">
 																	
-																		<div class="control-group">
-																			<label class="control-label" for="form-field-1">Text Field</label>
+																	<div class="control-group">
+																		<label class="control-label" for="first_name" name="first_name">First Name</label>
 
-																			<div class="controls">
-																				<input type="text" id="form-field-1" placeholder="Username">
-																			</div>
+																		<div class="controls">
+																			<input type="text" id="first_name" value="<?php echo $row->first_name;?>">
 																		</div>
+																	</div>
+
+																	<div class="control-group">
+																		<label class="control-label" for="last_name" name="last_name">Last Name</label>
+
+																		<div class="controls">
+																			<input type="text" id="last_name" value="<?php echo $row->last_name;?>">
+																		</div>
+																	</div>
+
+																	<div class="control-group">
+																		<label class="control-label" for="middle_name" name="middle_name">Middle Name</label>
+
+																		<div class="controls">
+																			<input type="text" id="middle_name" value="<?php echo $row->middle_name;?>">
+																		</div>
+																	</div>
+
 																</div>
 															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Location </div>
+																<div class="profile-info-value">
+																	
+																	<div class="control-group">
+																		<label class="control-label" for="address" name="address">Address</label>
+
+																		<div class="controls">
+																			<input type="text" id="address" value="<?php echo $row->address;?>">
+																		</div>
+																	</div>
+
+																	<div class="control-group">
+																		<label class="control-label" for="city" name="city">City</label>
+
+																		<div class="controls">
+																			<input type="text" id="city" value="<?php echo $row->city;?>">
+																		</div>
+																	</div>
+
+																	<div class="control-group">
+																		<label class="control-label" for="state" name="state">Province</label>
+
+																		<div class="controls">
+																			<input type="text" id="state" value="<?php echo $row->state;?>">
+																		</div>
+																	</div>
+
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Birthday </div>
+
+																<div class="profile-info-value">
+																		<div class = "controls" nowrap="nowrap"><?php
+														                        echo $birth_date_day;
+														                        echo $birth_date_month;
+														                        echo $birth_date_year;
+														                        ?>
+														          		</div>
+																</div>
+															</div>
+
 															<div class="profile-info-row">
 																<div class="profile-info-name"> Username </div>
 
@@ -480,43 +556,6 @@
 																</div>
 															</div>
 
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Location </div>
-
-																<div class="profile-info-value">
-																	<i class="icon-map-marker light-orange bigger-110"></i>
-																	<span><?php echo $row->address.' '.$row->city;?></span>
-																	<span><?php echo $row->state;?></span>
-																	<span><?php echo $row->country;?></span>
-																</div>
-															</div>
-
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Age </div>
-
-																<div class="profile-info-value">
-																	<span><?php
-																	$birthdate = $row->birth_date;												
-																    list($y,$m,$d) = explode('-', $birthdate);
-    
-																    if (($m = (date('m') - $m)) < 0) {
-																        $y++;
-																    } elseif ($m == 0 && date('d') - $d < 0) {
-																        $y++;
-																    }
-																    
-																    echo date('Y') - $y;
-																    ?></span>
-																</div>
-															</div>
-
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Birthday </div>
-
-																<div class="profile-info-value">
-																	<span><?php echo $row->birth_date?></span>
-																</div>
-															</div>
 
 															<div class="profile-info-row">
 																<div class="profile-info-name"> Email </div>
@@ -533,7 +572,7 @@
 																</div>
 															</div>
 														</div>
-														</form>
+													</form>
 														<div class="hr hr-8 dotted"></div>
 
 														<div class="profile-user-info">
@@ -545,25 +584,7 @@
 																</div>
 															</div>
 
-															<div class="profile-info-row">
-																<div class="profile-info-name">
-																	<i class="middle icon-facebook-sign bigger-150 blue"></i>
-																</div>
-
-																<div class="profile-info-value">
-																	<a href="">Find me on Facebook</a>
-																</div>
-															</div>
-
-															<div class="profile-info-row">
-																<div class="profile-info-name">
-																	<i class="middle icon-twitter-sign bigger-150 light-blue"></i>
-																</div>
-
-																<div class="profile-info-value">
-																	<a href="">Follow me on Twitter</a>
-																</div>
-															</div>
+														
 														</div>
 													</div><!--/span-->
 												</div><!--/row-fluid-->

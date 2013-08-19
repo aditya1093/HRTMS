@@ -202,9 +202,9 @@
                 <div class="well" >
                   <h1>Registration</h1>
 		        	<br>
-		            <div class="alert alert-info">
+		              <div class="alert alert-info">
 		                  <p>Items marked with an asterisk (<span class="mandatory_star">*</span>) are required.</p>  
-		                </div>
+		              </div>
 		               
 		              <div id="infoMessage" align="center"><?php 
 		              if ($message == null){
@@ -217,7 +217,7 @@
 		              echo '</div>';
 		              }
 		              ?>
-		            </div>
+		              </div>
 
 			        <form method="post" action="<?php echo base_url();?>index.php/registration/register">
 			          <h2>Personal Information</h2>

@@ -46,4 +46,22 @@ class Messenger_Model extends CI_Model{
 
         return 0;
     }
+
+    function latest_noti() {
+
+        $s = 
+
+        "SELECT COUNT(message_id) AS unread
+        FROM inbox
+        WHERE is_read=0 AND receiver_id=".$this->session->userdata('id');
+
+        $query = $this->db->query($s);
+
+        if($query->num_rows == 1) {
+
+            return $query->row();
+        }
+
+        return 0;
+    }
 }  
