@@ -1,4 +1,4 @@
-<?php if($this->session->userdata('permission') != 'Trainee') { redirect(base_url() . '404');} ?>
+<?php if($this->session->userdata('permission') != 'Applicant') { redirect(base_url() . '404');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -47,7 +47,7 @@
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - Training
+							AMI - Applicant
 						</small>
 					</a><!--/.brand-->
 
@@ -353,7 +353,7 @@
 					
 					<li>
 						<a href="<?php echo base_url();?>Profile">
-							<i class="icon-shield"></i>
+							<i class="icon-user"></i>
 							<span>Profile</span>
 						</a>
 

@@ -38,6 +38,7 @@ class Messenger_Model extends CI_Model{
         $query = $this->db->query($s);
         if($query->num_rows == 1)
         {
+            $this->session->set_userdata($query->row());
             return $query->row();
         }
         return 0;

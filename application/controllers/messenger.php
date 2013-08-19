@@ -2,26 +2,51 @@
 
 class Messenger extends CI_Controller {
 
-	public function index()
-	{
+	public function load_messages($data) {
+
 		$this->load->model('Messenger_Model');
 
 		//le break MVC rules
 
-		/*
-		"SELECT message_id, sender_id, receiver_id, message, time_sent, is_read, 
-		CONCAT(first_name, ' ', last_name) AS full_name, permission  
-		FROM inbox INNER JOIN user_table ON receiver_id=id AND receiver_id='". $this->session->userdata("id") . "'";
-		*/
-
-		
-
-		$limit = $this->Messenger_Model->latest_chat();
-		
+		//$limit = $this->Messenger_Model->latest_chat();	
 
 		$q = 
+	
+		"SELECT message_id, sender_id, receiver_id, message, time_sent, is_read, 
+		CONCAT(first_name, ' ', last_name) AS full_name, permission  
+		FROM inbox 
+		INNER JOIN user_table 
+		ON receiver_id=id
+		AND ((receiver_id=(SELECT sender_id
+		FROM inbox 
+		WHERE EXISTS (SELECT message FROM inbox) 
+		AND is_read=0
+		ORDER BY message_id LIMIT 1) AND sender_id=" . $this->session->userdata('id') . ") 
+		OR (receiver_id=" . $this->session->userdata('id') . " AND sender_id=(SELECT sender_id
+		FROM inbox 
+		WHERE EXISTS (SELECT message FROM inbox) 
+		AND is_read=0
+		ORDER BY message_id LIMIT 1)))";
 
-		
+		$query = $this->Messenger_Model->messenger_query($q);
+
+		echo json_encode($query);
+
+	}
+
+	public function index()
+	{
+
+		$this->load->model('Messenger_Model');
+
+		//le break MVC rules
+
+		$limit = $this->Messenger_Model->latest_chat();	
+
+		$this->session->set_userdata($limit);
+
+		$q = 
+	
 		"SELECT message_id, sender_id, receiver_id, message, time_sent, is_read, 
 		CONCAT(first_name, ' ', last_name) AS full_name, permission  
 		FROM inbox 
@@ -52,9 +77,11 @@ class Messenger extends CI_Controller {
 		
 	}
 
-	public function send_message($param = 0) {
+	public function send_message() {
 
 		if($this->input->post('ajax')) {
+
+			$this->load->model('Messenger_Model');
 
 			$data = array(
 
@@ -64,20 +91,8 @@ class Messenger extends CI_Controller {
 				'time_sent' => date('Y-m-d H:i:s')
 
 			);
-
-			$this->load->model('Chat_Model');
-
-			$this->Chat_Model->send_message($data);
-
-			$query = $this->Chat_Model->load_messages();
-
-			echo json_encode($query);
-
 			
-
-			
-			
-
+			$this->Messenger_Model->send_message($data);
 		}
 		else {
 

@@ -367,16 +367,16 @@ assets/css/style-skins.min.css" />
 
 
 								<!-- MESSAGES ENDS HERE -->
-								<form>
+								
 									<div class="form-actions input-append">
-										<input placeholder="Type your message here ..." type="text" style="width:85%" name="message">
-										
-										<button class="btn btn-small btn-info no-radius" onclick="return false;">
+										<input placeholder="Type your message here..." type="text" style="width:85%" name="message" id="message">
+
+										<button class="btn btn-small btn-info no-radius" id="send_button">
 										<i class="icon-share-alt"></i>
 										<span class="hidden-phone">Send</span>
 										</button>
 									</div>
-								</form>
+								
 							</div>
 							<!--/widget-main-->
 						</div>
@@ -450,10 +450,63 @@ assets/css/style-skins.min.css" />
 <script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 <!--inline scripts related to this page-->
 <script type="text/javascript">
+	
+	var recipient = 0;
+	$(document).ready(function() {
 
-	$(document).ready(function(){
 	    $('.slimScrollDiv').slimScroll({
 	        height: '400px'
+	    });
+
+	    var interval = setInterval(function() { 
+		    
+
+		}, 1000);
+	});
+
+	/* Chat Send */
+	$("#send_button").click(function() {
+
+		if($.trim($("#message").val()) == "") {
+
+			return;
+		}
+
+		var form_data = {
+        	sender_id: '<?php echo $this->session->userdata("sender_id");?>',
+        	receiver_id: '<?php echo $this->session->userdata("id");?>',
+        	message: $("#message").val(),
+        	ajax: '1'
+        };
+
+        var request = $.ajax({
+        	url: "<?php echo base_url();?>messenger/send_message",
+        	type: 'POST',
+        	data: form_data
+        });
+
+        request.done(function (response, textStatus, jqXHR) {
+
+			$("#message").val("");	
+			$(".dialogs").html("");
+
+			//alert(response);
+
+			var obj = jQuery.parseJSON(response);
+
+			var str = "";
+
+			for (var i = 0; i < obj.length; i++) {
+				
+				str += '<div class="itemdiv dialogdiv"><div class="user"><img alt="" src="assets/avatars/user.jpg"></div>';
+				str += '<div class="body"><div class="time"><i class="icon-time"></i><span class="orange">'+obj[i].time_sent+'</span></div>';
+				str += '<div class="name"><a href="#">'+obj[i].full_name+'</a><span class="label label-info arrowed arrowed-in-right">'+obj[i].permission+'</span></div>';
+				str += '<div class="text">'+obj[i].message+'</div></div></div>';
+				//$( ".dialogs" ).append(str);
+
+			};
+
+			$(".dialogs").html(str);
 	    });
 	});
 </script>

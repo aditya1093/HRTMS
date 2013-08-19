@@ -24,6 +24,13 @@ class Profile extends CI_Controller {
 			
 			$this->load->view('User/trainee/profile_view');
 		}
+		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Applicant') {
+			$id = $this->session->userdata('id');
+			$this->load->model('profile_model');
+			$query = $this->profile_model->profile($id);
+			$data['records'] = $query;
+			$this->load->view('User/applicant/profile_view',$data);
+		}
 		else {
 
 			$data = 0 ;

@@ -31,6 +31,7 @@ class Authenticate extends CI_Controller {
 		}
 
 	}
+
 }
 
 /* End of file authenticate.php */

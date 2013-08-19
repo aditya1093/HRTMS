@@ -265,7 +265,8 @@
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
 								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
 								<span id="user_info">
-									<small>Welcome,</small>
+									<small>\
+									 3q	`[/-0oiuyt Welcome,</small>
 									<?php echo $this->session->userdata('username');?>
 								</span>
 

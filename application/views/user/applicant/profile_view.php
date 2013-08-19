@@ -1,9 +1,9 @@
-<?php if($this->session->userdata('permission') != 'Trainee') { redirect(base_url() . '404');} ?>
+<?php if($this->session->userdata('permission') != 'Applicant') { redirect(base_url() . '404');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Dashboard - AMI</title>
+		<title>Profile - AMI</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,7 +31,8 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
-
+		<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -47,7 +48,7 @@
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - Training
+							AMI - Applicant
 						</small>
 					</a><!--/.brand-->
 
@@ -343,22 +344,21 @@
 
 				<ul class="nav nav-list">
 					
-					<li class="active">
+					<li class="">
 						<a href="<?php echo base_url();?>dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
-					
-					<li>
-						<a href="<?php echo base_url();?>Profile">
-							<i class="icon-shield"></i>
+					<li class="active">
+						<a href="<?php echo base_url();?>dashboard">
+							<i class="icon-user"></i>
 							<span>Profile</span>
 						</a>
-
-
 					</li>
+
+			
 
 					<li>
 						<a href="help">
@@ -412,7 +412,7 @@
 							Control Panel
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Dashboard
+								Profile
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -421,35 +421,96 @@
 						<!--PAGE CONTENT STARTS HERE-->
 						<div class="span12">
 
-						<div class="tabbable">
-										<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-											<li class="active">
-												<a data-toggle="tab" href="#home4">Home</a>
-											</li>
+						<?php if(isset($records)) : foreach($records as $row) : ?>
+						<table>
+								<tr>
 
-											<li class="">
-												<a data-toggle="tab" href="#profile4">Profile</a>
-											</li>
+									<td><h3>Personal Details</h3></td>
+									<td>&nbsp;</td>
+								</tr>
+								
+								<tr>
+									<td>Name: </td>
+									<!--<td><?php echo $this->session->userdata('last_name').", ".$this->session->userdata('first_name')." ".$this->session->userdata('middle_name');?></td>
+									-->
+									<td><?php echo $row->last_name.', '.$row->first_name.' '.$row->middle_name;?></td>
+								</tr>
+							
+								<tr>
+									<td>Address: </td>
+									<td><?php echo $row->address;?></td>
+								</tr>
+								<tr>
+									<td>Address 2: </td>
+									<?php if($row->address_2 == null) {
+										?>
+											<td><i class="muted">none</i></td>
+									<?php } else { ?>	
+											<td><?php echo $row->address_2;?></td>
+									<?php } ?>
+								</tr>
+								<tr>
+									<td>City: </td>
+									<td><?php echo $row->city;?></td>
+								</tr>
+								<tr>
+									<td>Province: </td>
+									<td><?php echo $row->state;?></td>
+								</tr>
+								<tr>
+									<td>Country: </td>
+									<td><?php echo $row->country;?></td>
+								</tr>
+								<tr>
+									<td>Address: </td>
+									<td><?php echo $row->address;?></td>
+								</tr>
+								<tr>
+									<td>Zipcode: </td>
+									<td><?php echo $row->zipcode;?></td>
+								</tr>
+								<tr>
+									<td>Phone: </td>
+									<td><?php echo $row->phone;?></td>
+								</tr>
 
-											<li class="">
-												<a data-toggle="tab" href="#dropdown14">More</a>
-											</li>
-										</ul>
+								
+								
+								<tr>
+									<td><h3>Account Details</h3></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td>Username: </td>
+									<td><?php echo $row->username;?></td>
+								</tr>
+								<tr>
+									<td>Email Address: </td>
+									<td><?php echo $row->email;?></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td><div class="bcTarget"></div>  </td>
+									<td></td>
 
-										<div class="tab-content">
-											<div id="home4" class="tab-pane active">
-												<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-											</div>
+								</tr>
+								
+							</table>
+							<p>
 
-											<div id="profile4" class="tab-pane">
-												<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
-											</div>
+							<?php
+								
+								echo '<script type="text/javascript">$(".bcTarget").barcode("';
+								echo $row->register_id;
+								echo '", "code39");</script>';
 
-											<div id="dropdown14" class="tab-pane">
-												<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
-											</div>
-										</div>
-									</div>
+							?> 
+						</p>
+						<?php endforeach;?>
+						<?php endif; ?>
 
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
@@ -499,29 +560,73 @@
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">	
-
-
-			$("#student").submit(function(){
-			         var dataString = $("#student").serialize();
-			         $.ajax({ 
-			           url: "<?php echo base_url(); ?>ajax/user",
-			     	   async: false,
-			           type: "POST",			          
-			           data: dataString, 
-			           dataType: 'json',
-			 
-			           success: function(output_string){
-			               //alert(dataString);
-			                $('#result_table').html(output_string);
-			           }
-			 
-			         });
-			 
-			         return false;  //stop the actual form post !important!
-			});
- 
-										 
-		</script>
+		<script type="text/javascript">
+    
+    	function generateBarcode(){
+        var value = $("#barcodeValue").val();
+        var btype = $("input[name=btype]:checked").val();
+        var renderer = $("input[name=renderer]:checked").val();
+        
+		var quietZone = false;
+        if ($("#quietzone").is(':checked') || $("#quietzone").attr('checked')){
+          quietZone = true;
+        }
+		
+        var settings = {
+          output:renderer,
+          bgColor: $("#bgColor").val(),
+          color: $("#color").val(),
+          barWidth: $("#barWidth").val(),
+          barHeight: $("#barHeight").val(),
+          moduleSize: $("#moduleSize").val(),
+          posX: $("#posX").val(),
+          posY: $("#posY").val(),
+          addQuietZone: $("#quietZoneSize").val()
+        };
+        if ($("#rectangular").is(':checked') || $("#rectangular").attr('checked')){
+          value = {code:value, rect: true};
+        }
+        if (renderer == 'canvas'){
+          clearCanvas();
+          $("#barcodeTarget").hide();
+          $("#canvasTarget").show().barcode(value, btype, settings);
+        } else {
+          $("#canvasTarget").hide();
+          $("#barcodeTarget").html("").show().barcode(value, btype, settings);
+        }
+      }
+          
+      function showConfig1D(){
+        $('.config .barcode1D').show();
+        $('.config .barcode2D').hide();
+      }
+      
+      function showConfig2D(){
+        $('.config .barcode1D').hide();
+        $('.config .barcode2D').show();
+      }
+      
+      function clearCanvas(){
+        var canvas = $('#canvasTarget').get(0);
+        var ctx = canvas.getContext('2d');
+        ctx.lineWidth = 1;
+        ctx.lineCap = 'butt';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle  = '#000000';
+        ctx.clearRect (0, 0, canvas.width, canvas.height);
+        ctx.strokeRect (0, 0, canvas.width, canvas.height);
+      }
+      
+      $(function(){
+        $('input[name=btype]').click(function(){
+          if ($(this).attr('id') == 'datamatrix') showConfig2D(); else showConfig1D();
+        });
+        $('input[name=renderer]').click(function(){
+          if ($(this).attr('id') == 'canvas') $('#miscCanvas').show(); else $('#miscCanvas').hide();
+        });
+        generateBarcode();
+      });
+  
+    </script>
 	</body>
 </html>
