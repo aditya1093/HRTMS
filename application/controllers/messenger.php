@@ -7,12 +7,37 @@ class Messenger extends CI_Controller {
 		$this->load->model('Messenger_Model');
 
 		//le break MVC rules
-		$q = 
 
+		/*
 		"SELECT message_id, sender_id, receiver_id, message, time_sent, is_read, 
 		CONCAT(first_name, ' ', last_name) AS full_name, permission  
 		FROM inbox INNER JOIN user_table ON receiver_id=id AND receiver_id='". $this->session->userdata("id") . "'";
+		*/
+
 		
+
+		$limit = $this->Messenger_Model->latest_chat();
+		
+
+		$q = 
+
+		
+		"SELECT message_id, sender_id, receiver_id, message, time_sent, is_read, 
+		CONCAT(first_name, ' ', last_name) AS full_name, permission  
+		FROM inbox 
+		INNER JOIN user_table 
+		ON receiver_id=id
+		AND ((receiver_id=(SELECT sender_id
+		FROM inbox 
+		WHERE EXISTS (SELECT message FROM inbox) 
+		AND is_read=0
+		ORDER BY message_id LIMIT 1) AND sender_id=" . $this->session->userdata('id') . ") 
+		OR (receiver_id=" . $this->session->userdata('id') . " AND sender_id=(SELECT sender_id
+		FROM inbox 
+		WHERE EXISTS (SELECT message FROM inbox) 
+		AND is_read=0
+		ORDER BY message_id LIMIT 1)))";
+
 		$query = $this->Messenger_Model->messenger_query($q);
 
 		$data['records'] = $query;

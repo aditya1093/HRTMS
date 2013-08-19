@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class Profile extends CI_Controller {
 
 	public function index()
 	{
@@ -10,19 +10,19 @@ class Dashboard extends CI_Controller {
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'HR') {
 			
-			$this->load->view('User/hris/dashboard_view');
+			$this->load->view('User/hris/profile_view');
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Trainer') {
 			
-			$this->load->view('User/training/dashboard_view');
+			$this->load->view('User/training/profile_view');
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Client') {
 			
-			$this->load->view('User/client/dashboard_view');
+			$this->load->view('User/client/profile_view');
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Trainee') {
 			
-			$this->load->view('User/trainee/dashboard_view');
+			$this->load->view('User/trainee/profile_view');
 		}
 		else {
 
@@ -33,5 +33,5 @@ class Dashboard extends CI_Controller {
 	}
 }
 
-/* End of file dashboard.php */
-/* Location: ./application/controllers/dashboard.php */
+/* End of file profile.php */
+/* Location: ./application/controllers/profile.php */

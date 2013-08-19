@@ -1,9 +1,9 @@
-<?php if($this->session->userdata('permission') != 'Administrator') { redirect(base_url() . 'index.php/404');} ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Dashboard - AMI</title>
+		<title>Manage Modules - AMI</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,12 +26,11 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
+
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
-
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -41,13 +40,13 @@
 	</head>
 
 	<body>
-			<div class="navbar navbar-inverse">
+		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - HRTMS Administration
+							AMI - Training Center Administration
 						</small>
 					</a><!--/.brand-->
 
@@ -61,7 +60,7 @@
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-ok"></i>
-									Tasks to complete
+									4 Tasks to complete
 								</li>
 
 								<li>
@@ -134,7 +133,7 @@
 							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-warning-sign"></i>
-									Notifications
+									8 Notifications
 								</li>
 
 								<li>
@@ -152,7 +151,7 @@
 								<li>
 									<a href="#">
 										<i class="btn btn-mini btn-primary icon-user"></i>
-										Error Occured
+										Bob just signed up as an editor ...
 									</a>
 								</li>
 
@@ -266,7 +265,7 @@
 								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
-									<?php echo $this->session->userdata('username');?>
+									User
 								</span>
 
 								<i class="icon-caret-down"></i>
@@ -290,7 +289,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="<?php echo base_url();?>logout">
+									<a href="<?php echo base_url();?>index.php/logout">
 										<i class="icon-off"></i>
 										Logout
 									</a>
@@ -303,7 +302,6 @@
 		</div>
 
 		<div class="container-fluid" id="main-container">
-		
 			<a id="menu-toggler" href="#">
 				<span></span>
 			</a>
@@ -312,19 +310,19 @@
 				<div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
 						<button class="btn btn-small btn-success">
-							<i class="icon-signal"></i>
+							<i class="icon-ok"></i>
 						</button>
 
 						<button class="btn btn-small btn-info">
-							<i class="icon-pencil"></i>
-						</button>
-
-						<button class="btn btn-small btn-warning">
-							<i class="icon-group"></i>
+							<i class="icon-puzzle-piece"></i>
 						</button>
 
 						<button class="btn btn-small btn-danger">
-							<i class="icon-cogs"></i>
+							<i class="icon-star"></i>
+						</button>
+
+						<button class="btn btn-small btn-warning">
+							<i class="icon-print"></i>
 						</button>
 					</div>
 
@@ -333,122 +331,60 @@
 
 						<span class="btn btn-info"></span>
 
-						<span class="btn btn-warning"></span>
-
 						<span class="btn btn-danger"></span>
-					</div>
-				</div>
 
-				<!--#sidebar-shortcuts-->
+						<span class="btn btn-warning"></span>
+					</div>
+				</div><!--#sidebar-shortcuts-->
 
 				<ul class="nav nav-list">
-					
-					<li class="active">
-						<a href="<?php echo base_url();?>dashboard">
+					<li>
+						<a href="dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
-					
-					<li>
-						<a href="#" class="dropdown-toggle">
-							<i class="icon-shield"></i>
-							<span>Registration</span>
-
-							<b class="arrow icon-angle-down"></b>
-						</a>
-
-						<ul class="submenu">
-							<li >
-								<a href="<?php echo base_url();?>applicant">
-									<i class="icon-archive"></i>
-									<span>Applicants</span>
-								</a>
-							</li>
-
-							<li>
-								<a href="<?php echo base_url();?>applicant/accept">
-									<i class="icon-user"></i>
-								   	<span>Accept</span>
-								</a>
-							</li>
-						</ul>
-					</li>
-
-
-					<li>
-						<a href="<?php echo base_url();?>training">
-							<i class="icon-book"></i>
-							<span>Training</span>
+					<li class="active">
+						<a href="modules">
+							<i class="icon-folder-open"></i>
+							<span>Manage Modules</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="<?php echo base_url();?>client">
-							<i class="icon-building"></i>
-							<span>Client Companies</span>
+						<a href="presenter">
+							<i class="icon-desktop"></i>
+							<span>Classroom Presenter</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="<?php echo base_url();?>deployment">
-							<i class="icon-tag"></i>
-							<span>Deployment Tagging</span>
+						<a href="examination">
+							<i class="icon-puzzle-piece"></i>
+							<span>Manage Examination</span>
 						</a>
-					</li>
- 
-					<li >
-						<a href="#" class="dropdown-toggle">
-							<i class="icon-shield"></i>
-							<span>Manage Accounts</span>
-
-							<b class="arrow icon-angle-down"></b>
-						</a>
-
-						<ul class="submenu">
-							<li  >
-								<a href="<?php echo base_url();?>manage/hr">
-									<i class="icon-user"></i>
-									HR Department
-								</a>
-							</li>
-
-							<li>
-								<a href="<?php echo base_url();?>manage/training">
-									<i class="icon-user"></i>
-									Training Department
-								</a>
-							</li>
-						</ul>
 					</li>
 
 					<li>
-						<a href="#" class="dropdown-toggle">
-							<i class="icon-cog"></i>
-							<span>Administrative Tools</span>
-
-							<b class="arrow icon-angle-down"></b>
+						<a href="attendance">
+							<i class="icon-ok"></i>
+							<span>Attendance Checker</span>
 						</a>
+					</li>
 
-						<ul class="submenu">
+					<li>
+						<a href="class_record">
+							<i class="icon-star"></i>
+							<span>Class Record</span>
+						</a>
+					</li>
 
-							<li>
-								<a href="<?php echo base_url();?>administrative/audit">
-									<i class="icon-list"></i>
-									Audit Logs
-								</a>
-							</li>
-
-							<li>
-								<a href="<?php echo base_url();?>administrative/backup">
-									<i class="icon-download-alt"></i>
-									Backup &amp; Maintenance
-								</a>
-							</li>
-
-							
-						</ul>
+					<li>
+						<a href="reports">
+							<i class="icon-print"></i>
+							<span>Reports</span>
+						</a>
 					</li>
 
 					<li>
@@ -464,7 +400,6 @@
 							<span>About the Developers</span>
 						</a>
 					</li>
-			
 				</ul><!--/.nav-list-->
 
 				<div id="sidebar-collapse">
@@ -472,19 +407,18 @@
 				</div>
 			</div>
 
-
-		<div id="main-content" class="clearfix">
+			<div id="main-content" class="clearfix">
 				<div id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="#">Home</a>
+							<a href="dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">Control Panel</li>
+						<li class="active">Manage Modules</li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
@@ -500,48 +434,63 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Control Panel
+							Manage Modules
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Dashboard
+								Training
 							</small>
 						</h1>
 					</div><!--/.page-header-->
 
+					<!--PAGE CONTENT STARTS HERE-->
 					<div class="row-fluid">
-						<!--PAGE CONTENT STARTS HERE-->
-							<div class="span12">
+						
+						<div class="span9">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										Module Manager
+										<small>AMI and Company Modules</small>
+									</h4>
+								</div>
 
-							<div class="alert alert-info">
-								<h2>Reports</h2>
-								
-								<a target ="_blank" href="<?php echo base_url();?>Reports/list_trainee">List of Trainee</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/trainee_attendance">Trainee Attendance</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/gradesheet">Gradesheet</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Certificate</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Completed Modules</a>
-										 
+								<div class="widget-body">
+									<div class="widget-main">
+										<iframe id="browser" width="100%" height="425px" frameborder="0"></iframe>
+									</div>
+								</div>
 							</div>
-							<div class="box-content">
-								<div class="row-fluid">
-									<form class="form-inline" id="student">
-														<input autofocus type="text" class="span11" name="id" />
-														<button class="btn btn-purple btn-small">
-															Get Data
-														</button>												
-									</form>
-									<div id='result_table'></div>
-								</div>								
-							</div> 
+							
+
+						</div>
+						<div class="span3">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										List of Modules
+										<small></small>
+									</h4>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row-fluid">
+						
+						
 
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
-
 				</div><!--/#page-content-->
 
 			</div><!--/#main-content-->
 		</div><!--/.fluid-container#main-container-->
-
 
 		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
@@ -572,8 +521,6 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
-
 
 		<!--ace scripts-->
 
@@ -582,29 +529,12 @@
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">	
+		<script type="text/javascript">
+			$(document).ready(function(){
 
-
-			$("#student").submit(function(){
-			         var dataString = $("#student").serialize();
-			         $.ajax({ 
-			           url: "<?php echo base_url(); ?>ajax/user",
-			     	   async: false,
-			           type: "POST",			          
-			           data: dataString, 
-			           dataType: 'json',
-			 
-			           success: function(output_string){
-			               //alert(dataString);
-			                $('#result_table').html(output_string);
-			           }
-			 
-			         });
-			 
-			         return false;  //stop the actual form post !important!
+				//$(".browser").load('http://www.jemnuine.com/ami');
+				  $("#browser").attr("src","http://www.jemnuine.com/elfinder");
 			});
- 
-										 
 		</script>
 	</body>
 </html>

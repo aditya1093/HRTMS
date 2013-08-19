@@ -1,4 +1,4 @@
-<?php if($this->session->userdata('permission') != 'Administrator') { redirect(base_url() . 'index.php/404');} ?>
+<?php if($this->session->userdata('permission') != 'Trainee') { redirect(base_url() . '404');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -27,11 +27,12 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
-
+		<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -376,81 +377,6 @@
 						</ul>
 					</li>
 
-
-					<li>
-						<a href="<?php echo base_url();?>training">
-							<i class="icon-book"></i>
-							<span>Training</span>
-						</a>
-					</li>
-
-					<li>
-						<a href="<?php echo base_url();?>client">
-							<i class="icon-building"></i>
-							<span>Client Companies</span>
-						</a>
-					</li>
-
-					<li>
-						<a href="<?php echo base_url();?>deployment">
-							<i class="icon-tag"></i>
-							<span>Deployment Tagging</span>
-						</a>
-					</li>
- 
-					<li >
-						<a href="#" class="dropdown-toggle">
-							<i class="icon-shield"></i>
-							<span>Manage Accounts</span>
-
-							<b class="arrow icon-angle-down"></b>
-						</a>
-
-						<ul class="submenu">
-							<li  >
-								<a href="<?php echo base_url();?>manage/hr">
-									<i class="icon-user"></i>
-									HR Department
-								</a>
-							</li>
-
-							<li>
-								<a href="<?php echo base_url();?>manage/training">
-									<i class="icon-user"></i>
-									Training Department
-								</a>
-							</li>
-						</ul>
-					</li>
-
-					<li>
-						<a href="#" class="dropdown-toggle">
-							<i class="icon-cog"></i>
-							<span>Administrative Tools</span>
-
-							<b class="arrow icon-angle-down"></b>
-						</a>
-
-						<ul class="submenu">
-
-							<li>
-								<a href="<?php echo base_url();?>administrative/audit">
-									<i class="icon-list"></i>
-									Audit Logs
-								</a>
-							</li>
-
-							<li>
-								<a href="<?php echo base_url();?>administrative/backup">
-									<i class="icon-download-alt"></i>
-									Backup &amp; Maintenance
-								</a>
-							</li>
-
-							
-						</ul>
-					</li>
-
 					<li>
 						<a href="help">
 							<i class="icon-question-sign"></i>
@@ -510,29 +436,96 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-							<div class="span12">
+						<div class="span12">
 
-							<div class="alert alert-info">
-								<h2>Reports</h2>
+						
+						<table>
+								<tr>
+
+									<td><h3>Personal Details</h3></td>
+									<td>&nbsp;</td>
+								</tr>
 								
-								<a target ="_blank" href="<?php echo base_url();?>Reports/list_trainee">List of Trainee</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/trainee_attendance">Trainee Attendance</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/gradesheet">Gradesheet</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Certificate</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Completed Modules</a>
-										 
-							</div>
-							<div class="box-content">
-								<div class="row-fluid">
-									<form class="form-inline" id="student">
-														<input autofocus type="text" class="span11" name="id" />
-														<button class="btn btn-purple btn-small">
-															Get Data
-														</button>												
-									</form>
-									<div id='result_table'></div>
-								</div>								
-							</div> 
+								<tr>
+									<td>Name: </td>
+									<td><?php echo $this->session->userdata('last_name').", ".$this->session->userdata('first_name')." ".$this->session->userdata('middle_name');?></td>
+								</tr>
+							
+								<tr>
+									<td>Address: </td>
+									<td><?php echo $this->session->userdata('address');?></td>
+								</tr>
+								<tr>
+									<td>Address 2: </td>
+									<?php if($this->session->userdata('address_2') == null) {
+										?>
+											<td><i class="muted">none</i></td>
+									<?php } else { ?>
+											
+											<td><?php echo $this->session->userdata('address_2');?></td>
+									<?php } ?>
+								</tr>
+								<tr>
+									<td>City: </td>
+									<td><?php echo $this->session->userdata('city');?></td>
+								</tr>
+								<tr>
+									<td>State: </td>
+									<td><?php echo $this->session->userdata('state');?></td>
+								</tr>
+								<tr>
+									<td>Country: </td>
+									<td><?php echo $this->session->userdata('country');?></td>
+								</tr>
+								<tr>
+									<td>Address: </td>
+									<td><?php echo $this->session->userdata('address');?></td>
+								</tr>
+								<tr>
+									<td>Zipcode: </td>
+									<td><?php echo $this->session->userdata('zipcode');?></td>
+								</tr>
+								<tr>
+									<td>Phone: </td>
+									<td><?php echo $this->session->userdata('phone');?></td>
+								</tr>
+
+								
+								
+								<tr>
+									<td><h3>Account Details</h3></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td>Username: </td>
+									<td><?php echo $this->session->userdata('username');?></td>
+								</tr>
+								<tr>
+									<td>Email Address: </td>
+									<td><?php echo $this->session->userdata('email');?></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td><div class="bcTarget"></div>  </td>
+									<td></td>
+
+								</tr>
+								
+							</table>
+							<p>
+
+							<?php
+								
+								echo '<script type="text/javascript">$(".bcTarget").barcode("';
+								echo $this->session->userdata('id');
+								echo '", "code39");</script>';
+
+							?> 
+						</p>
+						
 
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
@@ -582,29 +575,73 @@
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">	
-
-
-			$("#student").submit(function(){
-			         var dataString = $("#student").serialize();
-			         $.ajax({ 
-			           url: "<?php echo base_url(); ?>ajax/user",
-			     	   async: false,
-			           type: "POST",			          
-			           data: dataString, 
-			           dataType: 'json',
-			 
-			           success: function(output_string){
-			               //alert(dataString);
-			                $('#result_table').html(output_string);
-			           }
-			 
-			         });
-			 
-			         return false;  //stop the actual form post !important!
-			});
- 
-										 
-		</script>
+		<script type="text/javascript">
+    
+    	function generateBarcode(){
+        var value = $("#barcodeValue").val();
+        var btype = $("input[name=btype]:checked").val();
+        var renderer = $("input[name=renderer]:checked").val();
+        
+		var quietZone = false;
+        if ($("#quietzone").is(':checked') || $("#quietzone").attr('checked')){
+          quietZone = true;
+        }
+		
+        var settings = {
+          output:renderer,
+          bgColor: $("#bgColor").val(),
+          color: $("#color").val(),
+          barWidth: $("#barWidth").val(),
+          barHeight: $("#barHeight").val(),
+          moduleSize: $("#moduleSize").val(),
+          posX: $("#posX").val(),
+          posY: $("#posY").val(),
+          addQuietZone: $("#quietZoneSize").val()
+        };
+        if ($("#rectangular").is(':checked') || $("#rectangular").attr('checked')){
+          value = {code:value, rect: true};
+        }
+        if (renderer == 'canvas'){
+          clearCanvas();
+          $("#barcodeTarget").hide();
+          $("#canvasTarget").show().barcode(value, btype, settings);
+        } else {
+          $("#canvasTarget").hide();
+          $("#barcodeTarget").html("").show().barcode(value, btype, settings);
+        }
+      }
+          
+      function showConfig1D(){
+        $('.config .barcode1D').show();
+        $('.config .barcode2D').hide();
+      }
+      
+      function showConfig2D(){
+        $('.config .barcode1D').hide();
+        $('.config .barcode2D').show();
+      }
+      
+      function clearCanvas(){
+        var canvas = $('#canvasTarget').get(0);
+        var ctx = canvas.getContext('2d');
+        ctx.lineWidth = 1;
+        ctx.lineCap = 'butt';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle  = '#000000';
+        ctx.clearRect (0, 0, canvas.width, canvas.height);
+        ctx.strokeRect (0, 0, canvas.width, canvas.height);
+      }
+      
+      $(function(){
+        $('input[name=btype]').click(function(){
+          if ($(this).attr('id') == 'datamatrix') showConfig2D(); else showConfig1D();
+        });
+        $('input[name=renderer]').click(function(){
+          if ($(this).attr('id') == 'canvas') $('#miscCanvas').show(); else $('#miscCanvas').hide();
+        });
+        generateBarcode();
+      });
+  
+    </script>
 	</body>
 </html>

@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://192.168.0.104:888/HRTMS/';
+$config['base_url']	= 'http://192.168.0.222:888/HRTMS/';
 
 $config['server_root'] = $_SERVER['DOCUMENT_ROOT'];
 

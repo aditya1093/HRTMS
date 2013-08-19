@@ -330,7 +330,7 @@ assets/css/style-skins.min.css" />
 								<!-- LOAD MESSAGES HERE -->
 								<div class="slimScrollDiv">
 									<div class="dialogs">
-								<?php if(isset($records)) : foreach($records as $row) : ?>
+										<?php if(isset($records)) : foreach($records as $row) : ?>
 								
 										
 										<div class="itemdiv dialogdiv">
@@ -344,29 +344,27 @@ assets/css/style-skins.min.css" />
 												</div>
 												<div class="name">
 													<a href="#"><?php echo $row->full_name?></a>
-													<span class="label label-info arrowed arrowed-in-right"><?php echo $row->permission?></span>
+													<span class="label label-info arrowed arrowed-in-right">
+														<?php echo $row->permission?>
+													</span>
 												</div>
 												<div class="text">
 													<?php echo $row->message?>
 												</div>
-												<div class="tools">
-													<a href="#" class="btn btn-minier btn-info">
-													<i class="icon-only icon-share-alt"></i>
-													</a>
-												</div>
+												
 											</div>
 										</div>
-										
+										<?php endforeach;?>
+										<?php endif; ?>
 									</div>
+
 									<div class="slimScrollBar ui-draggable">
 									</div>
 									<div class="slimScrollRail">
-
-								<?php endforeach;?>
-								<?php endif; ?>
-
 									</div>
+									
 								</div>
+
 
 								<!-- MESSAGES ENDS HERE -->
 								<form>
@@ -396,16 +394,18 @@ assets/css/style-skins.min.css" />
 							<div class="widget-main">
 								<div class="slimScrollDiv">
 									<table class="table">
-										<?php if(isset($user_records)) : foreach($user_records as $row) : ?>
-										<tr>
 
+										<?php if(isset($user_records)) : foreach($user_records as $row) : ?>
+										<?php if ($row->id == $this->session->userdata('id')) continue;?>
+										<tr>
 											<td>
 												<img class="nav-user-photo" src="assets/avatars/user.jpg" style="width: 30px; margin-right: 10px;">
-												<i class="icon-circle pull-right" style="color:#387038;"></i><a href=""><?php echo $row->first_name?> <?php echo $row->last_name?></a>
+												<i class="icon-circle pull-right" style="color:#387038;"></i>
+												<a id="<?php echo $row->id?>" href=""><?php echo $row->first_name?> <?php echo $row->last_name?></a>
 											</td>
 										</tr>
 										<?php endforeach;?>
-										<?php endif; ?>
+										<?php endif;?>
 									</table>
 								</div>
 							</div>

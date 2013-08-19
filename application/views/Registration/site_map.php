@@ -197,12 +197,39 @@
                   <div class="well">
                     <h1>Site Map</h1>
                     <br>
-                    <center><iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=santa+rosa+laguna+technopark+ems&amp;aq=&amp;sll=14.272868,121.082382&amp;sspn=0.100982,0.158443&amp;ie=UTF8&amp;hq=technopark+ems&amp;hnear=Santa+Rosa+City,+Laguna,+Calabarzon,+Philippines&amp;ll=14.272868,121.082382&amp;spn=0.062077,0.040192&amp;t=m&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=santa+rosa+laguna+technopark+ems&amp;aq=&amp;sll=14.272868,121.082382&amp;sspn=0.100982,0.158443&amp;ie=UTF8&amp;hq=technopark+ems&amp;hnear=Santa+Rosa+City,+Laguna,+Calabarzon,+Philippines&amp;ll=14.272868,121.082382&amp;spn=0.062077,0.040192&amp;t=m" style="color:#0000FF;text-align:left">View Larger Map</a></small><br><br>
-                    Alliance Mansols Inc<br>
-                    117 Technology Ave. Laguna Technopark Inc<br>
-                    Binan City, Laguna, Philippines<br></center>   
+                    <center><iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=santa+rosa+laguna+technopark+ems&amp;aq=&amp;sll=14.272868,121.082382&amp;sspn=0.100982,0.158443&amp;ie=UTF8&amp;hq=technopark+ems&amp;hnear=Santa+Rosa+City,+Laguna,+Calabarzon,+Philippines&amp;ll=14.272868,121.082382&amp;spn=0.062077,0.040192&amp;t=m&amp;output=embed"></iframe><br /><small>
+                      <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=santa+rosa+laguna+technopark+ems&amp;aq=&amp;sll=14.272868,121.082382&amp;sspn=0.100982,0.158443&amp;ie=UTF8&amp;hq=technopark+ems&amp;hnear=Santa+Rosa+City,+Laguna,+Calabarzon,+Philippines&amp;ll=14.272868,121.082382&amp;spn=0.062077,0.040192&amp;t=m" >View Larger Map</a></small><br><br>
+                    </center>  
+                    <div class="widget-box">
+                      <div class="widget-header widget-header-flat">
+                        <h4 class="smaller">
+                          <i class="icon-mail"></i>
+                          Location
+                        </h4>
+                      </div>
+
+                      <div class="widget-body">
+                        <div class="widget-main">
+                          <address>
+                            <strong>Alliance Mansols Inc</strong>
+
+                            <br>
+                            117 Technology Ave. Laguna Technopark Inc
+                            <br>
+                            Binan City, Laguna
+                            <br>
+                            Philippines
+                            <br>
+                            <abbr title="Phone">P:</abbr>
+                            (123) 456-7890
+                          </address>
+                        </div>
+                      </div>
+                    </div>
+                  
                   </div>
-                </div>                
+                </div>   
+                            
               </div> 
 
             <!--PAGE CONTENT ENDS HERE-->

@@ -1,4 +1,4 @@
-<?php if($this->session->userdata('permission') != 'Administrator') { redirect(base_url() . 'index.php/404');} ?>
+<?php if($this->session->userdata('permission') != 'Trainee') { redirect(base_url() . '404');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -27,7 +27,7 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
@@ -352,103 +352,12 @@
 
 					
 					<li>
-						<a href="#" class="dropdown-toggle">
+						<a href="<?php echo base_url();?>Profile">
 							<i class="icon-shield"></i>
-							<span>Registration</span>
-
-							<b class="arrow icon-angle-down"></b>
+							<span>Profile</span>
 						</a>
 
-						<ul class="submenu">
-							<li >
-								<a href="<?php echo base_url();?>applicant">
-									<i class="icon-archive"></i>
-									<span>Applicants</span>
-								</a>
-							</li>
 
-							<li>
-								<a href="<?php echo base_url();?>applicant/accept">
-									<i class="icon-user"></i>
-								   	<span>Accept</span>
-								</a>
-							</li>
-						</ul>
-					</li>
-
-
-					<li>
-						<a href="<?php echo base_url();?>training">
-							<i class="icon-book"></i>
-							<span>Training</span>
-						</a>
-					</li>
-
-					<li>
-						<a href="<?php echo base_url();?>client">
-							<i class="icon-building"></i>
-							<span>Client Companies</span>
-						</a>
-					</li>
-
-					<li>
-						<a href="<?php echo base_url();?>deployment">
-							<i class="icon-tag"></i>
-							<span>Deployment Tagging</span>
-						</a>
-					</li>
- 
-					<li >
-						<a href="#" class="dropdown-toggle">
-							<i class="icon-shield"></i>
-							<span>Manage Accounts</span>
-
-							<b class="arrow icon-angle-down"></b>
-						</a>
-
-						<ul class="submenu">
-							<li  >
-								<a href="<?php echo base_url();?>manage/hr">
-									<i class="icon-user"></i>
-									HR Department
-								</a>
-							</li>
-
-							<li>
-								<a href="<?php echo base_url();?>manage/training">
-									<i class="icon-user"></i>
-									Training Department
-								</a>
-							</li>
-						</ul>
-					</li>
-
-					<li>
-						<a href="#" class="dropdown-toggle">
-							<i class="icon-cog"></i>
-							<span>Administrative Tools</span>
-
-							<b class="arrow icon-angle-down"></b>
-						</a>
-
-						<ul class="submenu">
-
-							<li>
-								<a href="<?php echo base_url();?>administrative/audit">
-									<i class="icon-list"></i>
-									Audit Logs
-								</a>
-							</li>
-
-							<li>
-								<a href="<?php echo base_url();?>administrative/backup">
-									<i class="icon-download-alt"></i>
-									Backup &amp; Maintenance
-								</a>
-							</li>
-
-							
-						</ul>
 					</li>
 
 					<li>
@@ -510,29 +419,37 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-							<div class="span12">
+						<div class="span12">
 
-							<div class="alert alert-info">
-								<h2>Reports</h2>
-								
-								<a target ="_blank" href="<?php echo base_url();?>Reports/list_trainee">List of Trainee</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/trainee_attendance">Trainee Attendance</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/gradesheet">Gradesheet</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Certificate</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Completed Modules</a>
-										 
-							</div>
-							<div class="box-content">
-								<div class="row-fluid">
-									<form class="form-inline" id="student">
-														<input autofocus type="text" class="span11" name="id" />
-														<button class="btn btn-purple btn-small">
-															Get Data
-														</button>												
-									</form>
-									<div id='result_table'></div>
-								</div>								
-							</div> 
+						<div class="tabbable">
+										<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+											<li class="active">
+												<a data-toggle="tab" href="#home4">Home</a>
+											</li>
+
+											<li class="">
+												<a data-toggle="tab" href="#profile4">Profile</a>
+											</li>
+
+											<li class="">
+												<a data-toggle="tab" href="#dropdown14">More</a>
+											</li>
+										</ul>
+
+										<div class="tab-content">
+											<div id="home4" class="tab-pane active">
+												<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+											</div>
+
+											<div id="profile4" class="tab-pane">
+												<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+											</div>
+
+											<div id="dropdown14" class="tab-pane">
+												<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+											</div>
+										</div>
+									</div>
 
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
