@@ -28,6 +28,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/applicant/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
@@ -419,6 +420,185 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
+						<div id="user-profile-2" class="user-profile row-fluid">
+									<div class="tabbable">
+										<ul class="nav nav-tabs padding-18">
+											<li class="active">
+												<a data-toggle="tab" href="http://192.69.216.111/themes/preview/ace/profile.html#home">
+													<i class="green icon-user bigger-120"></i>
+													Profile
+												</a>
+											</li>
+
+											<li>
+												<a data-toggle="tab" href="http://192.69.216.111/themes/preview/ace/profile.html#feed">
+													<i class="orange icon-rss bigger-120"></i>
+													Activity Feed
+												</a>
+											</li>
+
+											<li>
+												<a data-toggle="tab" href="http://192.69.216.111/themes/preview/ace/profile.html#friends">
+													<i class="blue icon-group bigger-120"></i>
+													Friends
+												</a>
+											</li>
+
+											<li>
+												<a data-toggle="tab" href="http://192.69.216.111/themes/preview/ace/profile.html#pictures">
+													<i class="pink icon-picture bigger-120"></i>
+													Pictures
+												</a>
+											</li>
+										</ul>
+
+										<div class="tab-content no-border padding-24">
+											<div id="home" class="tab-pane in active">
+												<div class="row-fluid">
+													<div class="span3 center">
+														<span class="profile-picture">
+															<img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
+														</span>
+
+														<div class="space space-4"></div>
+
+														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="btn btn-small btn-block btn-success">
+															<i class="icon-plus-sign bigger-110"></i>
+															Add as a friend
+														</a>
+
+														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="btn btn-small btn-block btn-primary">
+															<i class="icon-envelope-alt"></i>
+															Send a message
+														</a>
+													</div><!--/span-->
+
+													<div class="span9">
+														<h4 class="blue">
+															<span class="middle">Alex M. Doe</span>
+
+															<span class="label label-purple arrowed-in-right">
+																<i class="icon-circle smaller-80"></i>
+																online
+															</span>
+														</h4>
+
+														<div class="profile-user-info">
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Username </div>
+
+																<div class="profile-info-value">
+																	<span>alexdoe</span>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Location </div>
+
+																<div class="profile-info-value">
+																	<i class="icon-map-marker light-orange bigger-110"></i>
+																	<span>Netherlands</span>
+																	<span>Amsterdam</span>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Age </div>
+
+																<div class="profile-info-value">
+																	<span>38</span>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Joined </div>
+
+																<div class="profile-info-value">
+																	<span>20/06/2010</span>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Last Online </div>
+
+																<div class="profile-info-value">
+																	<span>3 hours ago</span>
+																</div>
+															</div>
+														</div>
+
+														<div class="hr hr-8 dotted"></div>
+
+														<div class="profile-user-info">
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Website </div>
+
+																<div class="profile-info-value">
+																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" target="_blank">www.alexdoe.com</a>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name">
+																	<i class="middle icon-facebook-sign bigger-150 blue"></i>
+																</div>
+
+																<div class="profile-info-value">
+																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">Find me on Facebook</a>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name">
+																	<i class="middle icon-twitter-sign bigger-150 light-blue"></i>
+																</div>
+
+																<div class="profile-info-value">
+																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">Follow me on Twitter</a>
+																</div>
+															</div>
+														</div>
+													</div><!--/span-->
+												</div><!--/row-fluid-->
+
+												<div class="space-20"></div>
+
+												<div class="row-fluid">
+													<div class="span12">
+														<div class="widget-box transparent">
+															<div class="widget-header widget-header-small">
+																<h4 class="smaller">
+																	<i class="icon-check bigger-110"></i>
+																	Little About Me
+																</h4>
+															</div>
+
+															<div class="widget-body">
+																<div class="widget-main">
+																	<p>
+																		My job is mostly lorem ipsuming and dolor sit ameting as long as consectetur adipiscing elit.
+																	</p>
+																	<p>
+																		Sometimes quisque commodo massa gets in the way and sed ipsum porttitor facilisis.
+																	</p>
+																	<p>
+																		The best thing about my job is that vestibulum id ligula porta felis euismod and nullam quis risus eget urna mollis ornare.
+																	</p>
+																	<p>
+																		Thanks for visiting my profile.
+																	</p>
+																</div>
+															</div>
+														</div>
+													</div>
+
+												
+												</div>
+											</div><!--#home-->
+										</div>
+									</div>
+								</div>
+						<!--
 						<div class="span12">
 
 						<?php if(isset($records)) : foreach($records as $row) : ?>
@@ -432,7 +612,7 @@
 								<tr>
 									<td>Name: </td>
 									<!--<td><?php echo $this->session->userdata('last_name').", ".$this->session->userdata('first_name')." ".$this->session->userdata('middle_name');?></td>
-									-->
+									--
 									<td><?php echo $row->last_name.', '.$row->first_name.' '.$row->middle_name;?></td>
 								</tr>
 							
@@ -511,9 +691,9 @@
 						</p>
 						<?php endforeach;?>
 						<?php endif; ?>
-
+							
 						<!--PAGE CONTENT ENDS HERE-->
-					</div><!--/row-->
+					</div>--><!--/row-->
 
 				</div><!--/#page-content-->
 
@@ -626,7 +806,123 @@
         });
         generateBarcode();
       });
-  
+  		
+
+		$('#avatar2').on('click', function(){
+			var modal = 
+			'<div class="modal hide fade">\
+				<div class="modal-header">\
+					<button type="button" class="close" data-dismiss="modal">&times;</button>\
+					<h4 class="blue">Change Avatar</h4>\
+				</div>\
+				\
+				<form class="no-margin">\
+				<div class="modal-body">\
+					<div class="space-4"></div>\
+					<div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
+				</div>\
+				\
+				<div class="modal-footer center">\
+					<button type="submit" class="btn btn-small btn-success"><i class="icon-ok"></i> Submit</button>\
+					<button type="button" class="btn btn-small" data-dismiss="modal"><i class="icon-remove"></i> Cancel</button>\
+				</div>\
+				</form>\
+			</div>';
+			
+			
+			var modal = $(modal);
+			modal.modal("show").on("hidden", function(){
+				modal.remove();
+			});
+	
+			var working = false;
+	
+			var form = modal.find('form:eq(0)');
+			var file = form.find('input[type=file]').eq(0);
+			file.ace_file_input({
+				style:'well',
+				btn_choose:'Click to choose new avatar',
+				btn_change:null,
+				no_icon:'icon-picture',
+				thumbnail:'small',
+				before_remove: function() {
+					//don't remove/reset files while being uploaded
+					return !working;
+				},
+				before_change: function(files, dropped) {
+					var file = files[0];
+					if(typeof file === "string") {
+						//file is just a file name here (in browsers that don't support FileReader API)
+						if(! (/\.(jpe?g|png|gif)$/i).test(file) ) return false;
+					}
+					else {//file is a File object
+						var type = $.trim(file.type);
+						if( ( type.length > 0 && ! (/^image\/(jpe?g|png|gif)$/i).test(type) )
+								|| ( type.length == 0 && ! (/\.(jpe?g|png|gif)$/i).test(file.name) )//for android default browser!
+							) return false;
+	
+						if( file.size > 110000 ) {//~100Kb
+							return false;
+						}
+					}
+	
+					return true;
+				}
+			});
+	
+			form.on('submit', function(){
+				if(!file.data('ace_input_files')) return false;
+				
+				file.ace_file_input('disable');
+				form.find('button').attr('disabled', 'disabled');
+				form.find('.modal-body').append("<div class='center'><i class='icon-spinner icon-spin bigger-150 orange'></i></div>");
+				
+				var deferred = new $.Deferred;
+				working = true;
+				deferred.done(function() {
+					form.find('button').removeAttr('disabled');
+					form.find('input[type=file]').ace_file_input('enable');
+					form.find('.modal-body > :last-child').remove();
+					
+					modal.modal("hide");
+	
+					var thumb = file.next().find('img').data('thumb');
+					if(thumb) $('#avatar2').get(0).src = thumb;
+	
+					working = false;
+				});
+				
+				
+				setTimeout(function(){
+					deferred.resolve();
+				} , parseInt(Math.random() * 800 + 800));
+	
+				return false;
+			});
+					
+		});
+
+
+		///////////////////////////////////////////////////
+		//show the user info on right or left depending on its position
+		$('#user-profile-2 .memberdiv').on('mouseenter', function(){
+			var $this = $(this);
+			var $parent = $this.closest('.tab-pane');
+	
+			var off1 = $parent.offset();
+			var w1 = $parent.width();
+	
+			var off2 = $this.offset();
+			var w2 = $this.width();
+	
+			var place = 'left';
+			if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) place = 'right';
+			
+			$this.find('.popover').removeClass('right left').addClass(place);
+		}).on('click', function() {
+			return false;
+		});
+	
     </script>
 	</body>
 </html>

@@ -329,7 +329,7 @@ assets/css/style-skins.min.css" />
 								
 								<!-- LOAD MESSAGES HERE -->
 								<div class="slimScrollDiv">
-									<div class="dialogs">
+									<div id="scrollcontent" class="dialogs">
 										<?php if(isset($records)) : foreach($records as $row) : ?>
 								
 										
@@ -364,7 +364,6 @@ assets/css/style-skins.min.css" />
 									</div>
 									
 								</div>
-
 
 								<!-- MESSAGES ENDS HERE -->
 								
@@ -406,8 +405,11 @@ assets/css/style-skins.min.css" />
 										</tr>
 										<?php endforeach;?>
 										<?php endif;?>
+										
 									</table>
+
 								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -452,20 +454,68 @@ assets/css/style-skins.min.css" />
 <script type="text/javascript">
 	
 	var recipient = 0;
+
+	var getObjectSize = function(obj) {
+   		var len = 0, key;
+	    for (key in obj) {
+	        if (obj.hasOwnProperty(key)) len++;
+	    }
+	    return len;
+	};
+
 	$(document).ready(function() {
 
+		/* Initialize Scroll */
 	    $('.slimScrollDiv').slimScroll({
-	        height: '400px'
+	        height: '400px',
+	        size: '20px',
+	        alwaysVisible: true,
+	        start: 'bottom'
 	    });
 
+	    /* Update Per Second */
 	    var interval = setInterval(function() { 
 		    
+	    	var form_data = {
+	        	ajax: '1'
+	        };
+
+	        var request = $.ajax({
+	        	url: "<?php echo base_url();?>messenger/load_messages",
+	        	type: 'POST'
+	        });
+
+	        request.done(function (response, textStatus, jqXHR) {
+
+				$(".dialogs").html("");
+
+				var obj = jQuery.parseJSON(response);
+
+				var str = "";
+
+
+				for (var i = 0; i < getObjectSize(obj); i++) {
+					
+					str += '<div class="itemdiv dialogdiv"><div class="user"><img alt="" src="assets/avatars/user.jpg"></div>';
+					str += '<div class="body"><div class="time"><i class="icon-time"></i><span class="orange">'+obj[i].time_sent+'</span></div>';
+					str += '<div class="name"><a href="#">'+obj[i].full_name+'</a><span class="label label-info arrowed arrowed-in-right">'+obj[i].permission+'</span></div>';
+					str += '<div class="text">'+obj[i].message+'</div></div></div>';
+
+				};
+
+				$(".dialogs").html(str);
+
+				$('#scrollcontent').slimScroll({ scrollBy: $(".dialogs").height()});
+
+		    });
 
 		}, 1000);
-	});
 
+
+	});
+	
 	/* Chat Send */
-	$("#send_button").click(function() {
+	var send_message = function() {
 
 		if($.trim($("#message").val()) == "") {
 
@@ -490,24 +540,37 @@ assets/css/style-skins.min.css" />
 			$("#message").val("");	
 			$(".dialogs").html("");
 
-			//alert(response);
-
 			var obj = jQuery.parseJSON(response);
 
 			var str = "";
 
-			for (var i = 0; i < obj.length; i++) {
+			for (var i = 0; i < getObjectSize(obj); i++) {
 				
 				str += '<div class="itemdiv dialogdiv"><div class="user"><img alt="" src="assets/avatars/user.jpg"></div>';
 				str += '<div class="body"><div class="time"><i class="icon-time"></i><span class="orange">'+obj[i].time_sent+'</span></div>';
 				str += '<div class="name"><a href="#">'+obj[i].full_name+'</a><span class="label label-info arrowed arrowed-in-right">'+obj[i].permission+'</span></div>';
 				str += '<div class="text">'+obj[i].message+'</div></div></div>';
 				//$( ".dialogs" ).append(str);
-
 			};
 
 			$(".dialogs").html(str);
+
+			$('#scrollcontent').slimScroll({ scrollBy: $(".dialogs").height()});
+
 	    });
+	};
+
+	/* Trigger Send */
+	$("#send_button").click(function() {
+
+		send_message();
+	});
+
+	$('#message').keyup(function(e) {
+
+		if(e.keyCode == 13){
+		  send_message();
+		}
 	});
 </script>
 </body>
