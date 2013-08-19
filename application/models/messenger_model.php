@@ -11,6 +11,7 @@ class Messenger_Model extends CI_Model{
         $this->db->select('*');
         $this->db->from('inbox');
         $query = $this->db->get();
+
         return $query->result();
         
     } 
@@ -29,6 +30,7 @@ class Messenger_Model extends CI_Model{
     function latest_chat() {
 
         $s = 
+
         "SELECT sender_id
         FROM inbox 
         WHERE EXISTS (SELECT message FROM inbox) 
@@ -36,11 +38,12 @@ class Messenger_Model extends CI_Model{
         ORDER BY message_id LIMIT 1";
 
         $query = $this->db->query($s);
-        if($query->num_rows == 1)
-        {
-            $this->session->set_userdata($query->row());
+
+        if($query->num_rows == 1) {
+
             return $query->row();
         }
+
         return 0;
     }
 }  

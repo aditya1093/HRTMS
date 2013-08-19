@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Dashboard - AMI</title>
+		<title>Profile - AMI</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,7 +32,8 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
-
+		<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -344,22 +345,21 @@
 
 				<ul class="nav nav-list">
 					
-					<li class="active">
+					<li class="">
 						<a href="<?php echo base_url();?>dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
-					
-					<li>
-						<a href="<?php echo base_url();?>Profile">
+					<li class="active">
+						<a href="<?php echo base_url();?>dashboard">
 							<i class="icon-user"></i>
 							<span>Profile</span>
 						</a>
-
-
 					</li>
+
+			
 
 					<li>
 						<a href="help">
@@ -413,47 +413,202 @@
 							Control Panel
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Dashboard
+								Edit Profile
 							</small>
 						</h1>
 					</div><!--/.page-header-->
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-						<div class="span12">
+						<?php if(isset($records)) : foreach($records as $row) : ?>
+						<div id="user-profile-2" class="user-profile row-fluid">
+									<div class="tabbable">
+					
+										<div class="tab-content no-border padding-24">
+											<div id="home" class="tab-pane in active">
+												<div class="row-fluid">
+													<div class="span3 center">
+														<span class="profile-picture">
+															<img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
+														</span>
+														<div class="width-80 label label-info label-large arrowed-in arrowed-in-right">
+															<div class="inline position-relative">
+																<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+																	<i class="icon-circle light-green middle"></i>
+																	&nbsp;
+																	<span class="white middle bigger-120"><?php 
 
-						<div class="tabbable">
-										<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-											<li class="active">
-												<a data-toggle="tab" href="#home4">Home</a>
-											</li>
+																		$m = $row->middle_name[0];
 
-											<li class="">
-												<a data-toggle="tab" href="#profile4">Profile</a>
-											</li>
+																		echo $row->first_name.' '.$m.'. '.$row->last_name;?></span>
+																</a>
+															</div>
+														</div>
 
-											<li class="">
-												<a data-toggle="tab" href="#dropdown14">More</a>
-											</li>
-										</ul>
+														<div class="space space-4"></div>
 
-										<div class="tab-content">
-											<div id="home4" class="tab-pane active">
+													</div><!--/span-->
 
-												<h2 class="blue">Welcome to AMI - Alliance Mansol Inc.</h2>
-												<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-											</div>
+													<div class="span9">
 
-											<div id="profile4" class="tab-pane">
-												<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
-											</div>
+														<div class="profile-user-info">
+															<form class="form-horizontal">
+															<div class="profile-info-row">
+																<div class="profile-info-name">Full Name </div>
+																<div class="profile-info-value">
+																	<span><?php echo $row->first_name.' '.$row->middle_name.', '.$row->last_name;?></span>			
+																</div>
+																<div class="profile-info-value">
+																	
+																		<div class="control-group">
+																			<label class="control-label" for="form-field-1">Text Field</label>
 
-											<div id="dropdown14" class="tab-pane">
-												<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
-											</div>
+																			<div class="controls">
+																				<input type="text" id="form-field-1" placeholder="Username">
+																			</div>
+																		</div>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Username </div>
+
+																<div class="profile-info-value">
+																	<span><?php echo $row->username;?></span>
+																</div>
+																<div class="profile-info-value">
+																	<input type="text" name="username" value="<?php echo $row->username;?>">
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Location </div>
+
+																<div class="profile-info-value">
+																	<i class="icon-map-marker light-orange bigger-110"></i>
+																	<span><?php echo $row->address.' '.$row->city;?></span>
+																	<span><?php echo $row->state;?></span>
+																	<span><?php echo $row->country;?></span>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Age </div>
+
+																<div class="profile-info-value">
+																	<span><?php
+																	$birthdate = $row->birth_date;												
+																    list($y,$m,$d) = explode('-', $birthdate);
+    
+																    if (($m = (date('m') - $m)) < 0) {
+																        $y++;
+																    } elseif ($m == 0 && date('d') - $d < 0) {
+																        $y++;
+																    }
+																    
+																    echo date('Y') - $y;
+																    ?></span>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Birthday </div>
+
+																<div class="profile-info-value">
+																	<span><?php echo $row->birth_date?></span>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Email </div>
+
+																<div class="profile-info-value">
+																	<span><?php echo $row->email;?></span>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Phone </div>
+
+																<div class="profile-info-value">
+																	<span><?php echo $row->phone;?></span>
+																</div>
+															</div>
+														</div>
+														</form>
+														<div class="hr hr-8 dotted"></div>
+
+														<div class="profile-user-info">
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Website </div>
+
+																<div class="profile-info-value">
+																	<a href="" target="_blank">www.<?php echo $row->username;?>.com</a>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name">
+																	<i class="middle icon-facebook-sign bigger-150 blue"></i>
+																</div>
+
+																<div class="profile-info-value">
+																	<a href="">Find me on Facebook</a>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name">
+																	<i class="middle icon-twitter-sign bigger-150 light-blue"></i>
+																</div>
+
+																<div class="profile-info-value">
+																	<a href="">Follow me on Twitter</a>
+																</div>
+															</div>
+														</div>
+													</div><!--/span-->
+												</div><!--/row-fluid-->
+
+												<div class="space-20"></div>
+
+												<div class="row-fluid">
+													<div class="span12">
+														<div class="widget-box transparent">
+															<div class="widget-header widget-header-small">
+																<h4 class="smaller">
+																	<i class="icon-check bigger-110"></i>
+																	Little About Me
+																</h4>
+															</div>
+
+															<div class="widget-body">
+																<div class="widget-main">
+																	<p>
+																		My job is mostly lorem ipsuming and dolor sit ameting as long as consectetur adipiscing elit.
+																	</p>
+																	<p>
+																		Sometimes quisque commodo massa gets in the way and sed ipsum porttitor facilisis.
+																	</p>
+																	<p>
+																		The best thing about my job is that vestibulum id ligula porta felis euismod and nullam quis risus eget urna mollis ornare.
+																	</p>
+																	<p>
+																		Thanks for visiting my profile.
+																	</p>
+																</div>
+															</div>
+														</div>
+													</div>
+
+												
+												</div>
+											</div><!--#home-->
+
 										</div>
 									</div>
-
+						</div>
+						<?php endforeach;?>
+						<?php endif; ?>
+							
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
 
@@ -502,29 +657,189 @@
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">	
+		<script type="text/javascript">
+    
+    	function generateBarcode(){
+        var value = $("#barcodeValue").val();
+        var btype = $("input[name=btype]:checked").val();
+        var renderer = $("input[name=renderer]:checked").val();
+        
+		var quietZone = false;
+        if ($("#quietzone").is(':checked') || $("#quietzone").attr('checked')){
+          quietZone = true;
+        }
+		
+        var settings = {
+          output:renderer,
+          bgColor: $("#bgColor").val(),
+          color: $("#color").val(),
+          barWidth: $("#barWidth").val(),
+          barHeight: $("#barHeight").val(),
+          moduleSize: $("#moduleSize").val(),
+          posX: $("#posX").val(),
+          posY: $("#posY").val(),
+          addQuietZone: $("#quietZoneSize").val()
+        };
+        if ($("#rectangular").is(':checked') || $("#rectangular").attr('checked')){
+          value = {code:value, rect: true};
+        }
+        if (renderer == 'canvas'){
+          clearCanvas();
+          $("#barcodeTarget").hide();
+          $("#canvasTarget").show().barcode(value, btype, settings);
+        } else {
+          $("#canvasTarget").hide();
+          $("#barcodeTarget").html("").show().barcode(value, btype, settings);
+        }
+      }
+          
+      function showConfig1D(){
+        $('.config .barcode1D').show();
+        $('.config .barcode2D').hide();
+      }
+      
+      function showConfig2D(){
+        $('.config .barcode1D').hide();
+        $('.config .barcode2D').show();
+      }
+      
+      function clearCanvas(){
+        var canvas = $('#canvasTarget').get(0);
+        var ctx = canvas.getContext('2d');
+        ctx.lineWidth = 1;
+        ctx.lineCap = 'butt';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle  = '#000000';
+        ctx.clearRect (0, 0, canvas.width, canvas.height);
+        ctx.strokeRect (0, 0, canvas.width, canvas.height);
+      }
+      
+      $(function(){
+        $('input[name=btype]').click(function(){
+          if ($(this).attr('id') == 'datamatrix') showConfig2D(); else showConfig1D();
+        });
+        $('input[name=renderer]').click(function(){
+          if ($(this).attr('id') == 'canvas') $('#miscCanvas').show(); else $('#miscCanvas').hide();
+        });
+        generateBarcode();
+      });
+  		
 
-
-			$("#student").submit(function(){
-			         var dataString = $("#student").serialize();
-			         $.ajax({ 
-			           url: "<?php echo base_url(); ?>ajax/user",
-			     	   async: false,
-			           type: "POST",			          
-			           data: dataString, 
-			           dataType: 'json',
-			 
-			           success: function(output_string){
-			               //alert(dataString);
-			                $('#result_table').html(output_string);
-			           }
-			 
-			         });
-			 
-			         return false;  //stop the actual form post !important!
+		$('#avatar2').on('click', function(){
+			var modal = 
+			'<div class="modal hide fade">\
+				<div class="modal-header">\
+					<button type="button" class="close" data-dismiss="modal">&times;</button>\
+					<h4 class="blue">Change Avatar</h4>\
+				</div>\
+				\
+				<form class="no-margin">\
+				<div class="modal-body">\
+					<div class="space-4"></div>\
+					<div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
+				</div>\
+				\
+				<div class="modal-footer center">\
+					<button type="submit" class="btn btn-small btn-success"><i class="icon-ok"></i> Submit</button>\
+					<button type="button" class="btn btn-small" data-dismiss="modal"><i class="icon-remove"></i> Cancel</button>\
+				</div>\
+				</form>\
+			</div>';
+			
+			
+			var modal = $(modal);
+			modal.modal("show").on("hidden", function(){
+				modal.remove();
 			});
- 
-										 
-		</script>
+	
+			var working = false;
+	
+			var form = modal.find('form:eq(0)');
+			var file = form.find('input[type=file]').eq(0);
+			file.ace_file_input({
+				style:'well',
+				btn_choose:'Click to choose new avatar',
+				btn_change:null,
+				no_icon:'icon-picture',
+				thumbnail:'small',
+				before_remove: function() {
+					//don't remove/reset files while being uploaded
+					return !working;
+				},
+				before_change: function(files, dropped) {
+					var file = files[0];
+					if(typeof file === "string") {
+						//file is just a file name here (in browsers that don't support FileReader API)
+						if(! (/\.(jpe?g|png|gif)$/i).test(file) ) return false;
+					}
+					else {//file is a File object
+						var type = $.trim(file.type);
+						if( ( type.length > 0 && ! (/^image\/(jpe?g|png|gif)$/i).test(type) )
+								|| ( type.length == 0 && ! (/\.(jpe?g|png|gif)$/i).test(file.name) )//for android default browser!
+							) return false;
+	
+						if( file.size > 110000 ) {//~100Kb
+							return false;
+						}
+					}
+	
+					return true;
+				}
+			});
+	
+			form.on('submit', function(){
+				if(!file.data('ace_input_files')) return false;
+				
+				file.ace_file_input('disable');
+				form.find('button').attr('disabled', 'disabled');
+				form.find('.modal-body').append("<div class='center'><i class='icon-spinner icon-spin bigger-150 orange'></i></div>");
+				
+				var deferred = new $.Deferred;
+				working = true;
+				deferred.done(function() {
+					form.find('button').removeAttr('disabled');
+					form.find('input[type=file]').ace_file_input('enable');
+					form.find('.modal-body > :last-child').remove();
+					
+					modal.modal("hide");
+	
+					var thumb = file.next().find('img').data('thumb');
+					if(thumb) $('#avatar2').get(0).src = thumb;
+	
+					working = false;
+				});
+				
+				
+				setTimeout(function(){
+					deferred.resolve();
+				} , parseInt(Math.random() * 800 + 800));
+	
+				return false;
+			});
+					
+		});
+
+
+		///////////////////////////////////////////////////
+		//show the user info on right or left depending on its position
+		$('#user-profile-2 .memberdiv').on('mouseenter', function(){
+			var $this = $(this);
+			var $parent = $this.closest('.tab-pane');
+	
+			var off1 = $parent.offset();
+			var w1 = $parent.width();
+	
+			var off2 = $this.offset();
+			var w2 = $this.width();
+	
+			var place = 'left';
+			if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) place = 'right';
+			
+			$this.find('.popover').removeClass('right left').addClass(place);
+		}).on('click', function() {
+			return false;
+		});
+	
+    </script>
 	</body>
 </html>

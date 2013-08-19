@@ -330,7 +330,7 @@ assets/css/style-skins.min.css" />
 								<!-- LOAD MESSAGES HERE -->
 								<div class="slimScrollDiv">
 									<div id="scrollcontent" class="dialogs">
-										<?php if(isset($records)) : foreach($records as $row) : ?>
+										<!--<?php if(isset($records)) : foreach($records as $row) : ?>
 								
 										
 										<div class="itemdiv dialogdiv">
@@ -355,7 +355,7 @@ assets/css/style-skins.min.css" />
 											</div>
 										</div>
 										<?php endforeach;?>
-										<?php endif; ?>
+										<?php endif; ?>-->
 									</div>
 
 									<div class="slimScrollBar ui-draggable">
@@ -400,7 +400,7 @@ assets/css/style-skins.min.css" />
 											<td>
 												<img class="nav-user-photo" src="assets/avatars/user.jpg" style="width: 30px; margin-right: 10px;">
 												<i class="icon-circle pull-right" style="color:#387038;"></i>
-												<a id="<?php echo $row->id?>" href=""><?php echo $row->first_name?> <?php echo $row->last_name?></a>
+												<a class="userchat" id="<?php echo $row->id?>"><?php echo $row->first_name?> <?php echo $row->last_name?></a>
 											</td>
 										</tr>
 										<?php endforeach;?>
@@ -465,10 +465,14 @@ assets/css/style-skins.min.css" />
 
 	$(document).ready(function() {
 
+		//alert('sender_id: <?php echo $this->session->userdata("sender_id");?>\nreceiver_id: <?php echo $this->session->userdata("id");?>');
+
+		var id = 0;
+
 		/* Initialize Scroll */
 	    $('.slimScrollDiv').slimScroll({
 	        height: '400px',
-	        size: '20px',
+	        size: '10px',
 	        alwaysVisible: true,
 	        start: 'bottom'
 	    });
@@ -482,7 +486,8 @@ assets/css/style-skins.min.css" />
 
 	        var request = $.ajax({
 	        	url: "<?php echo base_url();?>messenger/load_messages",
-	        	type: 'POST'
+	        	type: 'POST',
+	        	data: form_data
 	        });
 
 	        request.done(function (response, textStatus, jqXHR) {
@@ -493,15 +498,16 @@ assets/css/style-skins.min.css" />
 
 				var str = "";
 
-
 				for (var i = 0; i < getObjectSize(obj); i++) {
 					
 					str += '<div class="itemdiv dialogdiv"><div class="user"><img alt="" src="assets/avatars/user.jpg"></div>';
-					str += '<div class="body"><div class="time"><i class="icon-time"></i><span class="orange">'+obj[i].time_sent+'</span></div>';
-					str += '<div class="name"><a href="#">'+obj[i].full_name+'</a><span class="label label-info arrowed arrowed-in-right">'+obj[i].permission+'</span></div>';
+					str += '<div class="body"><div class="time"><i class="icon-time"></i><span class="orange"> '+obj[i].time_sent+'</span></div>';
+					str += '<div class="name"><a class="userchat" id="'+obj[i].id+'" href="#">'+obj[i].full_name+'</a> <span class="label label-info arrowed arrowed-in-right">'+obj[i].permission+'</span></div>';
 					str += '<div class="text">'+obj[i].message+'</div></div></div>';
 
 				};
+
+				//var str = str.replace(':)','<img src="<?php echo base_url();?>assets/images/emoticon/smile.jpg">');
 
 				$(".dialogs").html(str);
 
@@ -509,13 +515,15 @@ assets/css/style-skins.min.css" />
 
 		    });
 
-		}, 1000);
+		}, 500);
 
 
 	});
+
 	
 	/* Chat Send */
 	var send_message = function() {
+
 
 		if($.trim($("#message").val()) == "") {
 
@@ -523,7 +531,7 @@ assets/css/style-skins.min.css" />
 		}
 
 		var form_data = {
-        	sender_id: '<?php echo $this->session->userdata("sender_id");?>',
+        	sender_id: id,
         	receiver_id: '<?php echo $this->session->userdata("id");?>',
         	message: $("#message").val(),
         	ajax: '1'
@@ -540,21 +548,6 @@ assets/css/style-skins.min.css" />
 			$("#message").val("");	
 			$(".dialogs").html("");
 
-			var obj = jQuery.parseJSON(response);
-
-			var str = "";
-
-			for (var i = 0; i < getObjectSize(obj); i++) {
-				
-				str += '<div class="itemdiv dialogdiv"><div class="user"><img alt="" src="assets/avatars/user.jpg"></div>';
-				str += '<div class="body"><div class="time"><i class="icon-time"></i><span class="orange">'+obj[i].time_sent+'</span></div>';
-				str += '<div class="name"><a href="#">'+obj[i].full_name+'</a><span class="label label-info arrowed arrowed-in-right">'+obj[i].permission+'</span></div>';
-				str += '<div class="text">'+obj[i].message+'</div></div></div>';
-				//$( ".dialogs" ).append(str);
-			};
-
-			$(".dialogs").html(str);
-
 			$('#scrollcontent').slimScroll({ scrollBy: $(".dialogs").height()});
 
 	    });
@@ -568,10 +561,39 @@ assets/css/style-skins.min.css" />
 
 	$('#message').keyup(function(e) {
 
-		if(e.keyCode == 13){
+		if(e.keyCode == 13) {
+
 		  send_message();
 		}
 	});
+
+	$(".userchat").click(function() {
+
+		//$(".userchat").css("Font-Weight","Normal");
+		$(this).css("Font-Weight","Bold");
+
+		//alert($(this).attr('id'));
+
+		id = $(this).attr('id');
+
+		var form_data = {
+        	sender_id: id,
+        	ajax: '1'
+        };
+
+        var request = $.ajax({
+        	url: "<?php echo base_url();?>messenger/switch_chat",
+        	type: 'POST',
+        	data: form_data
+        });
+
+        request.done(function (response, textStatus, jqXHR) {
+
+			//alert(response);
+
+	    });
+	});
+
 </script>
 </body>
 </html>

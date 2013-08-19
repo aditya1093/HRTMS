@@ -32,6 +32,10 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap-editable.css">
+
+		<script src="<?php echo base_url();?>assets/js/style-extra.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
 
@@ -420,6 +424,7 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
+						<?php if(isset($records)) : foreach($records as $row) : ?>
 						<div id="user-profile-2" class="user-profile row-fluid">
 									<div class="tabbable">
 										<ul class="nav nav-tabs padding-18">
@@ -459,36 +464,42 @@
 														<span class="profile-picture">
 															<img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
 														</span>
+														
+														<div class="width-80 label label-info label-large arrowed-in arrowed-in-right">
+															<div class="inline position-relative">
+																<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+																	<i class="icon-circle light-green middle"></i>
+																	&nbsp;
+																	<span class="white middle bigger-120"><?php 
 
+																		$m = $row->middle_name[0];
+
+																		echo $row->first_name.' '.$m.'. '.$row->last_name;?></span>
+																</a>
+															</div>
+														</div>
 														<div class="space space-4"></div>
+														
+															<div class="bcTarget"></div>
+																<?php
+																	
+																	echo '<script type="text/javascript">$(".bcTarget").barcode("';
+																	echo $row->register_id;
+																	echo '", "code39");</script>';
 
-														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="btn btn-small btn-block btn-success">
-															<i class="icon-plus-sign bigger-110"></i>
-															Add as a friend
-														</a>
+																?> 
+														
 
-														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="btn btn-small btn-block btn-primary">
-															<i class="icon-envelope-alt"></i>
-															Send a message
-														</a>
 													</div><!--/span-->
 
 													<div class="span9">
-														<h4 class="blue">
-															<span class="middle">Alex M. Doe</span>
-
-															<span class="label label-purple arrowed-in-right">
-																<i class="icon-circle smaller-80"></i>
-																online
-															</span>
-														</h4>
 
 														<div class="profile-user-info">
 															<div class="profile-info-row">
 																<div class="profile-info-name"> Username </div>
 
 																<div class="profile-info-value">
-																	<span>alexdoe</span>
+																	<span><?php echo $row->username;?></span>
 																</div>
 															</div>
 
@@ -497,8 +508,9 @@
 
 																<div class="profile-info-value">
 																	<i class="icon-map-marker light-orange bigger-110"></i>
-																	<span>Netherlands</span>
-																	<span>Amsterdam</span>
+																	<span><?php echo $row->address.' '.$row->city;?></span>
+																	<span><?php echo $row->state;?></span>
+																	<span><?php echo $row->country;?></span>
 																</div>
 															</div>
 
@@ -506,23 +518,41 @@
 																<div class="profile-info-name"> Age </div>
 
 																<div class="profile-info-value">
-																	<span>38</span>
+																	<span><?php
+																	$birthdate = $row->birth_date;												
+																    list($y,$m,$d) = explode('-', $birthdate);
+    
+																    if (($m = (date('m') - $m)) < 0) {
+																        $y++;
+																    } elseif ($m == 0 && date('d') - $d < 0) {
+																        $y++;
+																    }
+																    
+																    echo date('Y') - $y;
+																    ?></span>
 																</div>
 															</div>
 
 															<div class="profile-info-row">
-																<div class="profile-info-name"> Joined </div>
+																<div class="profile-info-name"> Birthday </div>
 
 																<div class="profile-info-value">
-																	<span>20/06/2010</span>
+																	<span><?php echo $row->birth_date?></span>
 																</div>
 															</div>
 
 															<div class="profile-info-row">
-																<div class="profile-info-name"> Last Online </div>
+																<div class="profile-info-name"> Email </div>
 
 																<div class="profile-info-value">
-																	<span>3 hours ago</span>
+																	<span><?php echo $row->email;?></span>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Phone </div>
+
+																<div class="profile-info-value">
+																	<span><?php echo $row->phone;?></span>
 																</div>
 															</div>
 														</div>
@@ -534,7 +564,7 @@
 																<div class="profile-info-name"> Website </div>
 
 																<div class="profile-info-value">
-																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" target="_blank">www.alexdoe.com</a>
+																	<a href="" target="_blank">www.<?php echo $row->username;?>.com</a>
 																</div>
 															</div>
 
@@ -544,7 +574,7 @@
 																</div>
 
 																<div class="profile-info-value">
-																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">Find me on Facebook</a>
+																	<a href="">Find me on Facebook</a>
 																</div>
 															</div>
 
@@ -554,7 +584,17 @@
 																</div>
 
 																<div class="profile-info-value">
-																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">Follow me on Twitter</a>
+																	<a href="">Follow me on Twitter</a>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name">
+																	<i class="middle icon-edit bigger-150 light-blue"></i>
+																</div>
+
+																<div class="profile-info-value">
+																	<a href="<?php echo base_url();?>profile/edit_profile">Edit Profile</a>
 																</div>
 															</div>
 														</div>
@@ -595,9 +635,885 @@
 												
 												</div>
 											</div><!--#home-->
+
+											<div id="feed" class="tab-pane">
+												<div class="profile-feed row-fluid">
+													<div class="span6">
+														<div class="profile-activity clearfix">
+															<div>
+																<img class="pull-left" alt="Alex Doe&#39;s avatar" src="./User Profile Page - Ace Admin_files/avatar5.png">
+																<a class="user" href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm"> Alex Doe </a>
+																changed his profile photo.
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">Take a look</a>
+
+																<div class="time">
+																	<i class="icon-time bigger-110"></i>
+																	an hour ago
+																</div>
+															</div>
+
+															<div class="tools action-buttons">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="blue">
+																	<i class="icon-pencil bigger-125"></i>
+																</a>
+
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="red">
+																	<i class="icon-remove bigger-125"></i>
+																</a>
+															</div>
+														</div>
+
+														<div class="profile-activity clearfix">
+															<div>
+																<img class="pull-left" alt="Susan Smith&#39;s avatar" src="./User Profile Page - Ace Admin_files/avatar1.png">
+																<a class="user" href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm"> Susan Smith </a>
+
+																is now friends with Alex Doe.
+																<div class="time">
+																	<i class="icon-time bigger-110"></i>
+																	2 hours ago
+																</div>
+															</div>
+
+															<div class="tools action-buttons">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="blue">
+																	<i class="icon-pencil bigger-125"></i>
+																</a>
+
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="red">
+																	<i class="icon-remove bigger-125"></i>
+																</a>
+															</div>
+														</div>
+
+														<div class="profile-activity clearfix">
+															<div>
+																<i class="pull-left thumbicon icon-ok btn-success no-hover"></i>
+																<a class="user" href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm"> Alex Doe </a>
+																joined
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">Country Music</a>
+
+																group.
+																<div class="time">
+																	<i class="icon-time bigger-110"></i>
+																	5 hours ago
+																</div>
+															</div>
+
+															<div class="tools action-buttons">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="blue">
+																	<i class="icon-pencil bigger-125"></i>
+																</a>
+
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="red">
+																	<i class="icon-remove bigger-125"></i>
+																</a>
+															</div>
+														</div>
+
+														<div class="profile-activity clearfix">
+															<div>
+																<i class="pull-left thumbicon icon-picture btn-info no-hover"></i>
+																<a class="user" href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm"> Alex Doe </a>
+																uploaded a new photo.
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">Take a look</a>
+
+																<div class="time">
+																	<i class="icon-time bigger-110"></i>
+																	5 hours ago
+																</div>
+															</div>
+
+															<div class="tools action-buttons">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="blue">
+																	<i class="icon-pencil bigger-125"></i>
+																</a>
+
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="red">
+																	<i class="icon-remove bigger-125"></i>
+																</a>
+															</div>
+														</div>
+
+														<div class="profile-activity clearfix">
+															<div>
+																<img class="pull-left" alt="David Palms&#39;s avatar" src="./User Profile Page - Ace Admin_files/avatar4.png">
+																<a class="user" href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm"> David Palms </a>
+
+																left a comment on Alex's wall.
+																<div class="time">
+																	<i class="icon-time bigger-110"></i>
+																	8 hours ago
+																</div>
+															</div>
+
+															<div class="tools action-buttons">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="blue">
+																	<i class="icon-pencil bigger-125"></i>
+																</a>
+
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="red">
+																	<i class="icon-remove bigger-125"></i>
+																</a>
+															</div>
+														</div>
+													</div><!--/span-->
+
+													<div class="span6">
+														<div class="profile-activity clearfix">
+															<div>
+																<i class="pull-left thumbicon icon-edit btn-pink no-hover"></i>
+																<a class="user" href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm"> Alex Doe </a>
+																published a new blog post.
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">Read now</a>
+
+																<div class="time">
+																	<i class="icon-time bigger-110"></i>
+																	11 hours ago
+																</div>
+															</div>
+
+															<div class="tools action-buttons">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="blue">
+																	<i class="icon-pencil bigger-125"></i>
+																</a>
+
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="red">
+																	<i class="icon-remove bigger-125"></i>
+																</a>
+															</div>
+														</div>
+
+														<div class="profile-activity clearfix">
+															<div>
+																<img class="pull-left" alt="Alex Doe&#39;s avatar" src="./User Profile Page - Ace Admin_files/avatar5.png">
+																<a class="user" href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm"> Alex Doe </a>
+
+																upgraded his skills.
+																<div class="time">
+																	<i class="icon-time bigger-110"></i>
+																	12 hours ago
+																</div>
+															</div>
+
+															<div class="tools action-buttons">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="blue">
+																	<i class="icon-pencil bigger-125"></i>
+																</a>
+
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="red">
+																	<i class="icon-remove bigger-125"></i>
+																</a>
+															</div>
+														</div>
+
+														<div class="profile-activity clearfix">
+															<div>
+																<i class="pull-left thumbicon icon-key btn-info no-hover"></i>
+																<a class="user" href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm"> Alex Doe </a>
+
+																logged in.
+																<div class="time">
+																	<i class="icon-time bigger-110"></i>
+																	12 hours ago
+																</div>
+															</div>
+
+															<div class="tools action-buttons">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="blue">
+																	<i class="icon-pencil bigger-125"></i>
+																</a>
+
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="red">
+																	<i class="icon-remove bigger-125"></i>
+																</a>
+															</div>
+														</div>
+
+														<div class="profile-activity clearfix">
+															<div>
+																<i class="pull-left thumbicon icon-off btn-inverse no-hover"></i>
+																<a class="user" href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm"> Alex Doe </a>
+
+																logged out.
+																<div class="time">
+																	<i class="icon-time bigger-110"></i>
+																	16 hours ago
+																</div>
+															</div>
+
+															<div class="tools action-buttons">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="blue">
+																	<i class="icon-pencil bigger-125"></i>
+																</a>
+
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="red">
+																	<i class="icon-remove bigger-125"></i>
+																</a>
+															</div>
+														</div>
+
+														<div class="profile-activity clearfix">
+															<div>
+																<i class="pull-left thumbicon icon-key btn-info no-hover"></i>
+																<a class="user" href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm"> Alex Doe </a>
+
+																logged in.
+																<div class="time">
+																	<i class="icon-time bigger-110"></i>
+																	16 hours ago
+																</div>
+															</div>
+
+															<div class="tools action-buttons">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="blue">
+																	<i class="icon-pencil bigger-125"></i>
+																</a>
+
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="red">
+																	<i class="icon-remove bigger-125"></i>
+																</a>
+															</div>
+														</div>
+													</div><!--/span-->
+												</div><!--/row-->
+
+												<div class="space-12"></div>
+
+												<div class="center">
+													<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" class="btn btn-small btn-primary">
+														<i class="icon-rss bigger-150 middle"></i>
+
+														View more activities
+														<i class="icon-on-right icon-arrow-right"></i>
+													</a>
+												</div>
+											</div><!--/#feed-->
+
+											<div id="friends" class="tab-pane">
+												<div class="profile-users clearfix">
+													<div class="itemdiv memberdiv">
+														<div class="inline position-relative">
+															<div class="user">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																	<img src="./User Profile Page - Ace Admin_files/avatar4.png" alt="Bob Doe&#39;s avatar">
+																</a>
+															</div>
+
+															<div class="body">
+																<div class="name">
+																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																		<span class="user-status status-online"></span>
+																		Bob Doe
+																	</a>
+																</div>
+															</div>
+
+															<div class="popover">
+																<div class="arrow"></div>
+
+																<div class="popover-content">
+																	<div class="bolder">Content Editor</div>
+
+																	<div class="time">
+																		<i class="icon-time middle bigger-120 orange"></i>
+																		<span class="green"> 20 mins ago </span>
+																	</div>
+
+																	<div class="hr dotted hr-8"></div>
+
+																	<div class="tools action-buttons">
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-facebook-sign blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-twitter-sign light-blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-google-plus-sign red bigger-150"></i>
+																		</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="itemdiv memberdiv">
+														<div class="inline position-relative">
+															<div class="user">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																	<img src="./User Profile Page - Ace Admin_files/avatar1.png" alt="Rose Doe&#39;s avatar">
+																</a>
+															</div>
+
+															<div class="body">
+																<div class="name">
+																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																		<span class="user-status status-offline"></span>
+																		Rose Doe
+																	</a>
+																</div>
+															</div>
+
+															<div class="popover">
+																<div class="arrow"></div>
+
+																<div class="popover-content">
+																	<div class="bolder">Graphic Designer</div>
+
+																	<div class="time">
+																		<i class="icon-time middle bigger-120 grey"></i>
+																		<span class="grey"> 30 min ago </span>
+																	</div>
+
+																	<div class="hr dotted hr-8"></div>
+
+																	<div class="tools action-buttons">
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-facebook-sign blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-twitter-sign light-blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-google-plus-sign red bigger-150"></i>
+																		</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="itemdiv memberdiv">
+														<div class="inline position-relative">
+															<div class="user">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																	<img src="./User Profile Page - Ace Admin_files/avatar.png" alt="Jim Doe&#39;s avatar">
+																</a>
+															</div>
+
+															<div class="body">
+																<div class="name">
+																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																		<span class="user-status status-busy"></span>
+																		Jim Doe
+																	</a>
+																</div>
+															</div>
+
+															<div class="popover">
+																<div class="arrow"></div>
+
+																<div class="popover-content">
+																	<div class="bolder">SEO &amp; Advertising</div>
+
+																	<div class="time">
+																		<i class="icon-time middle bigger-120 red"></i>
+																		<span class="grey"> 1 hour ago </span>
+																	</div>
+
+																	<div class="hr dotted hr-8"></div>
+
+																	<div class="tools action-buttons">
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-facebook-sign blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-twitter-sign light-blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-google-plus-sign red bigger-150"></i>
+																		</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="itemdiv memberdiv">
+														<div class="inline position-relative">
+															<div class="user">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																	<img src="./User Profile Page - Ace Admin_files/avatar5.png" alt="Alex Doe&#39;s avatar">
+																</a>
+															</div>
+
+															<div class="body">
+																<div class="name">
+																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																		<span class="user-status status-idle"></span>
+																		Alex Doe
+																	</a>
+																</div>
+															</div>
+
+															<div class="popover">
+																<div class="arrow"></div>
+
+																<div class="popover-content">
+																	<div class="bolder">Marketing</div>
+
+																	<div class="time">
+																		<i class="icon-time middle bigger-120 orange"></i>
+																		<span class=""> 40 minutes idle </span>
+																	</div>
+
+																	<div class="hr dotted hr-8"></div>
+
+																	<div class="tools action-buttons">
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-facebook-sign blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-twitter-sign light-blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-google-plus-sign red bigger-150"></i>
+																		</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="itemdiv memberdiv">
+														<div class="inline position-relative">
+															<div class="user">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																	<img src="./User Profile Page - Ace Admin_files/avatar2.png" alt="Phil Doe&#39;s avatar">
+																</a>
+															</div>
+
+															<div class="body">
+																<div class="name">
+																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																		<span class="user-status status-online"></span>
+																		Phil Doe
+																	</a>
+																</div>
+															</div>
+
+															<div class="popover">
+																<div class="arrow"></div>
+
+																<div class="popover-content">
+																	<div class="bolder">Public Relations</div>
+
+																	<div class="time">
+																		<i class="icon-time middle bigger-120 orange"></i>
+																		<span class="green"> 2 hours ago </span>
+																	</div>
+
+																	<div class="hr dotted hr-8"></div>
+
+																	<div class="tools action-buttons">
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-facebook-sign blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-twitter-sign light-blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-google-plus-sign red bigger-150"></i>
+																		</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="itemdiv memberdiv">
+														<div class="inline position-relative">
+															<div class="user">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																	<img src="./User Profile Page - Ace Admin_files/avatar3.png" alt="Susan Doe&#39;s avatar">
+																</a>
+															</div>
+
+															<div class="body">
+																<div class="name">
+																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																		<span class="user-status status-online"></span>
+																		Susan Doe
+																	</a>
+																</div>
+															</div>
+
+															<div class="popover">
+																<div class="arrow"></div>
+
+																<div class="popover-content">
+																	<div class="bolder">HR Management</div>
+
+																	<div class="time">
+																		<i class="icon-time middle bigger-120 orange"></i>
+																		<span class="green"> 20 mins ago </span>
+																	</div>
+
+																	<div class="hr dotted hr-8"></div>
+
+																	<div class="tools action-buttons">
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-facebook-sign blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-twitter-sign light-blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-google-plus-sign red bigger-150"></i>
+																		</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="itemdiv memberdiv">
+														<div class="inline position-relative">
+															<div class="user">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																	<img src="./User Profile Page - Ace Admin_files/avatar1.png" alt="Jennifer Doe&#39;s avatar">
+																</a>
+															</div>
+
+															<div class="body">
+																<div class="name">
+																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																		<span class="user-status status-offline"></span>
+																		Jennifer Doe
+																	</a>
+																</div>
+															</div>
+
+															<div class="popover">
+																<div class="arrow"></div>
+
+																<div class="popover-content">
+																	<div class="bolder">Graphic Designer</div>
+
+																	<div class="time">
+																		<i class="icon-time middle bigger-120 grey"></i>
+																		<span class="grey"> 2 hours ago </span>
+																	</div>
+
+																	<div class="hr dotted hr-8"></div>
+
+																	<div class="tools action-buttons">
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-facebook-sign blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-twitter-sign light-blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-google-plus-sign red bigger-150"></i>
+																		</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="itemdiv memberdiv">
+														<div class="inline position-relative">
+															<div class="user">
+																<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																	<img src="./User Profile Page - Ace Admin_files/avatar3.png" alt="Alexa Doe&#39;s avatar">
+																</a>
+															</div>
+
+															<div class="body">
+																<div class="name">
+																	<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																		<span class="user-status status-offline"></span>
+																		Alexa Doe
+																	</a>
+																</div>
+															</div>
+
+															<div class="popover">
+																<div class="arrow"></div>
+
+																<div class="popover-content">
+																	<div class="bolder">Accounting</div>
+
+																	<div class="time">
+																		<i class="icon-time middle bigger-120 grey"></i>
+																		<span class="grey"> 4 hours ago </span>
+																	</div>
+
+																	<div class="hr dotted hr-8"></div>
+
+																	<div class="tools action-buttons">
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-facebook-sign blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-twitter-sign light-blue bigger-150"></i>
+																		</a>
+
+																		<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																			<i class="icon-google-plus-sign red bigger-150"></i>
+																		</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+
+												<div class="hr hr10 hr-double"></div>
+
+												<ul class="pager pull-right">
+													<li class="previous disabled">
+														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">← Prev</a>
+													</li>
+
+													<li class="next">
+														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">Next →</a>
+													</li>
+												</ul>
+											</div><!--/#friends-->
+
+											<div id="pictures" class="tab-pane">
+												<ul class="ace-thumbnails">
+													<li>
+														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" data-rel="colorbox">
+															<img alt="150x150" src="./User Profile Page - Ace Admin_files/thumb-1.jpg">
+															<div class="text">
+																<div class="inner">Sample Caption on Hover</div>
+															</div>
+														</a>
+
+														<div class="tools tools-bottom">
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-link"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-paper-clip"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-pencil"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-remove red"></i>
+															</a>
+														</div>
+													</li>
+
+													<li>
+														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" data-rel="colorbox">
+															<img alt="150x150" src="./User Profile Page - Ace Admin_files/thumb-2.jpg">
+															<div class="text">
+																<div class="inner">Sample Caption on Hover</div>
+															</div>
+														</a>
+
+														<div class="tools tools-bottom">
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-link"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-paper-clip"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-pencil"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-remove red"></i>
+															</a>
+														</div>
+													</li>
+
+													<li>
+														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" data-rel="colorbox">
+															<img alt="150x150" src="./User Profile Page - Ace Admin_files/thumb-3.jpg">
+															<div class="text">
+																<div class="inner">Sample Caption on Hover</div>
+															</div>
+														</a>
+
+														<div class="tools tools-bottom">
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-link"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-paper-clip"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-pencil"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-remove red"></i>
+															</a>
+														</div>
+													</li>
+
+													<li>
+														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" data-rel="colorbox">
+															<img alt="150x150" src="./User Profile Page - Ace Admin_files/thumb-4.jpg">
+															<div class="text">
+																<div class="inner">Sample Caption on Hover</div>
+															</div>
+														</a>
+
+														<div class="tools tools-bottom">
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-link"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-paper-clip"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-pencil"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-remove red"></i>
+															</a>
+														</div>
+													</li>
+
+													<li>
+														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" data-rel="colorbox">
+															<img alt="150x150" src="./User Profile Page - Ace Admin_files/thumb-5.jpg">
+															<div class="text">
+																<div class="inner">Sample Caption on Hover</div>
+															</div>
+														</a>
+
+														<div class="tools tools-bottom">
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-link"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-paper-clip"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-pencil"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-remove red"></i>
+															</a>
+														</div>
+													</li>
+
+													<li>
+														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" data-rel="colorbox">
+															<img alt="150x150" src="./User Profile Page - Ace Admin_files/thumb-6.jpg">
+															<div class="text">
+																<div class="inner">Sample Caption on Hover</div>
+															</div>
+														</a>
+
+														<div class="tools tools-bottom">
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-link"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-paper-clip"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-pencil"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-remove red"></i>
+															</a>
+														</div>
+													</li>
+
+													<li>
+														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" data-rel="colorbox">
+															<img alt="150x150" src="./User Profile Page - Ace Admin_files/thumb-1.jpg">
+															<div class="text">
+																<div class="inner">Sample Caption on Hover</div>
+															</div>
+														</a>
+
+														<div class="tools tools-bottom">
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-link"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-paper-clip"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-pencil"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-remove red"></i>
+															</a>
+														</div>
+													</li>
+
+													<li>
+														<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm" data-rel="colorbox">
+															<img alt="150x150" src="./User Profile Page - Ace Admin_files/thumb-2.jpg">
+															<div class="text">
+																<div class="inner">Sample Caption on Hover</div>
+															</div>
+														</a>
+
+														<div class="tools tools-bottom">
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-link"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-paper-clip"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-pencil"></i>
+															</a>
+
+															<a href="./User Profile Page - Ace Admin_files/User Profile Page - Ace Admin.htm">
+																<i class="icon-remove red"></i>
+															</a>
+														</div>
+													</li>
+												</ul>
+											</div><!--/#pictures-->
 										</div>
 									</div>
-								</div>
+						</div>
+						<?php endforeach;?>
+						<?php endif; ?>
 						<!--
 						<div class="span12">
 
@@ -693,7 +1609,7 @@
 						<?php endif; ?>
 							
 						<!--PAGE CONTENT ENDS HERE-->
-					</div>--><!--/row-->
+					</div><!--/row-->
 
 				</div><!--/#page-content-->
 
@@ -731,7 +1647,10 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
-
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/style-editable.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootstrap-editable.min.js"></script>
+	
 
 		<!--ace scripts-->
 
@@ -806,7 +1725,106 @@
         });
         generateBarcode();
       });
-  		
+  				
+
+
+	//editables on first profile page
+	$.fn.editable.defaults.mode = 'inline';
+	$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
+    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
+                                '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';    
+
+		// *** editable avatar *** //
+	try {//ie8 throws some harmless exception, so let's catch it
+
+		//it seems that editable plugin calls appendChild, and as Image doesn't have it, it causes errors on IE at unpredicted points
+		//so let's have a fake appendChild for it!
+		if( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ) Image.prototype.appendChild = function(el){}
+
+		var last_gritter
+		$('#avatar').editable({
+			type: 'image',
+			name: 'avatar',
+			value: null,
+			image: {
+				//specify ace file input plugin's options here
+				btn_choose: 'Change Avatar',
+				droppable: true,
+				/**
+				//this will override the default before_change that only accepts image files
+				before_change: function(files, dropped) {
+					return true;
+				},
+				*/
+
+				//and a few extra ones here
+				name: 'avatar',//put the field name here as well, will be used inside the custom plugin
+				max_size: 110000,//~100Kb
+				on_error : function(code) {//on_error function will be called when the selected file has a problem
+					if(last_gritter) $.gritter.remove(last_gritter);
+					if(code == 1) {//file format error
+						last_gritter = $.gritter.add({
+							title: 'File is not an image!',
+							text: 'Please choose a jpg|gif|png image!',
+							class_name: 'gritter-error gritter-center'
+						});
+					} else if(code == 2) {//file size rror
+						last_gritter = $.gritter.add({
+							title: 'File too big!',
+							text: 'Image size should not exceed 100Kb!',
+							class_name: 'gritter-error gritter-center'
+						});
+					}
+					else {//other error
+					}
+				},
+				on_success : function() {
+					$.gritter.removeAll();
+				}
+			},
+		    url: function(params) {
+				// ***UPDATE AVATAR HERE*** //
+				//You can replace the contents of this function with examples/profile-avatar-update.js for actual upload
+
+
+				var deferred = new $.Deferred
+
+				//if value is empty, means no valid files were selected
+				//but it may still be submitted by the plugin, because "" (empty string) is different from previous non-empty value whatever it was
+				//so we return just here to prevent problems
+				var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
+				if(!value || value.length == 0) {
+					deferred.resolve();
+					return deferred.promise();
+				}
+
+
+				//dummy upload
+				setTimeout(function(){
+					if("FileReader" in window) {
+						//for browsers that have a thumbnail of selected image
+						var thumb = $('#avatar').next().find('img').data('thumb');
+						if(thumb) $('#avatar').get(0).src = thumb;
+					}
+					
+					deferred.resolve({'status':'OK'});
+
+					if(last_gritter) $.gritter.remove(last_gritter);
+					last_gritter = $.gritter.add({
+						title: 'Avatar Updated!',
+						text: 'Uploading to server can be easily implemented. A working example is included with the template.',
+						class_name: 'gritter-info gritter-center'
+					});
+					
+				 } , parseInt(Math.random() * 800 + 800))
+
+				return deferred.promise();
+			},
+			
+			success: function(response, newValue) {
+			}
+		})
+	}catch(e) {}
 
 		$('#avatar2').on('click', function(){
 			var modal = 

@@ -4,6 +4,10 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
+		
+
+		$this->session->set_userdata("sender_id","0");
+
 		if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Administrator') {
 
 			$this->load->view('admin/dashboard_view');
