@@ -40,6 +40,12 @@
 		<![endif]-->
 
 		<!--inline styles if any-->
+		<style type="text/css">
+			.mandatory_star{
+	  	color:red;
+
+	  }
+		</style>
 	</head>
 
 	<body>
@@ -450,7 +456,7 @@
 													</div><!--/span-->
 
 													<div class="span9">
-													<form class="form-horizontal">
+													<form class="form-horizontal" method="POST" action="<?php echo base_url();?>profile/edit_profile">
 														<div class="alert alert-info">
 										                  <p>Items marked with an asterisk (<span class="mandatory_star">*</span>) are required.</p>  
 										              	</div>
@@ -476,26 +482,26 @@
 																<div class="profile-info-value">
 																	
 																	<div class="control-group">
-																		<label class="control-label" for="first_name" name="first_name">First Name</label>
+																		<label class="control-label" for="first_name" >First Name</label>
 
 																		<div class="controls">
-																			<input type="text" id="first_name" value="<?php echo $row->first_name;?>">
+																			<input type="text" id="first_name" name="first_name" value="<?php echo $row->first_name;?>">
 																		</div>
 																	</div>
 
 																	<div class="control-group">
-																		<label class="control-label" for="last_name" name="last_name">Last Name</label>
+																		<label class="control-label" for="last_name" >Last Name</label>
 
 																		<div class="controls">
-																			<input type="text" id="last_name" value="<?php echo $row->last_name;?>">
+																			<input type="text" id="last_name" name="last_name" value="<?php echo $row->last_name;?>">
 																		</div>
 																	</div>
 
 																	<div class="control-group">
-																		<label class="control-label" for="middle_name" name="middle_name">Middle Name</label>
+																		<label class="control-label" for="middle_name">Middle Name</label>
 
 																		<div class="controls">
-																			<input type="text" id="middle_name" value="<?php echo $row->middle_name;?>">
+																			<input type="text" id="middle_name"  name="middle_name" value="<?php echo $row->middle_name;?>">
 																		</div>
 																	</div>
 
@@ -507,26 +513,33 @@
 																<div class="profile-info-value">
 																	
 																	<div class="control-group">
-																		<label class="control-label" for="address" name="address">Address</label>
+																		<label class="control-label" for="address" >Address</label>
 
 																		<div class="controls">
-																			<input type="text" id="address" value="<?php echo $row->address;?>">
+																			<input type="text" id="address" name="address" value="<?php echo $row->address;?>">
 																		</div>
 																	</div>
 
 																	<div class="control-group">
-																		<label class="control-label" for="city" name="city">City</label>
+																		<label class="control-label" for="city" >City</label>
 
 																		<div class="controls">
-																			<input type="text" id="city" value="<?php echo $row->city;?>">
+																			<input type="text" id="city" name="city" value="<?php echo $row->city;?>">
 																		</div>
 																	</div>
 
 																	<div class="control-group">
-																		<label class="control-label" for="state" name="state">Province</label>
+																		<label class="control-label" for="province" >Province</label>
 
 																		<div class="controls">
-																			<input type="text" id="state" value="<?php echo $row->state;?>">
+																			<input type="text" id="province" name="province" value="<?php echo $row->state;?>">
+																		</div>
+																	</div>
+																	<div class="control-group">
+																		<label class="control-label" for="zipcode" >Zip Code</label>
+
+																		<div class="controls">
+																			<input type="text" id="zipcode" name="zipcode" value="<?php echo $row->zipcode;?>">
 																		</div>
 																	</div>
 
@@ -544,48 +557,90 @@
 														          		</div>
 																</div>
 															</div>
-
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Username </div>
-
-																<div class="profile-info-value">
-																	<span><?php echo $row->username;?></span>
-																</div>
-																<div class="profile-info-value">
-																	<input type="text" name="username" value="<?php echo $row->username;?>">
-																</div>
-															</div>
-
-
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Email </div>
-
-																<div class="profile-info-value">
-																	<span><?php echo $row->email;?></span>
-																</div>
-															</div>
 															<div class="profile-info-row">
 																<div class="profile-info-name"> Phone </div>
 
 																<div class="profile-info-value">
-																	<span><?php echo $row->phone;?></span>
+																	<input type="text" name="phone" class="controls" value="<?php echo $row->phone;?>">
 																</div>
 															</div>
+															<div class="form-actions">
+															<button class="btn btn-info" type="submit">
+																<i class="icon-ok bigger-110"></i>
+																Submit
+															</button>
+
+															&nbsp; &nbsp; &nbsp;
+															<button class="btn" type="reset">
+																<i class="icon-undo bigger-110"></i>
+																Reset
+															</button>
+															</div>
+													</form>
+													<form method="POST" action="<?php echo base_url();?>profile/">
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Account </div>
+
+																<div class="profile-info-value">
+																	<div class="control-group">
+																		<label class="control-label" for="username" name="username">Username</label>
+
+																		<div class="controls">
+																			<input type="text" id="username" value="<?php echo $row->username;?>">
+																		</div>
+																	</div>
+																	<div class="control-group">
+																		<label class="control-label" for="email" name="email">Email</label>
+
+																		<div class="controls">
+																			<input type="text" id="email" value="<?php echo $row->email;?>">
+																		</div>
+																	</div>
+																</div>
+																
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Password </div>
+
+																<div class="profile-info-value">
+																	<div class="control-group">
+																		<label class="control-label" for="oldPass" name="oldPass">Old Password</label>
+
+																		<div class="controls">
+																			<input type="password" id="oldPass" value="<?php echo $row->password;?>">
+																		</div>
+																	</div>
+																	<div class="control-group">
+																		<label class="control-label" for="newPass" name="newPass">New Password</label>
+
+																		<div class="controls">
+																			<input type="text" id="newPass">
+																		</div>
+																	</div>
+																</div>
+																
+															</div>
+
+
+														
+														
+														
+														<div class="form-actions">
+															<button class="btn btn-info" type="submit">
+																<i class="icon-ok bigger-110"></i>
+																Submit
+															</button>
+
+															&nbsp; &nbsp; &nbsp;
+															<button class="btn" type="reset">
+																<i class="icon-undo bigger-110"></i>
+																Reset
+															</button>
 														</div>
 													</form>
 														<div class="hr hr-8 dotted"></div>
 
-														<div class="profile-user-info">
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Website </div>
-
-																<div class="profile-info-value">
-																	<a href="" target="_blank">www.<?php echo $row->username;?>.com</a>
-																</div>
-															</div>
-
-														
-														</div>
+												
 													</div><!--/span-->
 												</div><!--/row-fluid-->
 

@@ -15,6 +15,15 @@ class Profile_model extends CI_Model{
         $query = $this->db->get();
         return $query->result();
     } 
+
+    function change_info($data) {
+
+            $this->session->set_userdata($data);
+            $this->db->where('register_id', $this->session->userdata('id'));
+            $this->db->update('registration', $data);
+            return true;
+    }
+
    
     
 }  

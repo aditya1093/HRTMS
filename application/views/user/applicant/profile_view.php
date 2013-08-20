@@ -357,7 +357,7 @@
 					</li>
 
 					<li class="active">
-						<a href="<?php echo base_url();?>dashboard">
+						<a href="<?php echo base_url();?>Profile">
 							<i class="icon-user"></i>
 							<span>Profile</span>
 						</a>
@@ -499,7 +499,9 @@
 																<div class="profile-info-name"> Username </div>
 
 																<div class="profile-info-value">
-																	<span><?php echo $row->username;?></span>
+																	<span><?php echo $row->address.' '.$row->city;?></span>
+																	<span><?php echo $row->state;?></span>
+																	<span><?php echo $row->country;?></span>
 																</div>
 															</div>
 

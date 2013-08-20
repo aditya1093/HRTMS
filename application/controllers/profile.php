@@ -5,7 +5,7 @@ class Profile extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->helper("url");
-		$this->load->model("Register_Model");
+		$this->load->model("profile_model");
 		$this->load->library("form_validation");
 	}
 
@@ -33,7 +33,7 @@ class Profile extends CI_Controller {
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Applicant') {
 			$id = $this->session->userdata('id');
-			$this->load->model('profile_model');
+			//$this->load->model('profile_model');
 			$query = $this->profile_model->profile($id);
 			$data['records'] = $query;
 			$this->load->view('User/applicant/profile_view',$data);
@@ -83,71 +83,51 @@ class Profile extends CI_Controller {
 			$this->form_validation->set_rules('birth_date__nc_month', 'Month', '');
 			$this->form_validation->set_rules('birth_date__nc_day', 'Day', '');
 			$this->form_validation->set_rules('address', 'Address', 'required|xss_clean');
-			$this->form_validation->set_rules('address_2', 'Address 2', 'xss_clean');
 			$this->form_validation->set_rules('city', 'City', 'required|xss_clean');
-			$this->form_validation->set_rules('state', 'State/Province', 'xss_clean');
-			$this->form_validation->set_rules('country', 'Country', 'required|xss_clean');
+			$this->form_validation->set_rules('province', 'Province', 'xss_clean');
 			$this->form_validation->set_rules('zipcode', 'Zip/Postal code', 'required|xss_clean');
 			$this->form_validation->set_rules('phone', 'Phone', 'required|xss_clean');
 			
-			$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
+			/*$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
 			//$this->form_validation->set_rules('email_confirm', 'Email Address Confrimation', 'required');
 			$this->form_validation->set_rules('username', 'Username', 'required|xss_clean|min_length[6]');
 			$this->form_validation->set_rules('password', 'Password', 'required|matches[password_confirm]|min_length[6]');
-			$this->form_validation->set_rules('password_confirm', 'Password Confirmation', '');
+			$this->form_validation->set_rules('password_confirm', 'Password Confirmation', '');*/
 			$this->form_validation->set_rules('agree', '...', 'callback_terms_check');
 			
 			
-
-			$query =$this->db->query("select count( year(date_created) = year(now()) && month(date_created)=month(now()))  as count from registration");
-			//$query2 =$this->db->query("select  register_id from registration order by register_id desc");
-		
-			if ($query->num_rows() > 0)
-			{
-			   foreach ($query->result() as $row)
-			   {
-			      $p= $row->count + 1;
-			   }
-				$p = sprintf("%04d",$p) ;
-				$date = date('Y'); //this returns the current date time
-				$date2 = date('m');
-				$reg_id = 'AMI' . substr($date, -2) .$date2 .'-REG-'.$p;
-			}
-			
-
 			if ($this->form_validation->run() == true)
 			{
 				$data = array(
-					'register_id'	=> $reg_id,
-					'username' 		=> strtolower($this->input->post('username')),
-					'email'    		=> $this->input->post('email'),
-					'password' 		=> md5($this->input->post('password')),
 					'first_name' 	=> $this->input->post('first_name'),
 					'last_name'  	=> $this->input->post('last_name'),
 					'middle_name'	=> $this->input->post('middle_name'),
 					'birth_date'  	=> $this->input->post('birth_date_year') . '-' .$this->input->post('birth_date_month') . '-'. $this->input->post('birth_date_day') ,
-					'gender'		=> $this->input->post('gender'),
 					'address'    	=> $this->input->post('address'),
-					'address_2'    	=> $this->input->post('address_2'),
 					'city'    		=> $this->input->post('city'),
-					'state'    		=> $this->input->post('state'),
-					'country'    	=> $this->input->post('country'),
+					'state'    		=> $this->input->post('province'),
 					'zipcode'    	=> $this->input->post('zipcode'),
 					'phone'      	=> $this->input->post('phone'),
-					'type'			=> 0,
-					'date_created'	=> date('Y-m-d H:i:s'),
+					//'date_created'	=> date('Y-m-d H:i:s'),
 				);
 			}
-			if ($this->form_validation->run() == true && $this->Register_Model->register($data))
+			if ($this->form_validation->run() == true )
 			{ 
 				//check to see if we are creating the user
 				//redirect them to checkout page
-		 		$this->load->view('success');
+      			$this->profile_model->change_info($data);
+      			$success = "Changes Successfully";
+      			$this->data = array (
+		            	'message' => $success
+		          );  
+		        $this->session->set_userdata($this->data);
+		        //redirect(base_url().'profile/edit_profile', 'refresh');
+		        //$this->load->view('User/applicant/edit_profile_view',$this->data);
 			}
 			else
 			{ 
 				$id = $this->session->userdata('id');
-				$this->load->model('profile_model');
+				//$this->load->model('profile_model');
 				$query = $this->profile_model->profile($id);
 				$this->data['records'] = $query;
 				//display the create user form
@@ -176,6 +156,7 @@ class Profile extends CI_Controller {
 				//$this->load->view('registration/registration_view', $this->data);
 				
 			}
+			//
 		}
 		else {
 
