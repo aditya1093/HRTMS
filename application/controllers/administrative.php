@@ -27,6 +27,19 @@ class Administrative extends CI_Controller {
 
 	}
 
+	function backup() {
+		
+		if($this->session->userdata('is_logged_in')) {
+
+			
+			$this->load->view('admin/backup_view');
+		}
+		else {
+
+    		$this->load->view('login_view');
+		}	
+	}
+
 
 }
 

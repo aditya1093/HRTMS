@@ -304,7 +304,7 @@ assets/css/style-skins.min.css" />
 								
 								<!-- LOAD MESSAGES HERE -->
 								<div class="slimScrollDiv">
-									<div id="scrollcontent" class="dialogs">
+									<div id="chat_div" class="dialogs">
 										<!--<?php if(isset($records)) : foreach($records as $row) : ?>
 								
 										
@@ -371,18 +371,19 @@ assets/css/style-skins.min.css" />
 
 										<?php if(isset($user_records)) : foreach($user_records as $row) : ?>
 										<?php if ($row->id == $this->session->userdata('id')) continue;?>
-										<tr>
+										<tr class="chat_user">
 											<td>
-												<img class="nav-user-photo" src="assets/avatars/user.jpg" style="width: 30px; margin-right: 10px;">
-												<i class="icon-circle pull-right" style="color:#387038;"></i>
-												<a style="cursor: pointer;" class="userchat" id="<?php echo $row->id?>"><?php echo $row->first_name?> <?php echo $row->last_name?></a>
+												<a style="cursor: pointer;" class="userchat" id="<?php echo $row->id?>">
+													<img class="nav-user-photo" src="assets/avatars/user.jpg" style="width: 30px; margin-right: 10px;"><?php echo $row->first_name?> <?php echo $row->last_name?>
+													<i class="icon-circle pull-right" style="color:#387038;"></i>
+												</a>
 											</td>
 										</tr>
 										<?php endforeach;?>
 										<?php endif;?>
 										
 									</table>
-
+									
 								</div>
 								
 							</div>
@@ -439,8 +440,6 @@ assets/css/style-skins.min.css" />
 	};
 
 	$(document).ready(function() {
-
-		//alert('sender_id: <?php echo $this->session->userdata("sender_id");?>\nreceiver_id: <?php echo $this->session->userdata("id");?>');
 
 		var id = 0;
 
@@ -514,23 +513,23 @@ assets/css/style-skins.min.css" />
 				str += '<div class="body"><div class="time"><i class="icon-time"></i><span class="orange"> '+obj[i].time_sent+'</span></div>';
 				str += '<div class="name"><a class="userchat" id="'+obj[i].id+'" href="#">'+obj[i].full_name+'</a> <span class="label label-info arrowed arrowed-in-right">'+obj[i].permission+'</span></div>';
 				str += '<div class="text">'+obj[i].message+'</div></div></div>';
+				$("#thewho").text("("+thewho+")");
 
 			};
 
-			$("#thewho").text("("+thewho+")");
+			
 
 			//var str = str.replace(':)','<img src="<?php echo base_url();?>assets/images/emoticon/smile.jpg">');
 
 			$(".dialogs").html(str);
 
-			$('#scrollcontent').slimScroll({ scrollBy: $(".dialogs").height()});
+			$('#chat_div').slimScroll({ scrollBy: $(".dialogs").height()});
 
 	    });
 	};
 	
 	/* Chat Send */
 	var send_message = function() {
-
 
 		if($.trim($("#message").val()) == "") {
 
@@ -555,7 +554,7 @@ assets/css/style-skins.min.css" />
 			$("#message").val("");	
 			$(".dialogs").html("");
 
-			$('#scrollcontent').slimScroll({ scrollBy: $(".dialogs").height()});
+			$('#chat_div').slimScroll({ scrollTo: $(".dialogs").height()});
 
 	    });
 	};
