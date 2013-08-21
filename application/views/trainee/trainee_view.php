@@ -28,7 +28,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/trainee/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 
@@ -265,8 +265,7 @@
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
 								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
 								<span id="user_info">
-									<small>\
-									 3q	`[/-0oiuyt Welcome,</small>
+									<small>Welcome,</small>
 									<?php echo $this->session->userdata('username');?>
 								</span>
 
@@ -369,7 +368,7 @@
 							</li>
 
 							<li>
-								<a href="<?php echo base_url();?>manage/training">
+								<a href="<?php echo base_url();?>applicant/accept">
 									<i class="icon-user"></i>
 								   	<span>Accept</span>
 								</a>

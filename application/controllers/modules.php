@@ -9,10 +9,14 @@ class Modules extends CI_Controller {
 	function index() {
 		//check kung naka-login
 		if($this->session->userdata('is_logged_in')) {
+
 			$this->load->model('applicant_model');
 			$query = $this->applicant_model->trainee_list();
 			$data['records'] = $query;
 
+			$this->load->model('client_model');
+			$query = $this->client_model->list_company();
+			$data['client_record'] = $query;
 			
 			$this->load->view('training/modules_view',$data);
 		}
@@ -22,16 +26,15 @@ class Modules extends CI_Controller {
 		}	
 	}
 
-	function hr() {
+	function list_files($param = "") {
 
-		$this->load->view('admin/manage_accounts/hr');
+		$this->load->model('module_model');
+    	$map = $this->module_model->list_file($param);
+
+		echo json_encode($map);
 	}
 
-	function training() {
-
-		$this->load->view('admin/manage_accounts/training');
-	}
 }
 
-/* End of file attendance.php */
-/* Location: ./application/controllers/attendance.php */
+/* End of file modules.php */
+/* Location: ./application/controllers/modules.php */

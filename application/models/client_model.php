@@ -9,11 +9,13 @@ class Client_model extends CI_Model{
 
 
     function list_company() {
+        
         $this->db->select('*');
         $this->db->from('client');
         $query = $this->db->get();
         return $query->result();
     }
+
     function add_client($data) { 
 
         //insert muna sa table ng examination

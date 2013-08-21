@@ -28,10 +28,12 @@ class Ajax extends CI_Controller {
         $query = $this->db->get(); 
         if($query->num_rows == 1){
             $header = false;
-            //$output_string = "<div class=\"box-content\">";
+            $output_string ='  <div class="row-fluid">
+                                <div class="span6">
+                            ';
            
             foreach ($query->result() as $row){
-                $output_string  =  "<table>
+                $output_string  .=  "<table>
                                  <tr> 
                                     <td><h3>Personal Details</h3></td>
                                     <td>&nbsp;</td>
@@ -66,7 +68,7 @@ class Ajax extends CI_Controller {
                                     </tr>  
                                     <tr>
                                         <td>Province: </td> 
-                                        <td>$row->state</td>
+                                        <td>$row->province</td>
                                     </tr>
                                     <tr>
                                         <td>Country: </td>
@@ -102,10 +104,50 @@ class Ajax extends CI_Controller {
                                     <td><div class=\"bcTarget\"></div>  </td>
                                     <td></td>
                                 </tr>
-                               
-  
                                 ";
-            $output_string .= '</table>';
+                $output_string .= '</table>
+                                    </div>';
+                $output_string .= '<div class="span6">
+                                    <h3 class="header smaller lighter blue">
+                                        Documents
+                                        <small>Check the available documents.</small>
+                                    </h3>
+                                
+                                    <form>
+                                    <fieldset>
+                                        <div class="control-group">
+                                            <label class="control-label"></label>
+                         
+                                            <div class="controls">
+                                                <label>
+                                                    <input name="" type="checkbox" class="ace ace-switch" id="checkall" />
+                                                    <span class="lbl"> Check all</span>
+                                                </label>
+                                                <label>
+                                                    <input name="documents" type="checkbox" class="ace" />
+                                                    <span class="lbl"> Registraton slip</span>
+                                                </label>
+
+                                                <label>
+                                                    <input name="documents" type="checkbox" class="ace" />
+                                                    <span class="lbl"> Resume</span>
+                                                </label>
+
+                                                <label>
+                                                    <input name="documents" class="ace" type="checkbox" />
+                                                    <span class="lbl"> Diploma</span>
+                                                </label>
+
+                                                <label>
+                                                    <input name="documents" class="ace" type="checkbox" />
+                                                    <span class="lbl"> Form - 137</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                        <button class="btn btn-success btn-block" type="submit" id="acceptApp">Accept Applicant</button>
+                                    </form>
+                                </div>';                    
             }                    
           
         }

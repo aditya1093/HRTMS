@@ -28,11 +28,11 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php if($this->session->userdata("permission") == "Client") { echo 'client'; } else if($this->session->userdata("permission") == "Trainer") { echo 'training'; } else if($this->session->userdata("permission") == "HR") { echo 'hr'; } else if($this->session->userdata("permission") == "Trainee") { echo 'manpower'; } else if($this->session->userdata("permission") == "Administrator") { echo 'admin'; } ?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-		<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
-   		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -521,18 +521,21 @@
 
 								<div class="widget-body">
 									<div class="widget-main">
-										<form class="form-inline" id="applicant">
-														<input autofocus type="text" class="span11" name="id" id="id" />
-														<button id="getinfo" class="btn btn-purple btn-small">
-															Get Data
-														</button>												
+									<form class="form-inline" id="applicant">
+										<input autofocus type="text" class="span11" name="id" id="id" />
+										<button id="getinfo" class="btn btn-purple btn-small">
+											Get Data
+										</button>												
 									</form>
 									<div id='result_table'></div>
+									<br>
+									<br>
+									<div id="success" class=""></div>
 									
 								</div>
 							</div>
 						</div>
-
+						
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
 				</div><!--/#page-content-->
@@ -570,6 +573,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
 		<!--ace scripts-->
 
@@ -578,10 +582,11 @@
 
 		<script src="<?php echo base_url();?>assets/js/jquery-templ.js" type="text/javascript"></script>
 		<!--inline scripts related to this page-->
-	
+		
+
 	
 		<script type="text/javascript">	
-
+			
 
 			$("#getinfo").click(function(){
 			         var dataString = $("#id").val();
@@ -590,27 +595,68 @@
 			     	   async: false,
 			           type: "POST",			          
 			           data: "id="+dataString, 
-			           dataType: 'json', 
-			 
-			           /*success: function(data){
-			               //alert(dataString);
-			                $.each(data.results, function(index,item){
-			                	//alert(dataString);
-						        $("#result_table").html('<div><b>' + item.id + '</b></div><hr />');
-
-						    });
-			           } */
+			           dataType: 'json',
+			           
 			           success: function(response){
 			               //alert(dataString); 
 			                //$('#result_table').html(output_string);
 			              if ( response.length == 0 ) {
-			              	output_string = '"There is no applicant or the applicant has` been accepted."';
+			              	output_string = '"There is no applicant or the applicant has been accepted."';
 			              	$('#result_table').html('<br><br><br><br><div class="center"><b>'+output_string +'</b></div><br><br><br><br><br><br>');
 			              }
 			              else{
-		                	output_string = $('#user').render(response);
-		              		$('#result_table').html(output_string);
-		              		}
+				                	output_string = $('#user').render(response);
+				                	$('#result_table').show();
+				              		$('#result_table').html(output_string);
+				              		$('#checkall').on('click', function () {
+								        $(this).closest('fieldset').find(':checkbox').prop('checked', this.checked);
+								    });
+							    	$("#acceptApp").click(function(e) {
+							            e.preventDefault();
+							            first_name = $("#first_name").val();
+							            middle_name = $("#middle_name").val();
+							            last_name = $("#last_name").val();
+							            address = $("#address").val();
+							            birth_date = $("#birth_date").val();
+							            city = $("#city").val();
+							            province = $("#province").val();
+							            gender = $("#gender").val();
+							            phone = $("#phone").val();
+							            username = $("#username").val();
+						              	password = $("#password").val();
+						                email = $("#email").val();
+						                register_id = $("#register_id").val();
+
+							          
+							            var datastr = 'first_name='+first_name + '&middle_name='+middle_name + '&last_name='+last_name + '&address='+address + '&birth_date='+birth_date + '&city='+city + '&province='+province + '&gender='+gender + '&phone='+phone + '&username='+username + '&password='+password + '&email='+email + '&register_id='+register_id;    
+							           	//alert(province+phone+email);
+							            $.ajax({
+							                url:"<?php echo base_url();?>applicant/acceptApp",
+							                type:'POST',
+							                data:datastr,
+							                dataType:"json",
+							                success:function(result){
+							                $("#success").show();
+							                //$("#success").attr('class', 'alert alert-success');
+
+							                var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong>You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
+							                $("#success").html(output_string);
+							                $("#result_table").hide();
+							                $.gritter.add({
+												title: 'Applicant Accepted!',
+												text: result + ' has been added in AMI trainee.',
+												class_name: 'gritter-info'
+											});
+												
+
+							                }
+
+							            });
+										
+						                
+
+						         });
+							    }
 			            	
 			           }
 			  
@@ -620,45 +666,11 @@
 
  
 			});
-			$("#getinfo").click(function(){
-			         var dataString = $("#id").val();
-			         $.ajax({ 
-			           url: "<?php echo base_url();?>applicant/searchApplicant",
-			     	   async: false,
-			           type: "POST",			          
-			           data: "id="+dataString, 
-			           dataType: 'json', 
-			 
-			           /*success: function(data){
-			               //alert(dataString);
-			                $.each(data.results, function(index,item){
-			                	//alert(dataString);
-						        $("#result_table").html('<div><b>' + item.id + '</b></div><hr />');
 
-						    });
-			           } */
-			           success: function(response){
-			               //alert(dataString); 
-			                //$('#result_table').html(output_string);
-			              if ( response.length == 0 ) {
-			              	output_string = '"There is no applicant or the applicant has` been accepted."';
-			              	$('#result_table').html('<br><br><br><br><div class="center"><b>'+output_string +'</b></div><br><br><br><br><br><br>');
-			              }
-			              else{
-		                	output_string = $('#user').render(response);
-		              		$('#result_table').html(output_string);
-		              		}
-			            	
-			           }
-			  
-			         }); 
-			  
-			         return false;  //stop the actual form post !important!
+	
 
- 
-			});
- 
-
+		
+			
 										 
 		</script>
  
@@ -669,11 +681,21 @@
 	    <table>
                 <tr> 
                     <td><h3>Personal Details</h3></td>
+
                     <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Registration ID :</td>
+                    <td>${register_id}</td>
                 </tr>
              	<tr>
                     <td>Name: </td>
                     <td>${last_name}, ${first_name} ${middle_name}</td>
+                </tr>
+                <tr>
+
+                    <td>Birthday: </td>
+                    <td>${birth_date}</td>
                 </tr>
 
                 <tr>
@@ -737,10 +759,15 @@
 			</h3>
 	    
 			<form>
+			<fieldset>
 				<div class="control-group">
 					<label class="control-label"></label>
  
 					<div class="controls">
+						<label>
+							<input name="" type="checkbox" class="ace ace-switch" id="checkall" />
+							<span class="lbl">&nbsp;Check all</span>
+						</label>
 						<label>
 							<input name="documents" type="checkbox" class="ace" />
 							<span class="lbl"> Registraton slip</span>
@@ -762,25 +789,30 @@
 						</label>
 					</div>
 				</div>
-				<button class="btn btn-success btn-block" type="submit">Accept Applicant</button>
+			</fieldset>
+				<button class="btn btn-success btn-block" type="submit" id="acceptApp">Accept Applicant</button>
 			</form>
         </div>
         <form>
-			<input type="hidden" name="first_name" value="${first_name}">
-			<input type="hidden" name="last_name" value="${last_name}"> 	
-			<input type="hidden" name="middle_name" value="${middle_name}"> 	
-			<input type="hidden" name="address" value="${address}"> 	
-			<input type="hidden" name="city" value="${city}"> 	
-			<input type="hidden" name="province" value="${province}"> 	
-			<input type="hidden" name="gender" value="${gender}"> 	
-			<input type="hidden" name="phone" value="${phone}"> 	
-			<input type="hidden" name="username" value="${username}">
-			<input type="hidden" name="password" value="${password}">
-			<input type="hidden" name="email" value="${email}">
+       		<input type="hidden" name="register_id" id="register_id" value="${register_id}">
+			<input type="hidden" name="first_name" id="first_name" value="${first_name}">
+			<input type="hidden" name="last_name" id="last_name" value="${last_name}"> 	
+			<input type="hidden" name="middle_name" id="middle_name"  value="${middle_name}">
+			<input type="hidden" name="birth_date" id="birth_date" value="${birth_date}"> 	
+			<input type="hidden" name="address" id="address" value="${address}"> 	
+			<input type="hidden" name="city" id="city"  value="${city}"> 	
+			<input type="hidden" name="province" id="province" value="${province}"> 	
+			<input type="hidden" name="gender" id="gender" value="${gender}"> 	
+			<input type="hidden" name="phone" id="phone" value="${phone}"> 	
+			<input type="hidden" name="username" id="username" value="${username}">
+			<input type="hidden" name="password" id="password" value="${password}">
+			<input type="hidden" name="email" id="email" value="${email}">
 		</form>
         </div>
 		
 		</script>
+
+		
 		
 
 	</body>

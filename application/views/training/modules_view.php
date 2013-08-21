@@ -445,7 +445,7 @@
 					<!--PAGE CONTENT STARTS HERE-->
 					<div class="row-fluid">
 						
-						<div class="span9">
+						<div class="span8">
 							<div class="widget-box">
 								<div class="widget-header">
 									<h4 class="smaller">
@@ -463,7 +463,61 @@
 							
 
 						</div>
-						<div class="span3">
+						<div class="span4">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										Register Module
+										<small></small>
+									</h4>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+										<table class="table">
+											<tbody>
+												<tr>
+													<td>
+														<label>Module Name: </label>
+														<input autofocus="" type="text" id="module_name" name="module_name">
+													</td>
+													
+												</tr>
+												<tr>
+													<td>
+														<label>Company: </label>
+														<select name="company_name" id="company_name">
+															<option value="0" selected="selected" style="color:#ddd;">Select Company...</option>
+															<?php if(isset($client_record)) : foreach($client_record as $item) : ?>	
+																<option value="<?php echo $item->client_name?>"><?php echo $item->client_name?></option>
+															<?php endforeach;?>
+															<?php endif;?>
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<label>File Name: </label>
+														<select name="file_name" id="file_name">
+														
+
+														</select>
+
+														<i style="margin-left: 5px;" id="loading_file" class="icon-spinner icon-spin orange icon-2x"></i>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Add Module</button>
+													</td>
+													
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<p></p>
 							<div class="widget-box">
 								<div class="widget-header">
 									<h4 class="smaller">
@@ -530,10 +584,62 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
-			$(document).ready(function(){
 
-				//$(".browser").load('http://www.jemnuine.com/ami');
-				  $("#browser").attr("src","http://www.jemnuine.com/elfinder");
+			$(document).ready(function() {
+
+		        var request = $.ajax({
+		        	url: "<?php echo base_url();?>hrtms/module_init",
+		        	type: 'POST',
+		        	data: { ajax: '1' }
+		        });
+
+		        request.done(function (response, textStatus, jqXHR) {
+
+					$("#browser").attr("src", response);
+
+			    });
+
+			    $("#loading_file").hide();
+			});
+
+			$("#company_name").change(function() {
+
+				$("#loading_file").show();
+				var request = $.ajax({
+		        	url: "<?php echo base_url();?>modules/list_files/"+$("#company_name").val(),
+		        	type: 'POST',
+		        	data: { ajax: '1' }
+		        });
+
+		        request.done(function (response, textStatus, jqXHR) {
+
+					var obj = jQuery.parseJSON(response);
+
+					var result = [];
+
+					for (var key in obj) {
+
+						result.push(obj[key]);
+					}
+
+					var str = "";
+
+					for (var i = 0; i < result.length; i++) {
+
+						if(result[i].indexOf(".") == -1) {
+
+							continue;
+						}
+						
+						str += "\n<option value='"+result[i]+"'>"+result[i]+"</option>\n";						
+
+					};
+
+					$("#file_name").html(str);
+					$("#loading_file").hide();
+
+			    });
+
 			});
 		</script>
 	</body>

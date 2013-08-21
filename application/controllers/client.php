@@ -40,6 +40,22 @@ class Client extends CI_Controller {
 			$this->load->model('client_model');
 			$this->client_model->add_client($data);
 
+			$config['hostname'] = 'ftp.jemnuine.com';
+	        $config['username'] = 'jemnuin2@jemnuine.com';
+	        $config['password'] = 'sinigang123';
+	        $config['debug']    = TRUE;
+
+	        $this->ftp->connect($config);
+
+	        //$this->ftp->mirror('/', '/public_html/elfinder/files/');
+	        //$list = $this->ftp->list_files('/public_html/elfinder/files/Modules/'.$path);
+	        if(!$this->ftp->mkdir('/public_html/elfinder/files/AMI-Training/'.strtoupper($this->input->post('client_name')).'/', DIR_WRITE_MODE))
+	        {
+	        	redirect(base_url().'client', 'refresh');
+	        	$this->ftp->close();
+	        }
+	        $this->ftp->close();
+
 		}
 		else
 		{

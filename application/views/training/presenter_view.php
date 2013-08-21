@@ -458,7 +458,7 @@
 
 								<div class="widget-body">
 									<div class="widget-main">
-										
+										<iframe src="http://docs.google.com/viewer?url=http://jemnuine.com/demo/demo.pptx&embedded=true" width="100%" height="400" style="border: none;"></iframe>
 									</div>
 								</div>
 							</div>

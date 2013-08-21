@@ -367,7 +367,7 @@
 							</li>
 
 							<li>
-								<a href="<?php echo base_url();?>manage/training">
+								<a href="<?php echo base_url();?>applicant/accept">
 									<i class="icon-user"></i>
 								   	<span>Accept</span>
 								</a>

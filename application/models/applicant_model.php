@@ -40,6 +40,31 @@ class Applicant_model extends CI_Model{
     */ 
     }
 
+    function add_trainee($data) {  
+ 
+        $this->db->insert('user_table', $data);
+        $id = $this->db->insert_id();
+        return (isset($id)) ? $id : TRUE;   
+       
+    }
+    function add_trainee_hris($data) {  
+ 
+        $this->db->insert('hris', $data);
+        $id = $this->db->insert_id();
+        return (isset($id)) ? $id : TRUE;   
+       
+    } 
+
+    function update_registration($id){
+
+        $this->db->where('register_id', $id);
+        $this->db->update('registration',array('active'=>'1'));
+        return TRUE;
+        //$id = $this->db->update_id();
+        //return (isset($id)) ? $id : TRUE; 
+
+    }
+
 
 
 
