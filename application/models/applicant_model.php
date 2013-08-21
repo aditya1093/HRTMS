@@ -22,15 +22,18 @@ class Applicant_model extends CI_Model{
 
     function getInfo($id)
     {
+    $status = "0";
     $this->db->select('*');
     $this->db->where('register_id',$id);
+    $this->db->where('active', $status);
     $this->db->from('registration');
     $query = $this->db->get();
     return $query->result();
      
      /*if( $query->num_rows() > 0 ) {
             echo json_encode($query);
-        } else {
+        } 
+        else {
             $output_string = "There is no result";
             echo json_encode($output_string);
         }

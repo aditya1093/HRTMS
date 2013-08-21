@@ -46,8 +46,7 @@ class Profile extends CI_Controller {
 		
 	}
 
-	public function edit_profile()
-	{
+	public function edit_profile(){
 
    		if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Administrator') {
 
@@ -84,7 +83,7 @@ class Profile extends CI_Controller {
 			$this->form_validation->set_rules('birth_date__nc_day', 'Day', '');
 			$this->form_validation->set_rules('address', 'Address', 'required|xss_clean');
 			$this->form_validation->set_rules('city', 'City', 'required|xss_clean');
-			$this->form_validation->set_rules('province', 'Province', 'xss_clean');
+			$this->form_validation->set_rules('province', 'Province', 'required|xss_clean');
 			$this->form_validation->set_rules('zipcode', 'Zip/Postal code', 'required|xss_clean');
 			$this->form_validation->set_rules('phone', 'Phone', 'required|xss_clean');
 			
@@ -108,7 +107,7 @@ class Profile extends CI_Controller {
 					'state'    		=> $this->input->post('province'),
 					'zipcode'    	=> $this->input->post('zipcode'),
 					'phone'      	=> $this->input->post('phone'),
-					//'date_created'	=> date('Y-m-d H:i:s'),
+					'date_change'	=> date('Y-m-d H:i:s'),
 				);
 			}
 			if ($this->form_validation->run() == true )
@@ -121,7 +120,7 @@ class Profile extends CI_Controller {
 		            	'message' => $success
 		          );  
 		        $this->session->set_userdata($this->data);
-		        //redirect(base_url().'profile/edit_profile', 'refresh');
+		        redirect(base_url().'profile/edit_profile', 'refresh');
 		        //$this->load->view('User/applicant/edit_profile_view',$this->data);
 			}
 			else
@@ -164,6 +163,87 @@ class Profile extends CI_Controller {
     		$this->load->view('login_view', $data);
 		}
 	}
+	public function edit_account(){
+
+   		if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Administrator') {
+
+			$this->load->view('admin/dashboard_view');
+		}
+		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'HR') {
+			
+			$this->load->view('User/hris/profile_view');
+		}
+		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Trainer') {
+			
+			$this->load->view('User/training/profile_view');
+		}
+		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Client') {
+			
+			$this->load->view('User/client/profile_view');
+		}
+		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Trainee') {
+			
+			$this->load->view('User/trainee/profile_view');
+		}
+		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Applicant')
+		{
+
+			//validate form input
+	
+			
+			$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
+			//$this->form_validation->set_rules('email_confirm', 'Email Address Confrimation', 'required');
+			$this->form_validation->set_rules('username', 'Username', 'required|xss_clean|min_length[6]|is_unique[registration.username]');
+			$this->form_validation->set_rules('oldpassword', 'Password', 'required|matches[password_confirm]|min_length[6]');
+			$this->form_validation->set_rules('password_confirm', 'Password Confirmation', '');
+			$this->form_validation->set_rules('agree', '...', 'callback_terms_check');
+			
+			
+			if ($this->form_validation->run() == true)
+			{
+				$data = array(
+					'username' 		=> strtolower($this->input->post('username')),
+					'password' 		=> md5($this->input->post('password')),
+					'email' 		=> $this->input->post('email'),
+					'date_change'	=> date('Y-m-d H:i:s'),
+				);
+			}
+			if ($this->form_validation->run() == true )
+			{ 
+				//check to see if we are creating the user
+				//redirect them to checkout page
+      			$this->profile_model->change_info($data);
+      			$success = "Changes Successfully";
+      			$this->data = array (
+		            	'message' => $success
+		          );  
+		        $this->session->set_userdata($this->data);
+		        redirect(base_url().'profile/edit_profile', 'refresh');
+		        //$this->load->view('User/applicant/edit_profile_view',$this->data);
+			}
+			else
+			{ 
+				$id = $this->session->userdata('id');
+				//$this->load->model('profile_model');
+				$query = $this->profile_model->profile($id);
+				$this->data['records'] = $query;
+				//display the create user form
+				//set the flash data error message if there is one
+				$this->data['message'] = (validation_errors() ? validation_errors() : ($this->session->flashdata('message')));
+			
+				$this->load->view('User/applicant/edit_profile_view',$this->data);
+				//$this->load->view('registration/registration_view', $this->data);
+				
+			}
+			//
+		}
+		else {
+
+			$data = 0 ;
+    		$this->load->view('login_view', $data);
+		}
+	}
+
 }
 
 /* End of file profile.php */

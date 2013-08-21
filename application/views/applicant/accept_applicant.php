@@ -543,6 +543,7 @@
 		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
 		</a>
+	
 
 		<!--basic scripts-->
 
@@ -603,7 +604,7 @@
 			               //alert(dataString); 
 			                //$('#result_table').html(output_string);
 			              if ( response.length == 0 ) {
-			              	output_string = '"There is no result"';
+			              	output_string = '"There is no applicant or the applicant has` been accepted."';
 			              	$('#result_table').html('<br><br><br><br><div class="center"><b>'+output_string +'</b></div><br><br><br><br><br><br>');
 			              }
 			              else{
@@ -619,20 +620,43 @@
 
  
 			});
-			/*
-			jQuery(document).ready(function(){     
-			      $.ajax({
-			url: 'http://localhost/project/index.php/my_controller/outputAjax',
-			dataType:'json',
-			success: function(data) {
-			    $.each(data.results, function(index,item){
-			        $("#article-area").append('<div><b>' + item.id + '</b></div><hr />');
- 
-			    });
-			}
-			      }); 
+			$("#getinfo").click(function(){
+			         var dataString = $("#id").val();
+			         $.ajax({ 
+			           url: "<?php echo base_url();?>applicant/searchApplicant",
+			     	   async: false,
+			           type: "POST",			          
+			           data: "id="+dataString, 
+			           dataType: 'json', 
+			 
+			           /*success: function(data){
+			               //alert(dataString);
+			                $.each(data.results, function(index,item){
+			                	//alert(dataString);
+						        $("#result_table").html('<div><b>' + item.id + '</b></div><hr />');
 
-			});*/
+						    });
+			           } */
+			           success: function(response){
+			               //alert(dataString); 
+			                //$('#result_table').html(output_string);
+			              if ( response.length == 0 ) {
+			              	output_string = '"There is no applicant or the applicant has` been accepted."';
+			              	$('#result_table').html('<br><br><br><br><div class="center"><b>'+output_string +'</b></div><br><br><br><br><br><br>');
+			              }
+			              else{
+		                	output_string = $('#user').render(response);
+		              		$('#result_table').html(output_string);
+		              		}
+			            	
+			           }
+			  
+			         }); 
+			  
+			         return false;  //stop the actual form post !important!
+
+ 
+			});
  
 
 										 
@@ -669,7 +693,7 @@
                 </tr>  
                 <tr>
                     <td>Province: </td> 
-                    <td>${state}</td>
+                    <td>${province}</td>
                 </tr>
                 <tr>
                     <td>Country: </td>
@@ -704,6 +728,7 @@
 
             </tr>
         </table>
+
         </div>
         <div class="span6">
         	<h3 class="header smaller lighter blue">
@@ -740,6 +765,19 @@
 				<button class="btn btn-success btn-block" type="submit">Accept Applicant</button>
 			</form>
         </div>
+        <form>
+			<input type="hidden" name="first_name" value="${first_name}">
+			<input type="hidden" name="last_name" value="${last_name}"> 	
+			<input type="hidden" name="middle_name" value="${middle_name}"> 	
+			<input type="hidden" name="address" value="${address}"> 	
+			<input type="hidden" name="city" value="${city}"> 	
+			<input type="hidden" name="province" value="${province}"> 	
+			<input type="hidden" name="gender" value="${gender}"> 	
+			<input type="hidden" name="phone" value="${phone}"> 	
+			<input type="hidden" name="username" value="${username}">
+			<input type="hidden" name="password" value="${password}">
+			<input type="hidden" name="email" value="${email}">
+		</form>
         </div>
 		
 		</script>

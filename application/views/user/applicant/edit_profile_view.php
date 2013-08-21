@@ -532,7 +532,7 @@
 																		<label class="control-label" for="province" >Province</label>
 
 																		<div class="controls">
-																			<input type="text" id="province" name="province" value="<?php echo $row->state;?>">
+																			<input type="text" id="province" name="province" value="<?php echo $row->province;?>">
 																		</div>
 																	</div>
 																	<div class="control-group">

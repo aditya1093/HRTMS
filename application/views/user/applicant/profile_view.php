@@ -499,9 +499,7 @@
 																<div class="profile-info-name"> Username </div>
 
 																<div class="profile-info-value">
-																	<span><?php echo $row->address.' '.$row->city;?></span>
-																	<span><?php echo $row->state;?></span>
-																	<span><?php echo $row->country;?></span>
+																	<span><?php echo $row->username;?></span>
 																</div>
 															</div>
 
@@ -511,7 +509,7 @@
 																<div class="profile-info-value">
 																	<i class="icon-map-marker light-orange bigger-110"></i>
 																	<span><?php echo $row->address.' '.$row->city;?></span>
-																	<span><?php echo $row->state;?></span>
+																	<span><?php echo $row->province;?></span>
 																	<span><?php echo $row->country;?></span>
 																</div>
 															</div>

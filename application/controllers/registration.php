@@ -74,7 +74,7 @@ class Registration extends CI_Controller {
 				'country'    	=> $this->input->post('country'),
 				'zipcode'    	=> $this->input->post('zipcode'),
 				'phone'      	=> $this->input->post('phone'),
-				'type'			=> 0,
+				'active'			=> 0,
 				'date_created'	=> date('Y-m-d H:i:s'),
 			);
 		}
