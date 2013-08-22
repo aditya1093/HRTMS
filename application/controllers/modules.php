@@ -34,6 +34,49 @@ class Modules extends CI_Controller {
 		echo json_encode($map);
 	}
 
+	function register_module() {
+
+		if($this->input->post('ajax')) {
+
+			$this->load->model('Module_model');
+
+			$data = array(
+
+				'module_name' => $this->input->post('module_name'),
+				'company_name' => $this->input->post('company_name'),
+				'file_name' => $this->input->post('file_name')
+			);
+
+			$this->Module_model->register_module($data);
+
+		}
+		else {
+
+			echo ":(";
+			
+
+		}
+	}
+
+	function list_module() {
+
+		if($this->input->post('ajax')) {
+
+			$this->load->model('Module_model');
+
+			$data = $this->Module_model->list_module();
+
+			echo json_encode($data);
+
+		}
+		else {
+
+			echo ":(";
+			
+
+		}
+
+	}
 }
 
 /* End of file modules.php */

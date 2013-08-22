@@ -39,6 +39,20 @@
 		<![endif]-->
 
 		<!--inline styles if any-->
+		<style type="text/css">
+				#mydiv {
+		    height: 400px;
+		    position: relative;
+		    background-color: gray; /* for demonstration */
+		}
+		.ajax-loader {
+		    position: absolute;
+		    left: 50%;
+		    top: 50%;
+		    margin-left: -32px; /* -1 * image width / 2 */
+		    margin-top: -32px;  /* -1 * image height / 2 */
+		    display: block;     
+		}</style>
 	</head>
 
 	<body>
@@ -520,7 +534,8 @@
 								</div>
 
 								<div class="widget-body">
-									<div class="widget-main">
+								<div class="widget-main">
+					
 									<form class="form-inline" id="applicant">
 										<input autofocus type="text" class="span11" name="id" id="id" />
 										<button id="getinfo" class="btn btn-purple btn-small">
@@ -532,6 +547,18 @@
 									<br>
 									<div id="success" class=""></div>
 									
+									<div class="center" id="first_load" style="display:none">
+									<br>
+									<br><div id="load"><i class="icon-spinner icon-spin blue icon-3x"></i></div><br>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
+									</div>
+									
+
 								</div>
 							</div>
 						</div>
@@ -586,33 +613,68 @@
 
 	
 		<script type="text/javascript">	
-			
+		
+		   //set the css3 blur to an element
+        	function blurElement(element, size){
+	            var filterVal = 'blur('+size+'px)';
+	            $(element)
+	              .css('filter',filterVal)
+	              .css('webkitFilter',filterVal)
+	              .css('mozFilter',filterVal)
+	              .css('oFilter',filterVal)
+	              .css('msFilter',filterVal);
+       		 }
 
 			$("#getinfo").click(function(){
-			         var dataString = $("#id").val();
-			         $.ajax({ 
-			           url: "<?php echo base_url();?>applicant/searchApplicant",
-			     	   async: false,
-			           type: "POST",			          
-			           data: "id="+dataString, 
-			           dataType: 'json',
-			           
-			           success: function(response){
-			               //alert(dataString); 
-			                //$('#result_table').html(output_string);
-			              if ( response.length == 0 ) {
-			              	output_string = '"There is no applicant or the applicant has been accepted."';
-			              	$('#result_table').html('<br><br><br><br><div class="center"><b>'+output_string +'</b></div><br><br><br><br><br><br>');
-			              }
-			              else{
+					$('#first_load').show();
+					blurElement("#first_load", 2);
+					blurElement("#result_table", 0);
+					$('#result_table').hide();
+			        setTimeout(submitFormAjax, 200);
+			   		return false;
+			});
+
+			function submitFormAjax() {
+				var dataString = $("#id").val();
+				 $.ajax({ 
+				           url: "<?php echo base_url();?>applicant/searchApplicant",
+				     	   async: false,
+				           type: "POST",			          
+				           data: "id="+dataString, 
+				           dataType: 'json',
+
+				           success: function(response){
+				               //alert(dataString); 
+				                //$('#result_table').html(output_string);
+				               
+				              if ( response.length == 0 ) {
+				              	$('#first_load').hide();
+				              	$('#scnd_load').hide();
+				              	$('#success').hide();
+				              	$('#result_table').show();
+				              	output_string = '"There is no applicant or the applicant has been accepted."';
+				              	$('#result_table').html('<br><br><br><br><div class="center"><b>'+output_string +'</b></div><br><br><br><br><br><br>');
+				              }
+				              else{	
+			              			$('#first_load').hide();
+			              			$('#scnd_load').hide();
 				                	output_string = $('#user').render(response);
+				                	$('#success').hide();
 				                	$('#result_table').show();
 				              		$('#result_table').html(output_string);
 				              		$('#checkall').on('click', function () {
 								        $(this).closest('fieldset').find(':checkbox').prop('checked', this.checked);
 								    });
 							    	$("#acceptApp").click(function(e) {
-							            e.preventDefault();
+							    		$('#scnd_load').show();
+ 										blurElement("#result_table", 2);
+ 										e.preventDefault();
+								        setTimeout(accept, 200);
+								   		return false;                
+
+							        });//end acceptApp
+							    	function accept(){
+							    			 
 							            first_name = $("#first_name").val();
 							            middle_name = $("#middle_name").val();
 							            last_name = $("#last_name").val();
@@ -638,40 +700,34 @@
 							                success:function(result){
 							                $("#success").show();
 							                //$("#success").attr('class', 'alert alert-success');
-
-							                var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong>You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
+							                var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
 							                $("#success").html(output_string);
 							                $("#result_table").hide();
 							                $.gritter.add({
 												title: 'Applicant Accepted!',
 												text: result + ' has been added in AMI trainee.',
-												class_name: 'gritter-info'
+												class_name: 'gritter-info gritter-center'
 											});
 												
 
 							                }
 
 							            });
-										
-						                
 
-						         });
-							    }
-			            	
-			           }
-			  
-			         }); 
-			  
-			         return false;  //stop the actual form post !important!
+							    		}
+								    
+								}//end else
+				            	
+				           }//end success
+				  
+				         });//end ajax
+				  
+				         return false;  //stop the actual form post !important!
+						
+   
+			}
+		    
 
- 
-			});
-
-	
-
-		
-			
-										 
 		</script>
  
 		<script type="text/template" id="user">
@@ -792,6 +848,15 @@
 			</fieldset>
 				<button class="btn btn-success btn-block" type="submit" id="acceptApp">Accept Applicant</button>
 			</form>
+			<div class="center" id="scnd_load" style="display:none">
+									<div id="load"><i class="icon-spinner icon-spin blue icon-3x"></i></div><br>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
+			</div>
         </div>
         <form>
        		<input type="hidden" name="register_id" id="register_id" value="${register_id}">

@@ -27,7 +27,7 @@ class Module_model extends CI_Model{
             $path = strtoupper($path)."/";
         }
 
-        
+
         $list = $this->ftp->list_files('/public_html/elfinder/files/AMI-Training/'.$path);
 
         $this->ftp->close();
@@ -43,6 +43,19 @@ class Module_model extends CI_Model{
         //unset($list[3]);
 
         return $list;
+    }
+
+    function register_module($data) {
+
+        $this->db->insert('modules', $data);
+
+    }
+
+    function list_module() {
+
+        $this->db->select('*');
+        $query = $this->db->get('modules');
+        return $query->result();
     }
 
 }

@@ -445,22 +445,67 @@
 					<!--PAGE CONTENT STARTS HERE-->
 					<div class="row-fluid">
 						
-						<div class="span8">
+						<div class="span8 widget-container-span ui-sortable">		
 							<div class="widget-box">
 								<div class="widget-header">
-									<h4 class="smaller">
-										Module Manager
-										<small>AMI and Company Modules</small>
-									</h4>
+									<h5 class="smaller">
+										Modules
+										<small>Training Modules</small>
+									</h5>
+
+									<div class="widget-toolbar no-border">
+										<ul class="nav nav-tabs" id="myTab">
+											<li class="active">
+												<a data-toggle="tab" href="#home">File Manager</a>
+											</li>
+
+											<li class="">
+												<a data-toggle="tab" href="#regmod">Registered Modules</a>
+											</li>
+
+											
+										</ul>
+									</div>
 								</div>
 
 								<div class="widget-body">
 									<div class="widget-main">
-										<iframe id="browser" width="100%" height="425px" frameborder="0"></iframe>
+										<div class="tab-content">
+											<div id="home" class="tab-pane active">
+												<iframe id="browser" width="100%" height="425px" frameborder="0"></iframe>
+												
+											</div>
+
+											<div id="regmod" class="tab-pane">
+												<table id="module-table" class="table table-striped table-bordered">
+													<thead>
+													<tr>
+														<th class="center">
+															Module Name
+														</th>
+														<th class="center">
+															Company
+														</th>
+														<th class="center">
+															Filename
+														</th>
+														<th class="center">
+															
+														</th>
+													</tr> 
+													</thead>
+													<tbody id="module_list">
+														
+													</tbody>
+
+												</table> 
+											</div>
+
+											
+										</div>
 									</div>
 								</div>
-							</div>
-							
+							</div>	
 
 						</div>
 						<div class="span4">
@@ -479,15 +524,15 @@
 												<tr>
 													<td>
 														<label>Module Name: </label>
-														<input autofocus="" type="text" id="module_name" name="module_name">
+														<input placeholder="Type module name.." required autofocus="" type="text" id="module_name" name="module_name">
 													</td>
 													
 												</tr>
 												<tr>
 													<td>
 														<label>Company: </label>
-														<select name="company_name" id="company_name">
-															<option value="0" selected="selected" style="color:#ddd;">Select Company...</option>
+														<select required name="company_name" id="company_name">
+															<option value="" selected="selected" style="color:#ddd;">Select Company...</option>
 															<?php if(isset($client_record)) : foreach($client_record as $item) : ?>	
 																<option value="<?php echo $item->client_name?>"><?php echo $item->client_name?></option>
 															<?php endforeach;?>
@@ -498,9 +543,7 @@
 												<tr>
 													<td>
 														<label>File Name: </label>
-														<select name="file_name" id="file_name">
-														
-
+														<select required name="file_name" id="file_name">
 														</select>
 
 														<i style="margin-left: 5px;" id="loading_file" class="icon-spinner icon-spin orange icon-2x"></i>
@@ -508,7 +551,7 @@
 												</tr>
 												<tr>
 													<td>
-														<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Add Module</button>
+														<button id="reg_submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Register Module</button>
 													</td>
 													
 												</tr>
@@ -517,21 +560,7 @@
 									</div>
 								</div>
 							</div>
-							<p></p>
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										List of Modules
-										<small></small>
-									</h4>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">
-										
-									</div>
-								</div>
-							</div>
+							
 						</div>
 					</div>
 
@@ -581,9 +610,48 @@
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
+
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
+
+			$(function() {
+				var oTable1 = $('#module-table').dataTable( {
+				"aoColumns": [
+			      null,
+			      null, 
+			      null,
+			      { "bSortable": false }
+				] } );
+				
+				
+				$('table th input:checkbox').on('click' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+						
+				});
+			
+			
+				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+				function tooltip_placement(context, source) {
+					var $source = $(source);
+					var $parent = $source.closest('table')
+					var off1 = $parent.offset();
+					var w1 = $parent.width();
+			
+					var off2 = $source.offset();
+					var w2 = $source.width();
+			
+					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+					return 'left';
+				}
+			});
 
 			$(document).ready(function() {
 
@@ -600,6 +668,7 @@
 			    });
 
 			    $("#loading_file").hide();
+			    load_data();
 			});
 
 			$("#company_name").change(function() {
@@ -622,7 +691,7 @@
 						result.push(obj[key]);
 					}
 
-					var str = "";
+					var str = "<option value=''>Please select file..</option>";
 
 					for (var i = 0; i < result.length; i++) {
 
@@ -641,6 +710,76 @@
 			    });
 
 			});
+
+			$('#reg_submit').click(function() {
+
+				var request = $.ajax({
+		        	url: "<?php echo base_url();?>modules/register_module",
+		        	type: 'POST',
+		        	data: { 
+		        		ajax: '1',
+		        		module_name: $("#module_name").val(),
+		        		company_name: $("#company_name").val(),
+		        		file_name: $("#file_name").val()
+		        	}
+		        });
+
+		        request.done(function (response, textStatus, jqXHR) {
+
+		        	//gritter here
+		        	$("#module_name").val("");
+		        	$("#company_name").val("");
+		        	$("#file_name").html("");
+					
+				});
+
+			});
+
+			var getObjectSize = function(obj) {
+		   		var len = 0, key;
+			    for (key in obj) {
+			        if (obj.hasOwnProperty(key)) len++;
+			    }
+			    return len;
+			};
+
+
+			var load_data = function() {
+
+				var request = $.ajax({
+		        	url: "<?php echo base_url();?>modules/list_module",
+		        	type: 'POST',
+		        	data: { 
+		        		ajax: '1'
+		        	}
+		        });
+
+		        request.done(function (response, textStatus, jqXHR) {
+
+		        	alert(response);
+
+		        	var obj = jQuery.parseJSON(response);
+
+					var str = "";
+
+					//obj[i].message
+
+					for (var i = 0; i < getObjectSize(obj); i++) {
+						
+						str += "<tr><td>"+obj[i].module_name+"</td>";
+						str += "<td>"+obj[i].company_name+"</td>";
+						str += "<td>"+obj[i].file_name+"</td>";
+						str += "<td><span class='pull-right'><button id='"+obj[i].module_id+"' class='btn btn-small btn-primary'><i class='editbtn icon-edit icon-white'></i>Edit</button> ";	
+						str += "<button id='"+obj[i].module_id+"'class='btn btn-small btn-danger'><i class='icon-trash icon-white'></i>Delete</button></span></td></tr>"
+
+					};
+
+					$("#module_list").html(str);
+					
+				});
+
+			}
+
 		</script>
 	</body>
 </html>

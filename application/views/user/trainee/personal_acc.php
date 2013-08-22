@@ -27,11 +27,14 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
-
+		<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -47,7 +50,7 @@
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - Training
+							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
 
@@ -343,27 +346,28 @@
 
 				<ul class="nav nav-list">
 					
-					<li class="active">
+					<li class="">
 						<a href="<?php echo base_url();?>dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
-					
-					<li>
-						<a href="<?php echo base_url();?>Profile">
+					<li class="">
+						<a href="<?php echo base_url();?>profile">
 							<i class="icon-user"></i>
 							<span>Profile</span>
 						</a>
 					</li>
-					<li class="">
+
+					<li class="active">
 						<a href="<?php echo base_url();?>profile/HRIS">
 							<i class="icon-user"></i>
 							<span>HRIS</span>
 						</a>
 					</li>
 
+				
 					<li>
 						<a href="help">
 							<i class="icon-question-sign"></i>
@@ -416,46 +420,71 @@
 							Control Panel
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Dashboard
+								Profile
 							</small>
 						</h1>
 					</div><!--/.page-header-->
 
+				
 					<div class="row-fluid">
-						<!--PAGE CONTENT STARTS HERE-->
-						<div class="span12">
-
-						<div class="tabbable">
-										<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-											<li class="active">
-												<a data-toggle="tab" href="#home4">Home</a>
-											</li>
-
-											<li class="">
-												<a data-toggle="tab" href="#profile4">Profile</a>
-											</li>
-
-											<li class="">
-												<a data-toggle="tab" href="#dropdown14">More</a>
-											</li>
-										</ul>
-
-										<div class="tab-content">
-											<div id="home4" class="tab-pane active">
-												<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-											</div>
-
-											<div id="profile4" class="tab-pane">
-												<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
-											</div>
-
-											<div id="dropdown14" class="tab-pane">
-												<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
-											</div>
-										</div>
-									</div>
-
-						<!--PAGE CONTENT ENDS HERE-->
+						  <!-- Tab 1 -->
+				<form>
+                
+                <?php if(isset($records)) : foreach($records as $row) : ?>
+                    <!-- Tab 2 -->
+                    <div class="tab-pane fade" id="profile2">
+                    <!-- SSS No. / Tin / Philhealth No. / PAG-IBIG No.  -->
+                      <label>SSS No. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TIN &nbsp; &nbsp; &nbsp; &nbsp;
+                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                      &nbsp; &nbsp; &nbsp; Philhealth No. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;PAG-IBIG No.</label>
+                        <input type="text" class="input-medium" name = "sss_no"  value="<?php echo $this->session->userdata('sss_no');?>">
+                        <input type="text" class="input-medium" name = "tin_no"  value="<?php echo $this->session->userdata('tin_no');?>">
+                        <input type="text" class="input-medium" name = "philhealth_no"  value="<?php echo $this->session->userdata('philhealth_no');?>">
+                        <input type="text" class="input-medium" name = "pagibig_no"  value="<?php echo $this->session->userdata('pagibig_no');?>">
+                    <!-- End of SSS No. / Tin / Philhealth No. / PAG-IBIG No.  -->
+                      <label>If allergic to anything - food, medicine, others - please specify below</label>
+                      <input type="text" class="input-medium" name = "allergy"  value="<?php echo $this->session->userdata('allergy');?>">
+                    <!-- Tax Status Dropdown-->
+                        <label>Tax status</label>
+                        <select name = "tax_status">
+                          <option disabled = "disabled" selected = "selected">Select Status...</option>
+                          <option value = "Single">Single</option>
+                          <option value = "Married">Married</option>
+                          <option value = "Head of Family">Head of Family</option>
+                        </select>
+                    <!-- End of Tax Status Dropdown-->
+                      <label>Passport No. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                      &nbsp; &nbsp; Date Issued</label>
+                      <input type="text" class="input-medium" name = "passport_no"  value="<?php echo $this->session->userdata('passport_no');?>">
+                      <input type="date" class="input-medium" name = "passpost_issue_date"  value="<?php echo $this->session->userdata('passpost_issue_date');?>">
+                      <label>Country Issued &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Place Issued</label>
+                      <input type="text" name="country" class = "autocomplete"  value="<?php echo $this->session->userdata('passport_issue_country');?>">
+                      <input type="text" class="input-medium" name ="passport_issue_place">
+                      <label>Expiration Date</label>
+                          <input type="date"  class="input-medium" name = "passport_expiration_date"  value="<?php echo $this->session->userdata('passport_expiration_date');?>">
+                      <label>Other License Type &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Date Issued</label>
+                          <input type="text" class="input-medium" name ="license_type"  value="<?php echo $this->session->userdata('license_type');?>">
+                          <input type="date"  class="input-medium" name = "license_issue_date"  value="<?php echo $this->session->userdata('license_issue_date');?>">
+                      <label>Place Issued</label>
+                          <input type="text" class="input-medium" name ="license_issue_place"  value="<?php echo $this->session->userdata('license_issue_place');?>">
+                      <label>Expiration Date</label>
+                          <input type="date"  class="input-medium" name = "license_expiration_date"  value="<?php echo $this->session->userdata('license_expiration_date');?>">
+                      <div class = "pager">
+                        <div class="btn-group">
+                            <a href="#" class="btn btnPrevTab">Prev</a>
+                            <a href="#" class="btn btnNextTab">Next</a>
+                        </div>
+                      </div>
+                    </div>
+                <!-- End of Tab 2 --> 
+                
+                <?php endforeach;?>
+				<?php endif; ?>
+				</form>
+                <!-- End of Tab 1 -->
 					</div><!--/row-->
 
 				</div><!--/#page-content-->
@@ -501,31 +530,9 @@
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
+	
+
 		<!--inline scripts related to this page-->
-
-		<script type="text/javascript">	
-
-
-			$("#student").submit(function(){
-			         var dataString = $("#student").serialize();
-			         $.ajax({ 
-			           url: "<?php echo base_url(); ?>ajax/user",
-			     	   async: false,
-			           type: "POST",			          
-			           data: dataString, 
-			           dataType: 'json',
-			 
-			           success: function(output_string){
-			               //alert(dataString);
-			                $('#result_table').html(output_string);
-			           }
-			 
-			         });
-			 
-			         return false;  //stop the actual form post !important!
-			});
- 
-										 
-		</script>
+		
 	</body>
 </html>

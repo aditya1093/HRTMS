@@ -27,11 +27,14 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
-
+		<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -47,7 +50,7 @@
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - Training
+							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
 
@@ -343,27 +346,28 @@
 
 				<ul class="nav nav-list">
 					
-					<li class="active">
+					<li class="">
 						<a href="<?php echo base_url();?>dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
-					
-					<li>
-						<a href="<?php echo base_url();?>Profile">
+					<li class="">
+						<a href="<?php echo base_url();?>profile">
 							<i class="icon-user"></i>
 							<span>Profile</span>
 						</a>
 					</li>
-					<li class="">
+
+					<li class="active">
 						<a href="<?php echo base_url();?>profile/HRIS">
 							<i class="icon-user"></i>
 							<span>HRIS</span>
 						</a>
 					</li>
 
+				
 					<li>
 						<a href="help">
 							<i class="icon-question-sign"></i>
@@ -416,46 +420,21 @@
 							Control Panel
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Dashboard
+								Profile
 							</small>
 						</h1>
 					</div><!--/.page-header-->
 
+				
 					<div class="row-fluid">
-						<!--PAGE CONTENT STARTS HERE-->
-						<div class="span12">
+						<div class="well">
+						<a href="<?php echo base_url();?>hris/personal_info">Personal Info</a><br>
+						<a href="<?php echo base_url();?>hris/personal_accounts">Personal Accounts</a><br>
+						<a href="<?php echo base_url();?>hris/marital_info">Marital Info</a><br>
+						<a href="<?php echo base_url();?>hris/educational_background">Eduactional Background</a><br>
+							
 
-						<div class="tabbable">
-										<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-											<li class="active">
-												<a data-toggle="tab" href="#home4">Home</a>
-											</li>
-
-											<li class="">
-												<a data-toggle="tab" href="#profile4">Profile</a>
-											</li>
-
-											<li class="">
-												<a data-toggle="tab" href="#dropdown14">More</a>
-											</li>
-										</ul>
-
-										<div class="tab-content">
-											<div id="home4" class="tab-pane active">
-												<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-											</div>
-
-											<div id="profile4" class="tab-pane">
-												<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
-											</div>
-
-											<div id="dropdown14" class="tab-pane">
-												<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
-											</div>
-										</div>
-									</div>
-
-						<!--PAGE CONTENT ENDS HERE-->
+						</div>
 					</div><!--/row-->
 
 				</div><!--/#page-content-->
@@ -503,29 +482,79 @@
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">	
-
-
-			$("#student").submit(function(){
-			         var dataString = $("#student").serialize();
-			         $.ajax({ 
-			           url: "<?php echo base_url(); ?>ajax/user",
-			     	   async: false,
-			           type: "POST",			          
-			           data: dataString, 
-			           dataType: 'json',
-			 
-			           success: function(output_string){
-			               //alert(dataString);
-			                $('#result_table').html(output_string);
-			           }
-			 
-			         });
-			 
-			         return false;  //stop the actual form post !important!
-			});
- 
-										 
-		</script>
+		<script type="text/javascript">
+			function FillBilling(f) {
+			  if(f.billingtoo.checked == true) {
+			    f.billingname.value = f.shippingname.value;
+			    f.billingcity.value = f.shippingcity.value;
+			  }
+			}
+    
+    	function generateBarcode(){
+        var value = $("#barcodeValue").val();
+        var btype = $("input[name=btype]:checked").val();
+        var renderer = $("input[name=renderer]:checked").val();
+        
+		var quietZone = false;
+        if ($("#quietzone").is(':checked') || $("#quietzone").attr('checked')){
+          quietZone = true;
+        }
+		
+        var settings = {
+          output:renderer,
+          bgColor: $("#bgColor").val(),
+          color: $("#color").val(),
+          barWidth: $("#barWidth").val(),
+          barHeight: $("#barHeight").val(),
+          moduleSize: $("#moduleSize").val(),
+          posX: $("#posX").val(),
+          posY: $("#posY").val(),
+          addQuietZone: $("#quietZoneSize").val()
+        };
+        if ($("#rectangular").is(':checked') || $("#rectangular").attr('checked')){
+          value = {code:value, rect: true};
+        }
+        if (renderer == 'canvas'){
+          clearCanvas();
+          $("#barcodeTarget").hide();
+          $("#canvasTarget").show().barcode(value, btype, settings);
+        } else {
+          $("#canvasTarget").hide();
+          $("#barcodeTarget").html("").show().barcode(value, btype, settings);
+        }
+      }
+          
+      function showConfig1D(){
+        $('.config .barcode1D').show();
+        $('.config .barcode2D').hide();
+      }
+      
+      function showConfig2D(){
+        $('.config .barcode1D').hide();
+        $('.config .barcode2D').show();
+      }
+      
+      function clearCanvas(){
+        var canvas = $('#canvasTarget').get(0);
+        var ctx = canvas.getContext('2d');
+        ctx.lineWidth = 1;
+        ctx.lineCap = 'butt';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle  = '#000000';
+        ctx.clearRect (0, 0, canvas.width, canvas.height);
+        ctx.strokeRect (0, 0, canvas.width, canvas.height);
+      }
+      
+      $(function(){
+        $('input[name=btype]').click(function(){
+          if ($(this).attr('id') == 'datamatrix') showConfig2D(); else showConfig1D();
+        });
+        $('input[name=renderer]').click(function(){
+          if ($(this).attr('id') == 'canvas') $('#miscCanvas').show(); else $('#miscCanvas').hide();
+        });
+        generateBarcode();
+      });
+  
+    </script>
 	</body>
 </html>
