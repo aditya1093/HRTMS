@@ -459,7 +459,7 @@
 								<div class="widget-body">
 									<div class="widget-main">
 										<span class="presenter">
-											<iframe src="http://docs.google.com/viewer?url=http://jemnuine.com/demo/demo.pptx&embedded=true" width="100%" height="400" style="border: none;"></iframe>
+											<iframe src="http://docs.google.com/viewer?url=http://jemnuine.com/elfinder/files/GDOCS.pptx&embedded=true" width="100%" height="400" style="border: none;"></iframe>
 										</span>
 										
 									</div>

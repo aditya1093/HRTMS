@@ -33,8 +33,10 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
-		<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
+		<!--<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
+		/*Barcode
+		-->
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -42,30 +44,7 @@
 
 		<!--inline styles if any-->
 		<?php if(isset($records)) : foreach($records as $row) : $this->session->set_flashdata('civil_status', $row->civil_status);endforeach;endif; ?>
-		<script type="text/javascript">
-
-		$(document).ready(function(){
-			// /var stat = $this->session->flashdata('civil_status');
-			var stat = $('#status').val();
-			if(stat == 'Single'){
-				//$('#single_message').show();
-					alert('Show');
-			    $("#marital a").click(function (e) { 
-			        $(this).fadeTo("fast", .5).removeAttr("href"); 
-			        //e.preventDefault();
-			    });
-			    $('#profile3').find(':input:not(:disabled)').prop('disabled',true)
-			}
-			if(stat == 'Married' || stat == 'Separated' || stat == 'Widowed' || stat == 'Divorced' )
-			{
-				$('#single_message').hide();
-				alert('Hide');
-				
-			}
-
-		});
 		
-		</script>
 		
 	</head>
 
@@ -440,126 +419,126 @@
 					</div><!--#nav-search-->
 				</div>
 
-				<div id="page-content" class="clearfix">
-					<div class="page-header position-relative">
-						<h1>
-							HRIS
-							<small>
-								<i class="icon-double-angle-right"></i>
-								Personal Information
-							</small>
-						</h1>
-					</div><!--/.page-header-->
+			<div id="page-content" class="clearfix">
+						<div class="page-header position-relative">
+							<h1>
+								HRIS
+								<small>
+									<i class="icon-double-angle-right"></i>
+									Marital Information
+								</small>
+							</h1>
+						</div><!--/.page-header-->
 
-				
-			<div class="row-fluid">
-						  <!-- Tab 1 -->
-				
-                
-                <?php if(isset($records)) : foreach($records as $row) : ?>
-                	
-             <div class="" id="profile3">
-                	
-                  <div class="well" id="single_message">
-                        <p>This section is for 
-                          <b>Married employees only</b> . You're <?php echo $this->session->flashdata('civil_status');?>, you can proceed to the last step.
-                          <a class="btn btn-small btn-info" href="<?php echo base_url();?>hris/educational_background" >Proceed</a> 
-                        </p>
-                    </div>
-                	<form>
-                <div class="marital_div" id="marital">
-                    <h4>Marriage Information</h4>
-                      <label>Date of Marriage</label>
-                        <input type="date" name = "marriage_date"  class="input-medium" value="<?php echo $this->session->userdata('marriage_date');?>">
-                      <label>Place of Marriage</label>
-                        <input type="text" class="input-large" name = "marriage_place" value="<?php echo $this->session->userdata('marriage_place');?>">
-                    <label>
-                      <b>Spouse's Name</b> 
-                      </label>
-                      <label>First Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Middle Name &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Last Name</label>
-                        <input type="text" class="input-medium" name = "spouse_first_name" value="<?php echo $this->session->userdata('spouse_first_name');?>">
-                        <input type="text" class="input-medium" name = "spouse_middle_name" value="<?php echo $this->session->userdata('spouse_middle_name');?>">
-                        <input type="text" class="input-medium" name = "spouse_last_name" value="<?php echo $this->session->userdata('spouse_last_name');?>">
-                      <label>Date of Birth</label>
-                        <input type = "date"  class="input-medium" name = "spouse_birthdate" value="<?php echo $this->session->userdata('spouse_birthdate');?>">
-                      <label>Occupation</label>
-                        <input type="text" class="input-medium" name = "spouse_occupation" value="<?php echo $this->session->userdata('spouse_occupation');?>">
-                      <label>Contact No.</label>
-                      <input type="text" class="input-medium" name = "spouse_contact_no" value="<?php echo $this->session->userdata('spouse_contact_no');?>">
-                      <label>
-                      <b>Name(s) of Children</b>
-                      <i>(if none, proceed to the last step)</i> 
-                      </label>
-                      <div class="control-group-children">
-                        <label class="control-label">Children's Information</label>
-                        <div class="child">
-                          <label>Full Name</label>
-                            <input type="text" class="input-large" name = "child_full_name[]">
-                          <label>Date of Birth</label>
-                            <input  class="input-medium" type = "date" name = "child_DOB[]">
-                          <label>Name of School or Place of Work</label>
-                            <input type="text" class="input-large" name = "child_school_work[]">
-                          <br>
-                         </div>
-                      </div>
-                      <br>
-                      <a href="#" class="btn btn-info copy btn-mini" rel=".child">Add+</a>
-                      <span class="help-inline">Click Add+ to add more Children's Information.</span>
-                    <br><br>
-                      <label>
-                      <b>Name(s) of Dependent</b>
-                      <i>(if none, proceed to the last step)</i> 
-                      </label>
-                    <div class="control-group-dependent">
-                        <label class="control-label">Dependent's Information</label>
-                        <div class="dependent">
-                            <label>Full Name</label>
-                              <input type="text" class="input-large" name = "dependent_full_name[]">
-                            <label>Date of Birth</label>
-                              <input type="date" name = "dependent_DOB">                            
-                            <label>Relationship to Employee</label>
-                              <input type="text" class="input-large" name = "dependent_relationship[]">
-                            <br>
-                        </div>
-                    </div>
-                      <br>
-                      <a href="#" class="btn btn-info copy btn-mini" rel=".dependent">Add+</a>
-                      <span class="help-inline">Click Add+ to add more Dependent's Information.</span>
-                      <br><br>
-                      <label>
-                        <b>Name(s) of Beneficiary</b>
-                        <i>(if none, proceed to the last step)</i> 
-                      </label>
-                      <div class="control-group-beneficiary">
-                        <label class="control-label">Beneficiaries' Information</label>
-                        <div class="beneficiary">
-                            <label>Full Name</label>
-                              <input type="text" class="input-large" name = "beneficiary_full_name[]">
-                            <label>Date of Birth</label>
-                              <input type = "date" name = "beneficiary_DOB">
-                            <label>Relationship to Employee</label>
-                              <input type="text" class="input-large" name = "beneficiary_relationship[]">
-                            <br>
-                        </div>
-                      </div>
-                      <br>
-                      <a href="#" class="btn btn-info copy btn-mini" rel=".beneficiary">Add+</a>
-                      <span class="help-inline">Click Add+ to add more Beneficiaries' Information.</span>
-                   
-                </div>
-            </div>
-               
-                <?php endforeach;?>
-				<?php endif; ?>
-				</form>
-                <!-- End of Tab 1 -->
-			</div><!--/row-->
+					
+				<div class="row-fluid">
+						
+		            
+		                <?php if(isset($records)) : foreach($records as $row) : ?>
+		                	
+		             <div class="" id="profile3">
+		                	
+		                  	<div class="well" id="single_message">
+		                        <p>This section is for 
+		                          <b>Married employees only</b> . You're <?php echo $this->session->flashdata('civil_status');?>, you can proceed to the last step.
+		                          <a class="btn btn-small btn-info" href="<?php echo base_url();?>hris/educational_background" >Proceed</a> 
+		                        </p>
+		                    </div>
+		                	<form>
+		                	<div class="marital_div" id="marital">
+		                    <h4>Marriage Information</h4>
+		                      <label>Date of Marriage</label>
+		                        <input type="date" name = "marriage_date"  class="input-medium" value="<?php echo $row->marriage_date;?>">
+		                      <label>Place of Marriage</label>
+		                        <input type="text" class="input-large" name = "marriage_place" value="<?php echo $row->marriage_place;?>">
+		                    <label>
+		                      <b>Spouse's Name</b> 
+		                      </label>
+		                      <label>First Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+		                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Middle Name &nbsp; &nbsp; &nbsp; &nbsp;
+		                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Last Name</label>
+		                        <input type="text" class="input-medium" name = "spouse_first_name" value="<?php echo $row->spouse_first_name;?>">
+		                        <input type="text" class="input-medium" name = "spouse_middle_name" value="<?php echo $row->spouse_middle_name;?>">
+		                        <input type="text" class="input-medium" name = "spouse_last_name" value="<?php echo $row->spouse_last_name;?>">
+		                      <label>Date of Birth</label>
+		                        <input type = "date"  class="input-medium" name = "spouse_birthdate" value="<?php echo $row->spouse_birthdate;?>">
+		                      <label>Occupation</label>
+		                        <input type="text" class="input-medium" name = "spouse_occupation" value="<?php echo $row->spouse_occupation;?>">
+		                      <label>Contact No.</label>
+		                      <input type="text" class="input-medium" name = "spouse_contact_no" value="<?php echo $row->spouse_contact_no;?>">
+		                      <label>
+		                      <b>Name(s) of Children</b>
+		                      <i>(if none, proceed to the last step)</i> 
+		                      </label>
+		                      <div class="control-group-children">
+		                        <label class="control-label">Children's Information</label>
+		                        <div class="child">
+		                         <hr>
+		                          <label>Full Name</label>
+		                            <input type="text" class="input-large" name = "child_full_name[]">
+		                          <label>Date of Birth</label>
+		                            <input  class="input-medium" type = "date" name = "child_DOB[]">
+		                          <label>Name of School or Place of Work</label>
+		                            <input type="text" class="input-large" name = "child_school_work[]">
+		                          <br>
+		                         </div>
+		                      </div>
+		                      <br>
+		                      <a href="#" class="btn btn-info copy btn-mini" rel=".child">Add+</a>
+		                      <span class="help-inline">Click Add+ to add more Children's Information.</span>
+		                    <br><br>
+		                      <label>
+		                      <b>Name(s) of Dependent</b>
+		                      <i>(if none, proceed to the last step)</i> 
+		                      </label>
+		                    <div class="control-group-dependent">
+		                        <label class="control-label">Dependent's Information</label>
+		                        <div class="dependent">
+		                            <label>Full Name</label>
+		                              <input type="text" class="input-large" name = "dependent_full_name[]">
+		                            <label>Date of Birth</label>
+		                              <input type="date" name = "dependent_DOB">                            
+		                            <label>Relationship to Employee</label>
+		                              <input type="text" class="input-large" name = "dependent_relationship[]">
+		                            <br>
+		                        </div>
+		                    </div>
+		                      <br>
+		                      <a href="#" class="btn btn-info copy btn-mini" rel=".dependent">Add+</a>
+		                      <span class="help-inline">Click Add+ to add more Dependent's Information.</span>
+		                      <br><br>
+		                      <label>
+		                        <b>Name(s) of Beneficiary</b>
+		                        <i>(if none, proceed to the last step)</i> 
+		                      </label>
+		                      <div class="control-group-beneficiary">
+		                        <label class="control-label">Beneficiaries' Information</label>
+		                        <div class="beneficiary">
+		                            <label>Full Name</label>
+		                              <input type="text" class="input-large" name = "beneficiary_full_name[]">
+		                            <label>Date of Birth</label>
+		                              <input type = "date" name = "beneficiary_DOB">
+		                            <label>Relationship to Employee</label>
+		                              <input type="text" class="input-large" name = "beneficiary_relationship[]">
+		                            <br>
+		                        </div>
+		                      </div>
+		                      <br>
+		                      <a href="#" class="btn btn-info copy btn-mini" rel=".beneficiary">Add+</a>
+		                      <span class="help-inline">Click Add+ to add more Beneficiaries' Information.</span>
+		                   
+		                	</div>
+		             </div>
+		               
+		                <?php endforeach;?>
+						<?php endif; ?>
+						</form>
+						
+				</div><!--/row-->
 
-				</div><!--/#page-content-->
+			</div><!--/#page-content-->
 
-			</div><!--/#main-content-->
+		</div><!--/#main-content-->
 		</div><!--/.fluid-container#main-container-->
 
 
@@ -584,7 +563,6 @@
 		  <script src="<?php echo base_url();?>assets/js/excanvas.min.js"></script>
 		<![endif]-->
 
-		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
@@ -601,6 +579,50 @@
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>	
 
 		<!--inline scripts related to this page-->
+
+		<script src="<?php echo base_url();?>assets/js/relCopy.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+
+				// /var stat = $this->session->flashdata('civil_status');
+				var stat = $('#status').val();
+				if(stat == 'Single'){
+					//$('#single_message').show();
+						alert('Show');
+				    $("#marital a").click(function (e) { 
+				        $(this).fadeTo("fast", .5).removeAttr("href"); 
+				        //e.preventDefault();
+				    });
+				    $('#profile3').find(':input:not(:disabled)').prop('disabled',true)
+				}
+				if(stat == 'Married' || stat == 'Separated' || stat == 'Widowed' || stat == 'Divorced' )
+				{
+					$('#single_message').hide();
+					alert('Hide');
+					
+				}
+
+		
+				var removeLink = '<a class="remove btn btn-danger btn-mini" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">remove</a>';
+		        var removeLink2 = '<img class="remove" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">';
+		      	$('a.copy').relCopy({append: removeLink});
+		      	$('a.copy2').relCopy({append: removeLink2});
+   
+			    $('.child').data('1', { name: 'p1', price: '1.99' });
+			    $('.child').data('2', { name: 'p2', price: '2.99' });
+			    $('.child').data('3', { name: 'p3', price: '3.99' });
+			    $('.child:last').append('<option value="1">p1</option><option value="2">p2</option><option value="3">p3</option>')
+			         
+			    $(".child:last").change(function () {
+			        var id = $('.child:last').val();
+			        $('.price:last').val($('.child').data(id).price);
+			    }).change();
+			 
+			});
+ 
+
+		</script>
 		
 		
 	</body>

@@ -28,11 +28,13 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
+			<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />	
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php if($this->session->userdata("permission") == "Client") { echo 'client'; } else if($this->session->userdata("permission") == "Trainer") { echo 'training'; } else if($this->session->userdata("permission") == "HR") { echo 'hr'; } else if($this->session->userdata("permission") == "Trainee") { echo 'manpower'; } else if($this->session->userdata("permission") == "Administrator") { echo 'admin'; } ?>/custom.css" />
+		
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
+		
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />

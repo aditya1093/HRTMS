@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 22, 2013 at 11:57 PM
+-- Generation Time: Aug 24, 2013 at 09:46 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.3.13
 
@@ -54,11 +54,11 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('05f2f05640de842c3867c42a0a318fc7', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36', 1377147898, ''),
-('0a4eb42a5c3f6340996dbb5eb1e87224', '192.168.0.222', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36', 1377147457, 'a:20:{s:9:"user_data";s:0:"";s:2:"id";s:1:"3";s:8:"username";s:7:"trainer";s:8:"password";s:32:"81dc9bdb52d04dc20036dbd8313ed055";s:9:"last_name";s:6:"Rogers";s:11:"middle_name";s:0:"";s:10:"first_name";s:5:"Steve";s:10:"birth_date";s:10:"1988-09-11";s:7:"address";s:0:"";s:4:"city";s:0:"";s:8:"province";s:0:"";s:7:"country";s:2:"ph";s:8:"zip_code";s:4:"4023";s:5:"phone";s:0:"";s:17:"security_question";s:1:"0";s:15:"security_answer";s:0:"";s:5:"email";s:27:"trainer@alliancemansols.com";s:10:"permission";s:7:"Trainer";s:12:"is_logged_in";b:1;s:9:"sender_id";s:1:"0";}'),
-('102933e1bd3071bd86c5da231d6efb02', '192.168.0.222', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36', 1377147710, ''),
-('bd6b38a24925935593f0b4d943a61c28', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36', 1377147711, ''),
-('d529b9d3a16ecdd9cbd27bc9547366f8', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36', 1377147898, '');
+('0711e629f36c48845ea27e11b843ed75', '192.168.0.222', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36', 1377333982, 'a:21:{s:9:"user_data";s:0:"";s:2:"id";s:1:"3";s:8:"username";s:7:"trainer";s:8:"password";s:32:"81dc9bdb52d04dc20036dbd8313ed055";s:9:"last_name";s:6:"Rogers";s:11:"middle_name";s:0:"";s:10:"first_name";s:5:"Steve";s:10:"birth_date";s:10:"1988-09-11";s:7:"address";s:0:"";s:4:"city";s:0:"";s:8:"province";s:0:"";s:7:"country";s:2:"ph";s:8:"zip_code";s:4:"4023";s:5:"phone";s:0:"";s:17:"security_question";s:1:"0";s:15:"security_answer";s:0:"";s:5:"email";s:27:"trainer@alliancemansols.com";s:10:"permission";s:7:"Trainer";s:12:"is_logged_in";b:1;s:9:"sender_id";s:1:"0";s:3:"eid";b:0;}'),
+('27c0369b5e5779d43ba34e0cc8cb132d', '192.168.0.222', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36', 1377336960, ''),
+('470ff62e2e45aea86dd6a67cdc242ef4', '192.168.0.101', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.49 Safari/537.36', 1377336766, 'a:56:{s:9:"user_data";s:0:"";s:2:"id";s:16:"AMI1304-REG-0001";s:8:"username";s:5:"awdee";s:8:"password";s:32:"81dc9bdb52d04dc20036dbd8313ed055";s:9:"last_name";s:6:"LOZANO";s:11:"middle_name";s:9:"QUINALAYO";s:10:"first_name";s:3:"PIO";s:10:"birth_date";s:10:"0000-00-00";s:7:"address";s:0:"";s:4:"city";s:0:"";s:8:"province";s:0:"";s:7:"country";s:0:"";s:8:"zip_code";s:1:"0";s:5:"phone";s:0:"";s:17:"security_question";s:1:"0";s:15:"security_answer";s:0:"";s:5:"email";s:20:"niel_pio@hotmail.com";s:10:"permission";s:7:"Trainee";s:12:"is_logged_in";b:1;s:9:"sender_id";s:1:"0";s:8:"nickname";s:5:"AWDEE";s:9:"birthdate";s:10:"1994-03-22";s:14:"place_of_birth";s:6:"Manila";s:7:"allergy";s:7:"allergy";s:11:"citizenship";s:8:"Filipino";s:12:"civil_status";s:6:"Single";s:6:"height";s:1:"1";s:6:"weight";s:1:"1";s:10:"blood_type";s:1:"B";s:8:"religion";s:8:"Religion";s:7:"home_no";s:0:"";s:9:"mobile_no";s:12:"639268358872";s:14:"alternative_no";s:0:"";s:15:"present_address";s:33:"B5 LOT 11 PH4 VILLA OLYMPIA SUBD.";s:12:"present_city";s:9:"SAN PEDRO";s:16:"present_province";s:6:"LAGUNA";s:6:"gender";s:4:"Male";s:18:"provincial_address";s:33:"B5 LOT 11 PH4 VILLA OLYMPIA SUBD.";s:15:"provincial_city";s:9:"SAN PEDRO";s:19:"provincial_province";s:6:"LAGUNA";s:15:"mailing_address";s:33:"B5 LOT 11 PH4 VILLA OLYMPIA SUBD.";s:12:"mailing_city";s:9:"SAN PEDRO";s:16:"mailing_province";s:6:"LAGUNA";s:11:"father_name";s:4:"Neri";s:17:"father_occupation";s:4:"None";s:10:"father_age";s:2:"65";s:25:"father_occupation_address";s:4:"Neri";s:14:"father_address";s:52:"B5 LOT 11 PH4 VILLA OLYMPIA SUBD., SAN PEDRO, LAGUNA";s:17:"father_contact_no";b:0;s:11:"mother_name";s:4:"Beth";s:17:"mother_occupation";s:4:"None";s:10:"mother_age";s:2:"50";s:25:"mother_occupation_address";s:4:"Beth";s:14:"mother_address";s:52:"B5 LOT 11 PH4 VILLA OLYMPIA SUBD., SAN PEDRO, LAGUNA";s:17:"mother_contact_no";b:0;s:9:"date_edit";s:19:"2013-08-24 17:33:30";}'),
+('9aab0f85d804044bcf1563d99651df4e', '192.168.0.222', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36', 1377334152, ''),
+('ce6576dcca1b2b1d22e34330efe34c0f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36', 1377336332, '');
 
 -- --------------------------------------------------------
 
@@ -83,6 +83,27 @@ INSERT INTO `client` (`client_id`, `client_name`, `client_location`) VALUES
 (3, 'SHINETSU', ' Laguna Technopark, SEPZ, Biñan, Laguna, Philippines'),
 (4, 'AMI', 'Laguna Technopark, Binan, Laguna, Philippines'),
 (9, 'HP', 'Makati City');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `examination`
+--
+
+CREATE TABLE IF NOT EXISTS `examination` (
+  `examination_id` int(11) NOT NULL AUTO_INCREMENT,
+  `examination_name` varchar(45) DEFAULT NULL,
+  `date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`examination_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `examination`
+--
+
+INSERT INTO `examination` (`examination_id`, `examination_name`, `date_modified`) VALUES
+(1, 'TOSHIBA Exam', '2013-08-24 15:43:44'),
+(2, 'AMI Exam', '2013-08-24 16:44:55');
 
 -- --------------------------------------------------------
 
@@ -203,6 +224,7 @@ CREATE TABLE IF NOT EXISTS `hris` (
   `deployment_status` varchar(45) DEFAULT NULL,
   `payment_status` varchar(45) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
+  `date_edit` date NOT NULL,
   PRIMARY KEY (`trainee_id`),
   UNIQUE KEY `batch_control_no` (`batch_control_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -211,13 +233,13 @@ CREATE TABLE IF NOT EXISTS `hris` (
 -- Dumping data for table `hris`
 --
 
-INSERT INTO `hris` (`register_id`, `trainee_id`, `batch_control_no`, `first_name`, `last_name`, `middle_name`, `nickname`, `birthdate`, `place_of_birth`, `hriscol`, `citizenship`, `present_address`, `present_city`, `present_province`, `provincial_address`, `provincial_city`, `provincial_province`, `mailing_address`, `mailing_city`, `mailing_province`, `civil_status`, `marriage_date`, `marriage_place`, `height`, `weight`, `blood_type`, `gender`, `religion`, `home_no`, `mobile_no`, `alternative_no`, `sss_no`, `tin_no`, `philhealth_no`, `pagibig_no`, `allergy`, `tax_status`, `passport_no`, `passport_issue_date`, `passport_issue_place`, `passport_issue_country`, `passport_expiration_date`, `license_type`, `license_issue_date`, `license_issue_place`, `license_expiration_date`, `spouse_first_name`, `spouse_last_name`, `spouse_middle_name`, `spouse_birthdate`, `spouse_occupation`, `spouse_contact_no`, `employer_name`, `employer_business`, `employer_location`, `employer_contact_no`, `children_name`, `children_birthdate`, `children_school_or_work`, `dependent_name`, `dependent_birthdate`, `dependent_releationship`, `beneficiary_name`, `beneficiary_birthdate`, `beneficiary_relationship`, `father_name`, `father_occupation`, `father_occupation_address`, `father_age`, `father_address`, `father_contact_no`, `mother_name`, `mother_occupation`, `mother_occupation_address`, `mother_age`, `mother_address`, `mother_contact_no`, `skills`, `hobbies`, `interests`, `educational_level`, `school_name`, `education_from`, `education_to`, `education_course`, `honors`, `employment_company_name`, `employment_location`, `employment_position`, `employment_from`, `employment_to`, `employment_reason_leve`, `character_name`, `character_company`, `character_contact_no`, `date_accomplished`, `deployment_status`, `payment_status`, `email`) VALUES
-('AMI1304-REG-0001', 'AMI1304-TRAINEE-0001', 'TS13-ASB-001 ', 'PIO', 'LOZANO', 'QUINALAYO', 'AWDEE', '1994-03-22', '', '', '', 'B5 LOT 11 PH4 VILLA OLYMPIA SUBD.', 'SAN PEDRO', 'LAGUNA', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '0', 'Male', '', '', '639268358872', '', '', '', '', '', '', '0', '', '0000-00-00', '', '0', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', 'niel_pio@hotmail.com'),
-('AMI1304-REG-0002', 'AMI1304-TRAINEE-0002', 'TS13-ASB-002', 'LEI', 'VICENTE', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'Male', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', ''),
-('AMI1304-REG-0003', 'AMI1304-TRAINEE-0003', 'TS13-ASB-003', 'DANNAH', 'ABAT', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'Female', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', ''),
-('AMI1304-REG-0004', 'AMI1304-TRAINEE-0004', 'TS13-ASB-004', 'JAYLORD', 'MINAY', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'Male', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', ''),
-('AMI1304-REG-0005', 'AMI1304-TRAINEE-0005', 'TS13-ASB-005', 'RUBEN', 'RAYMUNDO', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'Male', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', ''),
-('AMI1304-REG-0007', 'AMI1304-TRAINEE-0007', NULL, ' JANICE', 'ALPUERTO', ' MARQUESES', NULL, '1995-03-12', NULL, NULL, NULL, '', 'Santa Rosa', 'Laguna', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'female', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'dannah_taba@yahoo.com');
+INSERT INTO `hris` (`register_id`, `trainee_id`, `batch_control_no`, `first_name`, `last_name`, `middle_name`, `nickname`, `birthdate`, `place_of_birth`, `hriscol`, `citizenship`, `present_address`, `present_city`, `present_province`, `provincial_address`, `provincial_city`, `provincial_province`, `mailing_address`, `mailing_city`, `mailing_province`, `civil_status`, `marriage_date`, `marriage_place`, `height`, `weight`, `blood_type`, `gender`, `religion`, `home_no`, `mobile_no`, `alternative_no`, `sss_no`, `tin_no`, `philhealth_no`, `pagibig_no`, `allergy`, `tax_status`, `passport_no`, `passport_issue_date`, `passport_issue_place`, `passport_issue_country`, `passport_expiration_date`, `license_type`, `license_issue_date`, `license_issue_place`, `license_expiration_date`, `spouse_first_name`, `spouse_last_name`, `spouse_middle_name`, `spouse_birthdate`, `spouse_occupation`, `spouse_contact_no`, `employer_name`, `employer_business`, `employer_location`, `employer_contact_no`, `children_name`, `children_birthdate`, `children_school_or_work`, `dependent_name`, `dependent_birthdate`, `dependent_releationship`, `beneficiary_name`, `beneficiary_birthdate`, `beneficiary_relationship`, `father_name`, `father_occupation`, `father_occupation_address`, `father_age`, `father_address`, `father_contact_no`, `mother_name`, `mother_occupation`, `mother_occupation_address`, `mother_age`, `mother_address`, `mother_contact_no`, `skills`, `hobbies`, `interests`, `educational_level`, `school_name`, `education_from`, `education_to`, `education_course`, `honors`, `employment_company_name`, `employment_location`, `employment_position`, `employment_from`, `employment_to`, `employment_reason_leve`, `character_name`, `character_company`, `character_contact_no`, `date_accomplished`, `deployment_status`, `payment_status`, `email`, `date_edit`) VALUES
+('AMI1304-REG-0001', 'AMI1304-TRAINEE-0001', 'TS13-ASB-001 ', 'PIO', 'LOZANO', 'QUINALAYO', 'AWDEE', '1994-03-22', 'Manila', '', 'Filipino', 'B5 LOT 11 PH4 VILLA OLYMPIA SUBD.', 'SAN PEDRO', 'LAGUNA', 'B5 LOT 11 PH4 VILLA OLYMPIA SUBD.', 'SAN PEDRO', 'LAGUNA', 'B5 LOT 11 PH4 VILLA OLYMPIA SUBD.', 'SAN PEDRO', 'LAGUNA', 'Single', '0000-00-00', '', '1', '1', 'B', 'Male', 'Religion', '', '639268358872', '', '', '', '', '', 'allergy', '', '', '0000-00-00', '', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Neri', 'None', 'Neri', 65, 'B5 LOT 11 PH4 VILLA OLYMPIA SUBD., SAN PEDRO, LAGUNA', '0', 'Beth', 'None', 'Beth', 50, 'B5 LOT 11 PH4 VILLA OLYMPIA SUBD., SAN PEDRO, LAGUNA', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', 'niel_pio@hotmail.com', '2013-08-24'),
+('AMI1304-REG-0002', 'AMI1304-TRAINEE-0002', 'TS13-ASB-002', 'LEI', 'VICENTE', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'Male', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '0000-00-00'),
+('AMI1304-REG-0003', 'AMI1304-TRAINEE-0003', 'TS13-ASB-003', 'DANNAH', 'ABAT', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'Female', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '0000-00-00'),
+('AMI1304-REG-0004', 'AMI1304-TRAINEE-0004', 'TS13-ASB-004', 'JAYLORD', 'MINAY', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'Male', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '0000-00-00'),
+('AMI1304-REG-0005', 'AMI1304-TRAINEE-0005', 'TS13-ASB-005', 'RUBEN', 'RAYMUNDO', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', 'Male', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '0000-00-00'),
+('AMI1304-REG-0007', 'AMI1304-TRAINEE-0007', NULL, ' JANICE', 'ALPUERTO', ' MARQUESES', NULL, '1995-03-12', NULL, NULL, NULL, '', 'Santa Rosa', 'Laguna', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'female', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'dannah_taba@yahoo.com', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -267,24 +289,36 @@ CREATE TABLE IF NOT EXISTS `modules` (
   `module_id` int(11) NOT NULL AUTO_INCREMENT,
   `module_name` varchar(255) NOT NULL,
   `company_name` varchar(255) NOT NULL,
-  `file_name` int(255) NOT NULL,
+  `file_name` varchar(255) NOT NULL,
   PRIMARY KEY (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `modules`
 --
 
 INSERT INTO `modules` (`module_id`, `module_name`, `company_name`, `file_name`) VALUES
-(7, 'asdf', 'TOSHIBA', 0),
-(8, 'try', 'TOSHIBA', 0),
-(9, 'try ulet', 'TOSHIBA', 0),
-(10, 'asdfklj kla', 'TOSHIBA', 0),
-(11, 'TESTING', 'TOSHIBA', 0),
-(12, 'try', 'TOSHIBA', 0),
-(13, 'gggggg', 'TOSHIBA', 0),
-(14, 'sdfasdfas', 'TOSHIBA', 0),
-(15, 'hahahy', 'TOSHIBA', 0);
+(1, 'AMI Demo Presentation', 'AMI', 'AMI-DEMO.pptx'),
+(2, 'TOSHIBA Demo Presentation', 'TOSHIBA', 'TOSHIBA-DEMO.pptx'),
+(3, 'TOTOKU Demo Presentation', 'TOTOKU', 'TOTOKU-DEMO.pptx'),
+(4, 'SHINETSU Demo Presentation', 'SHINETSU', 'SHINETSU-DEMO.pptx');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `questions`
+--
+
+CREATE TABLE IF NOT EXISTS `questions` (
+  `question_id` int(11) NOT NULL AUTO_INCREMENT,
+  `question` varchar(1000) DEFAULT NULL,
+  `answers` varchar(1000) DEFAULT NULL,
+  `key_answer` int(2) DEFAULT NULL,
+  `question_type` varchar(255) DEFAULT NULL,
+  `exam_id` int(11) DEFAULT NULL,
+  `no_of_choices` int(2) DEFAULT NULL,
+  PRIMARY KEY (`question_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -455,7 +489,7 @@ CREATE TABLE IF NOT EXISTS `user_table` (
 
 INSERT INTO `user_table` (`id`, `username`, `password`, `permission`, `first_name`, `last_name`, `middle_name`, `birth_date`, `address`, `city`, `province`, `country`, `zip_code`, `phone`, `email`, `image_file`, `date_created`, `is_active`, `security_question`, `security_answer`) VALUES
 ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'Administrator', 'Tony', 'Stark', '', '1992-10-19', '', '', '', 'ph', 4023, '', 'admin@alliancemansols.com', '', '2013-07-22 16:30:06', '1', 0, ''),
-('11', 'testing1', '81dc9bdb52d04dc20036dbd8313ed055', 'Trainee', 'Luo', 'Feichi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('11', 'testing1', '81dc9bdb52d04dc20036dbd8313ed055', 'Trainer', 'Luo', 'Feichi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('2', 'hrstaff', '81dc9bdb52d04dc20036dbd8313ed055', 'HR', 'Bruce', 'Wayne', '', '1983-05-03', '', '', '', 'ph', 4023, '', 'hr@alliancemansols.com', '', '2013-07-22 16:31:06', '1', 0, ''),
 ('3', 'trainer', '81dc9bdb52d04dc20036dbd8313ed055', 'Trainer', 'Steve', 'Rogers', '', '1988-09-11', '', '', '', 'ph', 4023, '', 'trainer@alliancemansols.com', '', '2013-07-22 16:32:06', '1', 0, ''),
 ('5', 'oscar.velasco', 'e10adc3949ba59abbe56e057f20f883e', 'Trainer', 'Oscar', 'Velasco', '', '0000-00-00', '', '', '', '', 0, '', 'oscar.velasco@yahoo.com', '', '2013-07-23 02:04:57', '', 0, ''),

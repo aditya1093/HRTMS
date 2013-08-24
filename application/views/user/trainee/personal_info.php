@@ -27,14 +27,18 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
+	
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
-		<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
+		<!--<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
+		/*Barcode
+		-->
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -44,267 +48,266 @@
 	</head>
 
 	<body>
-			<div class="navbar navbar-inverse">
-			<div class="navbar-inner">
-				<div class="container-fluid">
-					<a href="#" class="brand">
-						<small>
-							<i class="icon-group"></i>
-							AMI - HRTMS Administration
-						</small>
-					</a><!--/.brand-->
+		<div class="navbar navbar-inverse">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a href="#" class="brand">
+					<small>
+						<i class="icon-group"></i>
+						AMI - HRTMS Administration
+					</small>
+				</a><!--/.brand-->
 
-					<ul class="nav ace-nav pull-right">
-						<li class="grey">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-tasks"></i>
-								<span class="badge badge-grey">4</span>
-							</a>
+				<ul class="nav ace-nav pull-right">
+					<li class="grey">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+							<i class="icon-tasks"></i>
+							<span class="badge badge-grey">4</span>
+						</a>
 
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-ok"></i>
-									Tasks to complete
-								</li>
+						<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
+							<li class="nav-header">
+								<i class="icon-ok"></i>
+								Tasks to complete
+							</li>
 
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 1</span>
-											<span class="pull-right">65%</span>
-										</div>
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">Task 1</span>
+										<span class="pull-right">65%</span>
+									</div>
 
-										<div class="progress progress-mini ">
-											<div style="width:65%" class="bar"></div>
-										</div>
-									</a>
-								</li>
+									<div class="progress progress-mini ">
+										<div style="width:65%" class="bar"></div>
+									</div>
+								</a>
+							</li>
 
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 2</span>
-											<span class="pull-right">35%</span>
-										</div>
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">Task 2</span>
+										<span class="pull-right">35%</span>
+									</div>
 
-										<div class="progress progress-mini progress-danger">
-											<div style="width:35%" class="bar"></div>
-										</div>
-									</a>
-								</li>
+									<div class="progress progress-mini progress-danger">
+										<div style="width:35%" class="bar"></div>
+									</div>
+								</a>
+							</li>
 
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 3</span>
-											<span class="pull-right">15%</span>
-										</div>
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">Task 3</span>
+										<span class="pull-right">15%</span>
+									</div>
 
-										<div class="progress progress-mini progress-warning">
-											<div style="width:15%" class="bar"></div>
-										</div>
-									</a>
-								</li>
+									<div class="progress progress-mini progress-warning">
+										<div style="width:15%" class="bar"></div>
+									</div>
+								</a>
+							</li>
 
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 4</span>
-											<span class="pull-right">90%</span>
-										</div>
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">Task 4</span>
+										<span class="pull-right">90%</span>
+									</div>
 
-										<div class="progress progress-mini progress-success progress-striped active">
-											<div style="width:90%" class="bar"></div>
-										</div>
-									</a>
-								</li>
+									<div class="progress progress-mini progress-success progress-striped active">
+										<div style="width:90%" class="bar"></div>
+									</div>
+								</a>
+							</li>
 
-								<li>
-									<a href="#">
-										See tasks with details
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
+							<li>
+								<a href="#">
+									See tasks with details
+									<i class="icon-arrow-right"></i>
+								</a>
+							</li>
+						</ul>
+					</li>
 
-						<li class="purple">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-bell-alt icon-only icon-animated-bell"></i>
-								<span class="badge badge-important">8</span>
-							</a>
+					<li class="purple">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+							<i class="icon-bell-alt icon-only icon-animated-bell"></i>
+							<span class="badge badge-important">8</span>
+						</a>
 
-							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-warning-sign"></i>
-									Notifications
-								</li>
+						<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
+							<li class="nav-header">
+								<i class="icon-warning-sign"></i>
+								Notifications
+							</li>
 
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-pink icon-comment"></i>
-												New Comments
-											</span>
-											<span class="pull-right badge badge-info">+12</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<i class="btn btn-mini btn-primary icon-user"></i>
-										Error Occured
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-success icon-shopping-cart"></i>
-												New Members
-											</span>
-											<span class="pull-right badge badge-success">+8</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-info icon-twitter"></i>
-												Followers
-											</span>
-											<span class="pull-right badge badge-info">+11</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										See all notifications
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
-							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-envelope"></i>
-									5 Messages
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">
+											<i class="btn btn-mini no-hover btn-pink icon-comment"></i>
+											New Comments
 										</span>
-									</a>
-								</li>
+										<span class="pull-right badge badge-info">+12</span>
+									</div>
+								</a>
+							</li>
 
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
+							<li>
+								<a href="#">
+									<i class="btn btn-mini btn-primary icon-user"></i>
+									Error Occured
+								</a>
+							</li>
 
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">
+											<i class="btn btn-mini no-hover btn-success icon-shopping-cart"></i>
+											New Members
 										</span>
-									</a>
-								</li>
+										<span class="pull-right badge badge-success">+8</span>
+									</div>
+								</a>
+							</li>
 
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
+							<li>
+								<a href="#">
+									<div class="clearfix">
+										<span class="pull-left">
+											<i class="btn btn-mini no-hover btn-info icon-twitter"></i>
+											Followers
 										</span>
-									</a>
-								</li>
+										<span class="pull-right badge badge-info">+11</span>
+									</div>
+								</a>
+							</li>
 
-								<li>
-									<a href="messenger">
-										See all messages
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
+							<li>
+								<a href="#">
+									See all notifications
+									<i class="icon-arrow-right"></i>
+								</a>
+							</li>
+						</ul>
+					</li>
 
-						<li class="light-blue user-profile">
-							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
-								<span id="user_info">
-									<small>Welcome,</small>
-									<?php echo $this->session->userdata('username');?>
-								</span>
+					<li class="green">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+							<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+							<span class="badge badge-success">5</span>
+						</a>
 
-								<i class="icon-caret-down"></i>
-							</a>
+						<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
+							<li class="nav-header">
+								<i class="icon-envelope"></i>
+								5 Messages
+							</li>
 
-							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
+							<li>
+								<a href="#">
+									<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+									<span class="msg-body">
+										<span class="msg-title">
+											<span class="blue">Alex:</span>
+											Ciao sociis natoque penatibus et auctor ...
+										</span>
 
-								<li>
-									<a href="#">
-										<i class="icon-user"></i>
-										Profile
-									</a>
-								</li>
+										<span class="msg-time">
+											<i class="icon-time"></i>
+											<span>a moment ago</span>
+										</span>
+									</span>
+								</a>
+							</li>
 
-								<li class="divider"></li>
+							<li>
+								<a href="#">
+									<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+									<span class="msg-body">
+										<span class="msg-title">
+											<span class="blue">Susan:</span>
+											Vestibulum id ligula porta felis euismod ...
+										</span>
 
-								<li>
-									<a href="<?php echo base_url();?>logout">
-										<i class="icon-off"></i>
-										Logout
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul><!--/.ace-nav-->
-				</div><!--/.container-fluid-->
-			</div><!--/.navbar-inner-->
+										<span class="msg-time">
+											<i class="icon-time"></i>
+											<span>20 minutes ago</span>
+										</span>
+									</span>
+								</a>
+							</li>
+
+							<li>
+								<a href="#">
+									<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+									<span class="msg-body">
+										<span class="msg-title">
+											<span class="blue">Bob:</span>
+											Nullam quis risus eget urna mollis ornare ...
+										</span>
+
+										<span class="msg-time">
+											<i class="icon-time"></i>
+											<span>3:15 pm</span>
+										</span>
+									</span>
+								</a>
+							</li>
+
+							<li>
+								<a href="messenger">
+									See all messages
+									<i class="icon-arrow-right"></i>
+								</a>
+							</li>
+						</ul>
+					</li>
+
+					<li class="light-blue user-profile">
+						<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
+							<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
+							<span id="user_info">
+								<small>Welcome,</small>
+								<?php echo $this->session->userdata('username');?>
+							</span>
+
+							<i class="icon-caret-down"></i>
+						</a>
+
+						<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
+							<li>
+								<a href="#">
+									<i class="icon-cog"></i>
+									Settings
+								</a>
+							</li>
+
+							<li>
+								<a href="#">
+									<i class="icon-user"></i>
+									Profile
+								</a>
+							</li>
+
+							<li class="divider"></li>
+
+							<li>
+								<a href="<?php echo base_url();?>logout">
+									<i class="icon-off"></i>
+									Logout
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul><!--/.ace-nav-->
+			</div><!--/.container-fluid-->
+		</div><!--/.navbar-inner-->
 		</div>
-
 		<div class="container-fluid" id="main-container">
 		
 			<a id="menu-toggler" href="#">
@@ -389,7 +392,6 @@
 				</div>
 			</div>
 
-
 		<div id="main-content" class="clearfix">
 				<div id="breadcrumbs">
 					<ul class="breadcrumb">
@@ -431,7 +433,7 @@
 				<form>
                 <div class="" id="personal_info">
                 <?php if(isset($records)) : foreach($records as $row) : ?>
-                    <h4>Personal Information</h4>
+                    
                     <!-- Employe Name -->
                         <label>First Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         &nbsp; &nbsp; &nbsp; &nbsp;Last Name &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -454,11 +456,11 @@
                         <label>Gender</label>
                         <div class="form-inline">
                         <label >
-			            <input type="radio" value="male"  name="gender" <?php if($row->gender=='Male') echo 'checked'; else echo 'disabled';?>>
+			            <input type="radio" value="Male"  name="gender" <?php if($row->gender=='Male') echo 'checked'; else echo 'disabled';?>>
 			            <span class = "lbl">Male</span> 
 			          	</label>
 			          	<label >&nbsp;
-			            <input type="radio" value="female"  name="gender"  <?php if($row->gender=='Female') echo 'checked'; else echo 'disabled';?>>
+			            <input type="radio" value="Female"  name="gender"  <?php if($row->gender=='Female') echo 'checked'; else echo 'disabled';?>>
 			            <span class = "lbl">Female</span>
 			         	</label>
                         </div>
@@ -473,14 +475,14 @@
                     <!-- Citizenship / Civil Status / Height / Weight / Blood Type / Religion / Home & Mobile No. -->
                         <label>Citizenship &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                           &nbsp; &nbsp; &nbsp; &nbsp;Civil Status</label>
-                        <input type="text" class="input-medium" name = "citizenship">
+                        <input type="text" class="input-medium" name = "citizenship" value="<?php echo $row->citizenship;?>">
                         <select id="" name = "civil_status">
-                          <option disabled = "disabled" selected = "selected">Select Status..</option>
-                          <option value = "Single">Single</option>
-                          <option value = "Married">Married</option>
-                          <option value = "Separated">Separated</option>
-                          <option value = "Widowed">Widowed</option>
-                          <option value = "Divorced">Divorced</option>
+                          <option disabled = "disabled" selected = "selected" value="">Select Status..</option>
+                          <option value = "Single" <?php if($row->civil_status=='Single') echo 'selected';?>>Single</option>
+                          <option value = "Married" <?php if($row->civil_status=='Married') echo 'selected';?>>Married</option>
+                          <option value = "Separated" <?php if($row->civil_status=='Separated') echo 'selected';?>>Separated</option>
+                          <option value = "Widowed" <?php if($row->civil_status=='Widowed') echo 'selected';?>>Widowed</option>
+                          <option value = "Divorced" <?php if($row->civil_status=='Divorced') echo 'selected';?>>Divorced</option>
                         </select>
                         <label>Height
                           <i>(e.g 5'4")</i> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Weight
@@ -488,11 +490,11 @@
                         <input type="text" class="input-medium" name = "height" value="<?php echo $row->height;?>">
                         <input type="text" class="input-medium" name = "weight" value="<?php echo $row->weight;?>">
                         <select name = "blood_type">
-                          <option disabled = "disabled" selected = "selected">Select Blood Type...</option>
-                          <option value = "A">A</option>
-                          <option value = "B">B</option>
-                          <option value = "O">O</option>
-                          <option value = "AB">AB</option>
+                          <option disabled = "disabled" selected = "selected" value="">Select Blood Type...</option>
+                          <option value = "A" <?php if($row->blood_type=='A') echo 'selected';?>>A</option>
+                          <option value = "B" <?php if($row->blood_type=='B') echo 'selected';?>>B</option>
+                          <option value = "O" <?php if($row->blood_type=='O') echo 'selected';?>>O</option>
+                          <option value = "AB" <?php if($row->blood_type=='AB') echo 'selected';?>>AB</option>
                         </select>
                         <label>Religion</label>
                           <input type="text" class="input-medium" name = "religion" value="<?php echo $row->religion;?>">
@@ -553,7 +555,7 @@
                                 <label>Occupation</label>
                                 <input type="text" class="input-xlarge" name ="father_occupation" value="<?php echo $row->father_occupation;?>">
                                 <label>Age</label>
-                                 <input type="text" class="input-mini"name = "father_age">
+                                 <input type="text" class="input-mini"name = "father_age" value="<?php echo $row->father_age?>">
                                 <label>Address/Location of Employment</label>
                                 <input type="text" class="input-xxlarge" name = "father_occupation_address" value="<?php echo $row->father_occupation_address;?>">
                                 <label>Home Address</label>
@@ -589,13 +591,37 @@
                                    <input type="text" class="input-xxlarge" name = "mother_address"  value="<?php echo $row->mother_address;?>">
                                   <label>Contact No.</label>
                                   <input type="text" class="input-medium" name = "mother_contact_no"  value="<?php echo $row->mother_contact_no;?>"> 
+                               		
                                 </div>
+                                <!--
+                                <div class="control-group">
+											<label class="control-label">Checkbox</label>
+
+											<div class="controls">
+												<label>
+													<input name="Child" type="checkbox" class="ace" value="1">
+													<span class="lbl"> choice 1</span>
+												</label>
+
+												<label>
+													<input name="Child" type="checkbox" class="ace" value="2">
+													<span class="lbl"> choice 2</span>
+												</label>
+
+												<label>
+													<input name="Child" class="ace ace-checkbox-2" type="checkbox" value="3">
+													<span class="lbl"> choice 3</span>
+												</label>
+
+					
+											</div>
+								</div>-->
                             </div>
                         <!-- End of Mother's Information -->
                       <!-- End of Parents Information -->
                       <div class = "pager">
                         <div class="btn-group">
-                            <a href="#" class="btn btnNextTab">Next</a>
+                           <button type="submit" class="btn btn-info btn-small">Save changes</button>
                         </div>
                       </div>
                 </div>
@@ -641,7 +667,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
-
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
 		<!--ace scripts-->
 
@@ -673,7 +699,7 @@
                 }
                 else{
                      form.provincial_address.value = "";
-                     form.provincial_city.value = "";
+                     form.provincial_city.value = "" ;
                      form.provincial_province.value = "";
                      /*form.Mailing_City.value = "";
                      if(form.mailing_province.type == "select-one"){
@@ -702,8 +728,8 @@
                    }*/
               }
               else{
-                   form.mailing_address.value = "";
-                   form.mailing_city.value = "";
+                   form.mailing_address.value = "" ;
+                   form.mailing_city.value = "" ;
                    form.mailing_province.value = "";
                    /*form.Mailing_City.value = "";
                    if(form.mailing_province.type == "select-one"){
@@ -741,6 +767,37 @@
                 }
           }
 
+          $( "form" ).on( "submit", function( event ) {
+			  event.preventDefault();
+			  var sData = $(this).serialize();
+			  console.log(sData);
+			   $.ajax({
+	                url:"<?php echo base_url();?>hris/updatePersonalInfo",
+	                type:'POST',
+	                data:sData,
+	               // dataType:"json",
+	                success:function(result){
+	                //$("#success").show();
+	                //$("#success").attr('class', 'alert alert-success');
+	                //var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
+	               // $("#success").html(output_string);
+	                //$("#result_table").hide();
+	                // location.reload();
+	                $.gritter.add({
+						title: 'Human Resource Information Upated',
+						text: result + ' personal infromation has been updated.',
+						class_name: 'gritter-success gritter-center gritter-light'
+					});
+					
+		            //$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
+		            //$("#personal_info")[0].reset();
+	                $("html, body").animate({ scrollTop: 0 }, "slow");
+
+	                }
+
+	            });
+
+		});
 		</script>
 	</body>
 </html>

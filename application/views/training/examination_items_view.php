@@ -1,9 +1,9 @@
-<?php if($this->session->userdata('permission') != 'Trainee') { redirect(base_url() . '404');} ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Dashboard - AMI</title>
+		<title>Edit Examination - AMI</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,34 +26,40 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
 
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
-		<!--<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
-		/*Barcode
-		-->
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
 		<![endif]-->
 
 		<!--inline styles if any-->
-		
+
+		<style type="text/css">
+			input[type=checkbox],
+			input[type=radio] {
+				opacity: 100;
+				position: relative;
+				z-index: 12;
+				width: 18px;
+				height: 18px;
+				display:inline; margin:0px; padding:0px;
+			}
+
+		</style>
 	</head>
 
 	<body>
-			<div class="navbar navbar-inverse">
+		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - HRTMS Administration
+							AMI - Training Center Administration
 						</small>
 					</a><!--/.brand-->
 
@@ -67,7 +73,7 @@
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-ok"></i>
-									Tasks to complete
+									4 Tasks to complete
 								</li>
 
 								<li>
@@ -140,7 +146,7 @@
 							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-warning-sign"></i>
-									Notifications
+									8 Notifications
 								</li>
 
 								<li>
@@ -158,7 +164,7 @@
 								<li>
 									<a href="#">
 										<i class="btn btn-mini btn-primary icon-user"></i>
-										Error Occured
+										Bob just signed up as an editor ...
 									</a>
 								</li>
 
@@ -272,7 +278,7 @@
 								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
-									<?php echo $this->session->userdata('username');?>
+									User
 								</span>
 
 								<i class="icon-caret-down"></i>
@@ -296,7 +302,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="<?php echo base_url();?>logout">
+									<a href="<?php echo base_url();?>index.php/logout">
 										<i class="icon-off"></i>
 										Logout
 									</a>
@@ -309,7 +315,6 @@
 		</div>
 
 		<div class="container-fluid" id="main-container">
-		
 			<a id="menu-toggler" href="#">
 				<span></span>
 			</a>
@@ -318,19 +323,19 @@
 				<div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
 						<button class="btn btn-small btn-success">
-							<i class="icon-signal"></i>
+							<i class="icon-ok"></i>
 						</button>
 
 						<button class="btn btn-small btn-info">
-							<i class="icon-pencil"></i>
-						</button>
-
-						<button class="btn btn-small btn-warning">
-							<i class="icon-group"></i>
+							<i class="icon-puzzle-piece"></i>
 						</button>
 
 						<button class="btn btn-small btn-danger">
-							<i class="icon-cogs"></i>
+							<i class="icon-star"></i>
+						</button>
+
+						<button class="btn btn-small btn-warning">
+							<i class="icon-print"></i>
 						</button>
 					</div>
 
@@ -339,38 +344,62 @@
 
 						<span class="btn btn-info"></span>
 
-						<span class="btn btn-warning"></span>
-
 						<span class="btn btn-danger"></span>
-					</div>
-				</div>
 
-				<!--#sidebar-shortcuts-->
+						<span class="btn btn-warning"></span>
+					</div>
+				</div><!--#sidebar-shortcuts-->
 
 				<ul class="nav nav-list">
-					
-					<li class="">
-						<a href="<?php echo base_url();?>dashboard">
+					<li>
+						<a href="dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
-					<li class="">
-						<a href="<?php echo base_url();?>profile">
-							<i class="icon-user"></i>
-							<span>Profile</span>
+					<li>
+						<a href="modules">
+							<i class="icon-folder-open"></i>
+							<span>Manage Modules</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="presenter">
+							<i class="icon-desktop"></i>
+							<span>Classroom Presenter</span>
 						</a>
 					</li>
 
 					<li class="active">
-						<a href="<?php echo base_url();?>profile/HRIS">
-							<i class="icon-user"></i>
-							<span>HRIS</span>
+						<a href="examination">
+							<i class="icon-puzzle-piece"></i>
+							<span>Manage Examination</span>
 						</a>
 					</li>
 
-				
+					<li>
+						<a href="attendance">
+							<i class="icon-ok"></i>
+							<span>Attendance Checker</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="class_record">
+							<i class="icon-star"></i>
+							<span>Class Record</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="reports">
+							<i class="icon-print"></i>
+							<span>Reports</span>
+						</a>
+					</li>
+
 					<li>
 						<a href="help">
 							<i class="icon-question-sign"></i>
@@ -384,7 +413,8 @@
 							<span>About the Developers</span>
 						</a>
 					</li>
-			
+
+					
 				</ul><!--/.nav-list-->
 
 				<div id="sidebar-collapse">
@@ -392,19 +422,18 @@
 				</div>
 			</div>
 
-
-		<div id="main-content" class="clearfix">
+			<div id="main-content" class="clearfix">
 				<div id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="#">Home</a>
+							<a href="dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">HRIS</li>
+						<li class="active">Manage Examination</li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
@@ -420,106 +449,108 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							HRIS
+							Manage Examination
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Education Information
+								Training Performance
 							</small>
 						</h1>
 					</div><!--/.page-header-->
 
-				
-			<div class="row-fluid">
-						  <!-- Tab 1 -->
-				
-                
-                <?php if(isset($records)) : foreach($records as $row) : ?>
-                	
-               <div class="" id="profile4">
-                        <h4></h4>
-                        <label>
-                          <i>Please Specify your highest educational attainment</i> 
-                        </label>
-                        <label>Level of Education</label>
-                          <input type="text" class="input-medium" name ="highest_educ">
-                        <label>Name of School</label>
-                          <input type="text" class="span8" name ="school">
-                        <label>From &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        &nbsp; &nbsp; &nbsp; To</label>
-                          <input type="number" name="quantity" min="1990" max="2025" name ="school_s">
-                          <input type="number" name="quantity1" min="1990" max="2025" name ="school_e">
-                          <div class="control-group">
-                            <label class="control-label">Course/s Taken</label>
-                            <div class="course form-inline">
-                               <br><input type="text" class="input-xxlarge" name = "course[]"/>
-                            </div>
-                          </div>
-                        <a href="#" class="btn btn-mini btn-info  copy2" rel=".course">Add+</a>
-                        <span class="help-inline">Click Add+ to add more courses.</span>
-                        <label>Honors</label>
-                          <input type="text" class="input-large" name = "school_honor">
-                        <label>How did you learn the position vacancy? Please specify</label>
-                          <textarea name = ""></textarea>
-                        <h4>Employment History</h4>
-                        <div class="control-group">
-                          <label class="control-label">Employment Information</label>
-                          <div class="company">
-                              <label>Name of Company</label>
-                                <input type="text" class="input-medium" name = "EH_company_name[]">
-                              <label>Location</label>
-                                <input type="text" class="input-large" name = "EH_company_location[]">
-                              <label>Position Title</label>
-                                <input type="text" class="input-medium" name = "EH_company_position[]">
-                              <label>From &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                              &nbsp; &nbsp; &nbsp; To</label>
-                                <input type="number" name="quantity" min="1990" max="2025" name = "EH_company_date_s">
-                                <input type="number" name="quantity1" min="1990" max="2025" name = "EH_company_date_e">
-                              <label>Reason for Leaving</label>
-                                <textarea></textarea>
-                              <br>
-                          </div>
-                        </div>
-                        <br>
-                        <a href="#" class="btn btn-mini btn-info  copy" rel=".company">Add+</a>
-                        <span class="help-inline">Click Add+ to add more Employment Information.</span>
-                        <br><br>
-                        <h4>Character Reference</h4>
-                        <label>
-                          <i>(except family and relatives)</i> 
-                        </label>
-                        <div class="control-group">
-                          <label class="control-label">Character Reference Information</label>
-                          <div class="character">
-                              <label>Name</label>
-                                <input type="text" class="input-large" name = "CR_name[]">
-                              <label>Name of Company</label>
-                                <input type="text" class="input-medium" name = "CR_company_name[]">
-                              <label>Contact No.</label>
-                                <input type="text" class="input-medium" name = "CR_contact_no[]"> 
-                              <br>
-                          </div>
-                        </div>
-                        <br>
-                        <a href="#" class="btn btn-mini btn-info  copy" rel=".character">Add+</a>
-                        <span class="help-inline">Click Add+ to add more Character Reference Information.</span>
+					<div class="row-fluid">
+						<!--PAGE CONTENT STARTS HERE-->
 
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-info btn-small">Save changes</button>
-                        </div>
-                  </div>
-                <?php endforeach;?>
-				<?php endif; ?>
-				</form>
-                <!-- End of Tab 1 -->
-			</div><!--/row-->
+						<div class="span7">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										List of Examinations
+										<small>Test Modules</small>
+									</h4>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="span5">
+							<div class="widget-box">
+								<div class="widget-header widget-hea1der-small header-color-dark">
+									<h4 class="smaller">
+										Add Items
+										<small>Test Modules</small>
+									</h4>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+
+
+										<label><b>Item Type: </b></label>
+										
+
+										<select class="item_type">
+											<option value="0">Please Select Type..</option>
+											<option value="1">Multiple Choice</option>
+											<option value="2">True or False</option>
+											<option value="3">Identification</option>
+											<option value="4">Select Multiple</option>
+											<option value="5">Arrange By Order</option>
+										</select>
+										<br>
+
+										<span class="multiple_setting" style="display: none;">
+											<label><b>Number of Choices: </b></label>
+											<br>
+
+											<select class="no_of_choices">
+												<option valuee="0">--</option>
+												<option valuee="2">2</option>
+												<option valuee="3">3</option>
+												<option valuee="4">4</option>
+												<option valuee="5">5</option>
+												<option valuee="6">6</option>
+												<option valuee="7">7</option>
+												<option valuee="8">8</option>
+												<option valuee="9">9</option>
+												<option valuee="10">10</option>
+											</select>
+											<br>
+										</span>
+
+										<label><b>Question: </b></label>
+										
+
+										<textarea id="question" style="width:95%"></textarea>
+										
+
+										<label><b>Answers: </b></label>
+										
+
+
+										<div class="answers">
+											
+										</div>
+										<!-- End of Answers -->
+
+										<br>
+										
+										<hr>
+										<button class="btn btn-purple add_item"><i class="icon-arrow-left"></i> Add Item</button>
+									
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--PAGE CONTENT ENDS HERE-->
+					</div><!--/row-->
 
 				</div><!--/#page-content-->
 
 			</div><!--/#main-content-->
 		</div><!--/.fluid-container#main-container-->
-
 
 		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
@@ -542,7 +573,6 @@
 		  <script src="<?php echo base_url();?>assets/js/excanvas.min.js"></script>
 		<![endif]-->
 
-
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
@@ -551,32 +581,181 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
-
-	
 
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>	
+		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
+
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
+
 
 		<!--inline scripts related to this page-->
 
-
-		<script src="<?php echo base_url();?>assets/js/relCopy.js"></script>
 		<script type="text/javascript">
 
-	      //$w=jQuery.noConflict();
-	      $(function(){
-	        var removeLink = '<a class="remove btn btn-danger" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">remove</a>';
-	        var removeLink2 = '<img class="remove" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">';
-	      $('a.copy').relCopy({append: removeLink});
-	      $('a.copy2').relCopy({append: removeLink2});
-	    
-	      });
-	    </script>
-		
-		
+			$(document).ready(function(){
+
+
+				//hide settings on document load
+				$(".multiple_setting").hide();
+
+				//add elements
+				$(".add_item").click(function(){
+
+					var question = $("#question").val();
+
+					var items = "";
+
+					//if multiple choice
+					if($(".item_type").val() == 1) {
+
+						items += "<tr><td>";
+
+						//print questions
+						items += question + "<br>";
+
+						//get textbox values to an array
+						var text_array = $('textarea[name="multiple_answers[]"]').map(function() {
+						  return $(this).val()
+						}).get();
+
+						for (var i = 0; i < text_array.length; i++) {
+							
+							items += "<input type=\"radio\" class=\"ace\" name=\"sample\"> <input size=\"100\" type=\"text\" value=\"" + text_array[i] + "\"><br>";
+						};
+
+						items += "</td></tr>";
+
+						$(".page_end").before(items);
+
+						alert("An item is added successfully!");
+
+					}
+					else if($(".item_type").val() == 2) {
+
+						items += "<tr><td>";
+
+						//print questions
+						items += question + "<br>";
+
+						items += "<input type=\"radio\" class=\"ace\" name=\"sample\"> True<br>";
+
+						items += "<input type=\"radio\" class=\"ace\" name=\"sample\"> False<br>";
+
+						items += "</td></tr>";
+
+						$(".page_end").before(items);
+
+						alert("An item is added successfully!");
+					}
+					else if($(".item_type").val() == 3) {
+
+					}
+					else if($(".item_type").val() == 4) {
+
+					}
+					else if($(".item_type").val() == 5) {
+
+					}
+					else {
+
+						
+						alert("Please select the type of question!");		
+					}
+
+					//clear textboxes, radio button and checkbox after adding item
+					$("#question").val("");
+
+					if($(".item_type").val() != 0 || $(".item_type").val() != 2 || $(".item_type").val() != 3) {
+						alert($(".item_type").val());
+						$("textarea[name='multiple_answers[]']").val("");
+						$(".answers").html(init_choices("radio"));
+					}
+					
+				});
+
+				//specify element properties
+				$(".item_type").change(function(){
+
+					//clear answers
+					$(".answers").html("");
+
+					if($(".item_type").val() == 0 || $(".item_type").val() == 2 || $(".item_type").val() == 3) {
+
+						//hide for single answer questions
+						$(".multiple_setting").hide();
+
+						if($(".item_type").val() == 2) {
+							
+							var choices_str = "<input type=\"radio\" class=\"ace\" name=\"radio_answer\"> True<br><input type=\"radio\" class=\"ace\" name=\"radio_answer\"> False";
+							choices_str = "<pre>" + choices_str + "</pre>";
+							$(".answers").html(choices_str);
+						}
+						else if($(".item_type").val() == 3) {
+							
+							var choices_str = "<textarea id=\"question\" style=\"width:95%\"></textarea>";
+							choices_str = "<pre>" + choices_str + "</pre>";
+							$(".answers").html(choices_str);
+						}
+						
+					}
+					else {		
+
+						$(".multiple_setting").show(function(){
+
+							$(".no_of_choices").val("--");
+						});
+						$(".answers").html("(Please specify the number of choices)");
+
+					}
+				});
+
+				//initialization of choices
+				var init_choices = function (input_type) {
+
+					var choices_str = "";
+
+					for (var i = 0; i < parseInt($(".no_of_choices").val()); i++) {
+
+						choices_str += "<input name=\"choices\" type=\"" + input_type + "\"><textarea  style=\"width:90%\" name=\"multiple_answers[]\"></textarea><br>";
+
+					};
+
+					if(choices_str=="") {
+
+						//clear answers
+						choices_str = "(Please specify the number of choices)";
+					}
+					choices_str = "<pre>" + choices_str + "</pre>";
+					return choices_str;
+
+				};
+
+				//specify number of choices
+				$(".no_of_choices").change(function() {	
+
+					if ($(".item_type").val() == 1) { 
+
+						$(".answers").html(init_choices("radio"));
+
+					}
+					if ($(".item_type").val() == 4) { 
+
+						
+						$(".answers").html(init_choices("checkbox"));
+
+					}
+					else {
+						
+					}
+				});
+
+			});
+
+
+			
+		</script>
 	</body>
 </html>
-	

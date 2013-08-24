@@ -458,52 +458,28 @@
 
 								<div class="widget-body">
 									<div class="widget-main">
-										<table id="exam-table" class="table table-striped table-bordered">
+										<table id="exam_table" class="table table-striped table-bordered">
 											<thead>
-											<tr>
-												<th class="center">
-													Examination Name
-												</th>
-												<th class="center">
-													No. Of Items
-												</th>
-												<th class="center">
-													Date Modified
-												</th>
-												<th class="center">
-													
-												</th>
-											</tr> 
+												<tr>
+													<th class="center">
+														Examination Name
+													</th>
+													<th class="center">
+														No. of Items
+													</th>
+													<th class="center">
+														Date Modified
+													</th>
+													<th class="center" width="280px">
+														
+													</th>
+												</tr> 
 											</thead>
 											<tbody>
-												<tr>
-													<td>
-
-													</td>
-													<td>
-
-													</td>
-													<td>
-
-													</td>
-													<td>
-														<button class="btn btn-small btn-primary">
-															<i class=""></i>
-															Edit Items
-														</button>
-														<button class="btn btn-small btn-success">
-															<i class=""></i>
-															Rename
-														</button>
-														<button class="btn btn-small btn-danger">
-															<i class=""></i>
-															Delete
-														</button>
-													</td>
-												</tr>
+												
 											</tbody>
-
 										</table> 
+
 									</div>
 								</div>
 							</div>
@@ -520,7 +496,24 @@
 
 								<div class="widget-body">
 									<div class="widget-main">
-										
+
+										<table class="table">
+											<tbody>
+												<tr>
+													<td>
+														<label>Examination Name: </label>
+														<input autofocus type="text" id="examination_name" name="examination_name">
+													</td>
+													
+												</tr>
+												<tr>
+													<td>
+														<button id="create_exam" class="btn btn-danger"><i class="icon-pencil icon-white"></i> Create Examination</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+
 									</div>
 								</div>
 							</div>
@@ -576,41 +569,75 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
-			$(function() {
-				var oTable1 = $('#exam-table').dataTable( {
-				"aoColumns": [
-			      null,
-			      null, 
-			      null,
-			      { "bSortable": false }
-				] } );
-				
-				
-				$('table th input:checkbox').on('click' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
-					});
-						
+
+			var init_datatable = function() {
+				var oTable1 = $('#exam_table').dataTable( {
+
+					"bProcessing": true,
+					"sAjaxSource": "<?php echo base_url();?>examination/list_exam",
+					"aoColumns": [
+						{ "mDataProp": "examination_name" },
+						{ "mDataProp": "items" },	
+						{ "mDataProp": "date_modified" },
+						{ 
+							"mDataProp": "examination_id", 
+							//"bVisible": false,
+							"bSortable": false,
+							"fnRender": function (o) {
+
+		                    return '<button onClick="edit_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-success" id=' + o.aData['examination_id'] + '>' + '<i class="icon-edit icon-white"></i>  Edit Exam' + '</button> '+
+		                    '<button class="btn_rename btn btn-small btn-info" id=' + o.aData['examination_id'] + '>' + '<i class="icon-pencil icon-white"></i>  Rename' + '</button> '+
+		                    '<button class="btn_delete btn btn-small btn-danger" id=' + o.aData['examination_id'] + '>' + '<i class="icon-trash icon-white"></i>' + '</button>';
+
+		                	}
+						}
+					]
 				});
-			
-			
-				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-				function tooltip_placement(context, source) {
-					var $source = $(source);
-					var $parent = $source.closest('table')
-					var off1 = $parent.offset();
-					var w1 = $parent.width();
-			
-					var off2 = $source.offset();
-					var w2 = $source.width();
-			
-					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
-					return 'left';
-				}
+				
+			}
+
+			$(document).ready(function() {
+
+				init_datatable();
 			});
+
+			$("#create_exam").click(function() {
+
+				if($("#examination_name").val().trim() != "") {
+
+					var request = $.ajax({
+			        	url: "<?php echo base_url();?>examination/create_exam",
+			        	type: 'POST',
+			        	data: { 
+			        		ajax: '1',
+			        		examination_name: $("#examination_name").val()
+			        	}
+			        });
+
+			        request.done(function (response, textStatus, jqXHR) {
+
+						console.log(response);
+						location.reload();
+						$("#examination_name").val("");
+
+				    });
+				}
+				else {
+
+					//gritter here
+					alert();
+				}
+
+			});
+
+			var id = 0;
+			var edit_exam = function(id) {
+
+				
+				window.location.href = "<?php echo base_url();?>examination/edit_exam/"+id;
+
+			}
+
 		</script>
 	</body>
 </html>

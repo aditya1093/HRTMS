@@ -40,7 +40,8 @@ class Applicant extends CI_Controller {
 	}
 
 	function acceptApp(){
-		$reg_id =  $this->input->post('register_id');								
+		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    	$reg_id =  $this->input->post('register_id');								
 		list($ami,$tag,$id) = explode('-', $reg_id);
 		$tag = "TRAINEE";
 		$train_id = $ami.'-'.$tag.'-'.$id;
@@ -76,16 +77,26 @@ class Applicant extends CI_Controller {
 		$this->load->model('applicant_model');
 		//$this->applicant_model->add_trainee_hris($hris);
 		//$this->applicant_model->add_trainee($user_table);
-		//$this->applicant_model->update_registration($reg_id);
+		//$this->applicant_model->update_registration($reg_id)
+		}
+		else {
+
+		    header( 'Location: Personal_info' ) ;
+		}
+		
 	}
 
-	public function searchApplicant()
-    {
-
-        $id=$this->input->post('id');
-        $this->load->model('applicant_model');
-        $data = $this->applicant_model->getInfo($id);
-        $this->output->set_output(json_encode($data));
+	public function searchApplicant(){
+	    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+	    
+	        $id=$this->input->post('id');
+	        $this->load->model('applicant_model');
+	        $data = $this->applicant_model->getInfo($id);
+	        $this->output->set_output(json_encode($data));
+		}
+		else {
+		      header( 'Location: Accept' ) ;
+		}
 
 
     }

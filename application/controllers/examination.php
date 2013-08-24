@@ -9,6 +9,7 @@ class Examination extends CI_Controller {
 	function index() {
 		//check kung naka-login
 		if($this->session->userdata('is_logged_in')) {
+
 			$this->load->model('applicant_model');
 			$query = $this->applicant_model->trainee_list();
 			$data['records'] = $query;
@@ -20,18 +21,37 @@ class Examination extends CI_Controller {
 
     		$this->load->view('login_view');
 		}	
+
 	}
 
-	function hr() {
+	function create_exam() {
 
-		$this->load->view('admin/manage_accounts/hr');
+		$data = array(
+			'examination_name' => $this->input->post('examination_name'),
+			'date_modified' => date('Y-m-d H:i:s')
+		);
+
+		$this->load->model("examination_model");
+		$this->examination_model->create_exam($data);
+
 	}
 
-	function training() {
+	function list_exam() {
 
-		$this->load->view('admin/manage_accounts/training');
+		$this->load->model("examination_model");
+		$data = $this->examination_model->list_exam();
+
+		$str = json_encode($data);
+		$str = '{ "aaData": '. $str . '}';
+		echo $str;
 	}
+
+	function edit_exam($param="") {
+
+		$this->load->view('training/examination_items_view');
+	}
+	
 }
 
-/* End of file attendance.php */
-/* Location: ./application/controllers/attendance.php */
+/* End of file examination.php */
+/* Location: ./application/controllers/examination.php */
