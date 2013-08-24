@@ -401,7 +401,7 @@
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">Control Panel</li>
+						<li class="active">HRIS</li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
@@ -417,10 +417,10 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Control Panel
+							HRIS
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Profile
+								Personal Accounts
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -432,20 +432,20 @@
                 
                 <?php if(isset($records)) : foreach($records as $row) : ?>
                     <!-- Tab 2 -->
-                    <div class="tab-pane fade" id="profile2">
+                <div class="" id="profile2">
                     <!-- SSS No. / Tin / Philhealth No. / PAG-IBIG No.  -->
                       <label>SSS No. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TIN &nbsp; &nbsp; &nbsp; &nbsp;
                       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                       &nbsp; &nbsp; &nbsp; Philhealth No. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;PAG-IBIG No.</label>
-                        <input type="text" class="input-medium" name = "sss_no"  value="<?php echo $this->session->userdata('sss_no');?>">
-                        <input type="text" class="input-medium" name = "tin_no"  value="<?php echo $this->session->userdata('tin_no');?>">
-                        <input type="text" class="input-medium" name = "philhealth_no"  value="<?php echo $this->session->userdata('philhealth_no');?>">
-                        <input type="text" class="input-medium" name = "pagibig_no"  value="<?php echo $this->session->userdata('pagibig_no');?>">
+                        <input type="text" class="input-medium" name = "sss_no"  value="<?php echo $row->sss_no;?>">
+                        <input type="text" class="input-medium" name = "tin_no"  value="<?php echo $row->tin_no;?>">
+                        <input type="text" class="input-medium" name = "philhealth_no"  value="<?php echo $row->philhealth_no;?>">
+                        <input type="text" class="input-medium" name = "pagibig_no"  value="<?php echo $row->pagibig_no;?>">
                     <!-- End of SSS No. / Tin / Philhealth No. / PAG-IBIG No.  -->
-                      <label>If allergic to anything - food, medicine, others - please specify below</label>
-                      <input type="text" class="input-medium" name = "allergy"  value="<?php echo $this->session->userdata('allergy');?>">
+                    <!--  <label>If allergic to anything - food, medicine, others - please specify below</label>
+                      <input type="text" class="input-medium" name = "allergy"  value="<?php echo $row->allergy;?>">
                     <!-- Tax Status Dropdown-->
                         <label>Tax status</label>
                         <select name = "tax_status">
@@ -457,27 +457,22 @@
                     <!-- End of Tax Status Dropdown-->
                       <label>Passport No. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                       &nbsp; &nbsp; Date Issued</label>
-                      <input type="text" class="input-medium" name = "passport_no"  value="<?php echo $this->session->userdata('passport_no');?>">
-                      <input type="date" class="input-medium" name = "passpost_issue_date"  value="<?php echo $this->session->userdata('passpost_issue_date');?>">
+                      <input type="text" class="input-medium" name = "passport_no"  value="<?php echo $row->passport_no;?>">
+                      <input type="date" class="input-medium" name = "passpost_issue_date"  value="<?php echo $row->passport_issue_date;?>">
                       <label>Country Issued &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Place Issued</label>
-                      <input type="text" name="country" class = "autocomplete"  value="<?php echo $this->session->userdata('passport_issue_country');?>">
+                      <input type="text" name="country" class = "autocomplete"  value="<?php echo $row->passport_issue_country;?>">
                       <input type="text" class="input-medium" name ="passport_issue_place">
                       <label>Expiration Date</label>
-                          <input type="date"  class="input-medium" name = "passport_expiration_date"  value="<?php echo $this->session->userdata('passport_expiration_date');?>">
+                          <input type="date"  class="input-medium" name = "passport_expiration_date"  value="<?php echo $row->passport_expiration_date;?>">
                       <label>Other License Type &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Date Issued</label>
-                          <input type="text" class="input-medium" name ="license_type"  value="<?php echo $this->session->userdata('license_type');?>">
-                          <input type="date"  class="input-medium" name = "license_issue_date"  value="<?php echo $this->session->userdata('license_issue_date');?>">
+                          <input type="text" class="input-medium" name ="license_type"  value="<?php echo $row->license_type;?>">
+                          <input type="date"  class="input-medium" name = "license_issue_date"  value="<?php echo $row->license_issue_date;?>">
                       <label>Place Issued</label>
-                          <input type="text" class="input-medium" name ="license_issue_place"  value="<?php echo $this->session->userdata('license_issue_place');?>">
+                          <input type="text" class="input-medium" name ="license_issue_place"  value="<?php echo $row->license_issue_place;?>">
                       <label>Expiration Date</label>
-                          <input type="date"  class="input-medium" name = "license_expiration_date"  value="<?php echo $this->session->userdata('license_expiration_date');?>">
-                      <div class = "pager">
-                        <div class="btn-group">
-                            <a href="#" class="btn btnPrevTab">Prev</a>
-                            <a href="#" class="btn btnNextTab">Next</a>
-                        </div>
-                      </div>
+                          <input type="date"  class="input-medium" name = "license_expiration_date"  value="<?php echo $row->license_expiration_date;?>">
+                
                     </div>
                 <!-- End of Tab 2 --> 
                 

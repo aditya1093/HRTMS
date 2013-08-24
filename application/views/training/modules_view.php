@@ -477,27 +477,27 @@
 											</div>
 
 											<div id="regmod" class="tab-pane">
-												<table id="module-table" class="table table-striped table-bordered">
+												<table id="modules" class="table table-striped table-bordered">
 													<thead>
-													<tr>
-														<th class="center">
-															Module Name
-														</th>
-														<th class="center">
-															Company
-														</th>
-														<th class="center">
-															Filename
-														</th>
-														<th class="center">
+														<tr>
+															<th class="center">
+																Module Name
+															</th>
+															<th class="center">
+																Company
+															</th>
+															<th class="center">
+																Filename
+															</th>
+															<th class="center">
+																
+															</th>
 															
-														</th>
-													</tr> 
+														</tr> 
 													</thead>
 													<tbody id="module_list">
 														
 													</tbody>
-
 												</table> 
 											</div>
 
@@ -617,41 +617,30 @@
 
 		<script type="text/javascript">
 
-			$(function() {
-				var oTable1 = $('#module-table').dataTable( {
-				"aoColumns": [
-			      null,
-			      null, 
-			      null,
-			      { "bSortable": false }
-				] } );
-				
-				
-				$('table th input:checkbox').on('click' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
-					});
-						
+			var init_datatable = function() {
+				var oTable1 = $('#modules').dataTable( {
+
+					"bProcessing": true,
+					"sAjaxSource": "<?php echo base_url();?>modules/list_module",
+					"aoColumns": [
+						{ "mDataProp": "module_name" },
+						{ "mDataProp": "company_name" },
+						{ "mDataProp": "file_name" },
+						{ 
+							"mDataProp": "module_id", 
+							//"bVisible": false,
+							"bSortable": false,
+							"fnRender": function (o) {
+
+		                    return '<button class="btn-edit btn btn-small btn-info" id=' + o.aData['module_id'] + '>' + 'Edit' + '</button> '+
+		                    '<button class="btn-delete btn btn-small btn-danger" id=' + o.aData['module_id'] + '>' + 'Delete' + '</button>';
+
+		                	}
+						}
+					]
 				});
-			
-			
-				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-				function tooltip_placement(context, source) {
-					var $source = $(source);
-					var $parent = $source.closest('table')
-					var off1 = $parent.offset();
-					var w1 = $parent.width();
-			
-					var off2 = $source.offset();
-					var w2 = $source.width();
-			
-					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
-					return 'left';
-				}
-			});
+				
+			}
 
 			$(document).ready(function() {
 
@@ -668,7 +657,7 @@
 			    });
 
 			    $("#loading_file").hide();
-			    load_data();
+			    init_datatable();
 			});
 
 			$("#company_name").change(function() {
@@ -691,7 +680,7 @@
 						result.push(obj[key]);
 					}
 
-					var str = "<option value=''>Please select file..</option>";
+					var str = '<option value="">Please select file..</option>';
 
 					for (var i = 0; i < result.length; i++) {
 
@@ -699,8 +688,11 @@
 
 							continue;
 						}
+
 						
-						str += "\n<option value='"+result[i]+"'>"+result[i]+"</option>\n";						
+						str += "\n<option value='"+result[i]+"'>"+result[i]+"</option>\n";		
+
+								
 
 					};
 
@@ -730,7 +722,7 @@
 		        	$("#module_name").val("");
 		        	$("#company_name").val("");
 		        	$("#file_name").html("");
-					
+		        	location.reload();
 				});
 
 			});
@@ -756,8 +748,8 @@
 
 		        request.done(function (response, textStatus, jqXHR) {
 
-		        	alert(response);
-
+		        	//alert(response);
+		        	/*
 		        	var obj = jQuery.parseJSON(response);
 
 					var str = "";
@@ -775,6 +767,10 @@
 					};
 
 					$("#module_list").html(str);
+					*/
+					//$("#Modules").dataTable(response);
+
+					console.log(response);
 					
 				});
 

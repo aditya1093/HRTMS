@@ -170,7 +170,7 @@ class Profile extends CI_Controller {
 			{ 
 				$id = $this->session->userdata('id');
 				//$this->load->model('profile_model');
-				$query = $this->profile_model->profile($id);
+				$query = $this->profile_model->profile_applicant($id);
 				$this->data['records'] = $query;
 				//display the create user form
 				//set the flash data error message if there is one

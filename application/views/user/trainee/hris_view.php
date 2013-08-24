@@ -41,6 +41,7 @@
 		<![endif]-->
 
 		<!--inline styles if any-->
+		<?php if(isset($records)) : foreach($records as $row) : $this->session->set_flashdata('civil_status', $row->civil_status);endforeach;endif; ?>
 	</head>
 
 	<body>
@@ -428,10 +429,10 @@
 				
 					<div class="row-fluid">
 						<div class="well">
-						<a href="<?php echo base_url();?>hris/personal_info">Personal Info</a><br>
-						<a href="<?php echo base_url();?>hris/personal_accounts">Personal Accounts</a><br>
-						<a href="<?php echo base_url();?>hris/marital_info">Marital Info</a><br>
-						<a href="<?php echo base_url();?>hris/educational_background">Eduactional Background</a><br>
+						<a href="<?php echo base_url();?>hris/personal_info" target="_blank">Personal Info</a><br>
+						<a href="<?php echo base_url();?>hris/personal_accounts" target="_blank">Personal Accounts</a><br>
+						<a href="<?php echo base_url();?>hris/marital_info" target="_blank">Marital Info</a><br>
+						<a href="<?php echo base_url();?>hris/educational_background" target="_blank">Eduactional Background</a><br>
 							
 
 						</div>

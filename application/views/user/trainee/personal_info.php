@@ -401,7 +401,7 @@
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">Control Panel</li>
+						<li class="active">HRIS</li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
@@ -417,10 +417,10 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Control Panel
+							HRIS
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Profile
+								Personal Information
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -464,6 +464,11 @@
                         </div>
                         
                     <!-- end of Gender -->
+                    <!-- allergy -->
+                    <br>
+                     <label>If allergic to anything - food, medicine, others - please specify below</label>
+                     <input type="text" class="input-medium" name = "allergy"  value="<?php echo $row->allergy;?>">
+                    <!-- end of allergy -->
                     <br><br>
                     <!-- Citizenship / Civil Status / Height / Weight / Blood Type / Religion / Home & Mobile No. -->
                         <label>Citizenship &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;

@@ -1,9 +1,9 @@
-
+<?php if($this->session->userdata('permission') != 'Trainee') { redirect(base_url() . '404');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Class Presenter - AMI</title>
+		<title>Dashboard - AMI</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,27 +26,49 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
-
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
+		<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
 		<![endif]-->
 
 		<!--inline styles if any-->
+		<script type="text/javascript">
+
+		$(document).ready(function(){
+			// /var stat = $this->session->flashdata('civil_status');
+			var stat = $('#status').val();
+			if(stat == 'Single'){
+				$('#single_message').show();
+			    $("#marital a").click(function (e) { 
+			        $(this).fadeTo("fast", .5).removeAttr("href"); 
+			        //e.preventDefault();
+			    });
+			    $('#profile3').find(':input:not(:disabled)').prop('disabled',true)
+			}
+
+		});
+		
+		</script>
+		<?php if(isset($records)) : foreach($records as $row) : $this->session->set_flashdata('civil_status', $row->civil_status);endforeach;endif; ?>
 	</head>
 
-	<body>
-		<div class="navbar navbar-inverse">
+	<body><input type="hidden" value="<?php echo $this->session->flashdata('civil_status');?>" id="status">
+			<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - Training Center Administration
+							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
 
@@ -60,7 +82,7 @@
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-ok"></i>
-									4 Tasks to complete
+									Tasks to complete
 								</li>
 
 								<li>
@@ -133,7 +155,7 @@
 							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-warning-sign"></i>
-									8 Notifications
+									Notifications
 								</li>
 
 								<li>
@@ -151,7 +173,7 @@
 								<li>
 									<a href="#">
 										<i class="btn btn-mini btn-primary icon-user"></i>
-										Bob just signed up as an editor ...
+										Error Occured
 									</a>
 								</li>
 
@@ -265,7 +287,7 @@
 								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
-									User
+									<?php echo $this->session->userdata('username');?>
 								</span>
 
 								<i class="icon-caret-down"></i>
@@ -289,7 +311,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="<?php echo base_url();?>index.php/logout">
+									<a href="<?php echo base_url();?>logout">
 										<i class="icon-off"></i>
 										Logout
 									</a>
@@ -302,6 +324,7 @@
 		</div>
 
 		<div class="container-fluid" id="main-container">
+		
 			<a id="menu-toggler" href="#">
 				<span></span>
 			</a>
@@ -310,19 +333,19 @@
 				<div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
 						<button class="btn btn-small btn-success">
-							<i class="icon-ok"></i>
+							<i class="icon-signal"></i>
 						</button>
 
 						<button class="btn btn-small btn-info">
-							<i class="icon-puzzle-piece"></i>
-						</button>
-
-						<button class="btn btn-small btn-danger">
-							<i class="icon-star"></i>
+							<i class="icon-pencil"></i>
 						</button>
 
 						<button class="btn btn-small btn-warning">
-							<i class="icon-print"></i>
+							<i class="icon-group"></i>
+						</button>
+
+						<button class="btn btn-small btn-danger">
+							<i class="icon-cogs"></i>
 						</button>
 					</div>
 
@@ -331,62 +354,38 @@
 
 						<span class="btn btn-info"></span>
 
-						<span class="btn btn-danger"></span>
-
 						<span class="btn btn-warning"></span>
+
+						<span class="btn btn-danger"></span>
 					</div>
-				</div><!--#sidebar-shortcuts-->
+				</div>
+
+				<!--#sidebar-shortcuts-->
 
 				<ul class="nav nav-list">
-					<li>
-						<a href="dashboard">
+					
+					<li class="">
+						<a href="<?php echo base_url();?>dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
-					<li>
-						<a href="modules">
-							<i class="icon-folder-open"></i>
-							<span>Manage Modules</span>
+					<li class="">
+						<a href="<?php echo base_url();?>profile">
+							<i class="icon-user"></i>
+							<span>Profile</span>
 						</a>
 					</li>
 
 					<li class="active">
-						<a href="presenter">
-							<i class="icon-desktop"></i>
-							<span>Classroom Presenter</span>
+						<a href="<?php echo base_url();?>profile/HRIS">
+							<i class="icon-user"></i>
+							<span>HRIS</span>
 						</a>
 					</li>
 
-					<li>
-						<a href="examination">
-							<i class="icon-puzzle-piece"></i>
-							<span>Manage Examination</span>
-						</a>
-					</li>
-
-					<li>
-						<a href="attendance">
-							<i class="icon-ok"></i>
-							<span>Attendance Checker</span>
-						</a>
-					</li>
-
-					<li>
-						<a href="class_record">
-							<i class="icon-star"></i>
-							<span>Class Record</span>
-						</a>
-					</li>
-
-					<li>
-						<a href="reports">
-							<i class="icon-print"></i>
-							<span>Reports</span>
-						</a>
-					</li>
-
+				
 					<li>
 						<a href="help">
 							<i class="icon-question-sign"></i>
@@ -400,8 +399,7 @@
 							<span>About the Developers</span>
 						</a>
 					</li>
-
-					
+			
 				</ul><!--/.nav-list-->
 
 				<div id="sidebar-collapse">
@@ -409,18 +407,19 @@
 				</div>
 			</div>
 
-			<div id="main-content" class="clearfix">
+
+		<div id="main-content" class="clearfix">
 				<div id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="dashboard">Home</a>
+							<a href="#">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">Classroom Presenter</li>
+						<li class="active">HRIS</li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
@@ -436,114 +435,111 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Classroom Presenter
+							HRIS
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Training
+								Education Information
 							</small>
 						</h1>
 					</div><!--/.page-header-->
 
-					<div class="row-fluid">
-						<!--PAGE CONTENT STARTS HERE-->
+				
+			<div class="row-fluid">
+						  <!-- Tab 1 -->
+				
+                
+                <?php if(isset($records)) : foreach($records as $row) : ?>
+                	
+               <div class="" id="profile4">
+                        <h4></h4>
+                        <label>
+                          <i>Please Specify your highest educational attainment</i> 
+                        </label>
+                        <label>Level of Education</label>
+                          <input type="text" class="input-medium" name ="highest_educ">
+                        <label>Name of School</label>
+                          <input type="text" class="input-large" name ="school">
+                        <label>From &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        &nbsp; &nbsp; &nbsp; To</label>
+                          <input type="number" name="quantity" min="1990" max="2025" name ="school_s">
+                          <input type="number" name="quantity1" min="1990" max="2025" name ="school_e">
+                          <div class="control-group">
+                            <label class="control-label">Course/s Taken</label>
+                            <div class="course form-inline">
+                               <br><input type="text" class="input-xxlarge" name = "course[]"/>
+                            </div>
+                          </div>
+                        <a href="#" class="btn btn-inverse  copy2" rel=".course">Add+</a>
+                        <span class="help-inline">Click Add+ to add more courses.</span>
+                        <label>Honors</label>
+                          <input type="text" class="input-large" name = "school_honor">
+                        <label>How did you learn the position vacancy? Please specify</label>
+                          <textarea name = ""></textarea>
+                        <h4>Employment History</h4>
+                        <div class="control-group">
+                          <label class="control-label">Employment Information</label>
+                          <div class="company">
+                              <label>Name of Company</label>
+                                <input type="text" class="input-medium" name = "EH_company_name[]">
+                              <label>Location</label>
+                                <input type="text" class="input-large" name = "EH_company_location[]">
+                              <label>Position Title</label>
+                                <input type="text" class="input-medium" name = "EH_company_position[]">
+                              <label>From &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                              &nbsp; &nbsp; &nbsp; To</label>
+                                <input type="number" name="quantity" min="1990" max="2025" name = "EH_company_date_s">
+                                <input type="number" name="quantity1" min="1990" max="2025" name = "EH_company_date_e">
+                              <label>Reason for Leaving</label>
+                                <textarea></textarea>
+                              <br>
+                          </div>
+                        </div>
+                        <br>
+                        <a href="#" class="btn btn-inverse  copy" rel=".company">Add+</a>
+                        <span class="help-inline">Click Add+ to add more Employment Information.</span>
+                        <br><br>
+                        <h4>Character Reference</h4>
+                        <label>
+                          <i>(except family and relatives)</i> 
+                        </label>
+                        <div class="control-group">
+                          <label class="control-label">Character Reference Information</label>
+                          <div class="character">
+                              <label>Name</label>
+                                <input type="text" class="input-large" name = "CR_name[]">
+                              <label>Name of Company</label>
+                                <input type="text" class="input-medium" name = "CR_company_name[]">
+                              <label>Contact No.</label>
+                                <input type="text" class="input-medium" name = "CR_contact_no[]"> 
+                              <br>
+                          </div>
+                        </div>
+                        <br>
+                        <a href="#" class="btn btn-inverse  copy" rel=".character">Add+</a>
+                        <span class="help-inline">Click Add+ to add more Character Reference Information.</span>
+                        <div class = "pager">
+                          <div class="btn-group">
+                              <a href="#" class="btn" onClick = "prevTabPage();">Prev</a>
+                          </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-inverse">Save changes</button>
+                            <button type="button" class="btn">Cancel</button>
+                        </div>
+                  </div>
+                <?php endforeach;?>
+				<?php endif; ?>
+				</form>
+                <!-- End of Tab 1 -->
+			</div><!--/row-->
 
-						<div class="span8">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										Viewer
-										<small>by Google Docs</small>
-									</h4>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">
-										<span class="presenter">
-											<iframe src="http://docs.google.com/viewer?url=http://jemnuine.com/demo/demo.pptx&embedded=true" width="100%" height="400" style="border: none;"></iframe>
-										</span>
-										
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="span4">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										Modules
-										<small>Select</small>
-									</h4>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">
-										<table class="table">
-											<tr>
-												<td>
-													<label>Company: </label>
-													<select required name="company_name" id="company_name">
-														<option value="" selected="selected" style="color:#ddd;">Select Company...</option>
-														<?php if(isset($client_record)) : foreach($client_record as $item) : ?>	
-															<option value="<?php echo $item->client_name?>"><?php echo $item->client_name?></option>
-														<?php endforeach;?>
-														<?php endif;?>
-													</select>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<label>Module Name: </label>
-													<select required name="module_name" id="module_name">
-														<option value="" selected="selected" style="color:#ddd;">Select Module...</option>
-														
-													</select>
-
-													<i style="margin-left: 5px;" id="loading_file" class="icon-spinner icon-spin orange icon-2x"></i>
-												</td>
-											</tr>
-											<tr>	
-												<td>
-													<button id="view_module" class="btn btn-success"><i class="icon-arrow-left icon-white"></i> View Module</button>
-												</td>
-											</tr>
-											
-											
-										</table>
-									</div>
-								</div>
-							</div>
-							<p></p>
-							<div class="widget-box">
-								<div class="widget-header widget-header-small header-color-dark">
-									<h4 class="smaller">
-										Information
-										<small></small>
-									</h4>
-								</div>
-								<div class="widget-body">
-									<div class="widget-main">
-										<address>
-											<b>Module Name: </b><span id="dmodule"></span><br>
-											<b>Company Name: </b><span id="dcompany"></span><br>
-											<b>Path: </b><span id="dfile"></span><br>
-
-										</address>
-										<a id="download" class="btn btn-mini btn-info tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">
-											<i class="icon-cloud-download"></i>
-											Download File
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!--PAGE CONTENT ENDS HERE-->
-					</div><!--/row-->
 				</div><!--/#page-content-->
 
 			</div><!--/#main-content-->
 		</div><!--/.fluid-container#main-container-->
+
 
 		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
@@ -574,99 +570,17 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
+
 
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>	
 
 		<!--inline scripts related to this page-->
-
-		<script type="text/javascript">
-
-			var obj;
-			var getObjectSize = function(obj) {
-		   		var len = 0, key;
-			    for (key in obj) {
-			        if (obj.hasOwnProperty(key)) len++;
-			    }
-			    return len;
-			};
-
-			$(document).ready(function() {
-
-			    $("#loading_file").hide();
-			    
-			});
-
-			$("#company_name").change(function() {
-
-				$("#loading_file").show();
-				var request = $.ajax({
-		        	url: "<?php echo base_url();?>presenter/list_module/"+$("#company_name").val(),
-		        	type: 'POST',
-		        	data: { ajax: '1' }
-		        });
-
-		        request.done(function (response, textStatus, jqXHR) {
-
-		        	console.log(response);
-
-					obj = jQuery.parseJSON(response);
-
-					var str = '<option value="" disabled selected="selected" style="color:#ddd;">Select Module...</option>';
-
-					for (var i = 0; i < getObjectSize(obj); i++) {
-
-						str += '<option value="'+obj[i].module_name+'">'+obj[i].module_name+'</option>\n';
-					};
-
-					$("#module_name").html(str);
-					$("#loading_file").hide();
-
-			    });
-
-			});
-
-			$("#view_module").click(function () {
-
-				var str = '';
-
-				var request = $.ajax({
-		        	url: "<?php echo base_url();?>presenter/list_file",
-		        	type: 'POST',
-		        	data: { 
-		        		ajax: '1',
-		        		company_name: $("#company_name").val(),
-		        		module_name: $("#module_name").val()
-		        	}
-		        });
-
-		        request.done(function (response, textStatus, jqXHR) {
-
-		        	console.log(response);
-
-					obj = jQuery.parseJSON(response);
-
-					
-					for (var i = 0; i < getObjectSize(obj); i++) {
-
-						str = obj[i].file_name
-						$("#dfile").text($("#company_name").val() + "/"+ str);
-
-						$(".presenter").html('<iframe src="http://docs.google.com/viewer?url=http://jemnuine.com/elfinder/files/AMI-Training/'+$("#company_name").val()+'/'+str+'&embedded=true" width="100%" height="400" style="border: none;"></iframe>');
-						$("#download").prop("href", 'http://jemnuine.com/elfinder/files/AMI-Training/'+$("#company_name").val()+'/'+str);
-					};
-					
-			    });
-
-				$("#dcompany").text($("#company_name").val());
-				$("#dmodule").text($("#module_name").val());
-
-				
-			});
-
-
-		</script>
+		
+		
 	</body>
 </html>
+	

@@ -51,9 +51,13 @@ class Module_model extends CI_Model{
 
     }
 
-    function list_module() {
+    function list_module($param="") {
 
         $this->db->select('*');
+        if($param!="") {
+
+            $this->db->where($param);
+        }
         $query = $this->db->get('modules');
         return $query->result();
     }

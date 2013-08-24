@@ -9,11 +9,11 @@ class Presenter extends CI_Controller {
 	function index() {
 		//check kung naka-login
 		if($this->session->userdata('is_logged_in')) {
-			$this->load->model('applicant_model');
-			$query = $this->applicant_model->trainee_list();
-			$data['records'] = $query;
 
-			
+			$this->load->model('client_model');
+			$query = $this->client_model->list_company();
+			$data['client_record'] = $query;
+	
 			$this->load->view('training/presenter_view',$data);
 		}
 		else {
@@ -22,16 +22,47 @@ class Presenter extends CI_Controller {
 		}	
 	}
 
-	function hr() {
+	function list_module($param="") {
 
-		$this->load->view('admin/manage_accounts/hr');
+		if($this->input->post('ajax')) {
+
+			$this->load->model('Presenter_model');
+
+			$data = $this->Presenter_model->list_module($param);
+
+			$str = json_encode($data);
+			echo $str;
+
+		}
+		else {
+
+			echo ":(";
+			
+
+		}
+
 	}
 
-	function training() {
+	function list_file() {
 
-		$this->load->view('admin/manage_accounts/training');
+		if($this->input->post('ajax')) {
+
+			$this->load->model('Presenter_model');
+
+			$data = $this->Presenter_model->list_file($this->input->post("company_name"),$this->input->post("module_name"));
+
+			$str = json_encode($data);
+			echo $str;
+
+		}
+		else {
+
+			echo ":(";
+			
+		}
+
 	}
 }
 
-/* End of file attendance.php */
-/* Location: ./application/controllers/attendance.php */
+/* End of file presenter.php */
+/* Location: ./application/controllers/presenter.php */

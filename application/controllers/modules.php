@@ -60,21 +60,23 @@ class Modules extends CI_Controller {
 
 	function list_module() {
 
-		if($this->input->post('ajax')) {
+		//if($this->input->post('ajax')) {
 
 			$this->load->model('Module_model');
 
 			$data = $this->Module_model->list_module();
 
-			echo json_encode($data);
+			$str = json_encode($data);
+			$str = '{ "aaData": '. $str . '}';
+			echo $str;
 
-		}
+		/*}
 		else {
 
 			echo ":(";
 			
 
-		}
+		}*/
 
 	}
 }

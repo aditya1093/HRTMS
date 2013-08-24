@@ -31,7 +31,7 @@ class Hris extends CI_Controller {
 			//$this->load->model('profile_model');
 		$query = $this->profile_model->profile_trainee($id);
 		$data['records'] = $query;
-		$this->load->view('user/trainee/personal_acc',$data);
+		$this->load->view('user/trainee/marital_info',$data);
 	}
 	public function educational_background()
 	{
@@ -39,7 +39,7 @@ class Hris extends CI_Controller {
 			//$this->load->model('profile_model');
 		$query = $this->profile_model->profile_trainee($id);
 		$data['records'] = $query;
-		$this->load->view('user/trainee/personal_acc',$data);
+		$this->load->view('user/trainee/educational_background',$data);
 	}
 
 }
