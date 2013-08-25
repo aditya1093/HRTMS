@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Dashboard - AMI</title>
+		<title>HRIS - AMI</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,17 +40,18 @@
 		<![endif]-->
 
 		<!--inline styles if any-->
-		<?php if(isset($records)) : foreach($records as $row) : $this->session->set_flashdata('civil_status', $row->civil_status);endforeach;endif; ?>
+		
 	</head>
 
 	<body>
+
 			<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - HRTMS Administration
+							AMI - HRTMS Training
 						</small>
 					</a><!--/.brand-->
 

@@ -23,5 +23,15 @@ class Examination_model extends CI_Model{
     }
 
 
-    
+    function add_item($data) {
+
+        $this->db->insert('questions', $data);
+    }
+
+    function load_items() {
+
+        $str = "SELECT * FROM questions WHERE exam_id=".$this->session->userdata("eid");
+        $query = $this->db->query($str);
+        return $query->result();
+    }
 }  

@@ -25,8 +25,11 @@ class Dashboard extends CI_Controller {
 			$this->load->view('User/client/dashboard_view');
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Trainee') {
-			
-			$this->load->view('User/trainee/dashboard_view');
+			$id = $this->session->userdata('id');
+			$this->load->model("profile_model");
+			$query = $this->profile_model->profile_trainee($id);
+			$data['records'] = $query;
+			$this->load->view('User/trainee/dashboard_view',$data);
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Applicant') {
 			

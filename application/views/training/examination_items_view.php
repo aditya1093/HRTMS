@@ -19,7 +19,8 @@
 		<![endif]-->
 
 		<!--page specific plugin styles-->
-
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.custom.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css" />
 		<!--fonts-->
 
 		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
@@ -352,63 +353,63 @@
 
 				<ul class="nav nav-list">
 					<li>
-						<a href="dashboard">
+						<a href="<?php echo base_url();?>dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="modules">
+						<a href="<?php echo base_url();?>modules">
 							<i class="icon-folder-open"></i>
 							<span>Manage Modules</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="presenter">
+						<a href="<?php echo base_url();?>presenter">
 							<i class="icon-desktop"></i>
 							<span>Classroom Presenter</span>
 						</a>
 					</li>
 
 					<li class="active">
-						<a href="examination">
+						<a href="<?php echo base_url();?>examination">
 							<i class="icon-puzzle-piece"></i>
 							<span>Manage Examination</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="attendance">
+						<a href="<?php echo base_url();?>attendance">
 							<i class="icon-ok"></i>
 							<span>Attendance Checker</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="class_record">
+						<a href="<?php echo base_url();?>class_record">
 							<i class="icon-star"></i>
 							<span>Class Record</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="reports">
+						<a href="<?php echo base_url();?>reports">
 							<i class="icon-print"></i>
 							<span>Reports</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="help">
+						<a href="<?php echo base_url();?>help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="about">
+						<a href="<?php echo base_url();?>about">
 							<i class="icon-info"></i>
 							<span>About the Developers</span>
 						</a>
@@ -427,7 +428,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="dashboard">Home</a>
+							<a href="<?php echo base_url();?>dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
@@ -460,7 +461,7 @@
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 
-						<div class="span7">
+						<div class="span8">
 							<div class="widget-box">
 								<div class="widget-header">
 									<h4 class="smaller">
@@ -471,12 +472,143 @@
 
 								<div class="widget-body">
 									<div class="widget-main">
-										
+										<div class="loader">
+											<h4 align="center" class="smaller lighter grey">
+												<i class="icon-spinner icon-spin orange bigger-125"></i>
+												Loading Items..
+												<small></small>
+											</h4>
+										</div>
+										<table id="item_table" class="table table-striped table-bordered">
+											<thead>
+												<tr>
+													<th class="center" width="30px">
+														Item No.
+													</th>
+													<th class="center">
+														Item
+													</th>
+													
+												</tr> 
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														1
+													</td>
+													<td>
+														<div class="pull-right">
+
+															<button id="" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>
+														   	<button id="" class="btn-delete btn btn-minier btn-mini btn-danger"><i class="icon-trash"></i></button>
+														</div>
+														<p>
+															asdfasdfas asdfasd fasdf asdf asdf asd fasf asdf asdf asd fasdf asdf  fasf asdf 
+															asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  
+															fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf asdf asd fas
+														</p>
+														<label><input disabled name="mult_1" type="radio"> asdfasdf</label><br>
+														<label><input disabled checked name="mult_1" type="radio"> asdfasdf</label><br>
+														<label><input disabled name="mult_1" type="radio"> asdfasdf</label><br>
+														<label><input disabled name="mult_1" type="radio"> asdfasdf</label><br>
+														
+													</td>
+												</tr>
+												<tr>
+													<td>
+														2
+													</td>
+													<td>
+														<div class="pull-right">
+
+															<button id="" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>
+														   	<button id="" class="btn-delete btn btn-minier btn-mini btn-danger"><i class="icon-trash"></i></button>
+														</div>
+														<p>
+															asdfasdfas asdfasd fasdf asdf asdf asd fasf asdf asdf asd fasdf asdf  fasf asdf 
+															asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  
+															fasf asdf asdf asd fasdf burat asdf  fasf asdf asdf asd fasdf asdf asdf asd fas
+														</p>
+														<label><input disabled name="tf_2" type="radio"> True</label><br>
+														<label><input disabled checked name="tf_2" type="radio"> False</label><br>
+														
+													</td>
+												</tr>
+												<tr>
+													<td>
+														3
+													</td>
+													<td>
+														<div class="pull-right">
+
+															<button id="" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>
+														   	<button id="" class="btn-delete btn btn-minier btn-mini btn-danger"><i class="icon-trash"></i></button>
+														</div>
+														<p>
+															asdfasdfas asdfasd fasdf asdf asdf asd fasf asdf asdf asd fasdf asdf  fasf asdf 
+															asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  
+															fasf asdf asdf asd fasdf burat asdf  fasf asdf asdf asd fasdf asdf asdf asd fas
+														</p>
+														<textarea id="" disabled style="width:90%;">asdfasdfas asdfasd fasdf asdf asdf asd fasf 
+														</textarea>
+														
+													</td>
+												</tr>
+												<tr>
+													<td>
+														4
+													</td>
+													<td>
+														<div class="pull-right">
+
+															<button id="" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>
+														   	<button id="" class="btn-delete btn btn-minier btn-mini btn-danger"><i class="icon-trash"></i></button>
+														</div>
+														<p>
+															asdfasdfas asdfasd fasdf asdf asdf asd fasf asdf asdf asd fasdf asdf  fasf asdf 
+															asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  
+															fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf asdf asd fas
+														</p>
+														<label><input disabled name="mult_2" type="checkbox"> asdfasdf</label><br>
+														<label><input disabled checked name="mult_2" type="checkbox"> asdfasdf</label><br>
+														<label><input disabled checked name="mult_2" type="checkbox"> asdfasdf</label><br>
+														<label><input disabled name="mult_2" type="checkbox"> asdfasdf</label><br>
+														
+													</td>
+												</tr>
+												<tr>
+													<td>
+														5
+													</td>
+													<td>
+														<div class="pull-right">
+
+															<button id="" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>
+														   	<button id="" class="btn-delete btn btn-minier btn-mini btn-danger"><i class="icon-trash"></i></button>
+														</div>
+														<p>
+															asdfasdfas asdfasd fasdf asdf asdf asd fasf asdf asdf asd fasdf asdf  fasf asdf 
+															asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  
+															fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf asdf asd fas
+														</p>
+														<ul class="item-list ui-sortable" style="width:90%;">
+														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">Item 1</span></li>
+														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">2</span></li>
+														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">3</span></li>
+														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">4</span></li>
+														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">5</span></li>
+														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">6</span></li>
+														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">7</span></li>
+														</ul>
+													</td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="span5">
+						<div class="span4">
 							<div class="widget-box">
 								<div class="widget-header widget-hea1der-small header-color-dark">
 									<h4 class="smaller">
@@ -487,11 +619,9 @@
 
 								<div class="widget-body">
 									<div class="widget-main">
-
-
-										<label><b>Item Type: </b></label>
+										<p>
+										<b>Item Type: </b><br>
 										
-
 										<select class="item_type">
 											<option value="0">Please Select Type..</option>
 											<option value="1">Multiple Choice</option>
@@ -501,9 +631,11 @@
 											<option value="5">Arrange By Order</option>
 										</select>
 										<br>
+										</p>
 
 										<span class="multiple_setting" style="display: none;">
-											<label><b>Number of Choices: </b></label>
+											<p>
+											<b>Number of Choices: </b>
 											<br>
 
 											<select class="no_of_choices">
@@ -519,28 +651,27 @@
 												<option valuee="10">10</option>
 											</select>
 											<br>
+											</p>
 										</span>
-
-										<label><b>Question: </b></label>
-										
+										<p>
+										<b>Question: </b>
 
 										<textarea id="question" style="width:95%"></textarea>
-										
+										</p>
+										<p>
+										<b>Answers: </b>
 
-										<label><b>Answers: </b></label>
-										
-
-
-										<div class="answers">
+										<span class="answers">
 											
-										</div>
+										</span>
 										<!-- End of Answers -->
 
 										<br>
+										</p>
 										
 										<hr>
 										<button class="btn btn-purple add_item"><i class="icon-arrow-left"></i> Add Item</button>
-									
+
 									</div>
 								</div>
 							</div>
@@ -578,6 +709,7 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
@@ -597,27 +729,40 @@
 		<script type="text/javascript">
 
 			var separator = "~/&^%-";
+			var items = ""; //for reference only
+
+			var question;
+			var answers;
+			var key_answer;
+			var question_type;
+			var no_of_choices;
 
 			$(document).ready(function() {
-
-
 				
 				$(".answers").html("<pre>(Please specify the item type)</pre>");
 
 				//hide settings on document load
 				$(".multiple_setting").hide();
 
+				load_items();
+
+				$('#item_table').dataTable();
+
+				$(".item-list").sortable();
+
+
 			});
 
 			//add elements
 			$(".add_item").click(function(){
 
-				var question = $("#question").val();
+				items = "";
 
-				var items = "";
-
-				//print questions
-				items += question + "\n";
+				question = $.trim($("#question").val());
+				question_type = $(".item_type").val();
+				no_of_choices =  $(".no_of_choices").val();
+				answers = "";
+				key_answer = "";
 
 				//if multiple choice
 				if($(".item_type").val() == 1 || $(".item_type").val() == 4 || $(".item_type").val() == 5) {
@@ -631,69 +776,137 @@
 
 					for (var i = 0; i < text_array.length; i++) {
 
-						//choices
-						items += text_array[i] + separator;
+						//multiple choices
+						if($.trim(text_array[i])=="") {
+							//gritter
+							alert("Please fill the answers!");
+							return;
+						}
+
+						answers += $.trim(text_array[i]) + separator;
 					};
 
-					//key answers for multiple choice, select multiple, arrange
+					var k = 0;
+
+					//select multiple
 					if($(".item_type").val() == 4) {
 
 						items += "\n";
+
+						var l = "";
 						//var values = new Array();
 						$.each($("#choices:checked"), function() {
-							 //values.push($(this).val());
-							 items += $(this).val() + separator;
+							
+							l = $.trim($(this).val());
+							//values.push($(this).val());
+							key_answer += $(this).val() + separator;
 						});
 
+						if(l=="") {
+
+							alert("Please specify the correct answer!");
+						    return;
+						}
 					}
+					//arrange
 					else if($(".item_type").val() == 5) {
 
 						items += "\n";
+
+						var m = "";
+
 						for (var i = 0; i < text_array.length; i++) {
 
-							//choices
-							items += text_array[i] + separator;
+							m += $.trim(text_array[i]);
+
+							key_answer += text_array[i] + separator;
 						};
+
+						if(m=="") {
+
+							alert("Please specify the correct answer!");
+						    return;
+						}
 					}
+					//multiple choice
 					else {
 
-						items += "\n"+$("#choices:checked").val();
-						
+						key_answer += $("#choices:checked").val();
+
+						if (!$("#choices:checked").val()) {
+
+						    alert("Please specify the correct answer!");
+						    return;
+						}
+					}
+
+					/*if(k == no_of_choices) {
+
+						//gritter
+						alert("Please specify the correct answer");
+						return;
+					}*/
+
+				}
+				//true or false
+				else if($(".item_type").val() == 2) {
+
+					no_of_choices = 2;
+					answers = "true" + separator + "false";
+					key_answer = $("#tf").val();
+				}
+				//identification
+				else if($(".item_type").val() == 3) {
+
+					no_of_choices = 0;
+					//will not set answers value for identification
+					key_answer = $("#id_text").val();
+
+					if($.trim(key_answer)=="") {
+
+						alert("Please enter the correct answer!");
+						return;
 					}
 
 				}
-				else if($(".item_type").val() == 2) {
 
-					//key answer
-					items += "\n"+$("#tf").val();
+				items += "Question: " + question;
+				items += "\nType: " + question_type;
+				items += "\nNo. of Choices: " + no_of_choices;
+				items += "\nAnswer(s): " + answers;
+				items += "\nKey Answer(s): " + key_answer;
 
-
+				//gritter this alerts here
+				if($(".item_type").val()==0) {
+									
+					alert("Please select the type of question!");	
+					return;	
 				}
-				else if($(".item_type").val() == 3) {
+				if($.trim(question)=="") {
 
-					//key answer
-					items += $("#id_text").val();
-
-
-				}
-			
-				else {
-					
-					alert("Please select the type of question!");		
-				}
-
-				//clear textboxes, radio button and checkbox after adding item
-				$("#question").val("");
-				$(".item_type").val("0");
-				$(".no_of_choices").val("0");
-
-				if($(".item_type").val() != 0 || $(".item_type").val() != 2 || $(".item_type").val() != 3) {
-					
-					$("textarea[name='multiple_answers[]']").val("");
-					$(".answers").html(init_choices("radio"));
+					alert("Please enter a question!");
+					return;
 				}
 
-				alert(items);
+				//send data
+				var request = $.ajax({
+		        	url: "<?php echo base_url();?>examination/add_item",
+		        	type: 'POST',
+		        	data: { 
+		        		ajax: '1',
+		        		question: question,
+						answers: answers,
+						key_answer: key_answer,
+						question_type: question_type,
+						no_of_choices: no_of_choices
+		        	}
+		        });
+
+		        request.done(function (response, textStatus, jqXHR) {
+
+		        	console.log(items);
+					reset_field();
+			    });
 				
 			});
 
@@ -731,7 +944,7 @@
 
 					$(".multiple_setting").show(function(){
 
-						$(".no_of_choices").val("--");
+						$(".no_of_choices").val("0");
 					});
 
 					$(".answers").html("<pre>(Please specify the number of choices)</pre>");
@@ -752,6 +965,7 @@
 						choices_str += (i+1) + ") <textarea  style=\"width:90%\" name=\"multiple_answers[]\"></textarea><br>";
 
 					};
+
 					choices_str = "<pre>" + choices_str + "</pre>";
 					return choices_str;
 				}
@@ -770,7 +984,7 @@
 				if(choices_str=="") {
 
 					//clear answers
-					choices_str = "(Please specify the number of choices)";
+					choices_str = "<pre>(Please specify the number of choices)</pre>";
 				}
 
 				choices_str = "<pre>" + choices_str + "</pre>";
@@ -799,7 +1013,61 @@
 					
 				}
 			});
-	
+
+			//clear fields
+			var reset_field  = function() {
+
+				$("textarea").val("");
+				$("input:radio").removeAttr("checked");
+				$("input:checkbox").removeAttr("checked");
+				//gritter here successfully added an item
+				alert("You successfully added an item!");
+
+			}
+
+			var load_items = function() {
+
+				var request = $.ajax({
+		        	url: "<?php echo base_url();?>examination/load_items",
+		        	type: 'POST',
+		        	data: { 
+		        		ajax: '1'
+		        	}
+		        });
+
+		        request.done(function (response, textStatus, jqXHR) {
+
+		        	console.log(response);
+		        	$(".loader").hide();
+					
+			    });
+			}
+
+			//var alert_str = "";
+			var alert = function(alert_str) {
+
+				$.extend($.gritter.options, { 
+				    position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+					fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+					fade_out_speed: 2000, // how fast the notices fade out
+					time: 4000 // hang on the screen for...
+				});
+
+				$.gritter.add({
+					//title: '',
+					text: alert_str,
+					//image: $path_assets+'/avatars/avatar3.png',
+					sticky: false,
+					before_open: function() {
+
+						if($('.gritter-item-wrapper').length >= 6)
+						{
+							return false;
+						}
+					}
+				});
+
+			}
 		</script>
 	</body>
 </html>

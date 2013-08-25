@@ -38,6 +38,7 @@
 		<![endif]-->
 
 		<!--inline styles if any-->
+		<?php if(isset($records)) : foreach($records as $row) : $this->session->set_userdata('civil_status', $row->civil_status);endforeach;endif; ?>
 	</head>
 
 	<body>

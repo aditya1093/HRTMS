@@ -142,6 +142,39 @@ class Hris extends CI_Controller {
 		}
 		
 	}
+	function updateMaritalInfo(){
+		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    	
+		//$m = $this->input->post('middle_name');
+		//$name = $this->input->post('first_name') .' ' .$m[0].' '.$this->input->post('last_name'); 
+		//$name = $this->input->post('passport_issue_date');
+		//$this->output->set_output(json_encode($name));
+		/*$personal_info = array(
+        			'marriage_date' => $this->input->post('marriage_date'),
+        			'marriage_place' => $this->input->post('marriage_place'),
+        			'spouse_first_name' => $this->input->post('spouse_first_name'),
+        			'spouse_middle_name' => $this->input->post('spouse_middle_name'),
+        			'spouse_last_name' => $this->input->post('spouse_last_name'),
+        			'spouse_birthdate' => $this->input->post('spouse_birthdate'),
+        			'spouse_occupation' => $this->input->post('spouse_occupation'),
+           			'spouse_contact_no' => $this->input->post('spouse_contact_no'),
+        			'date_edit' => date('Y-m-d H:i:s')
+        		);
+			//$this->load->model('hris_model');
+			//$this->hris_model->personal_info($personal_info);
+        		*/
+			//var_dump($_REQUEST['array']);
+			$data = json_decode($_POST['myJson'], true);
+			print_r($data);
+			
+	
+		}
+		else {
+
+			 header( 'Location: personal_acc' ) ;
+		}
+		
+	}
 
 }
 

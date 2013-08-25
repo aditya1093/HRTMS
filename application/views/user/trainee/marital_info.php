@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Dashboard - AMI</title>
+		<title>HRIS - AMI</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,6 +27,7 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
 
@@ -43,19 +44,24 @@
 		<![endif]-->
 
 		<!--inline styles if any-->
-		<?php if(isset($records)) : foreach($records as $row) : $this->session->set_flashdata('civil_status', $row->civil_status);endforeach;endif; ?>
+		<!-- Dependencies -->
+		<script src="http://yui.yahooapis.com/2.9.0/build/yahoo/yahoo-min.js"></script>
+		 
+		<!-- Source file -->
+		<script src="http://yui.yahooapis.com/2.9.0/build/json/json-min.js"></script>
+	
 		
 		
 	</head>
 
-	<body><input type="hidden" value="<?php echo $this->session->flashdata('civil_status');?>" id="status">
+	<body><input type="hidden" value="<?php echo $this->session->userdata('civil_status');?>" id="status">
 			<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - HRTMS Administration
+							AMI - HRTMS Training
 						</small>
 					</a><!--/.brand-->
 
@@ -434,17 +440,17 @@
 				<div class="row-fluid">
 						
 		            
-		                <?php if(isset($records)) : foreach($records as $row) : ?>
+		        <?php if(isset($records)) : foreach($records as $row) : ?>
 		                	
 		             <div class="" id="profile3">
 		                	
 		                  	<div class="well" id="single_message">
 		                        <p>This section is for 
-		                          <b>Married employees only</b> . You're <?php echo $this->session->flashdata('civil_status');?>, you can proceed to the last step.
+		                          <b>Married employees only</b> . You're <?php echo $this->session->userdata('civil_status');?>, you can proceed to the last step.
 		                          <a class="btn btn-small btn-info" href="<?php echo base_url();?>hris/educational_background" >Proceed</a> 
 		                        </p>
 		                    </div>
-		                	<form>
+		                	<form id="marital_info">
 		                	<div class="marital_div" id="marital">
 		                    <h4>Marriage Information</h4>
 		                      <label>Date of Marriage</label>
@@ -466,6 +472,17 @@
 		                        <input type="text" class="input-medium" name = "spouse_occupation" value="<?php echo $row->spouse_occupation;?>">
 		                      <label>Contact No.</label>
 		                      <input type="text" class="input-medium" name = "spouse_contact_no" value="<?php echo $row->spouse_contact_no;?>">
+		                   
+		                      <br>
+		                      <br>
+		                        <div class = "pager">
+		                        <div class="btn-group">
+		                           <button type="submit" class="btn btn-info btn-small">Save changes</button>
+		                        </div>
+		                      	</div>
+		                      </form>
+		                      <form id="children">
+		                      
 		                      <label>
 		                      <b>Name(s) of Children</b>
 		                      <i>(if none, proceed to the last step)</i> 
@@ -486,23 +503,31 @@
 		                      <br>
 		                      <a href="#" class="btn btn-info copy btn-mini" rel=".child">Add+</a>
 		                      <span class="help-inline">Click Add+ to add more Children's Information.</span>
-		                    <br><br>
+		                       <div class = "pager">
+		                       <div class="btn-group">
+		                       <button type="submit" class="btn btn-info btn-small">Save changes</button>
+		                       </div>
+		                  	   </div>
+		                      </form>
+		                   	<!--
+		                      <br><br>
 		                      <label>
 		                      <b>Name(s) of Dependent</b>
 		                      <i>(if none, proceed to the last step)</i> 
 		                      </label>
-		                    <div class="control-group-dependent">
-		                        <label class="control-label">Dependent's Information</label>
-		                        <div class="dependent">
-		                            <label>Full Name</label>
-		                              <input type="text" class="input-large" name = "dependent_full_name[]">
-		                            <label>Date of Birth</label>
-		                              <input type="date" name = "dependent_DOB">                            
-		                            <label>Relationship to Employee</label>
-		                              <input type="text" class="input-large" name = "dependent_relationship[]">
-		                            <br>
-		                        </div>
-		                    </div>
+			                    <div class="control-group-dependent">
+			                        <label class="control-label">Dependent's Information</label>
+			                        <div class="dependent">
+			                        <hr>
+			                            <label>Full Name</label>
+			                              <input type="text" class="input-large" name = "dependent_full_name[]">
+			                            <label>Date of Birth</label>
+			                              <input type="date" name = "dependent_DOB">                            
+			                            <label>Relationship to Employee</label>
+			                              <input type="text" class="input-large" name = "dependent_relationship[]">
+			                            <br>
+			                        </div>
+			                    </div>
 		                      <br>
 		                      <a href="#" class="btn btn-info copy btn-mini" rel=".dependent">Add+</a>
 		                      <span class="help-inline">Click Add+ to add more Dependent's Information.</span>
@@ -513,6 +538,7 @@
 		                      </label>
 		                      <div class="control-group-beneficiary">
 		                        <label class="control-label">Beneficiaries' Information</label>
+		                        <hr>
 		                        <div class="beneficiary">
 		                            <label>Full Name</label>
 		                              <input type="text" class="input-large" name = "beneficiary_full_name[]">
@@ -527,13 +553,19 @@
 		                      <a href="#" class="btn btn-info copy btn-mini" rel=".beneficiary">Add+</a>
 		                      <span class="help-inline">Click Add+ to add more Beneficiaries' Information.</span>
 		                   
-		                	</div>
-		             </div>
+		                	</div>-->
+		             	</div>
+	             	<div class = "pager">
+                    <div class="btn-group">
+                       <button type="submit" class="btn btn-info btn-small">Save changes</button>
+                    </div>
+                  	</div>
 		               
-		                <?php endforeach;?>
-						<?php endif; ?>
-						</form>
-						
+	                <?php endforeach;?>
+					<?php endif; ?>
+					</form>
+					<div id="result"></div>
+				</div>	
 				</div><!--/row-->
 
 			</div><!--/#page-content-->
@@ -571,9 +603,9 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
-
-		<!--ace scripts-->
+		
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>	
@@ -589,17 +621,18 @@
 				var stat = $('#status').val();
 				if(stat == 'Single'){
 					//$('#single_message').show();
-						alert('Show');
+					alert('Show ' + stat );
 				    $("#marital a").click(function (e) { 
 				        $(this).fadeTo("fast", .5).removeAttr("href"); 
 				        //e.preventDefault();
 				    });
+				    $('#marital').hide();
 				    $('#profile3').find(':input:not(:disabled)').prop('disabled',true)
 				}
 				if(stat == 'Married' || stat == 'Separated' || stat == 'Widowed' || stat == 'Divorced' )
 				{
 					$('#single_message').hide();
-					alert('Hide');
+					alert('Hide ' + stat );
 					
 				}
 
@@ -608,21 +641,98 @@
 		        var removeLink2 = '<img class="remove" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">';
 		      	$('a.copy').relCopy({append: removeLink});
 		      	$('a.copy2').relCopy({append: removeLink2});
-   
-			    $('.child').data('1', { name: 'p1', price: '1.99' });
-			    $('.child').data('2', { name: 'p2', price: '2.99' });
-			    $('.child').data('3', { name: 'p3', price: '3.99' });
-			    $('.child:last').append('<option value="1">p1</option><option value="2">p2</option><option value="3">p3</option>')
-			         
-			    $(".child:last").change(function () {
-			        var id = $('.child:last').val();
-			        $('.price:last').val($('.child').data(id).price);
-			    }).change();
-			 
+
+
+		      	
+			  
 			});
- 
+
+          	$( "#marital_info" ).on( "submit", function( event ) {
+			  event.preventDefault();
+			  var sData = $(this).serialize();
+			  console.log(sData);
+			  var clicked = this;
+			  $.ajax({
+	               url:"<?php echo base_url();?>hris/updateMaritalInfo",
+	                type:'POST',
+	                data:sData,
+	               // dataType:"json",
+	                success:function(result){
+	                //$("#success").show();
+	                //$("#success").attr('class', 'alert alert-success');
+	                //var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
+	               // $("#success").html(output_string);
+	                //$("#result_table").hide();
+	                // location.reload();
+	                 $(clicked).closest('tr').remove();
+	                $.gritter.add({
+						title: 'Human Resource Information Update',
+						text: ' Marital Information has been updated.',
+						class_name: 'gritter-success gritter-center gritter-light'
+					});
+					
+		            //$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
+		            //$("#personal_info")[0].reset();
+	                $("html, body").animate({ scrollTop: 0 }, "slow");
+
+	                }
+
+	            });
+
+			});
+
+			$( "#children" ).on( "submit", function( event ) {
+			 var data = {
+					foo:  123,
+					bar:  456,
+					rows: [
+					{
+					column1 : 'hello',
+					column2 : 'hola',
+					column3 : 'bonjour',
+					},
+					{
+					column1 : 'goodbye',
+					column2 : 'hasta luego',
+					column3 : 'au revoir',
+					},
+					],
+					
+					};
+					data = YAHOO.lang.JSON.stringify(data);
+					 
+					$.ajax({
+					type:           'post',
+					cache:          false,
+					url:            '<?php echo base_url();?>hris/updateMaritalInfo',
+					data:           {myJson:  data},
+						success:function(result){
+
+							alert(result);
+						}
+					});
+
+
+			});
+ 			$.fn.serializeObject = function()
+			{
+			    var o = {};
+			    var a = this.serializeArray();
+			    $.each(a, function() {
+			        if (o[this.name] !== undefined) {
+			            if (!o[this.name].push) {
+			                o[this.name] = [o[this.name]];
+			            }
+			            o[this.name].push(this.value || '');
+			        } else {
+			            o[this.name] = this.value || '';
+			        }
+			    });
+			    return o;
+			};
 
 		</script>
+		
 		
 		
 	</body>

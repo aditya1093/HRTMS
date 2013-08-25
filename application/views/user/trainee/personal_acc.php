@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Dashboard - AMI</title>
+		<title>HRIS - AMI</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,7 +29,6 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
@@ -44,6 +43,42 @@
 		<![endif]-->
 
 		<!--inline styles if any-->
+		<style type="text/css" media="screen">
+	      .ui-autocomplete {
+	            padding: 0;
+	            list-style: none;
+	            background-color: #fff;
+	            width: 218px;
+	            border: 1px solid #B0BECA;
+	            max-height: 350px;
+	            overflow-y: scroll;
+	          }
+	      .ui-autocomplete .ui-menu-item a {
+	            border-top: 1px solid #B0BECA;
+	            display: block;
+	            padding: 4px 6px;
+	            color: #353D44;
+	            cursor: pointer;
+	          }
+	      .ui-autocomplete .ui-menu-item:first-child a {
+	            border-top: none;
+	          }
+	      .ui-autocomplete .ui-menu-item a.ui-state-hover {
+	            background-color: #D5E5F4;
+	            color: #161A1C;
+	          }
+	        a{
+	          cursor:pointer;
+	        }
+	      #sheepItForm_controls div, #sheepItForm_controls div input {
+	          float:left;    
+	          margin-right: 10px;
+	      }
+	      img:hover{ cursor: pointer;
+
+	      }
+	    </style>
+
 	</head>
 
 	<body>
@@ -53,7 +88,7 @@
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - HRTMS Administration
+							AMI - HRTMS Training
 						</small>
 					</a><!--/.brand-->
 
@@ -465,6 +500,7 @@
                       <label>Country Issued &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Place Issued</label>
                       <input type="text" name="country" class = "autocomplete"  value="<?php echo $row->passport_issue_country;?>">
+                      
                       <input type="text" class="input-medium" name ="passport_issue_place" value="<?php echo $row->passport_issue_place;?>">
                       <label>Expiration Date</label>
                           <input type="date"  class="input-medium" name = "passport_expiration_date"  value="<?php echo $row->passport_expiration_date;?>">
@@ -528,6 +564,7 @@
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
+		<!-- Autocomplete Countries -->
 
 		<!--ace scripts-->
 
@@ -538,11 +575,14 @@
 
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">
+		
+
 
           $( "form" ).on( "submit", function( event ) {
 			  event.preventDefault();
 			  var sData = $(this).serialize();
 			  //console.log(sData);
+			  var clicked = this;
 			   $.ajax({
 	               url:"<?php echo base_url();?>hris/updatePersonalAcc",
 	                type:'POST',
@@ -555,6 +595,7 @@
 	               // $("#success").html(output_string);
 	                //$("#result_table").hide();
 	                // location.reload();
+	                 $(clicked).closest('tr').remove();
 	                $.gritter.add({
 						title: 'Human Resource Information Update',
 						text: ' Personal accounts has been updated.',
@@ -570,7 +611,7 @@
 	            });
 
 		});
-
+			
 		</script>
 		
 	</body>

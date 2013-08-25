@@ -48,14 +48,42 @@ class Examination extends CI_Controller {
 
 	function edit_exam($param="") {
 
-		$data = array("eid" => $param);
+		if($param) {
 
-		$this->session->set_userdata($data);
+			$data = array("eid" => $param);
 
+			$this->session->set_userdata($data);
 
-		$this->load->view('training/examination_items_view');
+			$this->load->view('training/examination_items_view');
+		}
+	}
+
+	function add_item() {
+
+		$data = array(
+
+			'question' => $this->input->post("question"),
+			'answers' => $this->input->post("answers"),
+			'key_answer' => $this->input->post("key_answer"),
+			'question_type' => $this->input->post("question_type"),
+			'exam_id' => $this->session->userdata("eid"),
+			'no_of_choices' => $this->input->post("no_of_choices")
+
+		);
+
+		$this->load->model("examination_model");
+		$this->examination_model->add_item($data);
+
 	}
 	
+	function load_items() {
+
+		$this->load->model("examination_model");
+		$data = $this->examination_model->load_items();
+
+		$str = json_encode($data);
+		echo $str;
+	}
 }
 
 /* End of file examination.php */
