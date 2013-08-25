@@ -21,7 +21,7 @@ class Profile_model extends CI_Model{
         $this->db->select('*');     
         $this->db->from('user_table');
         $this->db->where('user_table.id',$id);
-        $this->db->join('hris', 'hris.register_id = user_table.id');
+        $this->db->join('hris', 'hris.trainee_id = user_table.id');
         $query = $this->db->get();
         return $query->result();
     } 

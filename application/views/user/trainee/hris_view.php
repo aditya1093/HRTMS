@@ -419,7 +419,7 @@
 							Control Panel
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Profile
+								Profile <?php echo $this->session->userdata('id');?>
 							</small>
 						</h1>
 					</div><!--/.page-header-->

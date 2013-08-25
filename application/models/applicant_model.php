@@ -54,6 +54,15 @@ class Applicant_model extends CI_Model{
         return (isset($id)) ? $id : TRUE;   
        
     } 
+     function update_userTable($id,$data){
+
+        $this->db->where('id', $id);
+        $this->db->update('user_table',$data);
+        return TRUE;
+        //$id = $this->db->update_id();
+        //return (isset($id)) ? $id : TRUE; 
+
+    }
 
     function update_registration($id){
 

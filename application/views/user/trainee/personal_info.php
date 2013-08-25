@@ -552,10 +552,11 @@
                               <div class="controls">
                                 <label>Full Name</label>
                                 <input type="text" class="input-xlarge" name ="father_name" value="<?php echo $row->father_name;?>">
+                                <label>Age</label>
+                                <input type="text" class="input-mini"name = "father_age" value="<?php echo $row->father_age?>">
                                 <label>Occupation</label>
                                 <input type="text" class="input-xlarge" name ="father_occupation" value="<?php echo $row->father_occupation;?>">
-                                <label>Age</label>
-                                 <input type="text" class="input-mini"name = "father_age" value="<?php echo $row->father_age?>">
+                               
                                 <label>Address/Location of Employment</label>
                                 <input type="text" class="input-xxlarge" name = "father_occupation_address" value="<?php echo $row->father_occupation_address;?>">
                                 <label>Home Address</label>
@@ -582,7 +583,7 @@
                                   <label>Occupation</label>
                                   <input type="text" class="input-large" name = "mother_occupation"  value="<?php echo $row->mother_occupation;?>">
                                   <label>Address/Location of Employment</label>
-                                  <input type="text" class="input-xxlarge" name = "mother_occupation_address">
+                                  <input type="text" class="input-xxlarge" name = "mother_occupation_address" value="<?php echo $row->mother_occupation_address;?>">
                                   <label>Home Address</label>
                                   <label>
 								  <input type="checkbox" class="ace" name="sameasmother" value="checkbox" onClick="sameaddmother(this.form);">
@@ -784,8 +785,8 @@
 	                //$("#result_table").hide();
 	                // location.reload();
 	                $.gritter.add({
-						title: 'Human Resource Information Upated',
-						text: result + ' personal infromation has been updated.',
+						title: 'Human Resource Information Update',
+						text: ' Personal infromation has been updated.',
 						class_name: 'gritter-success gritter-center gritter-light'
 					});
 					

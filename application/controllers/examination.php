@@ -48,6 +48,11 @@ class Examination extends CI_Controller {
 
 	function edit_exam($param="") {
 
+		$data = array("eid" => $param);
+
+		$this->session->set_userdata($data);
+
+
 		$this->load->view('training/examination_items_view');
 	}
 	

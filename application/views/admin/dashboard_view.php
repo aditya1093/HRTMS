@@ -524,13 +524,7 @@
 							</div>
 							<div class="box-content">
 								<div class="row-fluid">
-									<form class="form-inline" id="student">
-														<input autofocus type="text" class="span11" name="id" id="id"/>
-														<button class="btn btn-purple btn-small" id="getinfo">
-															Get Data
-														</button>												
-									</form>
-									<div id='result_table'></div>
+									
 								</div>								
 							</div> 
 

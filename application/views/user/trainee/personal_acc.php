@@ -27,6 +27,8 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
 
@@ -450,20 +452,20 @@
                     <!-- Tax Status Dropdown-->
                         <label>Tax status</label>
                         <select name = "tax_status">
-                          <option disabled = "disabled" selected = "selected">Select Status...</option>
-                          <option value = "Single">Single</option>
-                          <option value = "Married">Married</option>
-                          <option value = "Head of Family">Head of Family</option>
+                          <option disabled = "disabled" selected = "selected" value="">Select Status...</option>
+                          <option value = "Single" <?php if($row->tax_status=='Single') echo 'selected';?>>Single</option>
+                          <option value = "Married" <?php if($row->tax_status=='Married') echo 'selected';?>>Married</option>
+                          <option value = "Head_of_Family" <?php if($row->tax_status=='Head_of_Family') echo 'selected';?>>Head of Family</option>
                         </select>
                     <!-- End of Tax Status Dropdown-->
                       <label>Passport No. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                       &nbsp; &nbsp; Date Issued</label>
                       <input type="text" class="input-medium" name = "passport_no"  value="<?php echo $row->passport_no;?>">
-                      <input type="date" class="input-medium" name = "passpost_issue_date"  value="<?php echo $row->passport_issue_date;?>">
+                      <input type="date" class="input-medium" name = "passport_issue_date"  value="<?php echo $row->passport_issue_date;?>">
                       <label>Country Issued &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Place Issued</label>
                       <input type="text" name="country" class = "autocomplete"  value="<?php echo $row->passport_issue_country;?>">
-                      <input type="text" class="input-medium" name ="passport_issue_place">
+                      <input type="text" class="input-medium" name ="passport_issue_place" value="<?php echo $row->passport_issue_place;?>">
                       <label>Expiration Date</label>
                           <input type="date"  class="input-medium" name = "passport_expiration_date"  value="<?php echo $row->passport_expiration_date;?>">
                       <label>Other License Type &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Date Issued</label>
@@ -475,6 +477,11 @@
                           <input type="date"  class="input-medium" name = "license_expiration_date"  value="<?php echo $row->license_expiration_date;?>">
                 
                     </div>
+                     <div class = "pager">
+                        <div class="btn-group">
+                           <button type="submit" class="btn btn-info btn-small">Save changes</button>
+                        </div>
+                      </div>
                 <!-- End of Tab 2 --> 
                 
                 <?php endforeach;?>
@@ -519,6 +526,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
 
 		<!--ace scripts-->
@@ -529,6 +537,41 @@
 	
 
 		<!--inline scripts related to this page-->
+		<script type="text/javascript">
+
+          $( "form" ).on( "submit", function( event ) {
+			  event.preventDefault();
+			  var sData = $(this).serialize();
+			  //console.log(sData);
+			   $.ajax({
+	               url:"<?php echo base_url();?>hris/updatePersonalAcc",
+	                type:'POST',
+	                data:sData,
+	               // dataType:"json",
+	                success:function(result){
+	                //$("#success").show();
+	                //$("#success").attr('class', 'alert alert-success');
+	                //var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
+	               // $("#success").html(output_string);
+	                //$("#result_table").hide();
+	                // location.reload();
+	                $.gritter.add({
+						title: 'Human Resource Information Update',
+						text: ' Personal accounts has been updated.',
+						class_name: 'gritter-success gritter-center gritter-light'
+					});
+					
+		            //$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
+		            //$("#personal_info")[0].reset();
+	                $("html, body").animate({ scrollTop: 0 }, "slow");
+
+	                }
+
+	            });
+
+		});
+
+		</script>
 		
 	</body>
 </html>

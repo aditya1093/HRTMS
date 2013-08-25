@@ -433,7 +433,7 @@
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">Manage Examination</li>
+						<li class="active">Edit Examination Items</li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
@@ -449,10 +449,10 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Manage Examination
+							Edit Examination Items
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Training Performance
+								{Name of Exam}
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -464,13 +464,14 @@
 							<div class="widget-box">
 								<div class="widget-header">
 									<h4 class="smaller">
-										List of Examinations
+										Examination Items
 										<small>Test Modules</small>
 									</h4>
 								</div>
 
 								<div class="widget-body">
 									<div class="widget-main">
+										
 									</div>
 								</div>
 							</div>
@@ -595,167 +596,210 @@
 
 		<script type="text/javascript">
 
-			$(document).ready(function(){
+			var separator = "~/&^%-";
 
+			$(document).ready(function() {
+
+
+				
+				$(".answers").html("<pre>(Please specify the item type)</pre>");
 
 				//hide settings on document load
 				$(".multiple_setting").hide();
 
-				//add elements
-				$(".add_item").click(function(){
+			});
 
-					var question = $("#question").val();
+			//add elements
+			$(".add_item").click(function(){
 
-					var items = "";
+				var question = $("#question").val();
 
-					//if multiple choice
-					if($(".item_type").val() == 1) {
+				var items = "";
 
-						items += "<tr><td>";
+				//print questions
+				items += question + "\n";
 
-						//print questions
-						items += question + "<br>";
+				//if multiple choice
+				if($(".item_type").val() == 1 || $(".item_type").val() == 4 || $(".item_type").val() == 5) {
 
-						//get textbox values to an array
-						var text_array = $('textarea[name="multiple_answers[]"]').map(function() {
-						  return $(this).val()
-						}).get();
+					//get textbox values to an array
+					var text_array = $('textarea[name="multiple_answers[]"]').map(function() {
 
-						for (var i = 0; i < text_array.length; i++) {
-							
-							items += "<input type=\"radio\" class=\"ace\" name=\"sample\"> <input size=\"100\" type=\"text\" value=\"" + text_array[i] + "\"><br>";
-						};
+					  return $(this).val()
 
-						items += "</td></tr>";
+					}).get();
 
-						$(".page_end").before(items);
+					for (var i = 0; i < text_array.length; i++) {
 
-						alert("An item is added successfully!");
+						//choices
+						items += text_array[i] + separator;
+					};
 
-					}
-					else if($(".item_type").val() == 2) {
+					//key answers for multiple choice, select multiple, arrange
+					if($(".item_type").val() == 4) {
 
-						items += "<tr><td>";
-
-						//print questions
-						items += question + "<br>";
-
-						items += "<input type=\"radio\" class=\"ace\" name=\"sample\"> True<br>";
-
-						items += "<input type=\"radio\" class=\"ace\" name=\"sample\"> False<br>";
-
-						items += "</td></tr>";
-
-						$(".page_end").before(items);
-
-						alert("An item is added successfully!");
-					}
-					else if($(".item_type").val() == 3) {
-
-					}
-					else if($(".item_type").val() == 4) {
+						items += "\n";
+						//var values = new Array();
+						$.each($("#choices:checked"), function() {
+							 //values.push($(this).val());
+							 items += $(this).val() + separator;
+						});
 
 					}
 					else if($(".item_type").val() == 5) {
 
+						items += "\n";
+						for (var i = 0; i < text_array.length; i++) {
+
+							//choices
+							items += text_array[i] + separator;
+						};
 					}
 					else {
 
+						items += "\n"+$("#choices:checked").val();
 						
-						alert("Please select the type of question!");		
 					}
 
-					//clear textboxes, radio button and checkbox after adding item
-					$("#question").val("");
+				}
+				else if($(".item_type").val() == 2) {
 
-					if($(".item_type").val() != 0 || $(".item_type").val() != 2 || $(".item_type").val() != 3) {
-						alert($(".item_type").val());
-						$("textarea[name='multiple_answers[]']").val("");
-						$(".answers").html(init_choices("radio"));
+					//key answer
+					items += "\n"+$("#tf").val();
+
+
+				}
+				else if($(".item_type").val() == 3) {
+
+					//key answer
+					items += $("#id_text").val();
+
+
+				}
+			
+				else {
+					
+					alert("Please select the type of question!");		
+				}
+
+				//clear textboxes, radio button and checkbox after adding item
+				$("#question").val("");
+				$(".item_type").val("0");
+				$(".no_of_choices").val("0");
+
+				if($(".item_type").val() != 0 || $(".item_type").val() != 2 || $(".item_type").val() != 3) {
+					
+					$("textarea[name='multiple_answers[]']").val("");
+					$(".answers").html(init_choices("radio"));
+				}
+
+				alert(items);
+				
+			});
+
+			//specify element properties
+			$(".item_type").change(function(){
+
+				//clear answers
+				$(".answers").html("");
+
+				if($(".item_type").val() == 0 || $(".item_type").val() == 2 || $(".item_type").val() == 3) {
+
+					if($(".item_type").val() == 0) {
+
+						$(".answers").html("<pre>(Please specify item type)</pre>");
+					}
+
+					//hide for single answer questions
+					$(".multiple_setting").hide();
+
+					if($(".item_type").val() == 2) {
+						
+						var choices_str = "<input id=\"tf\"  type=\"radio\" class=\"ace\" value=\"true\" name=\"tf\"> True<br><input id=\"tf\" type=\"radio\" class=\"ace\" value=\"false\" name=\"tf\"> False";
+						choices_str = "<pre>" + choices_str + "</pre>";
+						$(".answers").html(choices_str);
+					}
+					else if($(".item_type").val() == 3) {
+						
+						var choices_str = "<textarea id=\"id_text\" style=\"width:95%\"></textarea>";
+						choices_str = "<pre>" + choices_str + "</pre>";
+						$(".answers").html(choices_str);
 					}
 					
-				});
+				}
+				else {		
 
-				//specify element properties
-				$(".item_type").change(function(){
+					$(".multiple_setting").show(function(){
 
-					//clear answers
-					$(".answers").html("");
+						$(".no_of_choices").val("--");
+					});
 
-					if($(".item_type").val() == 0 || $(".item_type").val() == 2 || $(".item_type").val() == 3) {
+					$(".answers").html("<pre>(Please specify the number of choices)</pre>");
 
-						//hide for single answer questions
-						$(".multiple_setting").hide();
+				}
+			});
 
-						if($(".item_type").val() == 2) {
-							
-							var choices_str = "<input type=\"radio\" class=\"ace\" name=\"radio_answer\"> True<br><input type=\"radio\" class=\"ace\" name=\"radio_answer\"> False";
-							choices_str = "<pre>" + choices_str + "</pre>";
-							$(".answers").html(choices_str);
-						}
-						else if($(".item_type").val() == 3) {
-							
-							var choices_str = "<textarea id=\"question\" style=\"width:95%\"></textarea>";
-							choices_str = "<pre>" + choices_str + "</pre>";
-							$(".answers").html(choices_str);
-						}
-						
-					}
-					else {		
+			//initialization of choices
+			var init_choices = function (input_type) {
 
-						$(".multiple_setting").show(function(){
+				var choices_str = "";
+				var bracket = "";
 
-							$(".no_of_choices").val("--");
-						});
-						$(".answers").html("(Please specify the number of choices)");
-
-					}
-				});
-
-				//initialization of choices
-				var init_choices = function (input_type) {
-
-					var choices_str = "";
+				if(input_type=="order") {
 
 					for (var i = 0; i < parseInt($(".no_of_choices").val()); i++) {
 
-						choices_str += "<input name=\"choices\" type=\"" + input_type + "\"><textarea  style=\"width:90%\" name=\"multiple_answers[]\"></textarea><br>";
+						choices_str += (i+1) + ") <textarea  style=\"width:90%\" name=\"multiple_answers[]\"></textarea><br>";
 
 					};
-
-					if(choices_str=="") {
-
-						//clear answers
-						choices_str = "(Please specify the number of choices)";
-					}
 					choices_str = "<pre>" + choices_str + "</pre>";
 					return choices_str;
+				}
+
+				for (var i = 0; i < parseInt($(".no_of_choices").val()); i++) {
+
+					if(input_type=="checkbox") {
+
+						bracket = "[]";
+					}
+
+					choices_str += "<input id=\"choices\" value=\""+(i+1)+"\" class=\"ace\" name=\"choices"+bracket+"\" type=\"" + input_type + "\"><textarea  style=\"width:90%\" name=\"multiple_answers[]\"></textarea><br>";
 
 				};
 
-				//specify number of choices
-				$(".no_of_choices").change(function() {	
+				if(choices_str=="") {
 
-					if ($(".item_type").val() == 1) { 
+					//clear answers
+					choices_str = "(Please specify the number of choices)";
+				}
 
-						$(".answers").html(init_choices("radio"));
+				choices_str = "<pre>" + choices_str + "</pre>";
+				return choices_str;
 
-					}
-					if ($(".item_type").val() == 4) { 
+			};
 
-						
-						$(".answers").html(init_choices("checkbox"));
+			//specify number of choices
+			$(".no_of_choices").change(function() {	
 
-					}
-					else {
-						
-					}
-				});
+				if ($(".item_type").val() == 1) { 
 
+					$(".answers").html(init_choices("radio"));
+				}
+				if ($(".item_type").val() == 4) { 
+					
+					$(".answers").html(init_choices("checkbox"));
+
+				}
+				if ($(".item_type").val() == 5) { 
+					
+					$(".answers").html(init_choices("order"));
+
+				}
+				else {
+					
+				}
 			});
-
-
-			
+	
 		</script>
 	</body>
 </html>

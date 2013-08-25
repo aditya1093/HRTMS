@@ -47,6 +47,7 @@ class Applicant extends CI_Controller {
 		$train_id = $ami.'-'.$tag.'-'.$id;
 		$m = $this->input->post('middle_name');
 		$name = $this->input->post('first_name') .' ' .$m[0].' '.$this->input->post('last_name'); 
+		$name .= $train_id;
 		$this->output->set_output(json_encode($name));
 		$hris = array(
 					'register_id' => $reg_id,
@@ -75,13 +76,14 @@ class Applicant extends CI_Controller {
         		);
     		
 		$this->load->model('applicant_model');
-		//$this->applicant_model->add_trainee_hris($hris);
+		$this->applicant_model->add_trainee_hris($hris);  //Add to HRIS Table
 		//$this->applicant_model->add_trainee($user_table);
-		//$this->applicant_model->update_registration($reg_id)
+		$this->applicant_model->update_userTable($reg_id,$user_table); //Update UserAccount in User_Table
+		$this->applicant_model->update_registration($reg_id); // Update Registration , Active to 1.
 		}
 		else {
 
-		    header( 'Location: Personal_info' ) ;
+		    header( 'Location: Accept' ) ;
 		}
 		
 	}

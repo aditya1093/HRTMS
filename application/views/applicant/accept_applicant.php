@@ -1,4 +1,4 @@
-
+<?php if($this->session->userdata('permission') != 'Administrator') { redirect(base_url() . '404');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -690,7 +690,6 @@
 						              	password = $("#password").val();
 						                email = $("#email").val();
 						                register_id = $("#register_id").val();
-
 							          
 							            var datastr = 'first_name='+first_name + '&middle_name='+middle_name + '&last_name='+last_name + '&address='+address + '&birth_date='+birth_date + '&city='+city + '&province='+province + '&gender='+gender + '&phone='+phone + '&username='+username + '&password='+password + '&email='+email + '&register_id='+register_id;    
 							           	//alert(province+phone+email);
