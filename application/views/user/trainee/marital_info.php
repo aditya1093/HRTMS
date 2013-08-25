@@ -437,134 +437,85 @@
 						</div><!--/.page-header-->
 
 					
-				<div class="row-fluid">
+			<div class="row-fluid">
 						
 		            
-		        <?php if(isset($records)) : foreach($records as $row) : ?>
+		        	<?php if(isset($records)) : foreach($records as $row) : ?>
 		                	
 		             <div class="" id="profile3">
 		                	
-		                  	<div class="well" id="single_message">
-		                        <p>This section is for 
-		                          <b>Married employees only</b> . You're <?php echo $this->session->userdata('civil_status');?>, you can proceed to the last step.
-		                          <a class="btn btn-small btn-info" href="<?php echo base_url();?>hris/educational_background" >Proceed</a> 
-		                        </p>
-		                    </div>
-		                	<form id="marital_info">
-		                	<div class="marital_div" id="marital">
+	                  	<div class="well" id="single_message">
+	                        <p>This section is for 
+	                          <b>Married employees only</b> . You're <?php echo $this->session->userdata('civil_status');?>, you can proceed to the last step.
+	                          <a class="btn btn-small btn-info" href="<?php echo base_url();?>hris/educational_background" >Proceed</a> 
+	                        </p>
+	                    </div>
+	            		<div class="marital_div" id="marital">
+		                <form id="marital_info">
+		               
 		                    <h4>Marriage Information</h4>
-		                      <label>Date of Marriage</label>
+		                    <label>Date of Marriage</label>
 		                        <input type="date" name = "marriage_date"  class="input-medium" value="<?php echo $row->marriage_date;?>">
-		                      <label>Place of Marriage</label>
+		                    <label>Place of Marriage</label>
 		                        <input type="text" class="input-large" name = "marriage_place" value="<?php echo $row->marriage_place;?>">
 		                    <label>
 		                      <b>Spouse's Name</b> 
-		                      </label>
-		                      <label>First Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+		                    </label>
+		                    <label>First Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 		                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Middle Name &nbsp; &nbsp; &nbsp; &nbsp;
 		                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Last Name</label>
 		                        <input type="text" class="input-medium" name = "spouse_first_name" value="<?php echo $row->spouse_first_name;?>">
 		                        <input type="text" class="input-medium" name = "spouse_middle_name" value="<?php echo $row->spouse_middle_name;?>">
 		                        <input type="text" class="input-medium" name = "spouse_last_name" value="<?php echo $row->spouse_last_name;?>">
-		                      <label>Date of Birth</label>
+		                    <label>Date of Birth</label>
 		                        <input type = "date"  class="input-medium" name = "spouse_birthdate" value="<?php echo $row->spouse_birthdate;?>">
-		                      <label>Occupation</label>
+		                    <label>Occupation</label>
 		                        <input type="text" class="input-medium" name = "spouse_occupation" value="<?php echo $row->spouse_occupation;?>">
-		                      <label>Contact No.</label>
-		                      <input type="text" class="input-medium" name = "spouse_contact_no" value="<?php echo $row->spouse_contact_no;?>">
+		                    <label>Contact No.</label>
+		                    <input type="text" class="input-medium" name = "spouse_contact_no" value="<?php echo $row->spouse_contact_no;?>">
 		                   
-		                      <br>
-		                      <br>
-		                        <div class = "pager">
-		                        <div class="btn-group">
-		                           <button type="submit" class="btn btn-info btn-small">Save changes</button>
-		                        </div>
-		                      	</div>
-		                      </form>
-		                      <form id="children">
-		                      
-		                      <label>
-		                      <b>Name(s) of Children</b>
-		                      <i>(if none, proceed to the last step)</i> 
-		                      </label>
-		                      <div class="control-group-children">
+		                    <br>
+		                    <br>
+	                        <div class = "pager">
+	                        <div class="btn-group">
+	                           <button type="submit" class="btn btn-info btn-small">Save changes</button>
+	                        </div>
+	                      	</div>
+		                </form>
+		               	<form id="children">
+	                      	<label>
+	                      	<b>Name(s) of Children</b>
+	                      	<i>(if none, proceed to the last step)</i> 
+	                      	</label>
+	                      	<div class="control-group-children">
 		                        <label class="control-label">Children's Information</label>
 		                        <div class="child">
-		                         <hr>
-		                          <label>Full Name</label>
-		                            <input type="text" class="input-large" name = "child_full_name[]">
-		                          <label>Date of Birth</label>
-		                            <input  class="input-medium" type = "date" name = "child_DOB[]">
-		                          <label>Name of School or Place of Work</label>
-		                            <input type="text" class="input-large" name = "child_school_work[]">
-		                          <br>
-		                         </div>
-		                      </div>
-		                      <br>
-		                      <a href="#" class="btn btn-info copy btn-mini" rel=".child">Add+</a>
-		                      <span class="help-inline">Click Add+ to add more Children's Information.</span>
-		                       <div class = "pager">
-		                       <div class="btn-group">
-		                       <button type="submit" class="btn btn-info btn-small">Save changes</button>
-		                       </div>
-		                  	   </div>
-		                      </form>
-		                   	<!--
-		                      <br><br>
-		                      <label>
-		                      <b>Name(s) of Dependent</b>
-		                      <i>(if none, proceed to the last step)</i> 
-		                      </label>
-			                    <div class="control-group-dependent">
-			                        <label class="control-label">Dependent's Information</label>
-			                        <div class="dependent">
-			                        <hr>
-			                            <label>Full Name</label>
-			                              <input type="text" class="input-large" name = "dependent_full_name[]">
-			                            <label>Date of Birth</label>
-			                              <input type="date" name = "dependent_DOB">                            
-			                            <label>Relationship to Employee</label>
-			                              <input type="text" class="input-large" name = "dependent_relationship[]">
-			                            <br>
-			                        </div>
-			                    </div>
-		                      <br>
-		                      <a href="#" class="btn btn-info copy btn-mini" rel=".dependent">Add+</a>
-		                      <span class="help-inline">Click Add+ to add more Dependent's Information.</span>
-		                      <br><br>
-		                      <label>
-		                        <b>Name(s) of Beneficiary</b>
-		                        <i>(if none, proceed to the last step)</i> 
-		                      </label>
-		                      <div class="control-group-beneficiary">
-		                        <label class="control-label">Beneficiaries' Information</label>
 		                        <hr>
-		                        <div class="beneficiary">
-		                            <label>Full Name</label>
-		                              <input type="text" class="input-large" name = "beneficiary_full_name[]">
-		                            <label>Date of Birth</label>
-		                              <input type = "date" name = "beneficiary_DOB">
-		                            <label>Relationship to Employee</label>
-		                              <input type="text" class="input-large" name = "beneficiary_relationship[]">
-		                            <br>
-		                        </div>
-		                      </div>
-		                      <br>
-		                      <a href="#" class="btn btn-info copy btn-mini" rel=".beneficiary">Add+</a>
-		                      <span class="help-inline">Click Add+ to add more Beneficiaries' Information.</span>
-		                   
-		                	</div>-->
-		             	</div>
-	             	<div class = "pager">
-                    <div class="btn-group">
-                       <button type="submit" class="btn btn-info btn-small">Save changes</button>
-                    </div>
-                  	</div>
-		               
+			                         	
+			                    <label>Full Name</label>
+			                    	<input type="text" class="input-large" name = "child_name[]">
+			                    <label>Date of Birth</label>
+			                    	<input  class="input-medium" type = "date" name = "child_dob[]">
+			                    <label>Name of School or Place of Work</label>
+			                    	<input type="text" class="input-large" name = "child_school_work[]">
+			                    <br>
+			                    </div>
+		                    </div>
+	                      	<br>
+	                      	<a href="#" class="btn btn-info copy1 btn-mini" rel=".child">Add+</a>
+	                      	<span class="help-inline">Click Add+ to add more Children's Information.</span>
+	                       	<div class = "pager">
+	                       	<div class="btn-group">
+	                       		<button type="submit" class="btn btn-info btn-small">Save changes</button>
+	                       	</div>
+	                  	   	</div>
+		                </form>            
+		   	         
+		          
 	                <?php endforeach;?>
 					<?php endif; ?>
 					</form>
-					<div id="result"></div>
+
 				</div>	
 				</div><!--/row-->
 
@@ -621,7 +572,7 @@
 				var stat = $('#status').val();
 				if(stat == 'Single'){
 					//$('#single_message').show();
-					alert('Show ' + stat );
+					//alert('Show ' + stat );
 				    $("#marital a").click(function (e) { 
 				        $(this).fadeTo("fast", .5).removeAttr("href"); 
 				        //e.preventDefault();
@@ -632,14 +583,15 @@
 				if(stat == 'Married' || stat == 'Separated' || stat == 'Widowed' || stat == 'Divorced' )
 				{
 					$('#single_message').hide();
-					alert('Hide ' + stat );
+					//alert('Hide ' + stat );
 					
 				}
 
 		
 				var removeLink = '<a class="remove btn btn-danger btn-mini" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">remove</a>';
 		        var removeLink2 = '<img class="remove" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">';
-		      	$('a.copy').relCopy({append: removeLink});
+		      	$('a.copy').relCopy({limit: 4 ,append: removeLink});
+		      	$('a.copy1').relCopy({append: removeLink});
 		      	$('a.copy2').relCopy({append: removeLink2});
 
 
@@ -682,38 +634,114 @@
 			});
 
 			$( "#children" ).on( "submit", function( event ) {
-			 var data = {
-					foo:  123,
-					bar:  456,
-					rows: [
-					{
-					column1 : 'hello',
-					column2 : 'hola',
-					column3 : 'bonjour',
-					},
-					{
-					column1 : 'goodbye',
-					column2 : 'hasta luego',
-					column3 : 'au revoir',
-					},
-					],
-					
-					};
-					data = YAHOO.lang.JSON.stringify(data);
-					 
-					$.ajax({
-					type:           'post',
-					cache:          false,
-					url:            '<?php echo base_url();?>hris/updateMaritalInfo',
-					data:           {myJson:  data},
-						success:function(result){
-
-							alert(result);
-						}
+			 /*
+			  var sData = $(this).serializeArray();
+			  console.log(sData);
+			  alert('Children');
+			  var clicked = this;*/
+			  event.preventDefault();
+			  //var sData = JSON.stringify($('#children').serializeObject());
+			  var sData = $(this).serialize();
+			  console.log(sData);
+			  $.ajax({
+	               url:"<?php echo base_url();?>hris/updateChildren",
+	                type:'POST',
+	                data:sData,
+	               	//dataType:"json",
+	                success:function(result){
+	    
+	                $.gritter.add({
+						title: 'Human Resource Information Update',
+						text: ' Child/Children has been updated.',
+						class_name: 'gritter-success gritter-center gritter-light'
 					});
+
+			
+	                //$("html, body").animate({ scrollTop: 0 }, "slow");
+
+	                }
+
+	            });
 
 
 			});
+			$( "#dependent" ).on( "submit", function( event ) {
+			 /*
+			  var sData = $(this).serializeArray();
+			  console.log(sData);
+			  alert('Children');
+			  var clicked = this;*/
+			  event.preventDefault();
+			  //var sData = JSON.stringify($('#children').serializeObject());
+			  var sData = $(this).serialize();
+			  console.log(sData);
+			  $.ajax({
+	               url:"<?php echo base_url();?>hris/updateDependent",
+	                type:'POST',
+	                data:sData,
+	               	//dataType:"json",
+	                success:function(result){
+	    
+	                $.gritter.add({
+						title: 'Human Resource Information Update',
+						text: ' Dependent/Dependents has been updated.',
+						class_name: 'gritter-success gritter-center gritter-light'
+					});
+
+			
+	                //$("html, body").animate({ scrollTop: 0 }, "slow");
+
+	                }
+
+	            });
+
+
+			});
+
+			$( "#beneficiary" ).on( "submit", function( event ) {
+			 /*
+			  var sData = $(this).serializeArray();
+			  console.log(sData);
+			  alert('Children');
+			  var clicked = this;*/
+			  event.preventDefault();
+			  //var sData = JSON.stringify($('#children').serializeObject());
+			  var sData = $(this).serialize();
+			  console.log(sData);
+			  $.ajax({
+	               url:"<?php echo base_url();?>hris/updateBeneficiary",
+	                type:'POST',
+	                data:sData,
+	               	//dataType:"json",
+	                success:function(result){
+	    
+	                $.gritter.add({
+						title: 'Human Resource Information Update',
+						text: ' Beneficiary/Beneficiaries has been updated.',
+						class_name: 'gritter-success gritter-center gritter-light'
+					});
+
+			
+	                //$("html, body").animate({ scrollTop: 0 }, "slow");
+
+	                }
+
+	            });
+
+
+			});
+ 			
+
+
+
+
+
+
+
+
+
+
+
  			$.fn.serializeObject = function()
 			{
 			    var o = {};

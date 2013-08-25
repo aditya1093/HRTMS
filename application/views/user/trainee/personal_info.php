@@ -28,7 +28,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" media="PRINT,SCREEN"/>
 	
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
 
@@ -443,11 +443,9 @@
                           <input type="text" class="input-large" name = "last_name" value="<?php echo $row->last_name;?>">
                           <input type="text" class="input-medium" name = "middle_name" value="<?php echo $row->middle_name;?>">
                           <input type="text" class="input-medium" name = "nickname" value="<?php echo $row->nickname;?>">
-                        <label>Date of Birth&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <label >Date of Birth&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                          &nbsp; &nbsp; Place of Birth</label>
-                          <input class ="input-medium" type="date" name="birthdate" value="<?php 
-                         
-                          echo $row->birthdate;?>">
+                          <input class ="input-medium"  id="dob" type="date" name="birthdate" value="<?php echo $row->birthdate;?>">
 
                           <input type="text" class="input-large" name = "place_of_birth" value ="<?php echo $row->place_of_birth;?>"> &nbsp;
                     <!-- End of Employee Name -->
@@ -496,8 +494,8 @@
                           <option value = "O" <?php if($row->blood_type=='O') echo 'selected';?>>O</option>
                           <option value = "AB" <?php if($row->blood_type=='AB') echo 'selected';?>>AB</option>
                         </select>
-                        <label>Religion</label>
-                          <input type="text" class="input-medium" name = "religion" value="<?php echo $row->religion;?>">
+                        <label for="religion" >Religion</label>
+                          <input type="text" class="input-medium" id="religion"  name = "religion" value="<?php echo $row->religion;?>">
                         <label>Home Tel. No. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                           &nbsp; &nbsp; Mobile no. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alternate Contact No.</label>
@@ -550,23 +548,23 @@
                               <b>Employee's Father's Information</b> 
                             </label>
                               <div class="controls">
-                                <label>Full Name</label>
-                                <input type="text" class="input-xlarge" name ="father_name" value="<?php echo $row->father_name;?>">
-                                <label>Age</label>
-                                <input type="text" class="input-mini"name = "father_age" value="<?php echo $row->father_age?>">
-                                <label>Occupation</label>
-                                <input type="text" class="input-xlarge" name ="father_occupation" value="<?php echo $row->father_occupation;?>">
+                                <label for="father_name">Full Name</label>
+                                <input type="text" class="input-xlarge" id="father_name" name ="father_name" value="<?php echo $row->father_name;?>">
+                                <label for="father_age">Age</label>
+                                <input type="text" class="input-mini" id="father_age" name="father_age" value="<?php echo $row->father_age?>">
+                                <label for="father_occupation" >Occupation</label>
+                                <input type="text" class="input-xlarge" id="father_occupation"  name ="father_occupation" value="<?php echo $row->father_occupation;?>">
                                
-                                <label>Address/Location of Employment</label>
-                                <input type="text" class="input-xxlarge" name = "father_occupation_address" value="<?php echo $row->father_occupation_address;?>">
-                                <label>Home Address</label>
+                                <label for="father_emp_loc" >Address/Location of Employment</label>
+                                <input type="text" class="input-xxlarge"  id="father_emp_loc" name = "father_occupation_address" value="<?php echo $row->father_occupation_address;?>">
+                                <label for="father_address" >Home Address</label>
                                 <label>
 								<input type="checkbox" class="ace" name="sameasfather" value="checkbox" onClick="sameaddfather(this.form);">
 								<span class="lbl"> <i>Same As Present Home Address</i></span>
 						  		</label>
-                                <input type="text" class="input-xxlarge" name ="father_address" value="<?php echo $row->father_address;?>">
-                                <label>Contact No.</label>
-                                <input type="text" class="input-medium" name ="father_contact_no" value="<?php echo $row->father_contact_no;?>"> 
+                                <input type="text" class="input-xxlarge"  id="father_address" name ="father_address" value="<?php echo $row->father_address;?>">
+                                <label for="father_contact" >Contact No.</label>
+                                <input type="text" class="input-medium" id="father_contact"  name ="father_contact_no" value="<?php echo $row->father_contact_no;?>"> 
                               </div>
                             </div>
                         <!-- End of Father's Information -->
@@ -576,50 +574,46 @@
                                 <b>Employee's Mother's Information</b> 
                               </label>
                                 <div class="controls">
-                                  <label>Full Name</label>
-                                  <input type="text" class="input-xlarge" name = "mother_name" value="<?php echo $row->mother_name;?>">
-                                  <label>Age</label>
-                                  <input type="text" name = "mother_age"  value="<?php echo $row->mother_age;?>">
-                                  <label>Occupation</label>
-                                  <input type="text" class="input-large" name = "mother_occupation"  value="<?php echo $row->mother_occupation;?>">
-                                  <label>Address/Location of Employment</label>
-                                  <input type="text" class="input-xxlarge" name = "mother_occupation_address" value="<?php echo $row->mother_occupation_address;?>">
-                                  <label>Home Address</label>
+                                  <label for="mother_name">Full Name</label>
+                                  <input type="text" class="input-xlarge" name = "mother_name" id="mother_name"value="<?php echo $row->mother_name;?>">
+                                  <label for="mother_age" >Age</label>
+                                  <input type="text" name = "mother_age"  id="mother_age" value="<?php echo $row->mother_age;?>">
+                                  <label for="mother_occupation" >Occupation</label>
+                                  <input type="text" class="input-large" id="mother_occupation" name = "mother_occupation"  value="<?php echo $row->mother_occupation;?>">
+                                  <label for="mother_emp_loc" >Address/Location of Employment</label>
+                                  <input type="text" class="input-xxlarge" id="mother_emp_loc" name = "mother_occupation_address" value="<?php echo $row->mother_occupation_address;?>">
+                                  <label for="mother_address" >Home Address</label>
                                   <label>
 								  <input type="checkbox" class="ace" name="sameasmother" value="checkbox" onClick="sameaddmother(this.form);">
 							      <span class="lbl"> <i>Same As Present Home Address</i></span>
 						  		  </label>
-                                   <input type="text" class="input-xxlarge" name = "mother_address"  value="<?php echo $row->mother_address;?>">
-                                  <label>Contact No.</label>
-                                  <input type="text" class="input-medium" name = "mother_contact_no"  value="<?php echo $row->mother_contact_no;?>"> 
+                                   <input type="text" class="input-xxlarge"  id="mother_address" name = "mother_address"  value="<?php echo $row->mother_address;?>">
+                                  <label for="mother_contact" >Contact No.</label>
+                                  <input type="text" class="input-medium" id="mother_contact" name = "mother_contact_no"  value="<?php echo $row->mother_contact_no;?>"> 
                                		
                                 </div>
-                                <!--
-                                <div class="control-group">
-											<label class="control-label">Checkbox</label>
-
-											<div class="controls">
-												<label>
-													<input name="Child" type="checkbox" class="ace" value="1">
-													<span class="lbl"> choice 1</span>
-												</label>
-
-												<label>
-													<input name="Child" type="checkbox" class="ace" value="2">
-													<span class="lbl"> choice 2</span>
-												</label>
-
-												<label>
-													<input name="Child" class="ace ace-checkbox-2" type="checkbox" value="3">
-													<span class="lbl"> choice 3</span>
-												</label>
-
-					
-											</div>
-								</div>-->
                             </div>
                         <!-- End of Mother's Information -->
                       <!-- End of Parents Information -->
+                      <!--Skills-->
+	                     
+	                            <div class="control-group wrapper">
+	                            <b><small class="muted" >Enter for another input</small></b> 
+									<label class="control-label" for="skills">Skills</label>
+									<div class="controls">
+									<input class="" id="skills" name="skills" value="<?php echo $row->skills;?>">
+									</div>
+									<label class="control-label" for="hobbies">Hobbies</label>
+									<div class="controls">
+									<input class="" id="hobbies" name="hobbies" value="<?php echo $row->hobbies;?>">
+									</div>
+									<label class="control-label" for="interests">Interest</label>
+									<div class="controls">
+									<input class="" id="interests" name="interests" value="<?php echo $row->interests;?>">
+									</div>
+								</div>
+
+
                       <div class = "pager">
                         <div class="btn-group">
                            <button type="submit" class="btn btn-info btn-small">Save changes</button>
@@ -669,6 +663,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootstrap-tag.min.js"></script>
 
 		<!--ace scripts-->
 
@@ -777,6 +772,7 @@
 	                type:'POST',
 	                data:sData,
 	               // dataType:"json",
+	               
 	                success:function(result){
 	                //$("#success").show();
 	                //$("#success").attr('class', 'alert alert-success');
@@ -799,6 +795,64 @@
 	            });
 
 		});
+
+		
+		$( document ).ready(function() {
+				//we could just set the data-provide="tag" of the element inside HTML, but IE8 fails!
+				var tag_input = $('#skills');	
+				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
+				{
+					tag_input.tag(
+					  {
+						placeholder:tag_input.attr('placeholder'),
+						//enable typeahead by specifying the source array
+						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
+					  }
+					);
+				}
+				else {
+					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+					tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+					//$('#skill').autosize({append: "\n"});
+				}
+
+				var tag_input2 = $('#hobbies');
+				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
+				{
+					tag_input2.tag(
+					  {
+						placeholder:tag_input.attr('placeholder'),
+						//enable typeahead by specifying the source array
+						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
+					  }
+					);
+				}
+				else {
+					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+					tag_input2.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+					//$('#hobbies').autosize({append: "\n"});
+				}
+				var tag_input3 = $('#interests');
+				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
+				{
+					tag_input3.tag(
+					  {
+						placeholder:tag_input.attr('placeholder'),
+						//enable typeahead by specifying the source array
+						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
+					  }
+					);
+				}
+				else {
+					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+					tag_input3.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+					//$('#interest').autosize({append: "\n"});
+				}
+				
+			
+
+		});
+
 		</script>
 	</body>
 </html>

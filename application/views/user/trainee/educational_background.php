@@ -29,6 +29,8 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.tagsinput.css" />
+
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
@@ -436,10 +438,12 @@
                 <?php if(isset($records)) : foreach($records as $row) : ?>
                 	
                <div class="" id="profile4">
+               		<form>
                         <h4></h4>
                         <label>
                           <i>Please Specify your highest educational attainment</i> 
                         </label>
+                      
                         <label>Level of Education</label>
                           <input type="text" class="input-medium" name ="highest_educ">
                         <label>Name of School</label>
@@ -447,20 +451,16 @@
                         <label>From &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         &nbsp; &nbsp; &nbsp; To</label>
-                          <input type="number" name="quantity" min="1990" max="2025" name ="school_s">
-                          <input type="number" name="quantity1" min="1990" max="2025" name ="school_e">
-                          <div class="control-group">
-                            <label class="control-label">Course/s Taken</label>
-                            <div class="course form-inline">
-                               <br><input type="text" class="input-xxlarge" name = "course[]"/>
-                            </div>
-                          </div>
-                        <a href="#" class="btn btn-mini btn-info  copy2" rel=".course">Add+</a>
-                        <span class="help-inline">Click Add+ to add more courses.</span>
-                        <label>Honors</label>
-                          <input type="text" class="input-large" name = "school_honor">
+                          <input type="number"  min="1990" max="2025" name ="school_s">
+                          <input type="number"  min="1990" max="2025" name ="school_e">
+                           <label class="control-label">Course Taken
+                          <br><input type="text" class="input-xxlarge" name = "course"/>
+                      	</label>
+                        <label>Honors <small class="muted">(Enter for another input)</small></label>
+                           <input id="honors" type="text" class="tags" name = "school_honor" value="<?php echo $row->honors?>" />
                         <label>How did you learn the position vacancy? Please specify</label>
                           <textarea name = ""></textarea>
+                        <!--
                         <h4>Employment History</h4>
                         <div class="control-group">
                           <label class="control-label">Employment Information</label>
@@ -484,31 +484,13 @@
                         <br>
                         <a href="#" class="btn btn-mini btn-info  copy" rel=".company">Add+</a>
                         <span class="help-inline">Click Add+ to add more Employment Information.</span>
-                        <br><br>
-                        <h4>Character Reference</h4>
-                        <label>
-                          <i>(except family and relatives)</i> 
-                        </label>
-                        <div class="control-group">
-                          <label class="control-label">Character Reference Information</label>
-                          <div class="character">
-                              <label>Name</label>
-                                <input type="text" class="input-large" name = "CR_name[]">
-                              <label>Name of Company</label>
-                                <input type="text" class="input-medium" name = "CR_company_name[]">
-                              <label>Contact No.</label>
-                                <input type="text" class="input-medium" name = "CR_contact_no[]"> 
-                              <br>
-                          </div>
-                        </div>
-                        <br>
-                        <a href="#" class="btn btn-mini btn-info  copy" rel=".character">Add+</a>
-                        <span class="help-inline">Click Add+ to add more Character Reference Information.</span>
+                      	-->
 
                         <div class="form-actions">
                             <button type="submit" class="btn btn-info btn-small">Save changes</button>
                         </div>
-                  </div>
+                    </form>
+                </div>
                 <?php endforeach;?>
 				<?php endif; ?>
 				</form>
@@ -552,6 +534,9 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.tagsinput.js"></script>
+
+		
 
 	
 
@@ -566,14 +551,53 @@
 		<script src="<?php echo base_url();?>assets/js/relCopy.js"></script>
 		<script type="text/javascript">
 
-	      //$w=jQuery.noConflict();
-	      $(function(){
-	        var removeLink = '<a class="remove btn btn-danger" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">remove</a>';
+	   
+	    $(function(){
+	        var removeLink = '<a class="remove btn btn-mini btn-danger" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">remove</a>';
 	        var removeLink2 = '<img class="remove" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">';
-	      $('a.copy').relCopy({append: removeLink});
-	      $('a.copy2').relCopy({append: removeLink2});
-	    
-	      });
+	      	$('a.copy').relCopy({append: removeLink});
+	      	$('a.copy2').relCopy({append: removeLink2});
+		    $('#honors').tagsInput({
+		    	width:'auto',
+		    	defaultText:''
+
+		    	});
+
+
+          	$( "form" ).on( "submit", function( event ) {
+			  event.preventDefault();
+			  var sData = $(this).serialize();
+			  console.log(sData);
+			  alert('aw');
+			   $.ajax({
+	                url:"<?php echo base_url();?>hris/updateEducation",
+	                type:'POST',
+	                data:sData,
+	               // dataType:"json",
+	               
+	                success:function(result){
+	                //$("#success").show();
+	                //$("#success").attr('class', 'alert alert-success');
+	                //var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
+	               // $("#success").html(output_string);
+	                //$("#result_table").hide();
+	                // location.reload();
+	                $.gritter.add({
+						title: 'Human Resource Information Update',
+						text: ' Background Education has been updated.',
+						class_name: 'gritter-success gritter-center gritter-light'
+					});
+					
+		            //$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
+		            //$("#personal_info")[0].reset();
+	                $("html, body").animate({ scrollTop: 0 }, "slow");
+
+	                }
+
+	            });
+
+			});
+		});
 	    </script>
 		
 		

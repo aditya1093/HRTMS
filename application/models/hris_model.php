@@ -9,12 +9,13 @@ class Hris_model extends CI_Model{
 
     function personal_info($data) {
 
-            $this->session->set_userdata($data);
+            //$this->session->set_userdata($data);
             $this->db->where('trainee_id', $this->session->userdata('id'));
             $this->db->update('hris', $data);
             return true;
     }
 
+   
    
     
 }  

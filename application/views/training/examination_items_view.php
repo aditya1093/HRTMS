@@ -21,6 +21,8 @@
 		<!--page specific plugin styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.custom.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css" />
+
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/textext.core.css" />
 		<!--fonts-->
 
 		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
@@ -483,125 +485,15 @@
 											<thead>
 												<tr>
 													<th class="center" width="30px">
-														Item No.
+														#
 													</th>
 													<th class="center">
 														Item
-													</th>
-													
+													</th>					
 												</tr> 
 											</thead>
-											<tbody>
-												<tr>
-													<td>
-														1
-													</td>
-													<td>
-														<div class="pull-right">
-
-															<button id="" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>
-														   	<button id="" class="btn-delete btn btn-minier btn-mini btn-danger"><i class="icon-trash"></i></button>
-														</div>
-														<p>
-															asdfasdfas asdfasd fasdf asdf asdf asd fasf asdf asdf asd fasdf asdf  fasf asdf 
-															asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  
-															fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf asdf asd fas
-														</p>
-														<label><input disabled name="mult_1" type="radio"> asdfasdf</label><br>
-														<label><input disabled checked name="mult_1" type="radio"> asdfasdf</label><br>
-														<label><input disabled name="mult_1" type="radio"> asdfasdf</label><br>
-														<label><input disabled name="mult_1" type="radio"> asdfasdf</label><br>
-														
-													</td>
-												</tr>
-												<tr>
-													<td>
-														2
-													</td>
-													<td>
-														<div class="pull-right">
-
-															<button id="" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>
-														   	<button id="" class="btn-delete btn btn-minier btn-mini btn-danger"><i class="icon-trash"></i></button>
-														</div>
-														<p>
-															asdfasdfas asdfasd fasdf asdf asdf asd fasf asdf asdf asd fasdf asdf  fasf asdf 
-															asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  
-															fasf asdf asdf asd fasdf burat asdf  fasf asdf asdf asd fasdf asdf asdf asd fas
-														</p>
-														<label><input disabled name="tf_2" type="radio"> True</label><br>
-														<label><input disabled checked name="tf_2" type="radio"> False</label><br>
-														
-													</td>
-												</tr>
-												<tr>
-													<td>
-														3
-													</td>
-													<td>
-														<div class="pull-right">
-
-															<button id="" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>
-														   	<button id="" class="btn-delete btn btn-minier btn-mini btn-danger"><i class="icon-trash"></i></button>
-														</div>
-														<p>
-															asdfasdfas asdfasd fasdf asdf asdf asd fasf asdf asdf asd fasdf asdf  fasf asdf 
-															asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  
-															fasf asdf asdf asd fasdf burat asdf  fasf asdf asdf asd fasdf asdf asdf asd fas
-														</p>
-														<textarea id="" disabled style="width:90%;">asdfasdfas asdfasd fasdf asdf asdf asd fasf 
-														</textarea>
-														
-													</td>
-												</tr>
-												<tr>
-													<td>
-														4
-													</td>
-													<td>
-														<div class="pull-right">
-
-															<button id="" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>
-														   	<button id="" class="btn-delete btn btn-minier btn-mini btn-danger"><i class="icon-trash"></i></button>
-														</div>
-														<p>
-															asdfasdfas asdfasd fasdf asdf asdf asd fasf asdf asdf asd fasdf asdf  fasf asdf 
-															asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  
-															fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf asdf asd fas
-														</p>
-														<label><input disabled name="mult_2" type="checkbox"> asdfasdf</label><br>
-														<label><input disabled checked name="mult_2" type="checkbox"> asdfasdf</label><br>
-														<label><input disabled checked name="mult_2" type="checkbox"> asdfasdf</label><br>
-														<label><input disabled name="mult_2" type="checkbox"> asdfasdf</label><br>
-														
-													</td>
-												</tr>
-												<tr>
-													<td>
-														5
-													</td>
-													<td>
-														<div class="pull-right">
-
-															<button id="" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>
-														   	<button id="" class="btn-delete btn btn-minier btn-mini btn-danger"><i class="icon-trash"></i></button>
-														</div>
-														<p>
-															asdfasdfas asdfasd fasdf asdf asdf asd fasf asdf asdf asd fasdf asdf  fasf asdf 
-															asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf  
-															fasf asdf asdf asd fasdf asdf  fasf asdf asdf asd fasdf asdf asdf asd fas
-														</p>
-														<ul class="item-list ui-sortable" style="width:90%;">
-														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">Item 1</span></li>
-														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">2</span></li>
-														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">3</span></li>
-														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">4</span></li>
-														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">5</span></li>
-														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">6</span></li>
-														  <li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">7</span></li>
-														</ul>
-													</td>
-												</tr>
+											<tbody id="item_data">
+												
 											</tbody>
 										</table>
 									</div>
@@ -714,6 +606,8 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootstrap-tag.min.js"></script>
+
 
 		<!--ace scripts-->
 
@@ -723,11 +617,14 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/textext.core.js"></script>
+
 
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
 
+			
 			var separator = "~/&^%-";
 			var items = ""; //for reference only
 
@@ -738,6 +635,7 @@
 			var no_of_choices;
 
 			$(document).ready(function() {
+
 				
 				$(".answers").html("<pre>(Please specify the item type)</pre>");
 
@@ -746,7 +644,9 @@
 
 				load_items();
 
-				$('#item_table').dataTable();
+				$('#item_table').dataTable({
+					
+				});
 
 				$(".item-list").sortable();
 
@@ -906,6 +806,9 @@
 
 		        	console.log(items);
 					reset_field();
+					
+					load_items();
+
 			    });
 				
 			});
@@ -931,12 +834,14 @@
 						var choices_str = "<input id=\"tf\"  type=\"radio\" class=\"ace\" value=\"true\" name=\"tf\"> True<br><input id=\"tf\" type=\"radio\" class=\"ace\" value=\"false\" name=\"tf\"> False";
 						choices_str = "<pre>" + choices_str + "</pre>";
 						$(".answers").html(choices_str);
+
 					}
 					else if($(".item_type").val() == 3) {
 						
 						var choices_str = "<textarea id=\"id_text\" style=\"width:95%\"></textarea>";
 						choices_str = "<pre>" + choices_str + "</pre>";
 						$(".answers").html(choices_str);
+
 					}
 					
 				}
@@ -1020,27 +925,11 @@
 				$("textarea").val("");
 				$("input:radio").removeAttr("checked");
 				$("input:checkbox").removeAttr("checked");
-				//gritter here successfully added an item
+				
+				$(".loader").show();
+				$("#item_data").html("");
 				alert("You successfully added an item!");
 
-			}
-
-			var load_items = function() {
-
-				var request = $.ajax({
-		        	url: "<?php echo base_url();?>examination/load_items",
-		        	type: 'POST',
-		        	data: { 
-		        		ajax: '1'
-		        	}
-		        });
-
-		        request.done(function (response, textStatus, jqXHR) {
-
-		        	console.log(response);
-		        	$(".loader").hide();
-					
-			    });
 			}
 
 			//var alert_str = "";
@@ -1066,6 +955,124 @@
 						}
 					}
 				});
+			}
+
+			var load_items = function() {
+
+				var request = $.ajax({
+		        	url: "<?php echo base_url();?>examination/load_items",
+		        	type: 'POST',
+		        	data: { 
+		        		ajax: '1'
+		        	}
+		        });
+
+		        request.done(function (response, textStatus, jqXHR) {
+
+		        	$(".loader").hide();
+		        	strip_data(response);
+					
+			    });
+			}
+
+
+			//decoder engine
+			var strip_data = function(data) {
+
+				console.log(data);
+
+				obj = jQuery.parseJSON(data);
+
+				var len = 0, key;
+
+			    for (key in obj) {
+
+			        if (obj.hasOwnProperty(key)) len++;
+			    }
+
+			    var str = "";
+
+				for (var i = 0; i < len; i++) {
+
+					//obj[i].module_name
+
+					str += '<div class="pull-right">'
+					str += '<button id="'+obj[i].question_id+'" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button> '
+		   			str += '<button id="'+obj[i].question_id+'" class="btn-delete btn btn-minier btn-mini btn-danger"><i class="icon-trash"></i></button>'
+					str += '</div>'
+					str += '<p>'+obj[i].question+'</p>'
+
+					if(obj[i].question_type==1) {
+
+						var a = obj[i].answers.split(separator);
+						var c = "", e = obj[i].key_answer;
+
+						for (var j = 0; j < a.length - 1; j++) {
+							
+							if((j+1)==e) {
+
+								c = "checked";
+							}
+							str += '<label><input '+c+' disabled name="radio_'+obj[i].question_id+'" type="radio">'+a[j]+'</label><br>';
+						};
+					}
+					else if(obj[i].question_type==2) {
+
+						var e = obj[i].key_answer, a="", c="";
+						if(e=="true") {
+
+							a = "checked";
+						}
+						else {
+
+							c = "checked";
+						}
+						str += '<label><input disabled '+a+' name="tf_'+obj[i].question_id+'" type="radio"> True</label><br>';
+						str += '<label><input disabled '+c+' name="tf_'+obj[i].question_id+'" type="radio"> False</label><br>';
+					}
+					else if(obj[i].question_type==3) {
+
+						var e = obj[i].key_answer;
+						str += '<textarea id="'+obj[i].question_id+'" disabled style="width:90%;">'+e+'</textarea>';
+						
+					}
+					else if(obj[i].question_type==4) {
+
+						var a = obj[i].answers.split(separator);
+						var c = "", e = obj[i].key_answer.split(separator);
+
+						for (var j = 0; j < a.length - 1; j++) {
+							
+							for (var k = 0; k < e.length; k++) {
+
+								if(e[k]==j+1) {
+
+									c = "checked";
+									
+								}
+							};
+							
+							str += '<label><input '+c+' disabled name="check_'+obj[i].question_id+'" type="checkbox">'+a[j]+'</label><br>';
+							c = "";
+						};
+					}
+					else {
+
+						var e = obj[i].key_answer.split(separator);
+						str += '<ul class="item-list ui-sortable" style="width:90%;">';
+
+						for (var j = 0; j < a.length - 1; j++) {
+							
+							str += '<li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">'+e[j]+'</span></li>';
+						};
+						str += '</ul>';
+					}
+
+
+					$('#item_table').dataTable().fnAddData([(i+1), str]);
+					str = "";
+				};
+				$(".loader").hide();
 
 			}
 		</script>

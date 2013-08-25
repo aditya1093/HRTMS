@@ -80,19 +80,22 @@ class Hris extends CI_Controller {
         			'father_name' => $this->input->post('father_name'),
         			'father_occupation' => $this->input->post('father_occupation'),
         			'father_age' => $this->input->post('father_age'),
-        			'father_occupation_address' => $this->input->post('father_name'),
+        			'father_occupation_address' => $this->input->post('father_occupation_address'),
         			'father_address' => $this->input->post('father_address'),
         			'father_contact_no' => $this->input->post('father_contact'),
         			'mother_name' => $this->input->post('mother_name'),
         			'mother_occupation' => $this->input->post('mother_occupation'),
         			'mother_age' => $this->input->post('mother_age'),
-        			'mother_occupation_address' => $this->input->post('mother_name'),
+        			'mother_occupation_address' => $this->input->post('mother_occupation_address'),
         			'mother_address' => $this->input->post('mother_address'),
         			'mother_contact_no' => $this->input->post('mother_contact'),
+        			'skills' => $this->input->post('skills'),
+        			'hobbies' => $this->input->post('hobbies'),
+        			'interests' => $this->input->post('interests'),
         			'date_edit' => date('Y-m-d H:i:s')
         		);
 		//$name .= $this->input->post('present_address') . $this->input->post('present_city') . $this->input->post('present_province');
-		echo $name;
+		//echo 'asd'.$this->input->post('skills');
     			
 		$this->load->model('hris_model');
 		$this->hris_model->personal_info($personal_info);
@@ -149,7 +152,7 @@ class Hris extends CI_Controller {
 		//$name = $this->input->post('first_name') .' ' .$m[0].' '.$this->input->post('last_name'); 
 		//$name = $this->input->post('passport_issue_date');
 		//$this->output->set_output(json_encode($name));
-		/*$personal_info = array(
+			$personal_info = array(
         			'marriage_date' => $this->input->post('marriage_date'),
         			'marriage_place' => $this->input->post('marriage_place'),
         			'spouse_first_name' => $this->input->post('spouse_first_name'),
@@ -160,18 +163,127 @@ class Hris extends CI_Controller {
            			'spouse_contact_no' => $this->input->post('spouse_contact_no'),
         			'date_edit' => date('Y-m-d H:i:s')
         		);
-			//$this->load->model('hris_model');
-			//$this->hris_model->personal_info($personal_info);
-        		*/
-			//var_dump($_REQUEST['array']);
-			$data = json_decode($_POST['myJson'], true);
-			print_r($data);
-			
+			$this->load->model('hris_model');
+			$this->hris_model->personal_info($personal_info);
+        
 	
 		}
 		else {
 
-			 header( 'Location: personal_acc' ) ;
+			 header( 'Location: Marital_info' ) ;
+		}
+		
+	}
+	function updateEducation(){
+		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    	
+		//$m = $this->input->post('middle_name');
+		//$name = $this->input->post('first_name') .' ' .$m[0].' '.$this->input->post('last_name'); 
+		//$name = $this->input->post('passport_issue_date');
+		//$this->output->set_output(json_encode($name));
+			$personal_info = array(
+        			'marriage_date' => $this->input->post('highest_educ'),
+        			'school' => $this->input->post('school'),
+        			'school_s' => $this->input->post('school_s'),
+        			'spouse_middle_name' => $this->input->post('spouse_middle_name'),
+        			'date_edit' => date('Y-m-d H:i:s')
+        		);
+			$this->load->model('hris_model');
+			$this->hris_model->personal_info($personal_info);
+        
+	
+		}
+		else {
+
+			 header( 'Location: Marital_info' ) ;
+		}
+		
+	}
+	function updateChildren(){
+		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    		$name=$this->input->post('child_name');
+			$dob=$this->input->post('child_dob');
+			$school_work=$this->input->post('child_school_work');
+			$id=$this->session->userdata('id');
+			$count = count($this->input->post('child_name'));
+    		$data =array();
+			for($i=0; $i<$count; $i++) {
+			$data[$i] = array(
+			           'id' => $id, 
+			           'children_name' => $name[$i],
+			           'children_birthdate' => $dob[$i],
+			           'children_school_or_work' => $school_work[$i],
+
+			           );
+			}
+
+			$this->db->insert_batch('hris_children', $data);
+			
+
+
+		}
+		else {
+
+			 header( 'Location: Marital_info' ) ;
+		}
+		
+	}
+
+	function updateDependent(){
+		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    		$name=$this->input->post('dependent_name');
+			$dob=$this->input->post('dependent_dob');
+			$relationship=$this->input->post('dependent_relationship');
+			$id=$this->session->userdata('id');
+			$count = count($this->input->post('dependent_name'));
+    		$data =array();
+			for($i=0; $i<$count; $i++) {
+			$data[$i] = array(
+			           'id' => $id, 
+			           'dependent_name' => $name[$i],
+			           'dependent_birthdate' => $dob[$i],
+			           'dependent_relationship' => $relationship[$i]
+
+			           );
+			}
+
+			$this->db->insert_batch('hris_dependent', $data);
+			
+
+
+		}
+		else {
+
+			 header( 'Location: Marital_info' ) ;
+		}
+		
+	}
+	function updateBeneficiary(){
+		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    		$name=$this->input->post('beneficiary_name');
+			$dob=$this->input->post('beneficiary_dob');
+			$relationship=$this->input->post('beneficiary_relationship');
+			$id=$this->session->userdata('id');
+			$count = count($this->input->post('beneficiary_name'));
+    		$data =array();
+			for($i=0; $i<$count; $i++) {
+			$data[$i] = array(
+			           'id' => $id, 
+			           'beneficiary_name' => $name[$i],
+			           'beneficiary_birthdate' => $dob[$i],
+			           'beneficiary_relationship' => $relationship[$i]
+
+			           );
+			}
+
+			$this->db->insert_batch('hris_beneficiary', $data);
+			
+
+
+		}
+		else {
+
+			 header( 'Location: Marital_info' ) ;
 		}
 		
 	}
