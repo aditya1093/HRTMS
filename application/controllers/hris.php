@@ -226,7 +226,7 @@ class Hris extends CI_Controller {
 		}
 		
 	}
-	function updateChildren(){
+	function insertChildren(){
 		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     		$name=$this->input->post('child_name');
 			$dob=$this->input->post('child_dob');
@@ -264,13 +264,13 @@ class Hris extends CI_Controller {
 		
 	}
 
-	function updateDependent(){
+	function insertDependent(){
 		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     		$name=$this->input->post('dependent_name');
 			$dob=$this->input->post('dependent_dob');
 			$relationship=$this->input->post('dependent_relationship');
 			$id=$this->session->userdata('id');
-			$count = count($this->input->post('dependent_name'));
+			/*$count = count($this->input->post('dependent_name'));
     		$data =array();
 			for($i=0; $i<$count; $i++) {
 			$data[$i] = array(
@@ -283,9 +283,20 @@ class Hris extends CI_Controller {
 			}
 
 			$this->db->insert_batch('hris_dependent', $data);
+			*/
+			$data = array(
+			           'trainee_id' => $id, 
+			           'dependent_name' => $name,
+			           'dependent_birthdate' => $dob,
+			           'dependent_relationship' => $relationship
+			           );
+
+			//$this->hris_model->insert_dependent($data);
+			//$this->output->set_output(json_encode($name.'&&'.$dob.'&&'.$relationship));
+
+			$query = $this->hris_model->getIdDependent($id);
+			echo json_encode ($query);
 			
-
-
 		}
 		else {
 
@@ -293,13 +304,13 @@ class Hris extends CI_Controller {
 		}
 		
 	}
-	function updateBeneficiary(){
+	function insertBeneficiary(){
 		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     		$name=$this->input->post('beneficiary_name');
 			$dob=$this->input->post('beneficiary_dob');
 			$relationship=$this->input->post('beneficiary_relationship');
 			$id=$this->session->userdata('id');
-			$count = count($this->input->post('beneficiary_name'));
+			/*$count = count($this->input->post('beneficiary_name'));
     		$data =array();
 			for($i=0; $i<$count; $i++) {
 			$data[$i] = array(
@@ -312,7 +323,17 @@ class Hris extends CI_Controller {
 			}
 
 			$this->db->insert_batch('hris_beneficiary', $data);
-			
+			*/
+			$data = array(
+			           'trainee_id' => $id, 
+			           'beneficiary_name' => $name,
+			           'beneficiary_birthdate' => $dob,
+			           'beneficiary_relationship' => $relationship
+
+			           );
+			$this->hris_model->insert_beneficiary($data);
+
+			$this->output->set_output(json_encode($name.'&&'.$dob.'&&'.$relationship));
 
 
 		}
@@ -322,7 +343,45 @@ class Hris extends CI_Controller {
 		}
 		
 	}
-	function updateEmploymentHistory(){
+	
+	function insertCharacterReference(){
+		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    		$name=$this->input->post('CR_name');
+			$company=$this->input->post('CR_company_name');
+			$contact=$this->input->post('CR_contact_no');
+			$id=$this->session->userdata('id');
+			/*$count = count($this->input->post('CR_name'));
+    		$data =array();
+			for($i=0; $i<$count; $i++) {
+			$data[$i] = array(
+			           'trainee_id' => $id, 
+			           'character_name' => $name[$i],
+			           'character_company' => $company[$i],
+			           'character_contact_no' => $contact[$i]
+			            );
+			}
+
+			$this->db->insert_batch('hris_character_reference', $data);
+			*/
+			$data = array(
+			           'trainee_id' => $id, 
+			           'character_name' => $name,
+			           'character_company' => $company,
+			           'character_contact_no' => $contact
+			            );
+			$this->hris_model->insert_character_reference($data);
+			$this->output->set_output(json_encode($name.'&&'.$company.'&&'.$contact));
+
+
+		}
+		else {
+
+			 header( 'Location: others' ) ;
+		}
+		
+	}
+
+	function insertEmploymentHistory(){
 		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     		$name=$this->input->post('EH_company_name');
 			$loc=$this->input->post('EH_company_location');
@@ -362,34 +421,6 @@ class Hris extends CI_Controller {
 
 			$this->output->set_output(json_encode($name.'-'.$loc.'-'.$position.'-'.$start.'-'.$end.'-'.$reason));
 			
-
-		}
-		else {
-
-			 header( 'Location: educational_background' ) ;
-		}
-		
-	}
-	function updateCharacterReference(){
-		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-    		$name=$this->input->post('CR_name');
-			$company=$this->input->post('CR_company_name');
-			$contact=$this->input->post('CR_contact_no');
-			$id=$this->session->userdata('id');
-			$count = count($this->input->post('CR_name'));
-    		$data =array();
-			for($i=0; $i<$count; $i++) {
-			$data[$i] = array(
-			           'trainee_id' => $id, 
-			           'character_name' => $name[$i],
-			           'character_company' => $company[$i],
-			           'character_contact_no' => $contact[$i]
-			            );
-			}
-
-			//$this->db->insert_batch('hris_character_reference', $data);
-			
-
 
 		}
 		else {

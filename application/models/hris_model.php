@@ -55,7 +55,7 @@ class Hris_model extends CI_Model{
         return $query->result();
 
     }
-     function character_reference($id){
+    function character_reference($id){
 
         $this->db->select('*');    
         $this->db->from('hris_character_reference');
@@ -88,8 +88,35 @@ class Hris_model extends CI_Model{
     }
 
     function insert_dependent($data) {
-       	$this->db->insert('hris_employment_history', $data);
+       	$this->db->insert('hris_dependent', $data);
 		$id = $this->db->insert_id();
 		return (isset($id)) ? $id : FALSE;	
     }
+
+    function insert_beneficiary($data) {
+       	$this->db->insert('hris_beneficiary', $data);
+		$id = $this->db->insert_id();
+		return (isset($id)) ? $id : FALSE;	
+    }
+
+    function insert_character_reference($data) {
+       	$this->db->insert('hris_character_reference', $data);
+		$id = $this->db->insert_id();
+		return (isset($id)) ? $id : FALSE;	
+    }
+
+
+
+    //Get ID
+    function getIdDependent($id){
+
+        $this->db->select('*');    
+        $this->db->from('hris_dependent');
+        $this->db->where('hris_dependent.trainee_id',$id);
+        $this->db->order_by("id", "desc"); 
+        $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
 }  

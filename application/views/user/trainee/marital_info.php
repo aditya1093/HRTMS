@@ -504,7 +504,13 @@
 	                    				<td><?php echo $row->children_name;?></td>
 	                    				<td><?php echo $row->children_birthdate;?></td>
 	                    				<td><?php echo $row->children_school_or_work;?></td>
-	                    				<td></td>
+	                    				<td><button class="btn btn-mini btn-info">
+												<i class="icon-edit bigger-120"></i>
+											</button>
+											<button class="btn btn-mini btn-danger">
+												<i class="icon-trash bigger-120"></i>
+											</button>
+										</td>
 	                    			</tr>
 	                    			
 			                <?php endforeach;?>
@@ -561,7 +567,7 @@
 		                      		<span class="help-inline">Click Add+ to add more Children's Information.</span>
 		                       	</div>
 		                       	<div class="btn-group" id="cancelDiv" style="display:none">
-		                       		<a href="#" id="cancel" class="btn btn-info copy1" rel=".child">Cancel</a>
+		                       		<a href="#" id="cancel" class="btn btn-info copy1" rel=".child"><i class="icon-remove"></i>Cancel</a>
 		                       	</div>
 							</div>   
 							<br>
@@ -737,7 +743,7 @@
 			  var sData = $(this).serialize();
 			  console.log(sData);
 			  $.ajax({
-	               url:"<?php echo base_url();?>hris/updateChildren",
+	               url:"<?php echo base_url();?>hris/insertChildren",
 	                type:'POST',
 	                data:sData,
 	                dataType: "json",

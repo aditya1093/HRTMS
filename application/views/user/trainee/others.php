@@ -479,7 +479,13 @@
 		                    				<td><?php echo $row->dependent_name;?></td>
 		                    				<td><?php echo $row->dependent_birthdate;?></td>
 		                    				<td><?php echo $row->dependent_relationship?></td>
-		                    				<td></td>
+		                    				<td><button class="btn btn-mini btn-info">
+													<i class="icon-edit bigger-120"></i>
+												</button>
+												<button class="btn btn-mini btn-danger">
+													<i class="icon-trash bigger-120"></i>
+												</button>
+											</td>
 		                    			</tr>
 		                    	
 					                <?php endforeach;?>
@@ -487,30 +493,57 @@
 									</tbody>
 									</table>
 									<small>Page rendered in: {elapsed_time} seconds</small>
-			                      	<form id="dependent">
-				                      	<br><br>
-				                        <div class="control-group-dependent">
-					                        <label class="control-label">Dependent's Information</label>
-					                        <div class="dependent">
-					                        <hr>
-					                            <label for="dependent_name" >Full Name</label>
-					                              <input  id="dependent_name" type="text" class="input-large" name = "dependent_name[]">
-					                            <label for="dependent_dob" >Date of Birth</label>
-					                              <input  id="dependent_dob" type="date" name = "dependent_dob[]">                            
-					                            <label for="dependent_rel" >Relationship to Dependent</label>
-					                              <input  id="dependent_rel" type="text" class="input-large" name = "dependent_relationship[]">
-					                            <br>
-					                        </div>
-					                    </div>
-				                      	<br>
-					                    <a href="#" class="btn btn-info copy btn-mini" rel=".dependent">Add+</a>
-					                    <span class="help-inline">Click Add+ to add more Dependent's Information.</span>
-					                    <div class = "pager">
-						                <div class="btn-group">
-						                    <button type="submit" class="btn btn-info btn-small">Save changes</button>
-						                </div>
-						                </div>
-				                  	</form>
+			                      	
+				                  	<div id="dependentDiv" style="display:none">
+										<h2>Dependent's Information</h2>
+
+					               		<form id="dependent" class="form-horizontal">
+					               			<div class="control-group">
+												<label class="control-label" for="dependent_name">Full Name</label>
+
+												<div class="controls">
+													<input type="text" id="dependent_name" name="dependent_name">
+												</div>
+											</div>
+
+					               			<div class="control-group">
+												<label class="control-label" for="dependent_dob">Date of Birth</label>
+
+												<div class="controls">
+													 <input type ="date"  id="dependent_dob"  class="input-medium" name="dependent_dob">
+												</div>
+											</div>
+
+					               			<div class="control-group">
+												<label class="control-label" for="dependent_relationship">Relationship to Dependent</label>
+
+												<div class="controls">
+													<input type="text" id="dependent_relationship" name="dependent_relationship">
+												</div>
+											</div>
+					                      	<div class="form-actions">
+												<button class="btn btn-info btn-small" type="submit">
+													<i class="icon-ok bigger-110"></i>
+													Submit
+												</button>
+
+												&nbsp; &nbsp; &nbsp;
+												<button class="btn btn-small" type="reset">
+													<i class="icon-undo bigger-110"></i>
+													Reset
+												</button>
+											</div>
+						                </form>
+									</div>
+									<div class="pager" >    
+				   	         		<div class="btn-group" id="addDependentDiv" >
+			                       		<a href="#" id="addDependent" class="btn btn-info copy1" rel=".child">Add <i class="icon-plus"></i></a>
+			                      		<span class="help-inline">Click Add+ to add more Dependent's Information.</span>
+			                       	</div>
+			                       	<div class="btn-group" id="cancelDependentDiv" style="display:none">
+			                       		<a href="#" id="cancelDependent" class="btn btn-info copy1" rel=".child"><i class="icon-remove"></i>Cancel</a>
+		                       		</div>
+									</div> 
 								</div>
 
 								<div id="tab_beneficiary" class="tab-pane">
@@ -534,7 +567,13 @@
 		                    				<td><?php echo $row->beneficiary_name;?></td>
 		                    				<td><?php echo $row->beneficiary_birthdate;?></td>
 		                    				<td><?php echo $row->beneficiary_relationship?></td>
-		                    				<td></td>
+		                    				<td><button class="btn btn-mini btn-info">
+													<i class="icon-edit bigger-120"></i>
+												</button>
+												<button class="btn btn-mini btn-danger">
+													<i class="icon-trash bigger-120"></i>
+												</button>
+											</td>
 		                    			</tr>
 		                    		
 					                <?php endforeach;?>
@@ -542,30 +581,57 @@
 									</tbody>
 									</table>
 									<small>Page rendered in: {elapsed_time} seconds</small>
-				                  	<form id="beneficiary">
-					                    <br><br>
-					                    <div class="control-group-beneficiary">
-					                        <label class="control-label">Beneficiaries' Information</label>
-					                        <hr>
-					                        <div class="beneficiary">
-					                            <label>Full Name</label>
-					                              <input type="text" class="input-large" name = "beneficiary_name[]">
-					                            <label>Date of Birth</label>
-					                              <input type = "date" name = "beneficiary_dob[]">
-					                            <label>Relationship to Beneficiary</label>
-					                              <input type="text" class="input-large" name = "beneficiary_relationship[]">
-					                            <br>
-					                        </div>
-					                    </div>
-					                    <br>
-					                    <a href="#" class="btn btn-info copy btn-mini" rel=".beneficiary">Add+</a>
-					                    <span class="help-inline">Click Add+ to add more Beneficiaries' Information.</span>
-										<div class = "pager">
-						                <div class="btn-group">
-						                    <button type="submit" class="btn btn-info btn-small">Save changes</button>
-						                </div>
-						                </div>
-					               </form>
+				                  	
+					               <div id="beneficiaryDiv" style="display:none">
+										<h2>Beneficiary's Information</h2>
+
+					               		<form id="beneficiary" class="form-horizontal">
+					               			<div class="control-group">
+												<label class="control-label" for="beneficiary_name">Full Name</label>
+
+												<div class="controls">
+													<input type="text" id="beneficiary_name" name="beneficiary_name">
+												</div>
+											</div>
+
+					               			<div class="control-group">
+												<label class="control-label" for="beneficiary_dob">Date of Birth</label>
+
+												<div class="controls">
+													 <input type ="date"  id="beneficiary_dob"  class="input-medium" name="beneficiary_dob">
+												</div>
+											</div>
+
+					               			<div class="control-group">
+												<label class="control-label" for="beneficiary_relationship">Relationship to beneficiary</label>
+
+												<div class="controls">
+													<input type="text" id="beneficiary_relationship" name="beneficiary_relationship">
+												</div>
+											</div>
+					                      	<div class="form-actions">
+												<button class="btn btn-info btn-small" type="submit">
+													<i class="icon-ok bigger-110"></i>
+													Submit
+												</button>
+
+												&nbsp; &nbsp; &nbsp;
+												<button class="btn btn-small" type="reset">
+													<i class="icon-undo bigger-110"></i>
+													Reset
+												</button>
+											</div>
+						                </form>
+									</div>
+									<div class="pager" >    
+				   	         		<div class="btn-group" id="addBeneficiaryDiv" >
+			                       		<a href="#" id="addBeneficiary" class="btn btn-info copy1" rel=".child">Add <i class="icon-plus"></i></a>
+			                      		<span class="help-inline">Click Add+ to add more Beneficiary's Information.</span>
+			                       	</div>
+			                       	<div class="btn-group" id="cancelBeneficiaryDiv" style="display:none">
+			                       		<a href="#" id="cancelBeneficiary" class="btn btn-info copy1" rel=".child"><i class="icon-remove"></i>Cancel</a>
+		                       		</div>
+									</div> 
 								</div>
 
 								<div id="tab_character_reference" class="tab-pane">
@@ -589,7 +655,13 @@
 			                    				<td><?php echo $row->character_name;?></td>
 			                    				<td><?php echo $row->character_company;?></td>
 			                    				<td><?php echo $row->character_contact_no?></td>
-			                    				<td></td>
+			                    				<td><button class="btn btn-mini btn-info">
+													<i class="icon-edit bigger-120"></i>
+												</button>
+												<button class="btn btn-mini btn-danger">
+													<i class="icon-trash bigger-120"></i>
+												</button>
+												</td>
 			                    			</tr>
 			                    			
 					                <?php endforeach;?>
@@ -597,31 +669,57 @@
 									</tbody>
 									</table>
 									<small>Page rendered in: {elapsed_time} seconds</small>
-					            	<form id="character_reference">
-					                <br><br>
-					               
-			                        <div class="control-group">
-			                          <label class="control-label">Character Reference Information</label>
-			                          <div class="character">
-			                          	 <hr>
-			                              <label>Name</label>
-			                                <input type="text" class="input-large" name = "CR_name[]">
-			                              <label>Name of Company</label>
-			                                <input type="text" class="input-medium" name = "CR_company_name[]">
-			                              <label>Contact No.</label>
-			                                <input type="text" class="input-medium" name = "CR_contact_no[]"> 
-			                              <br>
-			                          </div>
-			                        </div>
-			                        <br>
-			                        <a href="#" class="btn btn-mini btn-info  copy" rel=".character">Add+</a>
-			                        <span class="help-inline">Click Add+ to add more Character Reference Information.</span>
-			                    	<div class = "pager">
-					                <div class="btn-group">
-					                    <button type="submit" class="btn btn-info btn-small">Save changes</button>
-					                </div>
-					                </div>
-			                    	</form>
+	
+		                    	    <div id="characterReferenceDiv" style="display:none">
+									<h2>Character Reference's Information</h2>
+
+				               		<form id="character_reference" class="form-horizontal">
+				               			<div class="control-group">
+											<label class="control-label" for="CR_name">Full Name</label>
+
+											<div class="controls">
+												<input type="text" id="CR_name" name="CR_name">
+											</div>
+										</div>
+
+				               			<div class="control-group">
+											<label class="control-label" for="CR_company_name">Name of Company</label>
+
+											<div class="controls">
+												 <input type ="text"  id="CR_company_name"  class="" name="CR_company_name">
+											</div>
+										</div>
+
+				               			<div class="control-group">
+											<label class="control-label" for="CR_contact_no">Contact No</label>
+
+											<div class="controls">
+												<input type="text" id="CR_contact_no" name="CR_contact_no">
+											</div>
+										</div>
+				                      	<div class="form-actions">
+											<button class="btn btn-info btn-small" type="submit">
+												<i class="icon-ok bigger-110"></i>
+												Submit
+											</button>
+
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn btn-small" type="reset">
+												<i class="icon-undo bigger-110"></i>
+												Reset
+											</button>
+										</div>
+					                </form>
+									</div>
+									<div class="pager" >    
+				   	         		<div class="btn-group" id="addCharacterReferenceDiv" >
+			                       		<a href="#" id="addCharacterReference" class="btn btn-info copy1" rel=".child">Add <i class="icon-plus"></i></a>
+			                      		<span class="help-inline">Click Add+ to add more Character Reference's Information.</span>
+			                       	</div>
+			                       	<div class="btn-group" id="cancelCharacterReferenceDiv" style="display:none">
+			                       		<a href="#" id="cancelCharacterReference" class="btn btn-info copy1" rel=".child"><i class="icon-remove"></i>Cancel</a>
+		                       		</div>
+									</div> 
 								</div>
 							</div>
 						</div>
@@ -685,9 +783,56 @@
 		<script type="text/javascript">
 		
 		$( document ).ready(function() {
+
+		/** Add Dependent **/	
+			$("#addDependent").click(function() {
+			  $("#dependentDiv").slideDown();
+			  $("#addDependentDiv").slideUp();
+			  $('#cancelDependentDiv').slideDown();
+
+			});
+
+			$("#cancelDependent").click(function() {
+	      		$('#cancelDependentDiv').hide();
+			 	$('#dependentDiv').slideUp();
+				$("#addDependentDiv").slideDown();
+
+			});
+		/** **/
+		/** Add Beneficiary **/	
+			$("#addBeneficiary").click(function() {
+			  $("#beneficiaryDiv").slideDown();
+			  $("#addBeneficiaryDiv").slideUp();
+			  $('#cancelBeneficiaryDiv').slideDown();
+
+			});
+
+			$("#cancelBeneficiary").click(function() {
+	      		$('#cancelBeneficiaryDiv').hide();
+			 	$('#beneficiaryDiv').slideUp();
+				$("#addBeneficiaryDiv").slideDown();
+
+			});
+		/** **/	
+		/** Add Character Reference **/	
+			$("#addCharacterReference").click(function() {
+			  $("#characterReferenceDiv").slideDown();
+			  $("#addCharacterReferenceDiv").slideUp();
+			  $('#cancelCharacterReferenceDiv').slideDown();
+
+			});
+
+			$("#cancelCharacterReference").click(function() {
+	      		$('#cancelCharacterReferenceDiv').hide();
+			 	$('#characterReferenceDiv').slideUp();
+				$("#addCharacterReferenceDiv").slideDown();
+
+			});
+		/** **/	
+//other
 			var removeLink = '<a class="remove btn btn-mini btn-danger" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">remove</a>';
 	        var removeLink2 = '<img class="remove" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">';
-	      	$('a.copy').relCopy({append: removeLink});
+	      	$('a.copy1').relCopy({append: removeLink});
 	      	$('a.copy2').relCopy({append: removeLink2});
 
       		$('.dialogs,.comments').slimScroll({
@@ -764,35 +909,53 @@
 				time: 1000 // hang on the screen for...
 			});
 		
-
+//other
 
 	      	$( "#dependent" ).on( "submit", function( event ) {
-			 /*
-			  var sData = $(this).serializeArray();
-			  console.log(sData);
-			  alert('Children');
-			  var clicked = this;*/
+			
 			  event.preventDefault();
-			  //var sData = JSON.stringify($('#children').serializeObject());
 			  var sData = $(this).serialize();
 			  console.log(sData);
 			  $.ajax({
-	               url:"<?php echo base_url();?>hris/updateDependent",
+	               url:"<?php echo base_url();?>hris/insertDependent",
 	                type:'POST',
 	                data:sData,
 	               	//dataType:"json",
 	                success:function(result){
 	    
-	                $.gritter.add({
-						title: 'Human Resource Information Update',
-						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Dependent/Dependents has been updated.',
-						class_name: 'gritter-success gritter-center gritter-light'
-					});
+			                $.gritter.add({
+								title: 'Human Resource Information Update',
+								text: '<i class="icon-spinner icon-spin green icon-2x"></i> Dependent/Dependents has been updated.',
+								class_name: 'gritter-success gritter-center gritter-light'
+							});
 
-			
+			                $( '#dependent' ).each(function(){
+							    this.reset();
+							});
+							$('#dependentDiv').slideUp();
+							$("#addDependentDiv").slideDown();
+							$('#cancelDependentDiv').hide();
+
+							console.log(result);
+							var str,str2="";
+							var obj = $.parseJSON(result);
+				                $.each(obj, function(){
+				                	//var str = "<button class=\"btn btn-mini btn-info\" id="+this['id']+"><i class=\"icon-edit bigger-120\"></i></button><button class=\"btn btn-mini btn-danger\"> <i class=\"icon-trash bigger-120\"></i></button>";
+								   		str =	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
+										str2 =	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
+									
+												
+								   $('#table_dependent').dataTable().fnAddData([
+										this['dependent_name'],
+										this['dependent_birthdate'],
+									   	this['dependent_relationship'],
+									 	str + " " +str2 ]
+									 	);
+				                });
+					}
 	                //$("html, body").animate({ scrollTop: 0 }, "slow");
 
-	                }
+	               
 
 	            });
 
@@ -800,20 +963,15 @@
 			});
 
 			$( "#beneficiary" ).on( "submit", function( event ) {
-			 /*
-			  var sData = $(this).serializeArray();
-			  console.log(sData);
-			  alert('Children');
-			  var clicked = this;*/
+			
 			  event.preventDefault();
-			  //var sData = JSON.stringify($('#children').serializeObject());
 			  var sData = $(this).serialize();
 			  console.log(sData);
 			  $.ajax({
-	               url:"<?php echo base_url();?>hris/updateBeneficiary",
+	               url:"<?php echo base_url();?>hris/insertBeneficiary",
 	                type:'POST',
 	                data:sData,
-	               	//dataType:"json",
+	               	dataType:"json",
 	                success:function(result){
 	    
 	                $.gritter.add({
@@ -821,7 +979,25 @@
 						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Beneficiary/Beneficiaries has been updated.',
 						class_name: 'gritter-success gritter-center gritter-light'
 					});
+	                $( '#beneficiary' ).each(function(){
+					    this.reset();
+					});
+					$('#beneficiaryDiv').slideUp();
+					$("#addBeneficiaryDiv").slideDown();
+					$('#cancelBeneficiaryDiv').hide();
 
+					console.log(result);
+	               
+					var substr = result.split('&&');
+					console.log();
+					console.log();
+					console.log();
+					$('#table_beneficiary').dataTable().fnAddData( [
+						substr[0],
+						substr[1],
+					   substr[2],
+					   "" ] );
+					
 			
 	                //$("html, body").animate({ scrollTop: 0 }, "slow");
 
@@ -838,10 +1014,10 @@
 			  var sData = $(this).serialize();
 			  console.log(sData);
 			   $.ajax({
-	                url:"<?php echo base_url();?>hris/updateCharacterReference",
+	                url:"<?php echo base_url();?>hris/insertCharacterReference",
 	                type:'POST',
 	                data:sData,
-	               // dataType:"json",
+	                dataType:"json",
 	               
 	                success:function(result){
 	                //$("#success").show();
@@ -856,9 +1032,25 @@
 						class_name: 'gritter-success gritter-center gritter-light'
 					});
 					
-		            //$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
-		            //$("#personal_info")[0].reset();
-	                $("html, body").animate({ scrollTop: 0 }, "slow");
+		           	$( '#character_reference' ).each(function(){
+					    this.reset();
+					});
+					$('#characterReferenceDiv').slideUp();
+					$("#addCharacterReferenceDiv").slideDown();
+					$('#cancelCharacterReferenceDiv').hide();
+
+					console.log(result);
+	                //$("html, body").animate({ scrollTop: 0 }, "slow");
+	               /* */
+					var substr = result.split('&&');
+					console.log();
+					console.log();
+					console.log();
+					$('#table_character_reference').dataTable().fnAddData( [
+						substr[0],
+						substr[1],
+					   substr[2],
+					   "" ] );
 
 	                }
 
