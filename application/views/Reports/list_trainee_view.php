@@ -95,36 +95,34 @@
 	<thead>
 	<tr>
 		
-		<th>
+		<th class="center">
 			Training ID
 		</th>
-		<th>
+		<th class="center">
 			 Name
 		</th>
-		<th class="">
+		<th class="center">
 			Birthdate
 		</th>
-		<th class="">													
+		<th class="center">													
 			Address 
 		</th>
-		<th class="">
+		<th class="center">
 			City
 		</th>
-		<th class="">
+		<th class="center">
 			Province
 		</th>
-		<th class="">
+		<th class="center">
 			Gender
 		</th>
-		<th class="">
+		<th class="center">
 			Phone
 		</th>
-		<th class="">
+		<th class="center">
 			Email
 		</th>
-		<th class="">
-			Username
-		</th> 
+		
 	</tr>
 	</thead>
 	<tbody>
@@ -135,13 +133,10 @@
 					<td width="100px" height="10px"><?php echo $row->birthdate;?></td>
 					<td><?php echo $row->present_address;?></td>
 					<td><?php echo $row->present_city;?></td>		
-					<td><?php echo $row->present_state;?></td>												
+					<td><?php echo $row->present_province;?></td>												
 					<td width="50px" height="1px"><?php echo $row->gender;?></td>
 					<td><?php echo $row->mobile_no;?></td>
-					<td><?php echo $row->email;?></td>
-					<td><?php echo $row->username;?></td>
-				 
-		
+					<td><?php echo $row->email;?></td>	
 
 				</tr>
 				<?php endforeach;?>

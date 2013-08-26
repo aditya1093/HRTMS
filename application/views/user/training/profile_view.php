@@ -264,7 +264,7 @@
 
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
+								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="<?php echo $this->session->userdata('username');?>'s Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
 									<?php echo $this->session->userdata('username');?>
@@ -497,7 +497,7 @@
 									<td>&nbsp;</td>
 								</tr>
 								<tr>
-									<td>Username: </td>
+									<td><?php echo $this->session->userdata('username');?>name: </td>
 									<td><?php echo $this->session->userdata('username');?></td>
 								</tr>
 								<tr>

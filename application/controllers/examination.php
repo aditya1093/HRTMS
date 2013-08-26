@@ -13,7 +13,6 @@ class Examination extends CI_Controller {
 			$this->load->model('applicant_model');
 			$query = $this->applicant_model->trainee_list();
 			$data['records'] = $query;
-
 			
 			$this->load->view('training/examination_view',$data);
 		}
@@ -48,14 +47,26 @@ class Examination extends CI_Controller {
 
 	function edit_exam($param="") {
 
-		if($param) {
+		if($this->session->userdata('is_logged_in')) {
 
-			$data = array("eid" => $param);
+			if($param) {
 
-			$this->session->set_userdata($data);
+				$data = array("eid" => $param);
 
-			$this->load->view('training/examination_items_view');
+				$this->session->set_userdata($data);
+
+				$this->load->model("examination_model");
+				
+				$this->examination_model->name_exam();
+
+				$this->load->view('training/examination_items_view');
+			}
 		}
+		else {
+
+    		$this->load->view('login_view');
+		}
+
 	}
 
 	function add_item() {
@@ -83,6 +94,28 @@ class Examination extends CI_Controller {
 
 		$str = json_encode($data);
 		echo $str;
+	}
+
+	function save_adding_state() {
+
+		$data = array(
+
+			'qt' => $this->input->post("question_type"),
+			'noc' => $this->input->post("no_of_choices")
+
+		);
+
+		$this->session->set_userdata($data);
+	}
+
+	function load_qt() {
+
+		echo $this->session->userdata("qt");
+	}
+
+	function load_noc() {
+
+		echo $this->session->userdata("noc");
 	}
 }
 

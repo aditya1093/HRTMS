@@ -7,15 +7,89 @@ class Hris_model extends CI_Model{
     }
 
 
-    function personal_info($data) {
+    //Display Information
+    function profile_trainee($id) {
+        
+        $this->db->select('*');     
+        $this->db->from('user_table');
+        $this->db->where('user_table.id',$id);
+        $this->db->join('hris', 'hris.trainee_id = user_table.id');
+        $query = $this->db->get();
+        return $query->result();
+    } 
+    function marital_info($id) {
 
-            //$this->session->set_userdata($data);
-            $this->db->where('trainee_id', $this->session->userdata('id'));
-            $this->db->update('hris', $data);
-            return true;
+        $this->db->select('*');    
+        $this->db->from('hris_children');
+        $this->db->where('hris_children.trainee_id',$id);
+        $query = $this->db->get();
+        return $query->result();
+
     }
 
-   
+    function employment_history($id) {
+
+        $this->db->select('*');    
+        $this->db->from('hris_employment_history');
+        $this->db->where('hris_employment_history.trainee_id',$id);
+        $query = $this->db->get();
+        return $query->result();
+
+    }
+
+    function dependent($id){
+
+        $this->db->select('*');    
+        $this->db->from('hris_dependent');
+        $this->db->where('hris_dependent.trainee_id',$id);
+        $query = $this->db->get();
+        return $query->result();
+
+    }
+     function beneficiary($id){
+
+        $this->db->select('*');    
+        $this->db->from('hris_beneficiary');
+        $this->db->where('hris_beneficiary.trainee_id',$id);
+        $query = $this->db->get();
+        return $query->result();
+
+    }
+     function character_reference($id){
+
+        $this->db->select('*');    
+        $this->db->from('hris_character_reference');
+        $this->db->where('hris_character_reference.trainee_id',$id);
+        $query = $this->db->get();
+        return $query->result();
+
+    }
    
     
+
+
+    //UPDATE Information
+
+    function personal_info($data) {
+        $this->db->where('trainee_id', $this->session->userdata('id'));
+        $this->db->update('hris', $data);
+        return true;
+    }
+
+    function insert_children($data) {
+       	$this->db->insert('hris_children', $data);
+		$id = $this->db->insert_id();
+		return (isset($id)) ? $id : FALSE;	
+    }
+    function insert_employment_history($data) {
+       	$this->db->insert('hris_employment_history', $data);
+		$id = $this->db->insert_id();
+		return (isset($id)) ? $id : FALSE;	
+    }
+
+    function insert_dependent($data) {
+       	$this->db->insert('hris_employment_history', $data);
+		$id = $this->db->insert_id();
+		return (isset($id)) ? $id : FALSE;	
+    }
 }  

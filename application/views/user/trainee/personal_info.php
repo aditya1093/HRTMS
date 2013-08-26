@@ -45,6 +45,9 @@
 		<![endif]-->
 
 		<!--inline styles if any-->
+		<style type="text/css">
+		.tags{display:inline-block;padding:4px 6px;color:#777;vertical-align:middle;background-color:#FFF;border:1px solid #d5d5d5;width:50%}
+		</style>
 	</head>
 
 	<body>
@@ -429,6 +432,7 @@
 
 				
 					<div class="row-fluid">
+			
 						  <!-- Tab 1 -->
 				<form>
                 <div class="" id="personal_info">
@@ -598,7 +602,7 @@
                       <!--Skills-->
 	                     
 	                            <div class="control-group wrapper">
-	                            <b><small class="muted" >Enter for another input</small></b> 
+	                            <small class="muted" >Enter for another input</small>
 									<label class="control-label" for="skills">Skills</label>
 									<div class="controls">
 									<input class="" id="skills" name="skills" value="<?php echo $row->skills;?>">
@@ -674,131 +678,11 @@
 
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">
-		function sameadd(form){
-          	if(form.sameashome.checked){
-                form.provincial_address.value = form.present_address.value;
-                form.provincial_city.value = form.present_city.value;
-                form.provincial_province.value = form.present_province.value;
-                /*form.Mailing_City.value = form.Billing_City.value;
-                form.Mailing_Zip.value = form.Billing_Zip.value;
-               
-                if(form.Billing_State.type == "select-one"){
-                    var bStateIdx = form.Billing_State.selectedIndex;
-                    form.mailing_province.options[bStateIdx].selected = true;
-                }
-                else{
-                    form.mailing_province.value = form.Billing_State.value;
-                }*/
-
-                
-
-                }
-                else{
-                     form.provincial_address.value = "";
-                     form.provincial_city.value = "" ;
-                     form.provincial_province.value = "";
-                     /*form.Mailing_City.value = "";
-                     if(form.mailing_province.type == "select-one"){
-                          form.mailing_province.options[0].selected = true;
-                     }
-                     else{
-                          form.mailing_province.value = "";
-                     }
-                     form.Mailing_City.value = "";
-                     form.Mailing_Zip.value = "";*/
-                }
-          }
-        function sameadd2(form){
-          if(form.sameashome2.checked){
-              form.mailing_address.value = form.present_address.value;
-              form.mailing_city.value = form.present_city.value;
-              form.mailing_province.value = form.present_province.value;
-              /*form.Mailing_City.value = form.Billing_City.value;
-              form.Mailing_Zip.value = form.Billing_Zip.value;
-                   if(form.Billing_State.type == "select-one"){
-                        var bStateIdx = form.Billing_State.selectedIndex;
-                        form.mailing_province.options[bStateIdx].selected = true;
-                   }
-                   else{
-                        form.mailing_province.value = form.Billing_State.value;
-                   }*/
-              }
-              else{
-                   form.mailing_address.value = "" ;
-                   form.mailing_city.value = "" ;
-                   form.mailing_province.value = "";
-                   /*form.Mailing_City.value = "";
-                   if(form.mailing_province.type == "select-one"){
-                        form.mailing_province.options[0].selected = true;
-                   }
-                   else{
-                        form.mailing_province.value = "";
-                   }
-                   form.Mailing_City.value = "";
-                   form.Mailing_Zip.value = "";*/
-              }
-            }
-        function sameaddfather(form){
-          if(form.sameasfather.checked){
-                add = form.present_address.value;
-                city = form.present_city.value;
-                prov = form.present_province.value;
-                fulladd = add.concat(", ",city,", ",prov);
-                form.father_address.value = fulladd;
-
-                }
-                else{
-                     form.father_address.value = "";
-                                         
-                }
-          }
-        function sameaddmother(form){
-          if(form.sameasmother.checked){
-                    form.mother_address.value = form.father_address.value;
-
-                }
-                else{
-                     form.mother_address.value = "";
-                                         
-                }
-          }
-
-          $( "form" ).on( "submit", function( event ) {
-			  event.preventDefault();
-			  var sData = $(this).serialize();
-			  console.log(sData);
-			   $.ajax({
-	                url:"<?php echo base_url();?>hris/updatePersonalInfo",
-	                type:'POST',
-	                data:sData,
-	               // dataType:"json",
-	               
-	                success:function(result){
-	                //$("#success").show();
-	                //$("#success").attr('class', 'alert alert-success');
-	                //var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
-	               // $("#success").html(output_string);
-	                //$("#result_table").hide();
-	                // location.reload();
-	                $.gritter.add({
-						title: 'Human Resource Information Update',
-						text: ' Personal infromation has been updated.',
-						class_name: 'gritter-success gritter-center gritter-light'
-					});
-					
-		            //$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
-		            //$("#personal_info")[0].reset();
-	                $("html, body").animate({ scrollTop: 0 }, "slow");
-
-	                }
-
-	            });
-
-		});
-
+		
 		
 		$( document ).ready(function() {
 				//we could just set the data-provide="tag" of the element inside HTML, but IE8 fails!
+
 				var tag_input = $('#skills');	
 				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
 				{
@@ -848,7 +732,140 @@
 					tag_input3.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
 					//$('#interest').autosize({append: "\n"});
 				}
+			function sameadd(form){
+	          	if(form.sameashome.checked){
+	                form.provincial_address.value = form.present_address.value;
+	                form.provincial_city.value = form.present_city.value;
+	                form.provincial_province.value = form.present_province.value;
+	                /*form.Mailing_City.value = form.Billing_City.value;
+	                form.Mailing_Zip.value = form.Billing_Zip.value;
+	               
+	                if(form.Billing_State.type == "select-one"){
+	                    var bStateIdx = form.Billing_State.selectedIndex;
+	                    form.mailing_province.options[bStateIdx].selected = true;
+	                }
+	                else{
+	                    form.mailing_province.value = form.Billing_State.value;
+	                }*/
+
+	                
+
+	                }
+	                else{
+	                     form.provincial_address.value = "";
+	                     form.provincial_city.value = "" ;
+	                     form.provincial_province.value = "";
+	                     /*form.Mailing_City.value = "";
+	                     if(form.mailing_province.type == "select-one"){
+	                          form.mailing_province.options[0].selected = true;
+	                     }
+	                     else{
+	                          form.mailing_province.value = "";
+	                     }
+	                     form.Mailing_City.value = "";
+	                     form.Mailing_Zip.value = "";*/
+	                }
+	          }
+	        function sameadd2(form){
+	          if(form.sameashome2.checked){
+	              form.mailing_address.value = form.present_address.value;
+	              form.mailing_city.value = form.present_city.value;
+	              form.mailing_province.value = form.present_province.value;
+	              /*form.Mailing_City.value = form.Billing_City.value;
+	              form.Mailing_Zip.value = form.Billing_Zip.value;
+	                   if(form.Billing_State.type == "select-one"){
+	                        var bStateIdx = form.Billing_State.selectedIndex;
+	                        form.mailing_province.options[bStateIdx].selected = true;
+	                   }
+	                   else{
+	                        form.mailing_province.value = form.Billing_State.value;
+	                   }*/
+	              }
+	              else{
+	                   form.mailing_address.value = "" ;
+	                   form.mailing_city.value = "" ;
+	                   form.mailing_province.value = "";
+	                   /*form.Mailing_City.value = "";
+	                   if(form.mailing_province.type == "select-one"){
+	                        form.mailing_province.options[0].selected = true;
+	                   }
+	                   else{
+	                        form.mailing_province.value = "";
+	                   }
+	                   form.Mailing_City.value = "";
+	                   form.Mailing_Zip.value = "";*/
+	              }
+	            }
+	        function sameaddfather(form){
+	          if(form.sameasfather.checked){
+	                add = form.present_address.value;
+	                city = form.present_city.value;
+	                prov = form.present_province.value;
+	                fulladd = add.concat(", ",city,", ",prov);
+	                form.father_address.value = fulladd;
+
+	                }
+	                else{
+	                     form.father_address.value = "";
+	                                         
+	                }
+	          }
+	        function sameaddmother(form){
+	          if(form.sameasmother.checked){
+	                    form.mother_address.value = form.father_address.value;
+
+	                }
+	                else{
+	                     form.mother_address.value = "";
+	                                         
+	                }
+	          }
+
+
+					
+			$.extend($.gritter.options, { 
+		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+				fade_out_speed: 2000, // how fast the notices fade out
+				time: 1000 // hang on the screen for...
+			});
+		
+          
 				
+			//SEND FORM VIA AJAX
+			$( "form" ).on( "submit", function( event ) {
+			  event.preventDefault();
+			  var sData = $(this).serialize();
+			  console.log(sData);
+			   $.ajax({
+	                url:"<?php echo base_url();?>hris/updatePersonalInfo",
+	                type:'POST',
+	                data:sData,
+	               // dataType:"json",
+	               
+	                success:function(result){
+	                //$("#success").show();
+	                //$("#success").attr('class', 'alert alert-success');
+	                //var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
+	               // $("#success").html(output_string);
+	                //$("#result_table").hide();
+	                // location.reload();
+	                $.gritter.add({
+						title: 'Human Resource Information Update',
+						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Personal infromation has been updated.',
+						class_name: 'gritter-success gritter-center gritter-light'
+					});
+					
+	
+					//$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
+		            //$("#personal_info")[0].reset();
+	                $("html, body").animate({ scrollTop: 0 }, "slow");
+
+	                }
+
+	            });
+			});
+
 			
 
 		});

@@ -428,10 +428,11 @@
 				
 					<div class="row-fluid">
 						<div class="well">
-						<a href="<?php echo base_url();?>hris/personal_info" target="_blank">Personal Info</a><br>
+						<a href="<?php echo base_url();?>hris/personal_info" target="_blank">Personal Information</a><br>
 						<a href="<?php echo base_url();?>hris/personal_accounts" target="_blank">Personal Accounts</a><br>
-						<a href="<?php echo base_url();?>hris/marital_info" target="_blank">Marital Info</a><br>
-						<a href="<?php echo base_url();?>hris/educational_background" target="_blank">Eduactional Background</a><br>
+						<a href="<?php echo base_url();?>hris/marital_info" target="_blank">Marital Information</a><br>
+						<a href="<?php echo base_url();?>hris/educational_background" target="_blank">Eduactional Background/ Employment History</a><br>
+						<a href="<?php echo base_url();?>hris/others" target="_blank">Dependent/ Beneficiary/ Character Reference</a><br>
 							
 
 						</div>

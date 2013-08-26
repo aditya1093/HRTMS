@@ -32,6 +32,8 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/introjs.css" />
+
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
 		<![endif]-->
@@ -51,7 +53,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<li class="grey">
+						<!--<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
 								<span class="badge badge-grey">4</span>
@@ -186,7 +188,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li>-->
 
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -262,10 +264,10 @@
 
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
+								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="<?php echo $this->session->userdata('username');?>'s Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
-									User
+									<?php echo $this->session->userdata('username');?>
 								</span>
 
 								<i class="icon-caret-down"></i>
@@ -337,73 +339,71 @@
 					</div>
 				</div><!--#sidebar-shortcuts-->
 
-				<ul class="nav nav-list">
+				<ul class="nav nav-list" data-step="2" data-intro="Here you can see the key HRTMS operations using a trainer account">
 					
-
-					<li class="active">
+					<li class="active" data-step="3" data-intro="This is the main page of a trainer account">
 						<a href="dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
-					<li>
+					<li data-step="4" data-intro="In a trainer account, just to make sure that the training materials are organized, you are able to upload your reference materials such as powerpoint and documents here">
 						<a href="modules">
 							<i class="icon-folder-open"></i>
 							<span>Manage Modules</span>
 						</a>
 					</li>
 
-					<li>
+					<li data-step="5" data-intro="Once you have uploaded a material, you can view it here, or even use it as a visual aid using your projector :)">
 						<a href="presenter">
 							<i class="icon-desktop"></i>
 							<span>Classroom Presenter</span>
 						</a>
 					</li>
 
-					<li>
+					<li data-step="6" data-intro="Create, edit, conduct and analyze your examination for trainees">
 						<a href="examination">
 							<i class="icon-puzzle-piece"></i>
 							<span>Manage Examination</span>
 						</a>
 					</li>
 
-					<li>
+					<li data-step="7" data-intro="Monitor the attendance of your students per batch">
 						<a href="attendance">
 							<i class="icon-ok"></i>
 							<span>Attendance Checker</span>
 						</a>
 					</li>
 
-					<li>
+					<li data-step="8" data-intro="Assess your students' performance">
 						<a href="class_record">
 							<i class="icon-star"></i>
 							<span>Class Record</span>
 						</a>
 					</li>
 
-					<li>
+					<li data-step="9" data-intro="Print the Gradesheets, Attendance Sheets, Masterlists of Passers and Exam Analysis">
 						<a href="reports">
 							<i class="icon-print"></i>
 							<span>Reports</span>
 						</a>
 					</li>
 
-					<li>
+					<li data-step="9" data-intro="Got a problem and you need help? See this for a detailed documentation">
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
 					</li>
 
-					<li>
+					<li data-step="10" data-intro="Or contact us! :)">
 						<a href="about">
 							<i class="icon-info"></i>
 							<span>About the Developers</span>
 						</a>
 					</li>
 
-					
 				</ul><!--/.nav-list-->
 
 				<div id="sidebar-collapse">
@@ -451,7 +451,7 @@
 
 						
 						<div class="span12">
-							<div class="alert alert-info">
+							<div class="alert alert-info" data-step="1" data-intro="Let's take a quick guide with the basics!">
 								<button type="button" class="close" data-dismiss="alert">
 									<i class="icon-remove"></i>
 								</button>
@@ -476,7 +476,7 @@
 											your students' detailed performance and see how effective teacher you are!
 										</p>
 										<p align="center">
-											<span class="btn btn-success btn-small tooltip-success" data-rel="tooltip" data-placement="right" title="" data-original-title="Right Success">Start A Tour</span>
+											<a class="btn btn-success btn-small tooltip-success" data-rel="tooltip" data-placement="right" title="" data-original-title="Right Success" href="javascript:void(0);" onclick="javascript:introJs().start();">Start A Tour</a>
 											<span class="btn btn-primary btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Read Help</span>
 											<span class="btn btn-warning btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Download Manual</span>
 											
@@ -519,11 +519,11 @@
 													<li>
 														<a data-toggle="tab" href="#profile">
 															Events
-															<span class="badge badge-important">4</span>
+															<span class="badge badge-important"></span>
 														</a>
 													</li>
 
-													<li class="dropdown">
+													<!--<li class="dropdown">
 														<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 															Notices
 															<b class="caret"></b>
@@ -538,23 +538,30 @@
 																<a data-toggle="tab" href="#dropdown2">@mdo</a>
 															</li>
 														</ul>
-													</li>
+													</li>-->
 												</ul>
 
 												<div class="tab-content">
 													<div id="home" class="tab-pane in active">
-														<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor.
-															Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, 
-															quis ullamcorper ligula sodales at. Nulla tellus elit, varius non commodo eget, mattis vel
-															 eros. In sed ornare nulla. Donec consectetur, velit a pharetra ultricies, diam lorem lacinia
-															  risus, ac commodo orci erat eu massa. Sed sit amet nulla ipsum. Donec felis mauris, vulputate
-															   sed tempor at, aliquam a ligula. Pellentesque non pulvinar nisi.</p>
+														<h4>Toyota: An Example Of “Good” Corporate Governance</h4>
+														<p>We provide excellent skilled workforce through
+														adherence to best practive and core values,
+														continous improvement, and personalized
+														service that respond to our customer's 
+														expectations. <a href="">Read more</a></p>
+														<hr>
+														<h4>Phoenix profit rises 39.8% to P372.3M</h4>
+														<p>Independent oil company Phoenix Petroleum Philippines, 
+															Inc. reported that its net income increased 39.75 percent 
+															to P372.27 million in the first half of 2013. 
+															<a href="">Read more</a></p>
+														
 													</div>
 
 													<div id="profile" class="tab-pane">
-														<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+														<p align="center"><i class="icon-spinner green icon-2x icon-spin"></i> Loading Events..</p>
 													</div>
-
+													<!--
 													<div id="dropdown1" class="tab-pane">
 														<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
 													</div>
@@ -562,6 +569,7 @@
 													<div id="dropdown2" class="tab-pane">
 														<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin.</p>
 													</div>
+													-->
 												</div>
 											</div>
 										</p>
@@ -632,180 +640,15 @@
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/intro.js"></script>
+
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
-			$(function() {
-			
-				$('.dialogs,.comments').slimScroll({
-			        height: '300px'
-			    });
-				
-				$('#tasks').sortable();
-				$('#tasks').disableSelection();
-				$('#tasks input:checkbox').removeAttr('checked').on('click', function(){
-					if(this.checked) $(this).closest('li').addClass('selected');
-					else $(this).closest('li').removeClass('selected');
-				});
-			
-				var oldie = $.browser.msie && $.browser.version < 9;
-				$('.easy-pie-chart.percentage').each(function(){
-					var $box = $(this).closest('.infobox');
-					var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
-					var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
-					var size = parseInt($(this).data('size')) || 50;
-					$(this).easyPieChart({
-						barColor: barColor,
-						trackColor: trackColor,
-						scaleColor: false,
-						lineCap: 'butt',
-						lineWidth: parseInt(size/10),
-						animate: oldie ? false : 1000,
-						size: size
-					});
-				})
-			
-				$('.sparkline').each(function(){
-					var $box = $(this).closest('.infobox');
-					var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
-					$(this).sparkline('html', {tagValuesAttribute:'data-values', type: 'bar', barColor: barColor , chartRangeMin:$(this).data('min') || 0} );
-				});
-			
-			
-			
-			
-			  var data = [
-				{ label: "social networks",  data: 38.7, color: "#68BC31"},
-				{ label: "search engines",  data: 24.5, color: "#2091CF"},
-				{ label: "ad campaings",  data: 8.2, color: "#AF4E96"},
-				{ label: "direct traffic",  data: 18.6, color: "#DA5430"},
-				{ label: "other",  data: 10, color: "#FEE074"}
-			  ];
-			
-			  var placeholder = $('#piechart-placeholder').css({'width':'90%' , 'min-height':'150px'});
-			  $.plot(placeholder, data, {
-				
-				series: {
-			        pie: {
-			            show: true,
-						tilt:0.8,
-						highlight: {
-							opacity: 0.25
-						},
-						stroke: {
-							color: '#fff',
-							width: 2
-						},
-						startAngle: 2
-						
-			        }
-			    },
-			    legend: {
-			        show: true,
-					position: "ne", 
-				    labelBoxBorderColor: null,
-					margin:[-30,15]
-			    }
-				,
-				grid: {
-					hoverable: true,
-					clickable: true
-				},
-				tooltip: true, //activate tooltip
-				tooltipOpts: {
-					content: "%s : %y.1",
-					shifts: {
-						x: -30,
-						y: -50
-					}
-				}
-				
-			 });
-			
-			 
-			  var $tooltip = $("<div class='tooltip top in' style='display:none;'><div class='tooltip-inner'></div></div>").appendTo('body');
-			  placeholder.data('tooltip', $tooltip);
-			  var previousPoint = null;
-			
-			  placeholder.on('plothover', function (event, pos, item) {
-				if(item) {
-					if (previousPoint != item.seriesIndex) {
-						previousPoint = item.seriesIndex;
-						var tip = item.series['label'] + " : " + item.series['percent']+'%';
-						$(this).data('tooltip').show().children(0).text(tip);
-					}
-					$(this).data('tooltip').css({top:pos.pageY + 10, left:pos.pageX + 10});
-				} else {
-					$(this).data('tooltip').hide();
-					previousPoint = null;
-				}
-				
-			 });
-			
-			
-			
-			
-			
-			
-				var d1 = [];
-				for (var i = 0; i < Math.PI * 2; i += 0.5) {
-					d1.push([i, Math.sin(i)]);
-				}
-			
-				var d2 = [];
-				for (var i = 0; i < Math.PI * 2; i += 0.5) {
-					d2.push([i, Math.cos(i)]);
-				}
-			
-				var d3 = [];
-				for (var i = 0; i < Math.PI * 2; i += 0.2) {
-					d3.push([i, Math.tan(i)]);
-				}
-				
-			
-				var sales_charts = $('#sales-charts').css({'width':'100%' , 'height':'220px'});
-				$.plot("#sales-charts", [
-					{ label: "Domains", data: d1 },
-					{ label: "Hosting", data: d2 },
-					{ label: "Services", data: d3 }
-				], {
-					hoverable: true,
-					shadowSize: 0,
-					series: {
-						lines: { show: true },
-						points: { show: true }
-					},
-					xaxis: {
-						tickLength: 0
-					},
-					yaxis: {
-						ticks: 10,
-						min: -2,
-						max: 2,
-						tickDecimals: 3
-					},
-					grid: {
-						backgroundColor: { colors: [ "#fff", "#fff" ] },
-						borderWidth: 1,
-						borderColor:'#555'
-					}
-				});
-			
-			
-				$('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-				function tooltip_placement(context, source) {
-					var $source = $(source);
-					var $parent = $source.closest('.tab-content')
-					var off1 = $parent.offset();
-					var w1 = $parent.width();
-			
-					var off2 = $source.offset();
-					var w2 = $source.width();
-			
-					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
-					return 'left';
-				}
-			})
+			$(document).ready(function(){
+
+
+			});
 		</script>
 	</body>
 </html>

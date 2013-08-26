@@ -14,5 +14,13 @@ class Register_model extends CI_Model {
 		return (isset($id)) ? $id : FALSE;		
 	}
 
+	public function userTable($data)
+	{
+		$this->db->insert('user_table', $data);
+		$id = $this->db->insert_id();
+		return (isset($id)) ? $id : FALSE;		
+	}
+
+
 
 }

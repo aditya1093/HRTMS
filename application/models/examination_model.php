@@ -34,4 +34,11 @@ class Examination_model extends CI_Model{
         $query = $this->db->query($str);
         return $query->result();
     }
+
+    function name_exam() {
+
+        $str = "SELECT examination_name FROM examination WHERE examination_id=".$this->session->userdata("eid");
+        $query = $this->db->query($str);
+        $this->session->set_userdata("ename",$query->row()->examination_name);
+    }
 }  

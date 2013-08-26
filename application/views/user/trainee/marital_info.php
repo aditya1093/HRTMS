@@ -482,39 +482,92 @@
 	                        </div>
 	                      	</div>
 		                </form>
-		               	<form id="children">
-	                      	<label>
-	                      	<b>Name(s) of Children</b>
-	                      	<i>(if none, proceed to the last step)</i> 
-	                      	</label>
-	                      	<div class="control-group-children">
-		                        <label class="control-label">Children's Information</label>
-		                        <div class="child">
-		                        <hr>
-			                         	
-			                    <label>Full Name</label>
-			                    	<input type="text" class="input-large" name = "child_name[]">
-			                    <label>Date of Birth</label>
-			                    	<input  class="input-medium" type = "date" name = "child_dob[]">
-			                    <label>Name of School or Place of Work</label>
-			                    	<input type="text" class="input-large" name = "child_school_work[]">
-			                    <br>
-			                    </div>
-		                    </div>
-	                      	<br>
-	                      	<a href="#" class="btn btn-info copy1 btn-mini" rel=".child">Add+</a>
-	                      	<span class="help-inline">Click Add+ to add more Children's Information.</span>
-	                       	<div class = "pager">
-	                       	<div class="btn-group">
-	                       		<button type="submit" class="btn btn-info btn-small">Save changes</button>
-	                       	</div>
-	                  	   	</div>
-		                </form>            
-		   	         
-		          
-	                <?php endforeach;?>
-					<?php endif; ?>
-					</form>
+		                <?php endforeach;?>
+						<?php endif; ?>
+			                <div class="table-header">
+								<b>Name(s) of Children</b>
+	                  			<i>(if none, proceed to the next step)</i> 
+							</div>
+							<table id="table_children" class="table table-striped table-bordered table-hover">
+	               			<thead>
+	               				<tr>
+	               					<th>Name</th>
+	               					<th>Birthdate</th>
+	               					<th>Contact No</th>
+	               					<th></th>
+	               				</tr>
+	               			</thead>
+	               			<tbody>
+			              	<?php if(isset($records2)) : foreach($records2 as $row) : ?>
+			              			
+	                    			<tr>
+	                    				<td><?php echo $row->children_name;?></td>
+	                    				<td><?php echo $row->children_birthdate;?></td>
+	                    				<td><?php echo $row->children_school_or_work;?></td>
+	                    				<td></td>
+	                    			</tr>
+	                    			
+			                <?php endforeach;?>
+							<?php endif; ?>
+							</tbody>
+							</table>
+							<small>Page rendered in: {elapsed_time} seconds</small>
+							<hr>
+			
+							<div id="childDiv" style="display:none">
+							<h2>Child Information</h2>
+
+		               		<form id="children" class="form-horizontal">
+		               			<div class="control-group">
+									<label class="control-label" for="child_name">Full Name</label>
+
+									<div class="controls">
+										<input type="text" id="child_name" name="child_name">
+									</div>
+								</div>
+
+		               			<div class="control-group">
+									<label class="control-label" for="child_dob">Date of Birth</label>
+
+									<div class="controls">
+										 <input type ="date"  id="child_dob"  class="input-medium" name="child_dob">
+									</div>
+								</div>
+
+		               			<div class="control-group">
+									<label class="control-label" for="child_work_school">Name of School or Place of Work</label>
+
+									<div class="controls">
+										<input type="text" id="child_work_school" name="child_school_work">
+									</div>
+								</div>
+		                      	<div class="form-actions">
+									<button class="btn btn-info btn-small" type="submit">
+										<i class="icon-ok bigger-110"></i>
+										Submit
+									</button>
+
+									&nbsp; &nbsp; &nbsp;
+									<button class="btn btn-small" type="reset">
+										<i class="icon-undo bigger-110"></i>
+										Reset
+									</button>
+								</div>
+			                </form>
+			                </div>
+			                <div class="pager" >    
+			   	         		<div class="btn-group" id="addDiv" >
+		                       		<a href="#" id="add" class="btn btn-info copy1" rel=".child">Add <i class="icon-plus"></i></a>
+		                      		<span class="help-inline">Click Add+ to add more Children's Information.</span>
+		                       	</div>
+		                       	<div class="btn-group" id="cancelDiv" style="display:none">
+		                       		<a href="#" id="cancel" class="btn btn-info copy1" rel=".child">Cancel</a>
+		                       	</div>
+							</div>   
+							<br>
+							<br>  
+							<br>  
+							<br>
 
 				</div>	
 				</div><!--/row-->
@@ -561,43 +614,90 @@
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>	
 
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
+
 		<!--inline scripts related to this page-->
 
 		<script src="<?php echo base_url();?>assets/js/relCopy.js"></script>
 		
 		<script type="text/javascript">
-			$(document).ready(function(){
+		$(document).ready(function(){
 
-				// /var stat = $this->session->flashdata('civil_status');
-				var stat = $('#status').val();
-				if(stat == 'Single'){
-					//$('#single_message').show();
-					//alert('Show ' + stat );
-				    $("#marital a").click(function (e) { 
-				        $(this).fadeTo("fast", .5).removeAttr("href"); 
-				        //e.preventDefault();
-				    });
-				    $('#marital').hide();
-				    $('#profile3').find(':input:not(:disabled)').prop('disabled',true)
-				}
-				if(stat == 'Married' || stat == 'Separated' || stat == 'Widowed' || stat == 'Divorced' )
-				{
-					$('#single_message').hide();
-					//alert('Hide ' + stat );
-					
-				}
+			// /var stat = $this->session->flashdata('civil_status');
+			var stat = $('#status').val();
+			if(stat == 'Single'){
+				//$('#single_message').show();
+				//alert('Show ' + stat );
+			    $("#marital a").click(function (e) { 
+			        $(this).fadeTo("fast", .5).removeAttr("href"); 
+			        //e.preventDefault();
+			    });
+			    $('#marital').hide();
+			    $('#profile3').find(':input:not(:disabled)').prop('disabled',true)
+			}
+			if(stat == 'Married' || stat == 'Separated' || stat == 'Widowed' || stat == 'Divorced' )
+			{
+				$('#single_message').hide();
+				//alert('Hide ' + stat );
+				
+			}
+			
 
-		
-				var removeLink = '<a class="remove btn btn-danger btn-mini" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">remove</a>';
-		        var removeLink2 = '<img class="remove" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">';
-		      	$('a.copy').relCopy({limit: 4 ,append: removeLink});
-		      	$('a.copy1').relCopy({append: removeLink});
-		      	$('a.copy2').relCopy({append: removeLink2});
 
+			
+	      	$( "#add" ).click(function() {
+	      	  
+			  $("#childDiv").slideDown();
+			  $("#addDiv").slideUp();
+			  $('#cancelDiv').slideDown();
+
+			});
+
+			$( "#cancel" ).click(function() {
+	      		$('#cancelDiv').hide();
+			 	$('#childDiv').slideUp();
+				$("#addDiv").slideDown();
+
+			});
+
+	
+			var removeLink = '<a class="remove btn btn-danger btn-mini" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">remove</a>';
+	        var removeLink2 = '<img class="remove" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">';
+	      	$('a.copy').relCopy({limit: 4 ,append: removeLink});
+	      	$('a.copy1').relCopy({append: removeLink});
+	      	$('a.copy2').relCopy({append: removeLink2});
+
+	      	
 
 		      	
-			  
+		    //datatable initializatino
+			var oTable1 = $('#table_children').dataTable( {
+			"aoColumns": [
+		     null, null, null,
+			  { "bSortable": false }
+			] } );
+			
+			
+			$('table th input:checkbox').on('click' , function(){
+				var that = this;
+				$(this).closest('table').find('tr > td:first-child input:checkbox')
+				.each(function(){
+					this.checked = that.checked;
+					$(this).closest('tr').toggleClass('selected');
+				});
+					
 			});
+
+
+			$.extend($.gritter.options, { 
+		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+				fade_out_speed: 2000, // how fast the notices fade out
+				time: 1000 // hang on the screen for...
+			});
+		
 
           	$( "#marital_info" ).on( "submit", function( event ) {
 			  event.preventDefault();
@@ -616,10 +716,9 @@
 	               // $("#success").html(output_string);
 	                //$("#result_table").hide();
 	                // location.reload();
-	                 $(clicked).closest('tr').remove();
 	                $.gritter.add({
 						title: 'Human Resource Information Update',
-						text: ' Marital Information has been updated.',
+						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Marital Information has been updated.',
 						class_name: 'gritter-success gritter-center gritter-light'
 					});
 					
@@ -634,103 +733,49 @@
 			});
 
 			$( "#children" ).on( "submit", function( event ) {
-			 /*
-			  var sData = $(this).serializeArray();
-			  console.log(sData);
-			  alert('Children');
-			  var clicked = this;*/
 			  event.preventDefault();
-			  //var sData = JSON.stringify($('#children').serializeObject());
 			  var sData = $(this).serialize();
 			  console.log(sData);
 			  $.ajax({
 	               url:"<?php echo base_url();?>hris/updateChildren",
 	                type:'POST',
 	                data:sData,
-	               	//dataType:"json",
+	                dataType: "json",
 	                success:function(result){
 	    
 	                $.gritter.add({
 						title: 'Human Resource Information Update',
-						text: ' Child/Children has been updated.',
+						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Child/Children has been updated.',
 						class_name: 'gritter-success gritter-center gritter-light'
 					});
-
-			
-	                //$("html, body").animate({ scrollTop: 0 }, "slow");
-
-	                }
-
-	            });
-
-
-			});
-			$( "#dependent" ).on( "submit", function( event ) {
-			 /*
-			  var sData = $(this).serializeArray();
-			  console.log(sData);
-			  alert('Children');
-			  var clicked = this;*/
-			  event.preventDefault();
-			  //var sData = JSON.stringify($('#children').serializeObject());
-			  var sData = $(this).serialize();
-			  console.log(sData);
-			  $.ajax({
-	               url:"<?php echo base_url();?>hris/updateDependent",
-	                type:'POST',
-	                data:sData,
-	               	//dataType:"json",
-	                success:function(result){
-	    
-	                $.gritter.add({
-						title: 'Human Resource Information Update',
-						text: ' Dependent/Dependents has been updated.',
-						class_name: 'gritter-success gritter-center gritter-light'
+					$( '#children' ).each(function(){
+					    this.reset();
 					});
+					$('#childDiv').slideUp();
+					$("#addDiv").slideDown();
+					$('#cancelDiv').hide();
 
-			
+					console.log(result);
 	                //$("html, body").animate({ scrollTop: 0 }, "slow");
+	               /* */
+					var substr = result.split('-');
+					console.log();
+					console.log();
+					console.log();
+					$('#table_children').dataTable().fnAddData( [
+						substr[0],
+						substr[1],
+					   substr[2],
+					   "" ] );
+					
+	                }//End Success
 
-	                }
+	            	});
+				});//End #children Submit
 
-	            });
-
-
-			});
-
-			$( "#beneficiary" ).on( "submit", function( event ) {
-			 /*
-			  var sData = $(this).serializeArray();
-			  console.log(sData);
-			  alert('Children');
-			  var clicked = this;*/
-			  event.preventDefault();
-			  //var sData = JSON.stringify($('#children').serializeObject());
-			  var sData = $(this).serialize();
-			  console.log(sData);
-			  $.ajax({
-	               url:"<?php echo base_url();?>hris/updateBeneficiary",
-	                type:'POST',
-	                data:sData,
-	               	//dataType:"json",
-	                success:function(result){
-	    
-	                $.gritter.add({
-						title: 'Human Resource Information Update',
-						text: ' Beneficiary/Beneficiaries has been updated.',
-						class_name: 'gritter-success gritter-center gritter-light'
-					});
-
+				
+		});
 			
-	                //$("html, body").animate({ scrollTop: 0 }, "slow");
-
-	                }
-
-	            });
-
-
-			});
- 			
 
 
 
@@ -739,27 +784,7 @@
 
 
 
-
-
-
- 			$.fn.serializeObject = function()
-			{
-			    var o = {};
-			    var a = this.serializeArray();
-			    $.each(a, function() {
-			        if (o[this.name] !== undefined) {
-			            if (!o[this.name].push) {
-			                o[this.name] = [o[this.name]];
-			            }
-			            o[this.name].push(this.value || '');
-			        } else {
-			            o[this.name] = this.value || '';
-			        }
-			    });
-			    return o;
-			};
-
-		</script>
+	</script>
 		
 		
 		

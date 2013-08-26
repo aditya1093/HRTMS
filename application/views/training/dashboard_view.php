@@ -14,6 +14,8 @@
 		<link href="<?php echo base_url();?>assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css" />
 
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/introjs.css" />
+
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
@@ -51,7 +53,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<li class="grey">
+						<!--<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
 								<span class="badge badge-grey">4</span>
@@ -186,7 +188,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li>-->
 
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -262,10 +264,10 @@
 
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
+								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="<?php echo $this->session->userdata('username');?>'s Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
-									User
+									<?php echo $this->session->userdata('username');?>
 								</span>
 
 								<i class="icon-caret-down"></i>
@@ -461,7 +463,7 @@
 							</div>
 							<div class="widget-box">
 								<div class="widget-header">
-									<h4 class="smaller">
+									<h4 class="smaller" data-step="1">
 										Introduction
 										<small>Training Center Admin</small>
 									</h4>
@@ -476,7 +478,7 @@
 											your students' detailed performance and see how effective teacher you are!
 										</p>
 										<p align="center">
-											<span class="btn btn-success btn-small tooltip-success" data-rel="tooltip" data-placement="right" title="" data-original-title="Right Success">Start A Tour</span>
+											<a class="btn btn-success btn-small tooltip-success" data-rel="tooltip" data-placement="right" title="" data-original-title="Right Success" href="javascript:void(0);" onclick="javascript:introJs().start();">Start A Tour</a>
 											<span class="btn btn-primary btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Read Help</span>
 											<span class="btn btn-warning btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Download Manual</span>
 											
@@ -631,6 +633,8 @@
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
+
+		<script src="<?php echo base_url();?>assets/js/intro.js"></script>
 
 		<!--inline scripts related to this page-->
 

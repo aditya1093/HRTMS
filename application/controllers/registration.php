@@ -32,7 +32,7 @@ class Registration extends CI_Controller {
 		
 		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
 		//$this->form_validation->set_rules('email_confirm', 'Email Address Confrimation', 'required');
-		$this->form_validation->set_rules('username', 'Username', 'required|xss_clean|min_length[6]');
+		$this->form_validation->set_rules('username', 'Username', 'required|xss_clean|min_length[6]|is_unique[users_table.username]');
 		$this->form_validation->set_rules('password', 'Password', 'required|matches[password_confirm]|min_length[6]');
 		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', '');
 		$this->form_validation->set_rules('agree', '...', 'callback_terms_check');
@@ -70,15 +70,26 @@ class Registration extends CI_Controller {
 				'address'    	=> $this->input->post('address'),
 				'address_2'    	=> $this->input->post('address_2'),
 				'city'    		=> $this->input->post('city'),
-				'state'    		=> $this->input->post('state'),
+				'province'    		=> $this->input->post('state'),
 				'country'    	=> $this->input->post('country'),
 				'zipcode'    	=> $this->input->post('zipcode'),
 				'phone'      	=> $this->input->post('phone'),
 				'active'			=> 0,
-				'date_created'	=> date('Y-m-d H:i:s'),
+				'date_created'	=> date('Y-m-d H:i:s')
 			);
+			$data2 = array(
+				'id'	=> $reg_id,
+				'username' 		=> strtolower($this->input->post('username')),
+				'email'    		=> $this->input->post('email'),
+				'password' 		=> md5($this->input->post('password')),
+				'first_name' 	=> $this->input->post('first_name'),
+				'last_name'  	=> $this->input->post('last_name'),
+				'middle_name'	=> $this->input->post('middle_name'),
+				'date_created'	=> date('Y-m-d H:i:s'),
+				'permission'    => 'Applicant'
+				);
 		}
-		if ($this->form_validation->run() == true && $this->Register_Model->register($data))
+		if ($this->form_validation->run() == true && $this->Register_Model->register($data) && $this->Register_Model->userTable($data2) )
 		{ 
 			//check to see if we are creating the user
 			//redirect them to checkout page

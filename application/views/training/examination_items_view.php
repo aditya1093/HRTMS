@@ -67,7 +67,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<li class="grey">
+						<!--<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
 								<span class="badge badge-grey">4</span>
@@ -202,7 +202,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li>-->
 
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -278,10 +278,10 @@
 
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
+								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="<?php echo $this->session->userdata('username');?>'s Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
-									User
+									<?php echo $this->session->userdata('username');?>
 								</span>
 
 								<i class="icon-caret-down"></i>
@@ -430,7 +430,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="<?php echo base_url();?>dashboard">Home</a>
+							<a href="<?php echo base_url();?>examination">Manage Examination</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
@@ -455,7 +455,7 @@
 							Edit Examination Items
 							<small>
 								<i class="icon-double-angle-right"></i>
-								{Name of Exam}
+								<?php echo $this->session->userdata("ename");?>
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -639,181 +639,74 @@
 				
 				$(".answers").html("<pre>(Please specify the item type)</pre>");
 
+				load_state(1);
+				load_state(2);
+
 				//hide settings on document load
 				$(".multiple_setting").hide();
 
 				load_items();
 
 				$('#item_table').dataTable({
-					
+					"aoColumns": [
+						null,
+						{ "bSortable": false }
+					]
 				});
 
 				$(".item-list").sortable();
-
-
+	
 			});
+			
+			/********************** SAVE ADDING SETTINGS STATE ************************/
 
-			//add elements
-			$(".add_item").click(function(){
+			var save_adding_state = function() {
 
-				items = "";
-
-				question = $.trim($("#question").val());
-				question_type = $(".item_type").val();
-				no_of_choices =  $(".no_of_choices").val();
-				answers = "";
-				key_answer = "";
-
-				//if multiple choice
-				if($(".item_type").val() == 1 || $(".item_type").val() == 4 || $(".item_type").val() == 5) {
-
-					//get textbox values to an array
-					var text_array = $('textarea[name="multiple_answers[]"]').map(function() {
-
-					  return $(this).val()
-
-					}).get();
-
-					for (var i = 0; i < text_array.length; i++) {
-
-						//multiple choices
-						if($.trim(text_array[i])=="") {
-							//gritter
-							alert("Please fill the answers!");
-							return;
-						}
-
-						answers += $.trim(text_array[i]) + separator;
-					};
-
-					var k = 0;
-
-					//select multiple
-					if($(".item_type").val() == 4) {
-
-						items += "\n";
-
-						var l = "";
-						//var values = new Array();
-						$.each($("#choices:checked"), function() {
-							
-							l = $.trim($(this).val());
-							//values.push($(this).val());
-							key_answer += $(this).val() + separator;
-						});
-
-						if(l=="") {
-
-							alert("Please specify the correct answer!");
-						    return;
-						}
-					}
-					//arrange
-					else if($(".item_type").val() == 5) {
-
-						items += "\n";
-
-						var m = "";
-
-						for (var i = 0; i < text_array.length; i++) {
-
-							m += $.trim(text_array[i]);
-
-							key_answer += text_array[i] + separator;
-						};
-
-						if(m=="") {
-
-							alert("Please specify the correct answer!");
-						    return;
-						}
-					}
-					//multiple choice
-					else {
-
-						key_answer += $("#choices:checked").val();
-
-						if (!$("#choices:checked").val()) {
-
-						    alert("Please specify the correct answer!");
-						    return;
-						}
-					}
-
-					/*if(k == no_of_choices) {
-
-						//gritter
-						alert("Please specify the correct answer");
-						return;
-					}*/
-
-				}
-				//true or false
-				else if($(".item_type").val() == 2) {
-
-					no_of_choices = 2;
-					answers = "true" + separator + "false";
-					key_answer = $("#tf").val();
-				}
-				//identification
-				else if($(".item_type").val() == 3) {
-
-					no_of_choices = 0;
-					//will not set answers value for identification
-					key_answer = $("#id_text").val();
-
-					if($.trim(key_answer)=="") {
-
-						alert("Please enter the correct answer!");
-						return;
-					}
-
-				}
-
-				items += "Question: " + question;
-				items += "\nType: " + question_type;
-				items += "\nNo. of Choices: " + no_of_choices;
-				items += "\nAnswer(s): " + answers;
-				items += "\nKey Answer(s): " + key_answer;
-
-				//gritter this alerts here
-				if($(".item_type").val()==0) {
-									
-					alert("Please select the type of question!");	
-					return;	
-				}
-				if($.trim(question)=="") {
-
-					alert("Please enter a question!");
-					return;
-				}
-
-				//send data
-				var request = $.ajax({
-		        	url: "<?php echo base_url();?>examination/add_item",
+				$.ajax({
+		        	url: "<?php echo base_url();?>examination/save_adding_state",
 		        	type: 'POST',
 		        	data: { 
 		        		ajax: '1',
-		        		question: question,
-						answers: answers,
-						key_answer: key_answer,
-						question_type: question_type,
-						no_of_choices: no_of_choices
+		        		question_type: question_type,
+		        		no_of_choices: no_of_choices
 		        	}
 		        });
+			}
 
-		        request.done(function (response, textStatus, jqXHR) {
+			/********************** LOAD ADDING SETTINGS STATE ************************/
 
-		        	console.log(items);
-					reset_field();
-					
-					load_items();
+			var load_state = function(s) {
 
-			    });
-				
+				var t, u = $.Deferred();
+				s==1?t = "load_qt":t = "load_noc";
+				$.ajax({
+	        		url: "<?php echo base_url();?>examination/"+t,
+		        	type: 'POST',
+		        	data: {ajax: '1'},
+		        	success: function(e) {
+		        		u.resolve(e);
+		        		if(s==1) {
+		        			$(".item_type").val(e);
+		        			if(e==1||e==4||e==5) {
+		        				$(".multiple_setting").show();
+		        			}
+		        		}
+		        		else {
+		        			$(".no_of_choices").val(e).change();
+		        		}
+		        	}
+		        });
+		        return u.promise();
+			}
+
+			load_state().done(function(e) {
+
+				//TESTING LANG
+
 			});
 
-			//specify element properties
+			/******************** SPECIFY ELEMENT PROPERTIES ***********************/
+
 			$(".item_type").change(function(){
 
 				//clear answers
@@ -857,7 +750,8 @@
 				}
 			});
 
-			//initialization of choices
+			/******************** INITIALIZATION OF CHOICES ***********************/
+
 			var init_choices = function (input_type) {
 
 				var choices_str = "";
@@ -867,7 +761,7 @@
 
 					for (var i = 0; i < parseInt($(".no_of_choices").val()); i++) {
 
-						choices_str += (i+1) + ") <textarea  style=\"width:90%\" name=\"multiple_answers[]\"></textarea><br>";
+						choices_str += (i+1) + ") <textarea  style=\"width:85%\" name=\"multiple_answers[]\"></textarea><br>";
 
 					};
 
@@ -882,7 +776,7 @@
 						bracket = "[]";
 					}
 
-					choices_str += "<input id=\"choices\" value=\""+(i+1)+"\" class=\"ace\" name=\"choices"+bracket+"\" type=\"" + input_type + "\"><textarea  style=\"width:90%\" name=\"multiple_answers[]\"></textarea><br>";
+					choices_str += "<input id=\"choices\" value=\""+(i+1)+"\" class=\"ace\" name=\"choices"+bracket+"\" type=\"" + input_type + "\"><textarea  style=\"width:85%\" name=\"multiple_answers[]\"></textarea><br>";
 
 				};
 
@@ -897,7 +791,8 @@
 
 			};
 
-			//specify number of choices
+			/******************** SPECIFY NUMBER OF CHOICES ***********************/
+
 			$(".no_of_choices").change(function() {	
 
 				if ($(".item_type").val() == 1) { 
@@ -919,7 +814,8 @@
 				}
 			});
 
-			//clear fields
+			/************************* CLEAR FIELDS *******************************/
+
 			var reset_field  = function() {
 
 				$("textarea").val("");
@@ -932,7 +828,8 @@
 
 			}
 
-			//var alert_str = "";
+			/************************** CUSTOM ALERT() *****************************/
+
 			var alert = function(alert_str) {
 
 				$.extend($.gritter.options, { 
@@ -957,6 +854,8 @@
 				});
 			}
 
+			/********************** LOAD ITEMS FROM DB ******************************/
+
 			var load_items = function() {
 
 				var request = $.ajax({
@@ -976,7 +875,8 @@
 			}
 
 
-			//decoder engine
+			/************************* DECODER ENGINE ********************************/
+
 			var strip_data = function(data) {
 
 				console.log(data);
@@ -1000,7 +900,7 @@
 					str += '<button id="'+obj[i].question_id+'" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button> '
 		   			str += '<button id="'+obj[i].question_id+'" class="btn-delete btn btn-minier btn-mini btn-danger"><i class="icon-trash"></i></button>'
 					str += '</div>'
-					str += '<p>'+obj[i].question+'</p>'
+					str += '<p id="q'+obj[i].question_id+'">'+obj[i].question+'</p>'
 
 					if(obj[i].question_type==1) {
 
@@ -1014,6 +914,7 @@
 								c = "checked";
 							}
 							str += '<label><input '+c+' disabled name="radio_'+obj[i].question_id+'" type="radio">'+a[j]+'</label><br>';
+							c="";
 						};
 					}
 					else if(obj[i].question_type==2) {
@@ -1048,7 +949,6 @@
 								if(e[k]==j+1) {
 
 									c = "checked";
-									
 								}
 							};
 							
@@ -1068,12 +968,188 @@
 						str += '</ul>';
 					}
 
-
 					$('#item_table').dataTable().fnAddData([(i+1), str]);
+					
 					str = "";
 				};
+
 				$(".loader").hide();
 
+				/******************** ADD ITEM TO EXAM ***********************/
+
+				$(".add_item").click(function(){
+
+					items = "";
+
+					question = $.trim($("#question").val());
+					question_type = $(".item_type").val();
+					no_of_choices =  $(".no_of_choices").val();
+					answers = "";
+					key_answer = "";
+
+					save_adding_state();
+
+					//if multiple choice
+					if($(".item_type").val() == 1 || $(".item_type").val() == 4 || $(".item_type").val() == 5) {
+
+						//get textbox values to an array
+						var text_array = $('textarea[name="multiple_answers[]"]').map(function() {
+
+						  return $(this).val()
+
+						}).get();
+
+						for (var i = 0; i < text_array.length; i++) {
+
+							//multiple choices
+							if($.trim(text_array[i])=="") {
+								//gritter
+								alert("Please fill the answers!");
+								return;
+							}
+
+							answers += $.trim(text_array[i]) + separator;
+						};
+
+						var k = 0;
+
+						//select multiple
+						if($(".item_type").val() == 4) {
+
+							items += "\n";
+
+							var l = "";
+							//var values = new Array();
+							$.each($("#choices:checked"), function() {
+								
+								l = $.trim($(this).val());
+								//values.push($(this).val());
+								key_answer += $(this).val() + separator;
+							});
+
+							if(l=="") {
+
+								alert("Please specify the correct answer!");
+							    return;
+							}
+						}
+						//arrange
+						else if($(".item_type").val() == 5) {
+
+							items += "\n";
+
+							var m = "";
+
+							for (var i = 0; i < text_array.length; i++) {
+
+								m += $.trim(text_array[i]);
+
+								key_answer += text_array[i] + separator;
+							};
+
+							if(m=="") {
+
+								alert("Please specify the correct answer!");
+							    return;
+							}
+						}
+						//multiple choice
+						else {
+
+							key_answer += $("#choices:checked").val();
+
+							if (!$("#choices:checked").val()) {
+
+							    alert("Please specify the correct answer!");
+							    return;
+							}
+						}
+
+					}
+					//true or false
+					else if($(".item_type").val() == 2) {
+
+						no_of_choices = 2;
+						answers = "true" + separator + "false";
+						key_answer = $("#tf").val();
+					}
+					//identification
+					else if($(".item_type").val() == 3) {
+
+						no_of_choices = 0;
+						//will not set answers value for identification
+						key_answer = $("#id_text").val();
+
+						if($.trim(key_answer)=="") {
+
+							alert("Please enter the correct answer!");
+							return;
+						}
+
+					}
+
+					items += "Question: " + question;
+					items += "\nType: " + question_type;
+					items += "\nNo. of Choices: " + no_of_choices;
+					items += "\nAnswer(s): " + answers;
+					items += "\nKey Answer(s): " + key_answer;
+
+					//gritter this alerts here
+					if($(".item_type").val()==0) {
+										
+						alert("Please select the type of question!");	
+						return;	
+					}
+					if($.trim(question)=="") {
+
+						alert("Please enter a question!");
+						return;
+					}
+
+					//send data
+					var request = $.ajax({
+			        	url: "<?php echo base_url();?>examination/add_item",
+			        	type: 'POST',
+			        	data: { 
+			        		ajax: '1',
+			        		question: question,
+							answers: answers,
+							key_answer: key_answer,
+							question_type: question_type,
+							no_of_choices: no_of_choices
+			        	}
+			        });
+
+			        request.done(function (response, textStatus, jqXHR) {
+
+			        	console.log(items);
+						reset_field();	
+
+						
+				    });
+
+				    setTimeout(function() {
+					    location.reload();
+					}, 800);
+					
+				});
+
+				/************************* EDIT ITEM ********************************/
+
+				$(".btn-edit").click(function(){
+
+					var id = $(this).attr("id");
+					var q = $("#q"+id).text();
+					alert(q);
+					$('#q'+id).replaceWith("<p><textarea style='width:85%;'>"+q+"</textarea></p>");
+				});
+
+				/************************* DELETE ITEM ******************************/
+
+				$(".btn-delete").click(function(){
+
+					
+				});
 			}
 		</script>
 	</body>

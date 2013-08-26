@@ -27,9 +27,10 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.tagsinput.css" />
+		
 
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
@@ -45,6 +46,9 @@
 		<![endif]-->
 
 		<!--inline styles if any-->
+		<style type="text/css">
+		.tags{display:inline-block;padding:4px 6px;color:#777;vertical-align:middle;background-color:#FFF;border:1px solid #d5d5d5;width:60%;height: 100px}
+		</style>
 		
 	</head>
 
@@ -60,7 +64,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<li class="grey">
+<!--						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
 								<span class="badge badge-grey">4</span>
@@ -195,7 +199,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li>-->
 
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -274,7 +278,10 @@
 								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
+									<span id="user_info">
+									<small>Welcome,</small>
 									<?php echo $this->session->userdata('username');?>
+								</span>
 								</span>
 
 								<i class="icon-caret-down"></i>
@@ -425,7 +432,7 @@
 							HRIS
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Education Information
+								Education Information and Employment History
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -438,61 +445,148 @@
                 <?php if(isset($records)) : foreach($records as $row) : ?>
                 	
                <div class="" id="profile4">
-               		<form>
+               		<form id="education">
                         <h4></h4>
                         <label>
                           <i>Please Specify your highest educational attainment</i> 
                         </label>
                       
-                        <label>Level of Education</label>
-                          <input type="text" class="input-medium" name ="highest_educ">
-                        <label>Name of School</label>
-                          <input type="text" class="span8" name ="school">
+                        <label for="level_educ">Level of Education</label>
+                          <input type="text" class="input-medium"  id="level_educ"name ="highest_educ" value="<?php echo $row->educational_level;?>">
+                        <label for="school" >Name of School</label>
+                          <input type="text" class="span8" id="school"  name ="school" value="<?php echo $row->school_name;?>">
                         <label>From &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         &nbsp; &nbsp; &nbsp; To</label>
-                          <input type="number"  min="1990" max="2025" name ="school_s">
-                          <input type="number"  min="1990" max="2025" name ="school_e">
-                           <label class="control-label">Course Taken
-                          <br><input type="text" class="input-xxlarge" name = "course"/>
+                          <input type="number"  min="1990" max="2025" name ="school_s" value="<?php echo $row->education_from;?>">
+                          <input type="number"  min="1990" max="2025" name ="school_e" value="<?php echo $row->education_to;?>">
+                           <label class="control-label" for="course" >Course Taken
+                          <br><input type="text" class="input-xxlarge"  id="course" name = "course" value="<?php echo $row->education_course;?>" />
                       	</label>
-                        <label>Honors <small class="muted">(Enter for another input)</small></label>
-                           <input id="honors" type="text" class="tags" name = "school_honor" value="<?php echo $row->honors?>" />
+                          <label class="control-label" for="honors">Honors <small class="muted">(Enter for another input)</small></label>
+							<div class="controls">
+							<input id="honors" name="school_honor" value="<?php echo $row->honors;?>">
+							</div>
+							<br>
                         <label>How did you learn the position vacancy? Please specify</label>
                           <textarea name = ""></textarea>
-                        <!--
-                        <h4>Employment History</h4>
-                        <div class="control-group">
-                          <label class="control-label">Employment Information</label>
-                          <div class="company">
-                              <label>Name of Company</label>
-                                <input type="text" class="input-medium" name = "EH_company_name[]">
-                              <label>Location</label>
-                                <input type="text" class="input-large" name = "EH_company_location[]">
-                              <label>Position Title</label>
-                                <input type="text" class="input-medium" name = "EH_company_position[]">
-                              <label>From &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                              &nbsp; &nbsp; &nbsp; To</label>
-                                <input type="number" name="quantity" min="1990" max="2025" name = "EH_company_date_s">
-                                <input type="number" name="quantity1" min="1990" max="2025" name = "EH_company_date_e">
-                              <label>Reason for Leaving</label>
-                                <textarea></textarea>
-                              <br>
-                          </div>
-                        </div>
-                        <br>
-                        <a href="#" class="btn btn-mini btn-info  copy" rel=".company">Add+</a>
-                        <span class="help-inline">Click Add+ to add more Employment Information.</span>
-                      	-->
-
-                        <div class="form-actions">
+                    	<div class="form-actions">
                             <button type="submit" class="btn btn-info btn-small">Save changes</button>
                         </div>
                     </form>
-                </div>
-                <?php endforeach;?>
+                    <?php endforeach;?>
 				<?php endif; ?>
+                    <div class="table-header">
+								<h3>Employment History</h3>
+					</div>
+					<table id="table_employment_history" class="table table-striped table-bordered table-hover">
+           			<thead>
+           				<tr>
+           					<th>Company</th>
+           					<th>Location</th>
+           					<th>Position</th>
+           					<th>From</th>
+           					<th>To</th>
+           					<th>Reason for Leaving</th>
+           					<th></th>
+           				</tr>
+           			</thead>
+           			<tbody>
+	              	<?php if(isset($records2)) : foreach($records2 as $row) : ?>
+	              			
+                			<tr>
+                				<td><?php echo $row->employment_company_name;?></td>
+                				<td><?php echo $row->employment_location;?></td>
+                				<td><?php echo $row->employment_position;?></td>
+                				<td><?php echo $row->employment_from;?></td>
+                				<td><?php echo $row->employment_to;?></td>
+                				<td><?php echo $row->employment_reason_leave;?></td>
+                				<td></td>
+                			</tr>
+                			
+	                <?php endforeach;?>
+					<?php endif; ?>
+					</tbody>
+					</table>
+					<small>Page rendered in: {elapsed_time} seconds</small>
+					<div id="employmentDiv" style="display:none">
+						<h2>Employment Information</h2>
+                    <form id="employment" class="form-horizontal">
+		               			<div class="control-group">
+									<label class="control-label" for="comp_name">Name</label>
+
+									<div class="controls">
+										<input type="text" id="comp_name" name="EH_company_name">
+									</div>
+								</div>
+
+		               			<div class="control-group">
+									<label class="control-label" for="comp_loc">Location</label>
+
+									<div class="controls">
+										<input type="text" id="comp_loc" name="EH_company_location">
+									</div>
+								</div>
+
+		               			<div class="control-group">
+									<label class="control-label" for="position_title">Position Title</label>
+
+									<div class="controls">
+										<input type="text" id="position_title" name="EH_company_position">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="from">From</label>
+
+									<div class="controls">
+										<input type="number" id="from" min="1900" max="2025" name = "EH_company_date_s">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="to">To</label>
+
+									<div class="controls">
+										<input type="number" id="to" min="1900" max="2025" name = "EH_company_date_e">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="reason">Reason for Leaving</label>
+
+									<div class="controls">
+										 <textarea  id="reason" name="reason"></textarea>
+									</div>
+								</div>
+		                      	<div class="form-actions">
+									<button class="btn btn-info btn-small" type="submit">
+										<i class="icon-ok bigger-110"></i>
+										Submit
+									</button>
+
+									&nbsp; &nbsp; &nbsp;
+									<button class="btn btn-small" type="reset">
+										<i class="icon-undo bigger-110"></i>
+										Reset
+									</button>
+								</div>
+			            </form>
+			             
+			        </div>
+			         <div class="pager" >    
+			   	         		<div class="btn-group" id="addDiv" >
+		                       		<a href="#" id="add" class="btn btn-info copy1" rel=".child">Add <i class="icon-plus"></i></a>
+		                      		<span class="help-inline">Click Add+ to add more Employment's Information.</span>
+		                       	</div>
+		                       	<div class="btn-group" id="cancelDiv" style="display:none">
+		                       		<a href="#" id="cancel" class="btn btn-info copy1" rel=".child">Cancel</a>
+		                       	</div>
+							</div>   
+							<br>
+							<br>  
+							<br>  
+							<br>
+                        
+                </div>
+                
 				</form>
                 <!-- End of Tab 1 -->
 			</div><!--/row-->
@@ -534,7 +628,9 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.tagsinput.js"></script>
+		
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootstrap-tag.min.js"></script>
 
 		
 
@@ -544,6 +640,8 @@
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>	
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
 
 		<!--inline scripts related to this page-->
 
@@ -553,27 +651,59 @@
 
 	   
 	    $(function(){
+	    	$( "#add" ).click(function() {
+	      	  
+			  $("#employmentDiv").slideDown();
+			  $("#addDiv").slideUp();
+			  $('#cancelDiv').slideDown();
+
+			});
+
+			$( "#cancel" ).click(function() {
+	      		$('#cancelDiv').hide();
+			 	$('#employmentDiv').slideUp();
+				$("#addDiv").slideDown();
+
+			});
+
+	
 	        var removeLink = '<a class="remove btn btn-mini btn-danger" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">remove</a>';
 	        var removeLink2 = '<img class="remove" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">';
-	      	$('a.copy').relCopy({append: removeLink});
+	      	$('a.copy1').relCopy({append: removeLink});
 	      	$('a.copy2').relCopy({append: removeLink2});
-		    $('#honors').tagsInput({
-		    	width:'auto',
-		    	defaultText:''
+		   	var tag_input = $('#honors');	
+				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
+				{
+					tag_input.tag(
+					  {
+						placeholder:tag_input.attr('placeholder'),
+						//enable typeahead by specifying the source array
+						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
+					  }
+					);
+				}
+				else {
+					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+					tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+					//$('#skill').autosize({append: "\n"});
+				}
 
-		    	});
-
-
-          	$( "form" ).on( "submit", function( event ) {
+			$.extend($.gritter.options, { 
+		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+				fade_out_speed: 2000, // how fast the notices fade out
+				time: 1000 // hang on the screen for...
+			});
+		
+          	$( "#education" ).on( "submit", function( event ) {
 			  event.preventDefault();
 			  var sData = $(this).serialize();
 			  console.log(sData);
-			  alert('aw');
 			   $.ajax({
 	                url:"<?php echo base_url();?>hris/updateEducation",
 	                type:'POST',
 	                data:sData,
-	               // dataType:"json",
+	                dataType:"json",
 	               
 	                success:function(result){
 	                //$("#success").show();
@@ -584,7 +714,7 @@
 	                // location.reload();
 	                $.gritter.add({
 						title: 'Human Resource Information Update',
-						text: ' Background Education has been updated.',
+						text: result + '<i class="icon-spinner icon-spin green icon-2x"></i> Background Education has been updated.',
 						class_name: 'gritter-success gritter-center gritter-light'
 					});
 					
@@ -596,6 +726,80 @@
 
 	            });
 
+			});
+			//datatable initializatino
+			var oTable1 = $('#table_employment_history').dataTable( {
+			"aoColumns": [
+		    	 null,
+			  { "bSortable": false },
+			  { "bSortable": false },
+			  { "bSortable": false },
+			  { "bSortable": false },
+			  { "bSortable": false },
+			  { "bSortable": false }
+			] } );
+			
+			
+			$('table th input:checkbox').on('click' , function(){
+				var that = this;
+				$(this).closest('table').find('tr > td:first-child input:checkbox')
+				.each(function(){
+					this.checked = that.checked;
+					$(this).closest('tr').toggleClass('selected');
+				});
+					
+			});
+			
+			$( "#employment" ).on( "submit", function( event ) {
+			  event.preventDefault();
+			  var sData = $(this).serialize();
+			  console.log(sData);
+			   $.ajax({
+	                url:"<?php echo base_url();?>hris/updateEmploymentHistory",
+	                type:'POST',
+	                data:sData,
+	               dataType:"json",
+	               
+	                success:function(result){
+	                //$("#success").show();
+	                //$("#success").attr('class', 'alert alert-success');
+	                //var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
+	               // $("#success").html(output_string);
+	                //$("#result_table").hide();
+	                // location.reload();
+	                $.gritter.add({
+						title: 'Human Resource Information Update',
+						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Employment History has been updated.',
+						class_name: 'gritter-success gritter-center gritter-light'
+					});
+					
+	                //$("html, body").animate({ scrollTop: 0 }, "slow");
+
+	                $( '#employment' ).each(function(){
+					    this.reset();
+					});
+					$('#employmentDiv').slideUp();
+					$("#addDiv").slideDown();
+					$('#cancelDiv').hide();
+
+					console.log(result);
+
+	                //$("html, body").animate({ scrollTop: 0 }, "slow");
+	               /* */
+					var substr = result.split('-');
+					$('#table_employment_history').dataTable().fnAddData( [
+						substr[0],
+						substr[1],
+					   	substr[2],
+					   	substr[3],
+					   	substr[4],
+					   	substr[5],
+					   	"" ] );
+
+	                }
+
+	            });
+		
 			});
 		});
 	    </script>

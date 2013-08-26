@@ -21,7 +21,7 @@ class HRTMS extends CI_Controller {
 
 	function module_init() {
 
-		echo "http://www.jemnuine.com/elfinder";
+		echo "http://www.jemnuine.com/elfinder/";
 	}
 
 }
