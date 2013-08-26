@@ -109,7 +109,7 @@
 			<?php endif; ?>
 	</tbody> 
 -->
-<div id="city"></div>
+<div id="result_table"></div>
 </table> 
  <p class="foot">
   	Printed by : <u> <?php echo $this->session->userdata("first_name") . " " . $this->session->userdata("last_name");?></u> <br>
@@ -170,7 +170,7 @@
                     var batch = $(this).attr('value');
                     console.log(batch);
                     $.ajax({    
-                        url: "<?php echo base_url();?>ajax/gradesheetByBatch", //The url where the server req would we made.
+                        url: "<?php echo base_url();?>reports/gradesheetByBatch", //The url where the server req would we made.
                         async: false, 
                         type: "POST", //The type which you want to use: GET/POST
                         data: "batch="+batch, //The variables which are going.
@@ -180,7 +180,7 @@
                         success: function(output_string) {
                             //data is the html of the page where the request is made.
                             //alert(selState); 
-                            $('#city').html(output_string);
+                            $('#result_table').html(output_string);
                         } 
                     })
                 });

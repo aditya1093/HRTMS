@@ -24,6 +24,7 @@ class Login_model extends CI_Model{
 
             $data = array(
                     'id' => $row->id,
+                    'user_id' => $row->user_id,
                     'username' => $row->username,
                     'password' => $row->password,
                     'last_name' => $row->last_name,
@@ -51,5 +52,6 @@ class Login_model extends CI_Model{
         return false;
     }
 
+   
 
 }

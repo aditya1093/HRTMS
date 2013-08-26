@@ -12,8 +12,8 @@ class Hris_model extends CI_Model{
         
         $this->db->select('*');     
         $this->db->from('user_table');
-        $this->db->where('user_table.id',$id);
-        $this->db->join('hris', 'hris.trainee_id = user_table.id');
+        $this->db->where('user_table.user_id',$id);
+        $this->db->join('hris', 'hris.trainee_id = user_table.user_id');
         $query = $this->db->get();
         return $query->result();
     } 
@@ -71,7 +71,7 @@ class Hris_model extends CI_Model{
     //UPDATE Information
 
     function personal_info($data) {
-        $this->db->where('trainee_id', $this->session->userdata('id'));
+        $this->db->where('trainee_id', $this->session->userdata('user_id'));
         $this->db->update('hris', $data);
         return true;
     }
@@ -113,6 +113,49 @@ class Hris_model extends CI_Model{
         $this->db->select('*');    
         $this->db->from('hris_dependent');
         $this->db->where('hris_dependent.trainee_id',$id);
+        $this->db->order_by("id", "desc"); 
+        $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    function getIdChildren($id){
+
+        $this->db->select('*');    
+        $this->db->from('hris_children');
+        $this->db->where('hris_children.trainee_id',$id);
+        $this->db->order_by("id", "desc"); 
+        $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function getIdCharacterReference($id){
+
+        $this->db->select('*');    
+        $this->db->from('hris_character_reference');
+        $this->db->where('hris_character_reference.trainee_id',$id);
+        $this->db->order_by("id", "desc"); 
+        $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function getIdBeneficiary($id){
+
+        $this->db->select('*');    
+        $this->db->from('hris_beneficiary');
+        $this->db->where('hris_beneficiary.trainee_id',$id);
+        $this->db->order_by("id", "desc"); 
+        $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function getIdEmploymentHistory($id){
+
+        $this->db->select('*');    
+        $this->db->from('hris_employment_history');
+        $this->db->where('hris_employment_history.trainee_id',$id);
         $this->db->order_by("id", "desc"); 
         $this->db->limit(1);
         $query = $this->db->get();

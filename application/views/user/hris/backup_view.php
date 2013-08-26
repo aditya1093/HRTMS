@@ -397,7 +397,7 @@
 							<span>Deployment Tagging</span>
 						</a>
 					</li>
- 					<?php if($this->session->userdata("permission")=="Administrator") {?>
+ 
 					<li  class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
@@ -464,7 +464,7 @@
 							<span>About the Developers</span>
 						</a>
 					</li>
-					<?php }?>
+			
 				</ul>
 
 				<!--/.nav-list-->

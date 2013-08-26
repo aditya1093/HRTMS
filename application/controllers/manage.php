@@ -42,6 +42,7 @@ class Manage extends CI_Controller {
         if($this->form_validation->run() == true) {
  
         	$data = array(
+        			//''		=> 
         			'username' => $this->input->post('username'),
         			'password' => md5($this->input->post('password')),
         			'first_name' => $this->input->post('first_name'),

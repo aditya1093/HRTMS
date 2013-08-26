@@ -15,6 +15,7 @@
 <link href="<?php echo base_url();?>assets/_home/css/lightbox.css" rel="stylesheet" />
 <link href="<?php echo base_url();?>assets/_home/css/style.css" rel="stylesheet" />
 <link href="<?php echo base_url();?>assets/_home/css/style-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css" />
 <!-- end styles -->
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -44,11 +45,12 @@
     <!-- End Logo and slogan -->
     <!-- desktop menu -->
     <div id="top-menu-horizontal">
+      <!--
       <ul class="nav pull-right hidden-phone hidden-tablet">
         <li class="active"><a href="<?php echo base_url();?>assets/_home/index.html">Home</a></li>
         <li><a href="<?php echo base_url();?>assets/_home/services.html">FAQ</a></li>
         <li><a href="<?php echo base_url();?>assets/_home/contact.html">Contact</a></li>
-      </ul>
+      </ul>-->
     </div>
     <!-- end desktop menu -->
   </div>
@@ -87,7 +89,7 @@
           <p>If you are looking for a job that will meet your career goals as well as your personal needs, 
             you've come to the right place.<br>
           <a class="metro metro-green pull-right" style="background: #94BA65;" href="<?php echo base_url();?>Registration" role="button" data-toggle="modal" id="join-us">
-            <i class="icon-user"></i>Join our team!</a></p>
+            <i class="icon-user"></i> Join our team!</a></p>
         </div>
       </div>
       
@@ -149,23 +151,11 @@
         <div class="span12">
           <div id="flex-clients" class="flexslider">
             <ul class="slides">
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-1.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-2.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-3.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-4.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-5.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-6.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-7.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-8.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-5.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-4.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-6.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-3.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-7.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-2.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-8.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-1.jpg"  alt="image" /> </li>
-              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/logo-6.jpg"  alt="image" /> </li>
+              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/partners/1.jpg"  alt="image" /> </li>
+              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/partners/2.jpg"  alt="image" /> </li>
+              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/partners/3.jpg"  alt="image" /> </li>
+              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/partners/4.jpg"  alt="image" /> </li>
+              <li class="item"> <img src="<?php echo base_url();?>assets/_home/images/partners/5.jpg"  alt="image" /> </li>   
             </ul>
           </div>
         </div>
@@ -182,12 +172,13 @@
     <div class="span1"></div>
     <div class="span3">
       <h3>Contact info</h3>
-      <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, , eget lacinia odio sem nec elit.</p>
-      <div title="Location"><i class="icon-home"></i> Primera, Inc. 123 Raleigh Ave,<br />
-        <span style="padding-left:17px;"> Suite 600 Orlando, FL 32835</span></div>
-      <div title="Phone"><i class="icon-comment"> </i> (123) 456-7890 <br />
-        <span style="padding-left:17px;"> (123) 456-7809</span></div>
-      <div title="Email"><i class="icon-envelope"></i> <a href="<?php echo base_url();?>assets/_home/#">contact@railscom.com</a></div>
+      <p>Alliance Mansols Inc.</p>
+      <div title="Location"><i class="icon-home"></i> 117 Technology Ave. <br />
+        <span style="padding-left:17px;"> Laguna Technopark Inc </span> <br />
+        <span style="padding-left:17px;"> Binan City, Laguna</span></div>
+      <div title="Phone"><span style="padding-left:17px;"> Philippines </span> <br />
+       <i class="icon-comment"> </i> (123) 456-7890 </div>
+      
     </div>
     <div class="span5">
       <h3>Latest news</h3>
@@ -211,15 +202,19 @@
       </div>
     </div>
     <div class="span3">
-      <h3>Primera</h3>
-      <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+      <h3>Alliance Mansols Inc.</h3>
+      <p>We make conscious and informed 
+decisions concerning our customers 
+based on the best available data, 
+and we are accountable for the 
+outcomes of our decisions.</p>
     </div>
   </div>
   <div id="footer-copyright">
     <div class="container">
       <div class="row">
-        <div class="span9"> Copyright 2013 PRIMERA. All Right Reserved <br />
-          Powered By Railscom</div>
+        <div class="span9"> Copyright 2013 Alliance Mansols Inc. All Right Reserved <br />
+          </div>
         <div class="span3 pull-right"> <span class="facebook-icon social-icon"></span> <span class="twitter-icon social-icon"></span> <span class="google-icon social-icon"></span> </div>
       </div>
     </div>

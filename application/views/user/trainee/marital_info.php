@@ -746,7 +746,7 @@
 	               url:"<?php echo base_url();?>hris/insertChildren",
 	                type:'POST',
 	                data:sData,
-	                dataType: "json",
+	                //dataType: "json",
 	                success:function(result){
 	    
 	                $.gritter.add({
@@ -762,17 +762,21 @@
 					$('#cancelDiv').hide();
 
 					console.log(result);
-	                //$("html, body").animate({ scrollTop: 0 }, "slow");
-	               /* */
-					var substr = result.split('-');
-					console.log();
-					console.log();
-					console.log();
-					$('#table_children').dataTable().fnAddData( [
-						substr[0],
-						substr[1],
-					   substr[2],
-					   "" ] );
+					var str,str2="";
+					var obj = $.parseJSON(result);
+		                $.each(obj, function(){
+		                	//var str = "<button class=\"btn btn-mini btn-info\" id="+this['id']+"><i class=\"icon-edit bigger-120\"></i></button><button class=\"btn btn-mini btn-danger\"> <i class=\"icon-trash bigger-120\"></i></button>";
+						   		str =	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
+								str2 =	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
+							
+										
+						   $('#table_children').dataTable().fnAddData([
+								this['children_name'],
+								this['children_birthdate'],
+							   	this['children_school_or_work'],
+							 	str + " " +str2 ]
+							 	);
+		                });
 					
 	                }//End Success
 

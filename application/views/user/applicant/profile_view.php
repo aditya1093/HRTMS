@@ -398,7 +398,7 @@
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">Control Panel</li>
+						<li class="active">Control Panel </li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
@@ -417,13 +417,14 @@
 							Control Panel
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Profile
+								Profile <?php echo $this->session->userdata('user_id');?>
 							</small>
 						</h1>
 					</div><!--/.page-header-->
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
+
 						<?php if(isset($records)) : foreach($records as $row) : ?>
 						<div id="user-profile-2" class="user-profile row-fluid">
 									<div class="tabbable">

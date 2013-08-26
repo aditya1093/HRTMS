@@ -11,16 +11,15 @@ class Hris extends CI_Controller {
 
 	public function personal_info()
 	{
-		$id = $this->session->userdata('id');
+		$id = $this->session->userdata('user_id');
 			//$this->load->model('hris_model');
 		$query = $this->hris_model->profile_trainee($id);
 		$data['records'] = $query;
-
 		$this->load->view('user/trainee/personal_info',$data);
 	}
 	public function personal_accounts()
 	{
-		$id = $this->session->userdata('id');
+		$id = $this->session->userdata('user_id');
 			//$this->load->model('hris_model');
 		$query = $this->hris_model->profile_trainee($id);
 		$data['records'] = $query;
@@ -28,7 +27,7 @@ class Hris extends CI_Controller {
 	}
 	public function marital_info()
 	{
-		$id = $this->session->userdata('id');
+		$id = $this->session->userdata('user_id');
 			//$this->load->model('hris_model');
 		$query = $this->hris_model->profile_trainee($id);
 		$data['records'] = $query;
@@ -39,7 +38,7 @@ class Hris extends CI_Controller {
 	}
 	public function educational_background()
 	{
-		$id = $this->session->userdata('id');
+		$id = $this->session->userdata('user_id');
 			//$this->load->model('hris_model');
 		$query = $this->hris_model->profile_trainee($id);
 		$data['records'] = $query;
@@ -50,7 +49,7 @@ class Hris extends CI_Controller {
 	}
 	public function others()
 	{
-		$id = $this->session->userdata('id');
+		$id = $this->session->userdata('user_id');
 		//Dependent Table
 		$query = $this->hris_model->dependent($id);
 		$data['records'] = $query;
@@ -231,7 +230,7 @@ class Hris extends CI_Controller {
     		$name=$this->input->post('child_name');
 			$dob=$this->input->post('child_dob');
 			$school_work=$this->input->post('child_school_work');
-			$id=$this->session->userdata('id');
+			$id=$this->session->userdata('user_id');
 			$count = count($this->input->post('child_name'));
     		/*$data =array();
 			for($i=0; $i<$count; $i++) {
@@ -251,9 +250,10 @@ class Hris extends CI_Controller {
 				'children_school_or_work' => $school_work 
 				);
 
-			//$this->hris_model->insert_children($data);
-			$this->output->set_output(json_encode($name.'-'.$dob.'-'.$school_work));
-							
+			$this->hris_model->insert_children($data);
+			//$this->output->set_output(json_encode($name.'-'.$dob.'-'.$school_work));
+			$query = $this->hris_model->getIdChildren($id);
+			echo json_encode ($query);				
 
 
 		}
@@ -269,7 +269,7 @@ class Hris extends CI_Controller {
     		$name=$this->input->post('dependent_name');
 			$dob=$this->input->post('dependent_dob');
 			$relationship=$this->input->post('dependent_relationship');
-			$id=$this->session->userdata('id');
+			$id=$this->session->userdata('user_id');
 			/*$count = count($this->input->post('dependent_name'));
     		$data =array();
 			for($i=0; $i<$count; $i++) {
@@ -309,7 +309,7 @@ class Hris extends CI_Controller {
     		$name=$this->input->post('beneficiary_name');
 			$dob=$this->input->post('beneficiary_dob');
 			$relationship=$this->input->post('beneficiary_relationship');
-			$id=$this->session->userdata('id');
+			$id=$this->session->userdata('user_id');
 			/*$count = count($this->input->post('beneficiary_name'));
     		$data =array();
 			for($i=0; $i<$count; $i++) {
@@ -333,8 +333,9 @@ class Hris extends CI_Controller {
 			           );
 			$this->hris_model->insert_beneficiary($data);
 
-			$this->output->set_output(json_encode($name.'&&'.$dob.'&&'.$relationship));
-
+			//$this->output->set_output(json_encode($name.'&&'.$dob.'&&'.$relationship));
+			$query = $this->hris_model->getIdBeneficiary($id);
+			echo json_encode ($query);
 
 		}
 		else {
@@ -349,7 +350,7 @@ class Hris extends CI_Controller {
     		$name=$this->input->post('CR_name');
 			$company=$this->input->post('CR_company_name');
 			$contact=$this->input->post('CR_contact_no');
-			$id=$this->session->userdata('id');
+			$id=$this->session->userdata('user_id');
 			/*$count = count($this->input->post('CR_name'));
     		$data =array();
 			for($i=0; $i<$count; $i++) {
@@ -370,8 +371,9 @@ class Hris extends CI_Controller {
 			           'character_contact_no' => $contact
 			            );
 			$this->hris_model->insert_character_reference($data);
-			$this->output->set_output(json_encode($name.'&&'.$company.'&&'.$contact));
-
+			//$this->output->set_output(json_encode($name.'&&'.$company.'&&'.$contact));
+			$query = $this->hris_model->getIdCharacterReference($id);
+			echo json_encode ($query);
 
 		}
 		else {
@@ -389,7 +391,7 @@ class Hris extends CI_Controller {
 			$start = $this->input->post('EH_company_date_s');
 			$end = $this->input->post('EH_company_date_e');
 			$reason = $this->input->post('reason');
-			$id=$this->session->userdata('id');
+			$id=$this->session->userdata('user_id');
 			$count = count($this->input->post('EH_company_name'));
     		/*$data =array();
 			for($i=0; $i<$count; $i++) {
@@ -417,10 +419,11 @@ class Hris extends CI_Controller {
 
 				);
 
-			//$this->hris_model->insert_employment_history($data);
+			$this->hris_model->insert_employment_history($data);
 
-			$this->output->set_output(json_encode($name.'-'.$loc.'-'.$position.'-'.$start.'-'.$end.'-'.$reason));
-			
+			//$this->output->set_output(json_encode($name.'-'.$loc.'-'.$position.'-'.$start.'-'.$end.'-'.$reason));
+			$query = $this->hris_model->getIdEmploymentHistory($id);
+			echo json_encode ($query);
 
 		}
 		else {

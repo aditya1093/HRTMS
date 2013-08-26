@@ -764,7 +764,7 @@
 	                url:"<?php echo base_url();?>hris/insertEmploymentHistory",
 	                type:'POST',
 	                data:sData,
-	               dataType:"json",
+	               	//dataType:"json",
 	               
 	                success:function(result){
 	                //$("#success").show();
@@ -788,26 +788,34 @@
 					$("#addDiv").slideDown();
 					$('#cancelDiv').hide();
 
-					console.log(result);
+	               	console.log(result);
+					var str,str2="";
+					var obj = $.parseJSON(result);
+		                $.each(obj, function(){
+		                	//var str = "<button class=\"btn btn-mini btn-info\" id="+this['id']+"><i class=\"icon-edit bigger-120\"></i></button><button class=\"btn btn-mini btn-danger\"> <i class=\"icon-trash bigger-120\"></i></button>";
+						   		str =	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
+								str2 =	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
+							
+										
+						   $('#table_employment_history').dataTable().fnAddData([
+								this['employment_company_name'],
+								this['employment_location'],
+								this['employment_position'],
+								this['employment_from'],
+								this['employment_to'],
+							   	this['employment_reason_leave'],
+							 	str + " " +str2 ]
+							 	);
+		                });//parseJson End
+		            }//Ajax Success End
 
-	                //$("html, body").animate({ scrollTop: 0 }, "slow");
-	               /* */
-					var substr = result.split('-');
-					$('#table_employment_history').dataTable().fnAddData( [
-						substr[0],
-						substr[1],
-					   	substr[2],
-					   	substr[3],
-					   	substr[4],
-					   	substr[5],
-					   	"" ] );
-
-	                }
-
-	            });
+	            });//Ajax Request End
 		
-			});
-		});
+			});//Employment Submit End
+		
+
+
+		});//function End
 	    </script>
 		
 		

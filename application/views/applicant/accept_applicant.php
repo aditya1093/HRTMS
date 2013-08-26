@@ -1,4 +1,4 @@
-<?php if($this->session->userdata('permission') != 'Administrator') { redirect(base_url() . '404');} ?>
+<?php if($this->session->userdata('permission') != 'Administrator' && $this->session->userdata('permission') != 'HR') { redirect(base_url() . '404');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -30,7 +30,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
 			<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />	
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php if($this->session->userdata("permission") == "Client") { echo 'client'; } else if($this->session->userdata("permission") == "Trainer") { echo 'training'; } else if($this->session->userdata("permission") == "HR") { echo 'hr'; } else if($this->session->userdata("permission") == "Trainee") { echo 'manpower'; } else if($this->session->userdata("permission") == "Administrator") { echo 'admin'; } ?>/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
 		
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
@@ -64,7 +64,7 @@
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - Training Center Administration
+							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
 
@@ -328,19 +328,19 @@
 				<div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
 						<button class="btn btn-small btn-success">
-							<i class="icon-ok"></i>
+							<i class="icon-signal"></i>
 						</button>
 
 						<button class="btn btn-small btn-info">
-							<i class="icon-puzzle-piece"></i>
-						</button>
-
-						<button class="btn btn-small btn-danger">
-							<i class="icon-star"></i>
+							<i class="icon-pencil"></i>
 						</button>
 
 						<button class="btn btn-small btn-warning">
-							<i class="icon-print"></i>
+							<i class="icon-group"></i>
+						</button>
+
+						<button class="btn btn-small btn-danger">
+							<i class="icon-cogs"></i>
 						</button>
 					</div>
 
@@ -349,9 +349,9 @@
 
 						<span class="btn btn-info"></span>
 
-						<span class="btn btn-danger"></span>
-
 						<span class="btn btn-warning"></span>
+
+						<span class="btn btn-danger"></span>
 					</div>
 				</div><!--#sidebar-shortcuts-->
 
@@ -413,6 +413,7 @@
 							<span>Deployment Tagging</span>
 						</a>
 					</li>
+					<?php if($this->session->userdata("permission") == "Administrator") {?>
 
 					<li>
 						<a href="#" class="dropdown-toggle">
@@ -466,7 +467,7 @@
 							
 						</ul>
 					</li>
-
+					<?php }?>
 					<li>
 						<a href="help">
 							<i class="icon-question-sign"></i>

@@ -24,19 +24,19 @@
 		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
 
 		<!--ace styles-->
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" media="screen,print"/>
 
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" media="screen,print" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" media="screen,print" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" media="screen,print" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" media="screen,print" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" media="screen,print" />
+ 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
 		<![endif]-->
 
-		<!--inline styles if any-->
-
+		<!--inline styles if any--> 
 
 		<!-- Print Print Print  -->
 		<style type="text/css" media ="screen">
@@ -60,6 +60,23 @@
 	<a class="brand" href="#">
 	<img width="120px" src="<?php echo base_url();?>assets/images/logo.jpg" alt=""> AMI - Human Resource Training and Management System</a>	
 </div>
+<form class="form-inline" method="POST" action="">
+<fieldset>
+	<div id="byBatch">
+		<label for="byBatch">&nbsp;by Batch :</label>
+		<select class="chzn-select"  name="batch">
+				<option selected value=""></option>
+			<?php if(isset($records2)) : foreach($records2 as $row) : ?>
+				<option value="<?php echo $row->batch_control_no;?>"><?php echo $row->batch_control_no;?></option>
+			<?php endforeach;?>
+			<?php endif; ?>
+ 
+		</select> 
+
+	</div>
+</fieldset>
+</form>
+<!--
 <h1>Attendace :</h1>
 <table class="table table-striped table-bordered">
 	<thead>
@@ -100,6 +117,8 @@
 	</tbody>
 
 </table>
+-->
+	<div id="result_table"></div>
   <p class="foot">
   	Printed by : <u> <?php echo $this->session->userdata("first_name") . " " . $this->session->userdata("last_name");?></u> <br>
   	Date : <u><?php echo date('Y-m-d');?></u><br>
@@ -110,6 +129,83 @@
 			<p class="pull-left">&copy; <a href="" target="_blank">Alliance Mansols Incorporated</a> 2013</p>
 			<p class="pull-right">Powered by: <a href="">TDC</a></p>
 </footer>
+
+<!--basic scripts-->
+
+		<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+		<script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
+
+		<script type="text/javascript">
+			//window.jQuery || document.write("<script src='<?php echo base_url();?>assets/js/jquery-1.9.1.min.js'>"+"<"+"/script>");
+			window.jQuery || document.write("<script src='<?php echo base_url();?>assets/js/jquery.js'>"+"<"+"/script>");
+		</script>
+		<script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+
+		<!--page specific plugin scripts-->
+
+		<!--[if lte IE 8]>
+		  <script src="<?php echo base_url();?>assets/js/excanvas.min.js"></script>
+		<![endif]-->
+
+		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
+
+		<!--ace scripts-->
+
+		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
+
+		<!--inline scripts related to this page-->
+
+		<script type="text/javascript">
+			$(function() {
+			
+				$('.dialogs,.comments').slimScroll({
+			        height: '300px'
+			    });
+				
+				$('#tasks').sortable();
+				$('#tasks').disableSelection();
+				$('#tasks input:checkbox').removeAttr('checked').on('click', function(){
+					if(this.checked) $(this).closest('li').addClass('selected');
+					else $(this).closest('li').removeClass('selected');
+				});
+
+
+
+
+				$(".chzn-select").chosen(); 
+				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+
+	            $(document).ready(function () {
+	                $('#byBatch select').change(function () {
+	                    var batch = $(this).attr('value');
+	                    console.log(batch);
+	                    $.ajax({    
+	                        url: "<?php echo base_url();?>reports/traineeAttendanceByBatch", //The url where the server req would we made.
+	                        async: false, 
+	                        type: "POST", //The type which you want to use: GET/POST
+	                        data: "batch="+batch, //The variables which are going.
+	                        dataType: 'json', //Return data type (what we expect).
+	                         
+	                        //This is the function which will be called if ajax call is successful.
+	                        success: function(output_string) {
+	                            $('#result_table').html(output_string);
+	                        } 
+	                    })
+	                });
+	            });
+											 
+	
+			});
+		</script>
 
 </body>		
 </html> 

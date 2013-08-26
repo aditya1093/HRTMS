@@ -158,7 +158,7 @@ class Ajax extends CI_Controller {
         echo json_encode($output_string);
     }
  
-     public function gradesheetByBatch(){
+    public function gradesheetByBatch(){
 
         $batch=$this->input->post('batch');
 

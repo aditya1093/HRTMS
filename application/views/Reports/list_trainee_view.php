@@ -30,6 +30,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" media="screen,print" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" media="screen,print" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" media="screen,print" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" media="screen,print" />
  
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -59,38 +60,23 @@
 <body> 
 	<div class="center"><a class="brand" href="#"><img width="120px" src="<?php echo base_url();?>assets/images/logo.jpg" alt=""> AMI - Human Resource Training and Management System</a>	
 </div>
-<form>
+<form class="form-inline" method="POST" action="">
 <fieldset>
-	 <div class="btn-group">
-			<button data-toggle="dropdown" class="btn dropdown-toggle">
-				Filter 
-				<span class="caret"></span>
-			</button>
+	<div id="byBatch">
+		<label for="byBatch">&nbsp;by Batch :</label>
+		<select class="chzn-select"  name="batch">
+				<option selected value=""></option>
+			<?php if(isset($records2)) : foreach($records2 as $row) : ?>
+				<option value="<?php echo $row->batch_control_no;?>"><?php echo $row->batch_control_no;?></option>
+			<?php endforeach;?>
+			<?php endif; ?>
+ 
+		</select> 
 
-			<ul class="dropdown-menu dropdown-default">
-				<li>
-					<a href="#">Action</a>
-				</li>
-
-				<li>
-					<a href="#">Another action</a>
-				</li>
-
-				<li>
-					<a href="#">Something else here</a>
-				</li>
-
-				<li class="divider"></li>
-
-				<li>
-					<a href="#">Separated link</a>
-				</li>
-			</ul>
-	</div><!--/btn-group-->
-
+	</div>
 </fieldset>
 </form>
-<H1>List of Trainee:</H1>
+<!--<H1>List of Trainee:</H1>
 <table class="table table-striped table-bordered">
 	<thead>
 	<tr>
@@ -145,6 +131,8 @@
 	</tbody>
    
 </table>
+-->
+<div id="result_table"></div>
   <p class="foot">
   	Printed by : <u> <?php echo $this->session->userdata("first_name") . " " . $this->session->userdata("last_name");?></u> <br>
   	Date : <u><?php echo date('Y-m-d');?></u><br>
@@ -182,6 +170,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 
 		<!--ace scripts-->
 
@@ -203,6 +192,34 @@
 					if(this.checked) $(this).closest('li').addClass('selected');
 					else $(this).closest('li').removeClass('selected');
 				});
+
+
+
+
+				$(".chzn-select").chosen(); 
+				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+
+	            $('#byBatch select').change(function () {
+	                    var batch = $(this).attr('value');
+	                    console.log(batch);
+	                    $.ajax({    
+	                        url: "<?php echo base_url();?>reports/traineeByBatch", //The url where the server req would we made.
+	                        async: false, 
+	                        type: "POST", //The type which you want to use: GET/POST
+	                        data: "batch="+batch, //The variables which are going.
+	                        dataType: 'json', //Return data type (what we expect).
+	                         
+	                        //This is the function which will be called if ajax call is successful.
+	                        success: function(output_string) {
+	                            //data is the html of the page where the request is made.
+	                            //alert(selState); 
+	                            $('#result_table').html(output_string);
+	                            console.log(output_string);
+	                        } 
+	                    })
+	                });
+											 
+	
 			});
 		</script>
 </body>		 

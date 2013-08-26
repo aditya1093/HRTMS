@@ -62,7 +62,7 @@
 								<li class="nav-header">
 									<i class="icon-ok"></i>
 									Tasks to complete
-								</li>
+								</li> 
 
 								<li>
 									<a href="#">
@@ -368,7 +368,7 @@
 							</li>
 
 							<li>
-								<a href="<?php echo base_url();?>manage/training">
+								<a href="<?php echo base_url();?>applicant/accept">
 									<i class="icon-user"></i>
 								   	<span>Accept</span>
 								</a>
@@ -397,8 +397,8 @@
 							<span>Deployment Tagging</span>
 						</a>
 					</li>
- 					<?php if($this->session->userdata("permission")=="Administrator") {?>
-					<li  class="">
+ 
+					<li  class="active open">
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
 							<span>Manage Accounts</span>
@@ -414,7 +414,7 @@
 								</a>
 							</li>
 
-							<li class="">
+							<li class="active">
 								<a href="<?php echo base_url();?>manage/training">
 									<i class="icon-user"></i>
 									Training Department
@@ -423,7 +423,7 @@
 						</ul>
 					</li>
 
-					<li class="active open">
+					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-cog"></i>
 							<span>Administrative Tools</span>
@@ -432,7 +432,7 @@
 						</a>
 
 						<ul class="submenu">
- 
+
 							<li>
 								<a href="<?php echo base_url();?>administrative/audit">
 									<i class="icon-list"></i>
@@ -440,7 +440,7 @@
 								</a>
 							</li>
 
-							<li class="active">
+							<li>
 								<a href="<?php echo base_url();?>administrative/backup">
 									<i class="icon-download-alt"></i>
 									Backup &amp; Maintenance
@@ -464,7 +464,7 @@
 							<span>About the Developers</span>
 						</a>
 					</li>
-					<?php }?>
+			
 				</ul>
 
 				<!--/.nav-list-->
@@ -478,13 +478,13 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-shield"></i>
-							<a href="#">Administrative</a>
+							<a href="#">Manage Accounts</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">Audit Logs</li>
+						<li class="active">Training Department</li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
@@ -500,10 +500,10 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Users Account
+							Training Department Management
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Logs
+								Trainer Accounts
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -511,50 +511,164 @@
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 
-						<div class="span12">
+						<div class="span9">
 
 							<div class="box">
-								<div class="box-header well" data-original-title>
-								
-									<div class="box-icon">
-										<!--
-										<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-										<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-										<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-									-->fasdfasdf
-									</div>
-								</div>
-								<div class="box-content"> 
-
-									<div class="row-fluid">
-										
-										<div class="widget-box">
-											<div class="widget-header">
-												<h4 class="smaller">
-													Backup and Maintenance
-													<small>Training Center Admin</small>
-												</h4>
-											</div>
-
-											<div class="widget-body">
-												<div class="widget-main">
-													<p align="center">
-														aasdfasdfasdf
-													</p>
-													<p align="center">
-														
-														<a href="<?php echo base_url();?>db_backup" class="btn btn-warning btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Backup</a>
-														
-													</p>
-												</div>
-											</div>
+									<div class="box-header well" data-original-title>
+										<h2><i class="icon-key"></i> Login Accounts for Trainer</h2>
+										<div class="box-icon">
+											<!--
+											<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
+											<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+											<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+										-->
 										</div>
 									</div>
+									<div class="box-content"> 
 
+										<div class="row-fluid">
+											
+											<div class="table-header">
+												 Results for "Accounts"
+											</div>
+											<table id="trainee_list" class="table table-striped table-bordered table-hover">
+											<thead>
+											<tr>
+												
+												<th>
+													Name
+												</th>
+												<th>
+													Username
+												</th>
+												<th class="hidden-480">
+													Email Address
+												</th>
+												<th class="hidden-phone">													
+													Date Created
+												</th>
+												<th class="hidden-480">
+													Last Login
+												</th>
+												<th> 
+												</th>
+											</tr> 
+											</thead>
+											<tbody>
+												<?php if(isset($records)) : foreach($records as $row) : ?>
+													<tr>
+														
+														<td><?php echo $row->last_name.', '.$row->first_name.' '.$row->middle_name;?></td>
+														<td><?php echo $row->username;?></td>
+														<td><?php echo $row->email;?></td>														
+														<td><?php echo $row->date_created;?></td>
+														<td><?php echo $row->last_login;?></td>	
+														<td class="td-actions">
+
+																<!--
+																		<a id="<?php echo $row->id;?>" style="cursor:pointer;" class="editbutton btn btn-info"><i class="icon-edit icon-white"></i></a>
+																		<a id="<?php echo $row->id;?>" style="cursor:pointer;" class="deletebutton btn btn-danger"><i class="icon-trash icon-white"></i> </a>	
+																		!-->
+														 <div class="hidden-phone visible-desktop btn-group">
+															<button class="btn btn-mini btn-success">
+																<i class="icon-ok bigger-120"></i>
+															</button>
+
+															<button class="btn btn-mini btn-info">
+																<i class="icon-edit bigger-120"></i>
+															</button>
+
+															<button class="btn btn-mini btn-danger">
+																<i class="icon-trash bigger-120"></i>
+															</button>
+
+															<button class="btn btn-mini btn-warning">
+																<i class="icon-flag bigger-120"></i>
+															</button> 
+														</div>
 									
+														</td>
+													</tr>
+													<?php endforeach;?>
+
+												<?php endif; ?>
+											</tbody>
+											</table>
+										</div>
+
+										<small>Page rendered in: {elapsed_time} seconds</small>
+									</div>
 								</div>
-							</div>			
-						</div> 
+
+								
+							</div> 
+
+						<div class="span3">
+
+							<!-- ADD HR START -->
+							
+							<!-- ADD HR END -->
+
+							<div class="widget-box">
+
+										<div class="widget-header">
+											<h4><i class="icon-user"></i>Add Account</h4>
+											
+											<span class="widget-toolbar">
+												<a href="#" data-action="collapse">
+													<i class="icon-chevron-up"></i>
+												</a>
+
+												<a href="#" data-action="reload">
+													<i class="icon-refresh"></i>
+												</a>
+
+												
+											</span>
+										</div>
+
+										<div class="widget-body"><div class="widget-body-inner">
+											<div class="widget-main">
+												<div class="row-fluid">
+
+													<?php if(!is_null($this->session->userdata('error_trainer'))) echo $this->session->userdata('error_trainer'); ?>
+													<form method="post" action="<?php echo base_url();?>manage/add_trainer">
+
+														<label><i class="light-red icon-asterisk"></i> Username:  </label>
+														<input autofocus  style="width: 94%" placeholder="Enter Username" type="text" id="username" name="username">
+
+														<label><i class="light-red icon-asterisk"></i> Password: </label>
+														<input style="width: 94%" type="password" id="password" name="password">
+
+														<label><i class="light-red icon-asterisk"></i> Confirm Password: </label>
+														<input style="width: 94%" type="password" id="password_confirm" name="password_confirm">
+
+														<label><i class="light-red icon-asterisk"></i> First Name: </label>
+														<input style="width: 94%" type="text" id="first_name" name="first_name">
+
+														<label><i class="light-red icon-asterisk"></i> Last Name: </label>
+														<input style="width: 94%" type="text" id="last_name" name="last_name">
+
+														<label>Middle Name: </label>
+														<input style="width: 94%" type="text" id="middle_name" name="middle_name">
+
+														<label><i class="light-red icon-asterisk"></i> Email address: </label>
+														<input  style="width: 94%" type="email" id="email" name="email" >
+
+														<hr>
+
+														<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Add HR</button>
+
+														
+													</form>	
+												</div>
+
+												
+											</div>
+										</div></div>
+									</div>
+
+						</div>
 
 						
 
@@ -622,7 +736,7 @@
 
 				//datatable initializatino
 				var oTable1 = $('#trainee_list').dataTable( {
-				"aoColumns": [null, null,			     
+				"aoColumns": [			     
 			      null, null,null, null, null,
 				  { "bSortable": false }
 				] } );

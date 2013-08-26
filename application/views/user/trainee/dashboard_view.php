@@ -414,50 +414,115 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Control Panel
+							AMI Trainee 
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Dashboard
+								
 							</small>
 						</h1>
 					</div><!--/.page-header-->
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-						<div class="span12">
+						
 
-						<div class="tabbable">
-										<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-											<li class="active">
-												<a data-toggle="tab" href="#home4">Home</a>
-											</li>
+						<div class="span8">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										Viewer
+										<small>by Google Docs</small>
+									</h4>
+								</div>
 
-											<li class="">
-												<a data-toggle="tab" href="#profile4">Profile</a>
-											</li>
-
-											<li class="">
-												<a data-toggle="tab" href="#dropdown14">More</a>
-											</li>
-										</ul>
-
-										<div class="tab-content">
-											<div id="home4" class="tab-pane active">
-												<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-											</div>
-
-											<div id="profile4" class="tab-pane">
-												<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
-											</div>
-
-											<div id="dropdown14" class="tab-pane">
-												<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
-											</div>
-										</div>
+								<div class="widget-body">
+									<div class="widget-main">
+										<span class="presenter">
+											<iframe src="http://docs.google.com/viewer?url=http://jemnuine.com/elfinder/files/GDOCS.pptx&amp;embedded=true" width="100%" height="400" style="border: none;"></iframe>
+										</span>
+										
 									</div>
+								</div>
+							</div>
+						</div>
+						<div class="span4">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										Modules
+										<small>Select</small>
+									</h4>
+								</div>
 
+								<div class="widget-body">
+									<div class="widget-main">
+										<table class="table">
+											<tbody><tr>
+												<td>
+													<label>Company: </label>
+													<select required="" name="company_name" id="company_name">
+														<option value="" selected="selected" style="color:#ddd;">Select Company...</option>
+															
+															<option value="TOSHIBA">TOSHIBA</option>
+															
+															<option value="TOTOKU">TOTOKU</option>
+															
+															<option value="SHINETSU">SHINETSU</option>
+															
+															<option value="AMI">AMI</option>
+															
+															<option value="HP">HP</option>
+																																									</select>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<label>Module Name: </label>
+													<select required="" name="module_name" id="module_name">
+														<option value="" selected="selected" style="color:#ddd;">Select Module...</option>
+														
+													</select>
+
+													<i style="margin-left: 5px; display: none;" id="loading_file" class="icon-spinner icon-spin orange icon-2x"></i>
+												</td>
+											</tr>
+											<tr>	
+												<td>
+													<button id="view_module" class="btn btn-success"><i class="icon-arrow-left icon-white"></i> View Module</button>
+												</td>
+											</tr>
+											
+											
+										</tbody></table>
+									</div>
+								</div>
+							</div>
+							<p></p>
+							<div class="widget-box">
+								<div class="widget-header widget-header-small header-color-dark">
+									<h4 class="smaller">
+										Information
+										<small></small>
+									</h4>
+								</div>
+								<div class="widget-body">
+									<div class="widget-main">
+										<address>
+											<b>Module Name: </b><span id="dmodule"></span><br>
+											<b>Company Name: </b><span id="dcompany"></span><br>
+											<b>Path: </b><span id="dfile"></span><br>
+
+										</address>
+										<a id="download" class="btn btn-mini btn-info tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">
+											<i class="icon-cloud-download"></i>
+											Download File
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
 						<!--PAGE CONTENT ENDS HERE-->
-					</div><!--/row-->
+					<!--/row-->
 
 				</div><!--/#page-content-->
 

@@ -1,4 +1,4 @@
-<?php if($this->session->userdata('permission') != 'Administrator') { redirect(base_url() . 'index.php/404');} ?>
+<?php if($this->session->userdata('permission') != 'Administrator'&& $this->session->userdata('permission') != 'HR') { redirect(base_url() . 'index.php/logout');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -524,13 +524,7 @@
 							</div>
 							<div class="box-content">
 								<div class="row-fluid">
-									<form class="form-inline" id="student">
-														<input autofocus type="text" class="span11" name="id" />
-														<button class="btn btn-purple btn-small">
-															Get Data
-														</button>												
-									</form>
-									<div id='result_table'></div>
+									
 								</div>								
 							</div> 
 
@@ -584,25 +578,34 @@
 
 		<script type="text/javascript">	
 
-
-			$("#student").submit(function(){
-			         var dataString = $("#student").serialize();
+		$("#getinfo").click(function(){
+			         var dataString = $("#id").val();
 			         $.ajax({ 
-			           url: "<?php echo base_url(); ?>ajax/user",
+			           url: "<?php echo base_url();?>ajax/user",
 			     	   async: false,
 			           type: "POST",			          
-			           data: dataString, 
-			           dataType: 'json',
+			           data: "id="+dataString, 
+			           dataType: 'json', 
+			        
 			 
 			           success: function(output_string){
-			               //alert(dataString);
-			                $('#result_table').html(output_string);
+			               alert(dataString);
+			               $('#result_table').html(output_string);
 			           }
 			 
 			         });
 			 
 			         return false;  //stop the actual form post !important!
 			});
+
+		 	$('#acceptApp').click(function(){ 
+			   	 $a = "aw";
+			   	// $(this).closest('fieldset').find(':checkbox').prop('checked', this.checked);
+			     alert($a);  //use .val() if you're getting the value
+			   });
+
+			  
+		
  
 										 
 		</script>

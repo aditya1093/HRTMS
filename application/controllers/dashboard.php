@@ -14,7 +14,8 @@ class Dashboard extends CI_Controller {
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'HR') {
 			
-			$this->load->view('User/hris/dashboard_view');
+			//$this->load->view('User/hris/dashboard_view');
+			$this->load->view('admin/dashboard_view');
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Trainer') {
 			

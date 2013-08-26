@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Dashboard - AMI</title>
+		<title>Manage HR Accounts - AMI</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,7 +40,6 @@
 	</head>
 
 	<body>
-
 		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
@@ -301,9 +300,8 @@
 				</div><!--/.container-fluid-->
 			</div><!--/.navbar-inner-->
 		</div>
-	
+
 		<div class="container-fluid" id="main-container">
-			
 			<a id="menu-toggler" href="#">
 				<span></span>
 			</a>
@@ -397,8 +395,8 @@
 							<span>Deployment Tagging</span>
 						</a>
 					</li>
- 					<?php if($this->session->userdata("permission")=="Administrator") {?>
-					<li  class="">
+
+					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
 							<span>Manage Accounts</span>
@@ -407,14 +405,14 @@
 						</a>
 
 						<ul class="submenu">
-							<li  class="">
+							<li class="active">
 								<a href="<?php echo base_url();?>manage/hr">
 									<i class="icon-user"></i>
 									HR Department
 								</a>
 							</li>
 
-							<li class="">
+							<li>
 								<a href="<?php echo base_url();?>manage/training">
 									<i class="icon-user"></i>
 									Training Department
@@ -423,7 +421,7 @@
 						</ul>
 					</li>
 
-					<li class="active open">
+					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-cog"></i>
 							<span>Administrative Tools</span>
@@ -432,7 +430,7 @@
 						</a>
 
 						<ul class="submenu">
- 
+
 							<li>
 								<a href="<?php echo base_url();?>administrative/audit">
 									<i class="icon-list"></i>
@@ -440,7 +438,7 @@
 								</a>
 							</li>
 
-							<li class="active">
+							<li>
 								<a href="<?php echo base_url();?>administrative/backup">
 									<i class="icon-download-alt"></i>
 									Backup &amp; Maintenance
@@ -464,7 +462,7 @@
 							<span>About the Developers</span>
 						</a>
 					</li>
-					<?php }?>
+			
 				</ul>
 
 				<!--/.nav-list-->
@@ -473,25 +471,26 @@
 					<i class="icon-double-angle-left"></i>
 				</div>
 			</div>
+
 			<div id="main-content" class="clearfix">
 				<div id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-shield"></i>
-							<a href="#">Administrative</a>
+							<a href="#">Manage Accounts</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">Audit Logs</li>
+						<li class="active">HR Department</li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
 						<form class="form-search">
 							<span class="input-icon">
 								<input type="text" placeholder="Search ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
-			 					<i class="icon-search" id="nav-search-icon"></i>
+								<i class="icon-search" id="nav-search-icon"></i>
 							</span>
 						</form>
 					</div><!--#nav-search-->
@@ -500,10 +499,10 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Users Account
+							Human Resource Department Management
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Logs
+								Staff Accounts
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -511,50 +510,202 @@
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 
-						<div class="span12">
+						<div class="span9">
 
 							<div class="box">
-								<div class="box-header well" data-original-title>
-								
-									<div class="box-icon">
-										<!--
-										<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-										<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-										<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-									-->fasdfasdf
-									</div>
-								</div>
-								<div class="box-content"> 
-
-									<div class="row-fluid">
-										
-										<div class="widget-box">
-											<div class="widget-header">
-												<h4 class="smaller">
-													Backup and Maintenance
-													<small>Training Center Admin</small>
-												</h4>
-											</div>
-
-											<div class="widget-body">
-												<div class="widget-main">
-													<p align="center">
-														aasdfasdfasdf
-													</p>
-													<p align="center">
-														
-														<a href="<?php echo base_url();?>db_backup" class="btn btn-warning btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Backup</a>
-														
-													</p>
-												</div>
-											</div>
+									<div class="box-header well" data-original-title>
+										<h2><i class="icon-key"></i> Login Accounts for HR Staffs</h2>
+										<div class="box-icon">
+											<!--
+											<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
+											<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+											<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+										-->
 										</div>
 									</div>
+									<div class="box-content">
 
-									
+										<div class="row-fluid">
+											
+											<div class="table-header">
+												 Results for "Accounts"
+											</div>
+											<table id="table_report" class="table table-striped table-bordered table-hover">
+											<thead>
+											<tr>
+												<th class="center">
+													<label>
+													<input type="checkbox"/>
+													<span class="lbl"></span>
+													</label>
+												</th>
+												<th>
+													Domain
+												</th>
+												<th>
+													Price
+												</th>
+												<th class="hidden-480">
+													Clicks
+												</th>
+												<th class="hidden-phone">
+													<i class="icon-time hidden-phone"></i>
+													Update
+												</th>
+												<th class="hidden-480">
+													Status
+												</th>
+												<th>
+												</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr>
+												<td class="center">
+													<label>
+													<input type="checkbox"/>
+													<span class="lbl"></span>
+													</label>
+												</td>
+												<td>
+													<a href="#">ace.com</a>
+												</td>
+												<td>
+													$45
+												</td>
+												<td class="hidden-480">
+													3,330
+												</td>
+												<td class="hidden-phone">
+													Feb 12
+												</td>
+												<td class="hidden-480">
+													<span class="label label-warning">Expiring</span>
+												</td>
+												<td class="td-actions">
+													<div class="hidden-phone visible-desktop btn-group">
+														<button class="btn btn-mini btn-success">
+														<i class="icon-ok bigger-120"></i>
+														</button>
+														<button class="btn btn-mini btn-info">
+														<i class="icon-edit bigger-120"></i>
+														</button>
+														<button class="btn btn-mini btn-danger">
+														<i class="icon-trash bigger-120"></i>
+														</button>
+														<button class="btn btn-mini btn-warning">
+														<i class="icon-flag bigger-120"></i>
+														</button>
+													</div>
+													<div class="hidden-desktop visible-phone">
+														<div class="inline position-relative">
+															<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+															<i class="icon-caret-down icon-only bigger-120"></i>
+															</button>
+															<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+																<li>
+																<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit" data-placement="left">
+																<span class="green">
+																<i class="icon-edit"></i>
+																</span>
+																</a>
+																</li>
+																<li>
+																<a href="#" class="tooltip-warning" data-rel="tooltip" title="Flag" data-placement="left">
+																<span class="blue">
+																<i class="icon-flag"></i>
+																</span>
+																</a>
+																</li>
+																<li>
+																<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete" data-placement="left">
+																<span class="red">
+																<i class="icon-trash"></i>
+																</span>
+																</a>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</td>
+											</tr>
+											</tbody>
+											</table>
+										</div>
+
+										<small>Page rendered in: {elapsed_time} seconds</small>
+									</div>
 								</div>
-							</div>			
-						</div> 
+
+								
+							</div> 
+
+						<div class="span3">
+
+							<!-- ADD HR START -->
+							
+							<!-- ADD HR END -->
+
+							<div class="widget-box">
+
+										<div class="widget-header">
+											<h4><i class="icon-user"></i> Add HR Account</h4>
+											
+											<span class="widget-toolbar">
+												<a href="#" data-action="collapse">
+													<i class="icon-chevron-up"></i>
+												</a>
+
+												<a href="#" data-action="reload">
+													<i class="icon-refresh"></i>
+												</a>
+
+												
+											</span>
+										</div>
+
+										<div class="widget-body"><div class="widget-body-inner">
+											<div class="widget-main">
+												<div class="row-fluid">
+
+													<?php if(!is_null($this->session->userdata('error_hr'))) echo $this->session->userdata('error_hr'); ?>
+													<form method="post" action="<?php echo base_url();?>user/hr/add_hr">
+
+														<label><i class="light-red icon-asterisk"></i> Username:  </label>
+														<input autofocus required style="width: 94%" placeholder="Enter Username" type="text" id="username" name="username">
+
+														<label><i class="light-red icon-asterisk"></i> Password: </label>
+														<input style="width: 94%" type="password" id="password" name="password">
+
+														<label><i class="light-red icon-asterisk"></i> Confirm Password: </label>
+														<input style="width: 94%" type="password" id="password_confirm" name="password_confirm">
+
+														<label><i class="light-red icon-asterisk"></i> First Name: </label>
+														<input style="width: 94%" type="text" id="displayname" name="displayname">
+
+														<label><i class="light-red icon-asterisk"></i> Last Name: </label>
+														<input style="width: 94%" type="text" id="displayname" name="displayname">
+
+														<label>Middle Name: </label>
+														<input style="width: 94%" type="text" id="displayname" name="displayname">
+
+														<label><i class="light-red icon-asterisk"></i> Email address: </label>
+														<input required style="width: 94%" type="email" id="email" name="email" >
+
+														<hr>
+
+														<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Add HR</button>
+
+														
+													</form>	
+												</div>
+
+												
+											</div>
+										</div></div>
+									</div>
+
+						</div>
 
 						
 
@@ -621,8 +772,9 @@
 				});
 
 				//datatable initializatino
-				var oTable1 = $('#trainee_list').dataTable( {
-				"aoColumns": [null, null,			     
+				var oTable1 = $('#table_report').dataTable( {
+				"aoColumns": [
+			      { "bSortable": false },
 			      null, null,null, null, null,
 				  { "bSortable": false }
 				] } );

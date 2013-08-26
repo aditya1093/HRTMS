@@ -1,4 +1,5 @@
-<?php if($this->session->userdata('permission') != 'Administrator') { redirect(base_url() . 'index.php/404');} ?>
+<?php if($this->session->userdata('permission') != 'Administrator'&& $this->session->userdata('permission') != 'HR') {  echo $this->session->userdata('permission');}//redirect(base_url() . 'index.php/logout');} ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -397,7 +398,7 @@
 							<span>Deployment Tagging</span>
 						</a>
 					</li>
- 
+ 					<?php if($this->session->userdata("permission")=="Administrator") {?>
 					<li >
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
@@ -450,7 +451,7 @@
 							
 						</ul>
 					</li>
-
+					<?php }?>
 					<li>
 						<a href="help">
 							<i class="icon-question-sign"></i>
@@ -510,7 +511,7 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-							<div class="span12">
+							<div class="span5">
 
 							<div class="alert alert-info">
 								<h2>Reports</h2>
@@ -529,7 +530,75 @@
 							</div> 
 
 						<!--PAGE CONTENT ENDS HERE-->
-					</div><!--/row-->
+							</div>
+
+						<div class="span7">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h5><i class="icon-info"></i> Manpower Request Status</h5>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+										
+							          <table class="table table-striped table-bordered table-hover">
+
+							          	<thead>
+							          		<tr>
+							          			<th>Request ID</th>
+							          			<th>Company</th>
+							          			<th>Date of Request</th>
+							          			<th>Requested Number</th>
+							          			<th>Status</th>
+							          		</tr>
+							          	</thead>
+							          	<tbody>
+							          		<tr>
+							          			<td>1</td>
+							          			<td>TOSHIBA</td>
+							          			<td>2013-04-20</td>
+							          			<td>100</td>
+							          			<td><button class="btn btn-warning btn-mini">Confirm Request</button></td>
+							          		</tr>
+							          		<tr>
+							          			<td>2</td>
+							          			<td>TOTOKU</td>
+							          			<td>2013-04-01</td>
+							          			<td>150</td>
+							          			<td><button class="btn btn-warning btn-mini">Confirm Request</button></td>
+							          		</tr>
+							          		<tr>
+							          			<td>3</td>
+							          			<td>TOSHIBA</td>
+							          			<td>2013-03-10</td>
+							          			<td>100</td>
+							          			<td><button class="btn btn-warning btn-mini">Confirm Request</button></td>
+							          		</tr>
+							          		<tr>
+							          			<td>4</td>
+							          			<td>HITACHI</td>
+							          			<td>2013-02-03</td>
+							          			<td>350</td>
+							          			<td><button class="btn btn-warning btn-mini">Confirm Request</button></td>
+							          		</tr>
+							          		<tr>
+							          			<td>5</td>
+							          			<td>TOSHIBA</td>
+							          			<td>2013-01-22</td>
+							          			<td>150</td>
+							          			<td><button class="btn btn-warning btn-mini">Confirm Request</button></td>
+							          		</tr>
+							          	</tbody>
+
+							          </table>
+									</div>
+								</div>
+							</div>
+							<p>
+							</p>
+							
+
+						</div><!--/row-->
 
 				</div><!--/#page-content-->
 

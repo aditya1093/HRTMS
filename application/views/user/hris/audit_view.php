@@ -397,7 +397,7 @@
 							<span>Deployment Tagging</span>
 						</a>
 					</li>
- 					<?php if($this->session->userdata("permission")=="Administrator") {?>
+ 
 					<li  class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
@@ -433,14 +433,14 @@
 
 						<ul class="submenu">
  
-							<li>
+							<li class="active">
 								<a href="<?php echo base_url();?>administrative/audit">
 									<i class="icon-list"></i>
 									Audit Logs
 								</a>
 							</li>
 
-							<li class="active">
+							<li>
 								<a href="<?php echo base_url();?>administrative/backup">
 									<i class="icon-download-alt"></i>
 									Backup &amp; Maintenance
@@ -464,7 +464,7 @@
 							<span>About the Developers</span>
 						</a>
 					</li>
-					<?php }?>
+			
 				</ul>
 
 				<!--/.nav-list-->
@@ -514,47 +514,83 @@
 						<div class="span12">
 
 							<div class="box">
-								<div class="box-header well" data-original-title>
-								
-									<div class="box-icon">
-										<!--
-										<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-										<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-										<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-									-->fasdfasdf
-									</div>
-								</div>
-								<div class="box-content"> 
-
-									<div class="row-fluid">
-										
-										<div class="widget-box">
-											<div class="widget-header">
-												<h4 class="smaller">
-													Backup and Maintenance
-													<small>Training Center Admin</small>
-												</h4>
-											</div>
-
-											<div class="widget-body">
-												<div class="widget-main">
-													<p align="center">
-														aasdfasdfasdf
-													</p>
-													<p align="center">
-														
-														<a href="<?php echo base_url();?>db_backup" class="btn btn-warning btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Backup</a>
-														
-													</p>
-												</div>
-											</div>
+									<div class="box-header well" data-original-title>
+									
+										<div class="box-icon">
+											<!--
+											<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
+											<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+											<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+										-->
 										</div>
 									</div>
+									<div class="box-content"> 
 
-									
+										<div class="row-fluid">
+											
+											<div class="table-header">
+												 Results for "Accounts"
+											</div>
+											<table id="trainee_list" class="table table-striped table-bordered table-hover">
+											<thead>
+											<tr>
+												
+												<th>
+													Name
+												</th>
+												<th>
+													Username
+												</th>												
+												<th class="hidden-480">
+													Deparment
+												</th>
+												<th class="hidden-phone">													
+													Date Created
+												</th>
+												<th class="hidden-480">
+													Last Login
+												</th>
+												<th class="hidden-480">
+													Last Logout
+												</th>
+												<th class="hidden-480">
+													Last Activity
+												</th>
+												<th> 
+												</th>
+											</tr> 
+											</thead>
+											<tbody>
+												<?php if(isset($records)) : foreach($records as $row) : ?>
+													<tr>
+														
+														<td><?php echo $row->last_name.', '.$row->first_name.' '.$row->middle_name;?></td>
+														<td><?php echo $row->username;?></td>
+														<td><?php echo $row->permission;?></td>														
+														<td><?php echo $row->date_created;?></td>
+														<td><?php echo $row->last_login;?></td>
+														<td><?php echo $row->last_logout;?></td>
+														<td><?php echo $row->last_activity;?></td>
+														<td> 
+															<!--
+															<a id="<?php echo $row->id;?>" style="cursor:pointer;" class="editbutton btn btn-info"><i class="icon-edit icon-white"></i></a>
+															<a id="<?php echo $row->id;?>" style="cursor:pointer;" class="deletebutton btn btn-danger"><i class="icon-trash icon-white"></i> </a>	
+															!-->
+														</td>
+													</tr>
+													<?php endforeach;?>
+
+												<?php endif; ?>
+											</tbody>
+											</table>
+										</div>
+
+										<small>Page rendered in: {elapsed_time} seconds</small>
+									</div>
 								</div>
-							</div>			
-						</div> 
+
+								
+							</div> 
 
 						
 

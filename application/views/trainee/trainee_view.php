@@ -1,4 +1,4 @@
-<?php if($this->session->userdata('permission') != 'Administrator') { redirect(base_url() . 'index.php/404');} ?>
+<?php if($this->session->userdata('permission') != 'Administrator'&& $this->session->userdata('permission') != 'HR') { redirect(base_url() . 'index.php/404');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -397,7 +397,7 @@
 							<span>Deployment Tagging</span>
 						</a>
 					</li>
-
+					<?php if($this->session->userdata("permission")=="Administrator") {?>
 					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
@@ -450,7 +450,7 @@
 							
 						</ul>
 					</li>
-
+					<?php }?>
 					<li>
 						<a href="help">
 							<i class="icon-question-sign"></i>

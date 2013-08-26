@@ -971,7 +971,7 @@
 	               url:"<?php echo base_url();?>hris/insertBeneficiary",
 	                type:'POST',
 	                data:sData,
-	               	dataType:"json",
+	               	//dataType:"json",
 	                success:function(result){
 	    
 	                $.gritter.add({
@@ -987,17 +987,21 @@
 					$('#cancelBeneficiaryDiv').hide();
 
 					console.log(result);
-	               
-					var substr = result.split('&&');
-					console.log();
-					console.log();
-					console.log();
-					$('#table_beneficiary').dataTable().fnAddData( [
-						substr[0],
-						substr[1],
-					   substr[2],
-					   "" ] );
-					
+					var str,str2="";
+					var obj = $.parseJSON(result);
+		                $.each(obj, function(){
+		                	//var str = "<button class=\"btn btn-mini btn-info\" id="+this['id']+"><i class=\"icon-edit bigger-120\"></i></button><button class=\"btn btn-mini btn-danger\"> <i class=\"icon-trash bigger-120\"></i></button>";
+						   		str =	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
+								str2 =	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
+							
+										
+						$('#table_beneficiary').dataTable().fnAddData([
+								this['beneficiary_name'],
+								this['beneficiary_birthdate'],
+							   	this['beneficiary_relationship'],
+							 	str + " " +str2 ]
+							 	);
+		                });
 			
 	                //$("html, body").animate({ scrollTop: 0 }, "slow");
 
@@ -1017,7 +1021,7 @@
 	                url:"<?php echo base_url();?>hris/insertCharacterReference",
 	                type:'POST',
 	                data:sData,
-	                dataType:"json",
+	                //dataType:"json",
 	               
 	                success:function(result){
 	                //$("#success").show();
@@ -1040,18 +1044,21 @@
 					$('#cancelCharacterReferenceDiv').hide();
 
 					console.log(result);
-	                //$("html, body").animate({ scrollTop: 0 }, "slow");
-	               /* */
-					var substr = result.split('&&');
-					console.log();
-					console.log();
-					console.log();
-					$('#table_character_reference').dataTable().fnAddData( [
-						substr[0],
-						substr[1],
-					   substr[2],
-					   "" ] );
-
+						var str,str2="";
+						var obj = $.parseJSON(result);
+			                $.each(obj, function(){
+			                	//var str = "<button class=\"btn btn-mini btn-info\" id="+this['id']+"><i class=\"icon-edit bigger-120\"></i></button><button class=\"btn btn-mini btn-danger\"> <i class=\"icon-trash bigger-120\"></i></button>";
+							   		str =	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
+									str2 =	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
+								
+											
+							   $('#table_character_reference').dataTable().fnAddData([
+									this['character_name'],
+									this['character_company'],
+								   	this['character_contact_no'],
+								 	str + " " +str2 ]
+								 	);
+			                });
 	                }
 
 	            });

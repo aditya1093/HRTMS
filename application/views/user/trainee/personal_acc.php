@@ -576,7 +576,12 @@
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">
 		
-
+			$.extend($.gritter.options, { 
+		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+				fade_out_speed: 2000, // how fast the notices fade out
+				time: 1000 // hang on the screen for...
+			});
 
           $( "form" ).on( "submit", function( event ) {
 			  event.preventDefault();
@@ -598,7 +603,7 @@
 	                 $(clicked).closest('tr').remove();
 	                $.gritter.add({
 						title: 'Human Resource Information Update',
-						text: ' Personal accounts has been updated.',
+						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Personal accounts has been updated.',
 						class_name: 'gritter-success gritter-center gritter-light'
 					});
 					

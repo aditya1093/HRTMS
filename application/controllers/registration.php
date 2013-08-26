@@ -5,7 +5,7 @@ class Registration extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->helper("url");
-		$this->load->model("Register_Model");
+		$this->load->model("register_model");
 		$this->load->library("form_validation");
 	}
 
@@ -32,14 +32,14 @@ class Registration extends CI_Controller {
 		
 		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
 		//$this->form_validation->set_rules('email_confirm', 'Email Address Confrimation', 'required');
-		$this->form_validation->set_rules('username', 'Username', 'required|xss_clean|min_length[6]|is_unique[users_table.username]');
+		$this->form_validation->set_rules('username', 'Username', 'required|xss_clean|min_length[6]|is_unique[user_table.username]');
 		$this->form_validation->set_rules('password', 'Password', 'required|matches[password_confirm]|min_length[6]');
 		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', '');
 		$this->form_validation->set_rules('agree', '...', 'callback_terms_check');
 		
 		
 
-		$query =$this->db->query("select count( year(date_created) = year(now()) && month(date_created)=month(now()))  as count from registration");
+		$query =$this->db->query("select count(*) as count from registration where month(date_created) = month(now()) and year(date_created) = year(now()) group by month(date_created)");
 		//$query2 =$this->db->query("select  register_id from registration order by register_id desc");
 	
 		if ($query->num_rows() > 0)
@@ -53,10 +53,20 @@ class Registration extends CI_Controller {
 			$date2 = date('m');
 			$reg_id = 'AMI' . substr($date, -2) .$date2 .'-REG-'.$p;
 		}
+		else
+		{
+			$p = '000';
+			$p = sprintf("%04d",$p) ;
+			$date = date('Y'); //this returns the current date time
+			$date2 = date('m');
+			$reg_id = 'AMI' . substr($date, -2) .$date2 .'-REG-'.$p;
+
+		}
 		
 
 		if ($this->form_validation->run() == true)
 		{
+			//$reg_id = "AMI1308-REG-0030";
 			$data = array(
 				'register_id'	=> $reg_id,
 				'username' 		=> strtolower($this->input->post('username')),
@@ -70,15 +80,15 @@ class Registration extends CI_Controller {
 				'address'    	=> $this->input->post('address'),
 				'address_2'    	=> $this->input->post('address_2'),
 				'city'    		=> $this->input->post('city'),
-				'province'    		=> $this->input->post('state'),
+				'province'    	=> $this->input->post('state'),
 				'country'    	=> $this->input->post('country'),
 				'zipcode'    	=> $this->input->post('zipcode'),
 				'phone'      	=> $this->input->post('phone'),
-				'active'			=> 0,
+				'active'		=> 0,
 				'date_created'	=> date('Y-m-d H:i:s')
 			);
 			$data2 = array(
-				'id'	=> $reg_id,
+				'id'			=> $reg_id,
 				'username' 		=> strtolower($this->input->post('username')),
 				'email'    		=> $this->input->post('email'),
 				'password' 		=> md5($this->input->post('password')),
@@ -88,12 +98,15 @@ class Registration extends CI_Controller {
 				'date_created'	=> date('Y-m-d H:i:s'),
 				'permission'    => 'Applicant'
 				);
+			
 		}
-		if ($this->form_validation->run() == true && $this->Register_Model->register($data) && $this->Register_Model->userTable($data2) )
+		if ($this->form_validation->run() == true && $this->register_model->register($data) && $this->register_model->userTable($data))
 		{ 
 			//check to see if we are creating the user
 			//redirect them to checkout page
-	 		$this->load->view('success');
+	 		$this->load->view('registration/success');
+	 		//$this->load->library('../controllers/authenticate/reg_to_login',strtolower($this->input->post('username')),$this->input->post('password'));
+	 		//echo "Success";
 		}
 		else
 		{ 

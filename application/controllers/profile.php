@@ -28,14 +28,14 @@ class Profile extends CI_Controller {
 			$this->load->view('User/client/profile_view');
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Trainee') {
-			$id = $this->session->userdata('id');
+			$id = $this->session->userdata('user_id');
 			//$this->load->model('profile_model');
 			$query = $this->profile_model->profile_trainee($id);
-			$data['records'] = $query;			
+			$data['records'] = $query;	
 			$this->load->view('User/trainee/profile_view',$data);
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Applicant') {
-			$id = $this->session->userdata('id');
+			$id = $this->session->userdata('user_id');
 			//$this->load->model('profile_model');
 			$query = $this->profile_model->profile_applicant($id);
 			$data['records'] = $query;
@@ -67,15 +67,13 @@ class Profile extends CI_Controller {
 			$this->load->view('User/client/profile_view');
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Trainee') {
-			$id = $this->session->userdata('id');
-			//$this->load->model('profile_model');
+			$id = $this->session->userdata('user_id');
 			$query = $this->profile_model->profile_trainee($id);
 			$data['records'] = $query;			
 			$this->load->view('User/trainee/hris_view',$data);
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Applicant') {
-			$id = $this->session->userdata('id');
-			//$this->load->model('profile_model');
+			$id = $this->session->userdata('user_id');
 			$query = $this->profile_model->profile_applicant($id);
 			$data['records'] = $query;
 			$this->load->view('User/applicant/profile_view',$data);
@@ -147,7 +145,7 @@ class Profile extends CI_Controller {
 					'birth_date'  	=> $this->input->post('birth_date_year') . '-' .$this->input->post('birth_date_month') . '-'. $this->input->post('birth_date_day') ,
 					'address'    	=> $this->input->post('address'),
 					'city'    		=> $this->input->post('city'),
-					'state'    		=> $this->input->post('province'),
+					'province'    		=> $this->input->post('province'),
 					'zipcode'    	=> $this->input->post('zipcode'),
 					'phone'      	=> $this->input->post('phone'),
 					'date_change'	=> date('Y-m-d H:i:s'),
@@ -168,7 +166,7 @@ class Profile extends CI_Controller {
 			}
 			else
 			{ 
-				$id = $this->session->userdata('id');
+				$id = $this->session->userdata('user_id');
 				//$this->load->model('profile_model');
 				$query = $this->profile_model->profile_applicant($id);
 				$this->data['records'] = $query;
@@ -266,7 +264,7 @@ class Profile extends CI_Controller {
 			}
 			else
 			{ 
-				$id = $this->session->userdata('id');
+				$id = $this->session->userdata('user_id');
 				//$this->load->model('profile_model');
 				$query = $this->profile_model->profile($id);
 				$this->data['records'] = $query;
