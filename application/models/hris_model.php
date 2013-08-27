@@ -70,11 +70,11 @@ class Hris_model extends CI_Model{
 
     //UPDATE Information
 
-    function personal_info($data) {
-        $this->db->where('trainee_id', $this->session->userdata('user_id'));
+    function personal_info($data,$id) {
+        $this->db->where('trainee_id', $id);
         $this->db->update('hris', $data);
         return true;
-    }
+    }  
 
     function insert_children($data) {
        	$this->db->insert('hris_children', $data);

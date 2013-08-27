@@ -627,6 +627,12 @@
 	              .css('oFilter',filterVal)
 	              .css('msFilter',filterVal);
        		 }
+       		$.extend($.gritter.options, { 
+		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+				fade_out_speed: 2000, // how fast the notices fade out
+				time: 1000 // hang on the screen for...
+			});
 
 			$("#getinfo").click(function(){
 					$('#first_load').show();

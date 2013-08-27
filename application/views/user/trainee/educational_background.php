@@ -278,8 +278,6 @@
 								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
-									<span id="user_info">
-									<small>Welcome,</small>
 									<?php echo $this->session->userdata('username');?>
 								</span>
 								</span>
@@ -446,7 +444,7 @@
                 	
                <div class="" id="profile4">
                		<form id="education">
-                        <h4></h4>
+                        <h4></h4>            
                         <label>
                           <i>Please Specify your highest educational attainment</i> 
                         </label>
@@ -469,15 +467,15 @@
 							</div>
 							<br>
                         <label>How did you learn the position vacancy? Please specify</label>
-                          <textarea name = ""></textarea>
+                          <textarea name = "vacancy" ><?php echo $row->vacancy;?></textarea>
                     	<div class="form-actions">
                             <button type="submit" class="btn btn-info btn-small">Save changes</button>
                         </div>
-                    </form>
+                    </form> 
                     <?php endforeach;?>
 				<?php endif; ?>
                     <div class="table-header">
-								<h3>Employment History</h3>
+								<h3>Employment History</h3> 
 					</div>
 					<table id="table_employment_history" class="table table-striped table-bordered table-hover">
            			<thead>
@@ -701,7 +699,7 @@
 				time: 1000 // hang on the screen for...
 			});
 		
-          	$( "#education" ).on( "submit", function( event ) {
+          	$("#education").on( "submit", function( event ) {
 			  event.preventDefault();
 			  var sData = $(this).serialize();
 			  console.log(sData);
@@ -709,7 +707,7 @@
 	                url:"<?php echo base_url();?>hris/updateEducation",
 	                type:'POST',
 	                data:sData,
-	                dataType:"json",
+	                //dataType:"json",
 	               
 	                success:function(result){
 	                //$("#success").show();
@@ -720,10 +718,10 @@
 	                // location.reload();
 	                $.gritter.add({
 						title: 'Human Resource Information Update',
-						text: result + '<i class="icon-spinner icon-spin green icon-2x"></i> Background Education has been updated.',
+						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Background Education has been updated.',
 						class_name: 'gritter-success gritter-center gritter-light'
 					});
-					
+					console.log(result);
 		            //$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
 		            //$("#personal_info")[0].reset();
 	                $("html, body").animate({ scrollTop: 0 }, "slow");

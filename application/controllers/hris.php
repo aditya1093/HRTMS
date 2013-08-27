@@ -202,7 +202,8 @@ class Hris extends CI_Controller {
 		//$m = $this->input->post('middle_name');
 		//$name = $this->input->post('first_name') .' ' .$m[0].' '.$this->input->post('last_name'); 
 		//$name = $this->input->post('passport_issue_date');
-		//$this->output->set_output(json_encode($name));
+		//$this->output->set_output(json_encode($name));\
+			$id = $this->session->userdata('user_id');
 			$education = array(
         			'educational_level' => $this->input->post('highest_educ'),
         			'school_name' => $this->input->post('school'),
@@ -210,14 +211,15 @@ class Hris extends CI_Controller {
         			'education_to' => $this->input->post('school_e'),
         			'education_course' => $this->input->post('course'),
         			'honors' => $this->input->post('school_honor'),
+        			'vacancy' => $this->input->post('vacancy'),
         			'date_edit' => date('Y-m-d H:i:s')
-        		);
+        		); 
 			//$this->load->model('hris_model');
 			//echo $this->input->post('school_honor');
-			$this->hris_model->personal_info($education);
-
-        	
-	
+			$this->hris_model->personal_info($education,$id);
+ 			//echo $this->input->post('school_honor');
+        	//echo $this->input->post();
+	 
 		}
 		else {
 

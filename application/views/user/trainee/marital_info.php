@@ -634,7 +634,7 @@
 			// /var stat = $this->session->flashdata('civil_status');
 			var stat = $('#status').val();
 			if(stat == 'Single'){
-				//$('#single_message').show();
+				$('#single_message').show();
 				//alert('Show ' + stat );
 			    $("#marital a").click(function (e) { 
 			        $(this).fadeTo("fast", .5).removeAttr("href"); 
