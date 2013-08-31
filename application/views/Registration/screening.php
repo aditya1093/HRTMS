@@ -43,7 +43,7 @@
       <div class="navbar navbar-inverse">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <a href="#" class="brand">
+          <a href="<?php echo base_url();?>" class="brand">
             <small>
               <i class="icon-group"></i>
               AMI - Registration
@@ -77,64 +77,23 @@
                  Site Map
                 </a>
           </li>
-            <li  class="">
-              <a href="#" class="dropdown-toggle">
-                <i class="icon-shield"></i>
-                <span>Requirements</span>
 
-                <b class="arrow icon-angle-down"></b>
-              </a>
-
-              <ul class="submenu">
-                <li  >
-                  <a href="<?php echo base_url();?>Registration/photo_requirement">
-                    <i class="icon-user"></i>
-                    Photograph
-                  </a>
-                </li>
-                <li  >
-                  <a href="<?php echo base_url();?>Registration/required_documents">
-                    <i class="icon-user"></i>
-                   Documents
-                  </a>
-                </li>
-                <li class="">
-                  <a href="<?php echo base_url();?>Registration/expenses">
-                    <i class="icon-user"></i>
-                   Expenses
-                  </a>
-               </li>
-              </ul>
-            </li>
-            <li class="active open">
-              <a href="#" class="dropdown-toggle">
-                <i class="icon-shield"></i>
-                <span>Screening</span>
-
-                <b class="arrow icon-angle-down"></b>
-              </a>
-
-              <ul class="submenu">
-                <li class="active" >
-                  <a href="<?php echo base_url();?>Registration/prelim_exam">
-                    <i class="icon-user"></i>
-                    Preliminary Examination
-                  </a>
-                </li>
-                <li  >
-                  <a href="<?php echo base_url();?>Registration/interview_screen">
-                    <i class="icon-user"></i>
-                   Interview Screening
-                  </a>
-                </li>
-                <li  >
-                  <a href="<?php echo base_url();?>Registration/medical_referral">
-                    <i class="icon-user"></i>
-                   Medical Referral 
-                  </a>
-                </li>
-              </ul>
-            </li>
+          <li class="" >
+            <a href="<?php echo base_url();?>Registration/requirements">
+                  <i class="icon-archive"></i>
+                 Requirements
+                </a>
+          </li>
+      
+          
+          <li class="active" >
+            <a href="<?php echo base_url();?>Registration/screening">
+                  <i class="icon-eye-open"></i>
+                 Screening
+                </a>
+          </li>
+      
+            
           <li>
             <a href="">
               <i class="icon-question-sign"></i>
@@ -208,6 +167,53 @@
             <!--PAGE CONTENT ENDS HERE-->
           </div><!--/row-->
 
+
+          <div class="row-fluid">
+            <!--PAGE CONTENT STARTS HERE-->
+              <div class="span12">
+
+         
+              <div class="box-content">
+                <div class="row-fluid">
+                 <div class="well">
+      
+                  <h1>Interview Screening</h1>
+                  <br>
+                  <p>
+                  After passing the psychological assesment, you will proceed to your interview. You will be asked by our HR staff to give him/her your registration slip and other required documents. Don't get nervous during your interview. The most important thing that you can carry with you is your self-confidence. Applicants who are well prepared, answer confidently, and have a genuine reason to apply as a trainee are usually successful on passing the interview. 
+                  </p>      
+                </div>
+                </div>                
+              </div> 
+              </div>
+            <!--PAGE CONTENT ENDS HERE-->
+          </div><!--/row-->
+
+
+          <div class="row-fluid">
+            <!--PAGE CONTENT STARTS HERE-->
+              <div class="span12">
+
+         
+              <div class="box-content">
+                <div class="row-fluid">
+                 <div class="well">      
+                  <h1>Medical Referral</h1>
+                  <br>
+                  <p>
+                  After passing the interview, you will be referred to a hospital/clinic where you need to take your medical examination. The HR staff will hand you a Medical Slip for you to give to the medical nurse upon arriving the hospital/clinic. After all the tests, you will be asked to go home and will be notified through phone about the result.
+                  </p>
+                  </div>
+                </div>                
+              </div> 
+              </div>
+            <!--PAGE CONTENT ENDS HERE-->
+          </div><!--/row-->
+
+
+
+              <!--/row-->
+
         
         </div><!--/#page-content-->
 
@@ -253,7 +259,7 @@
     <script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
     <!--inline scripts related to this page-->
-s
+
     <script type="text/javascript"> 
 
     

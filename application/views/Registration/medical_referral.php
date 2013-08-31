@@ -110,7 +110,7 @@
             <li class="active open">
               <a href="#" class="dropdown-toggle">
                 <i class="icon-shield"></i>
-                <span>Screeening</span>
+                <span>Screening</span>
 
                 <b class="arrow icon-angle-down"></b>
               </a>
@@ -203,7 +203,7 @@
                   </div>
                 </div>                
               </div> 
-
+              </div>
             <!--PAGE CONTENT ENDS HERE-->
           </div><!--/row-->
 

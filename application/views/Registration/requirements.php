@@ -43,7 +43,7 @@
       <div class="navbar navbar-inverse">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <a href="#" class="brand">
+          <a href="<?php echo base_url();?>" class="brand">
             <small>
               <i class="icon-group"></i>
               AMI - Registration
@@ -71,70 +71,29 @@
               <span>Registration</span>
             </a>
           </li>
+
           <li >
             <a href="<?php echo base_url();?>Registration/Site_map">
                   <i class="icon-map-marker"></i>
                  Site Map
                 </a>
           </li>
-            <li  class="">
-              <a href="#" class="dropdown-toggle">
-                <i class="icon-shield"></i>
-                <span>Requirements</span>
 
-                <b class="arrow icon-angle-down"></b>
-              </a>
-
-              <ul class="submenu">
-                <li  >
-                  <a href="<?php echo base_url();?>Registration/photo_requirement">
-                    <i class="icon-user"></i>
-                    Photograph
-                  </a>
-                </li>
-                <li  >
-                  <a href="<?php echo base_url();?>Registration/required_documents">
-                    <i class="icon-user"></i>
-                   Documents
-                  </a>
-                </li>
-                <li class="">
-                  <a href="<?php echo base_url();?>Registration/expenses">
-                    <i class="icon-user"></i>
-                   Expenses
-                  </a>
-               </li>
-              </ul>
-            </li>
-            <li class="active open">
-              <a href="#" class="dropdown-toggle">
-                <i class="icon-shield"></i>
-                <span>Screening</span>
-
-                <b class="arrow icon-angle-down"></b>
-              </a>
-
-              <ul class="submenu">
-                <li class="active" >
-                  <a href="<?php echo base_url();?>Registration/prelim_exam">
-                    <i class="icon-user"></i>
-                    Preliminary Examination
-                  </a>
-                </li>
-                <li  >
-                  <a href="<?php echo base_url();?>Registration/interview_screen">
-                    <i class="icon-user"></i>
-                   Interview Screening
-                  </a>
-                </li>
-                <li  >
-                  <a href="<?php echo base_url();?>Registration/medical_referral">
-                    <i class="icon-user"></i>
-                   Medical Referral 
-                  </a>
-                </li>
-              </ul>
-            </li>
+          <li class="active" >
+            <a href="<?php echo base_url();?>Registration/requirements">
+                  <i class="icon-archive"></i>
+                 Requirements
+                </a>
+          </li>
+      
+          
+          <li class="" >
+            <a href="<?php echo base_url();?>Registration/screening">
+                  <i class="icon-eye-open"></i>
+                 Screening
+                </a>
+          </li>
+      
           <li>
             <a href="">
               <i class="icon-question-sign"></i>
@@ -193,20 +152,81 @@
          
               <div class="box-content">
                 <div class="row-fluid">
-                 <div class="well">      
-                  <h1>Preliminary Examination</h1>
-                  <br>
-                  <p>
-                  Preliminary examinations provided by AMI contain psychological questions as a tool to help AMI make decisions about hiring, promotion, and development.  A typical individual psychological assessment consists of professionally developed and validated measures of personality, leadership style, and cognitive abilities among other things. 
-                  </p>
+                  <div class="well">
+      
+                    <h1>Photograph Requirements</h1>
+                    <br>
+                    <center><img src="<?php echo base_url();?>assets/images/dimensions-inch.gif"><br><br>
+                    </center>
+                    <ul>
+                    <li>Photo must be 2 inches by 2 inches</li>
+                    <li>The height of the head (top of hair to bottom of chin) should measure 1 inch to 1 3/8 inches (25 mm - 35 mm)
+                    </li>
+                    <li>Make sure the eye height is between 1 1/8 inches to 1 3/8 inches (28 mm – 35 mm) from the bottom of the photo</li>
+                    <li>Staple or glue your photo in the designated space. If the photo is stapled, staples should be placed as far away as possible from the face. Please do not mount or enclose the photo in glassine paper, or any type of envelope.</li>
+                    </ul>
+                    <p><i>*Note: this photo should be placed on your <b>Registration Slip</b> provided after your registration.</i></p>      
+                             
+                </div>
+                </div>                
+              </div> 
+
+            <!--PAGE CONTENT ENDS HERE-->
+          </div>
+
+             <div class="row-fluid">
+            <!--PAGE CONTENT STARTS HERE-->
+              <div class="span12">
+
+         
+              <div class="box-content">
+                <div class="row-fluid">
+                  <div class="well">
                   
-                  <p><B><i>Applicants can only take the psychological examination ONCE.</i></B></p>
+                    <h1>Required Documents</h1>
+                    <br>
+                    <p>After your online registration, you must bring the following documents for your actual screening.</p>
+                    <ul>
+                    <li>Registration slip (provided after your online registration)</li>
+                    <li>Resume</li>
+                    <li>Diploma</li>
+                    <li>Form - 137 for Undergraduate</li>
+                    <li>Transcript of Record for Graduate</li>
+                    </ul>
+                     
+                  </div>
+                </div>                
+              </div> 
+              </div>
+            <!--PAGE CONTENT ENDS HERE-->
+          </div><!--/row-->
+
+
+          <div class="row-fluid">
+            <!--PAGE CONTENT STARTS HERE-->
+              <div class="span12">
+
+         
+              <div class="box-content">
+                <div class="row-fluid">
+                 <div class="well">
+                
+                  <h1>Expenses</h1>
+                  <br>
+                  <p>Your medical fee will depend on whether the company will be charged for it or not. For assurance, bring extra money for your medical examination(x-ray, blood test, urine/stool test).</p>
+                  <p>Your medical examination will be done during your screening, for more information about your medical examination <a href="<?php echo base_url();?>index.php/pre_register/medical_referral">click here.</a></p>
+                   
                 </div>
                 </div>                
               </div> 
               </div>
             <!--PAGE CONTENT ENDS HERE-->
           </div><!--/row-->
+
+
+
+
+              <!--/row-->
 
         
         </div><!--/#page-content-->
@@ -253,7 +273,7 @@
     <script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
     <!--inline scripts related to this page-->
-s
+
     <script type="text/javascript"> 
 
     

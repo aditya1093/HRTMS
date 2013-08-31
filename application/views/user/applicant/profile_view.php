@@ -58,215 +58,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<li class="grey">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-tasks"></i>
-								<span class="badge badge-grey">4</span>
-							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-ok"></i>
-									Tasks to complete
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 1</span>
-											<span class="pull-right">65%</span>
-										</div>
-
-										<div class="progress progress-mini ">
-											<div style="width:65%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 2</span>
-											<span class="pull-right">35%</span>
-										</div>
-
-										<div class="progress progress-mini progress-danger">
-											<div style="width:35%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 3</span>
-											<span class="pull-right">15%</span>
-										</div>
-
-										<div class="progress progress-mini progress-warning">
-											<div style="width:15%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 4</span>
-											<span class="pull-right">90%</span>
-										</div>
-
-										<div class="progress progress-mini progress-success progress-striped active">
-											<div style="width:90%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										See tasks with details
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="purple">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-bell-alt icon-only icon-animated-bell"></i>
-								<span class="badge badge-important">8</span>
-							</a>
-
-							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-warning-sign"></i>
-									Notifications
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-pink icon-comment"></i>
-												New Comments
-											</span>
-											<span class="pull-right badge badge-info">+12</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<i class="btn btn-mini btn-primary icon-user"></i>
-										Error Occured
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-success icon-shopping-cart"></i>
-												New Members
-											</span>
-											<span class="pull-right badge badge-success">+8</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-info icon-twitter"></i>
-												Followers
-											</span>
-											<span class="pull-right badge badge-info">+11</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										See all notifications
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
-							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-envelope"></i>
-									5 Messages
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="messenger">
-										See all messages
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
+						
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
 								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
@@ -401,14 +193,6 @@
 						<li class="active">Control Panel </li>
 					</ul><!--.breadcrumb-->
 
-					<div id="nav-search">
-						<form class="form-search">
-							<span class="input-icon">
-								<input type="text" placeholder="Search ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
-								<i class="icon-search" id="nav-search-icon"></i>
-							</span>
-						</form>
-					</div><!--#nav-search-->
 				</div>
 
 				<div id="page-content" class="clearfix">
@@ -424,7 +208,10 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-
+						<div class="alert alert-info" data-step="1" data-intro="Let's take a quick guide with the basics!">
+							Print this Registration Slip			
+								
+						</div>
 						<?php if(isset($records)) : foreach($records as $row) : ?>
 						<div id="user-profile-2" class="user-profile row-fluid">
 									<div class="tabbable">
@@ -435,7 +222,7 @@
 													Profile
 												</a>
 											</li>
-
+											<!--
 											<li>
 												<a data-toggle="tab" href="http://192.69.216.111/themes/preview/ace/profile.html#feed">
 													<i class="orange icon-rss bigger-120"></i>
@@ -456,6 +243,8 @@
 													Pictures
 												</a>
 											</li>
+	
+											-->							
 										</ul>
 
 										<div class="tab-content no-border padding-24">
@@ -561,33 +350,6 @@
 														<div class="hr hr-8 dotted"></div>
 
 														<div class="profile-user-info">
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Website </div>
-
-																<div class="profile-info-value">
-																	<a href="" target="_blank">www.<?php echo $row->username;?>.com</a>
-																</div>
-															</div>
-
-															<div class="profile-info-row">
-																<div class="profile-info-name">
-																	<i class="middle icon-facebook-sign bigger-150 blue"></i>
-																</div>
-
-																<div class="profile-info-value">
-																	<a href="">Find me on Facebook</a>
-																</div>
-															</div>
-
-															<div class="profile-info-row">
-																<div class="profile-info-name">
-																	<i class="middle icon-twitter-sign bigger-150 light-blue"></i>
-																</div>
-
-																<div class="profile-info-value">
-																	<a href="">Follow me on Twitter</a>
-																</div>
-															</div>
 
 															<div class="profile-info-row">
 																<div class="profile-info-name">
@@ -597,6 +359,17 @@
 																<div class="profile-info-value">
 																	<a href="<?php echo base_url();?>profile/edit_profile">Edit Profile</a>
 																</div>
+
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name">
+																	<i class="middle icon-print bigger-150 light-blue"></i>
+																</div>
+
+																<div class="profile-info-value">
+																	<a href="#">Print</a>
+																</div>
+																
 															</div>
 														</div>
 													</div><!--/span-->
@@ -604,37 +377,6 @@
 
 												<div class="space-20"></div>
 
-												<div class="row-fluid">
-													<div class="span12">
-														<div class="widget-box transparent">
-															<div class="widget-header widget-header-small">
-																<h4 class="smaller">
-																	<i class="icon-check bigger-110"></i>
-																	Little About Me
-																</h4>
-															</div>
-
-															<div class="widget-body">
-																<div class="widget-main">
-																	<p>
-																		My job is mostly lorem ipsuming and dolor sit ameting as long as consectetur adipiscing elit.
-																	</p>
-																	<p>
-																		Sometimes quisque commodo massa gets in the way and sed ipsum porttitor facilisis.
-																	</p>
-																	<p>
-																		The best thing about my job is that vestibulum id ligula porta felis euismod and nullam quis risus eget urna mollis ornare.
-																	</p>
-																	<p>
-																		Thanks for visiting my profile.
-																	</p>
-																</div>
-															</div>
-														</div>
-													</div>
-
-												
-												</div>
 											</div><!--#home-->
 
 											<div id="feed" class="tab-pane">
@@ -1515,100 +1257,7 @@
 						</div>
 						<?php endforeach;?>
 						<?php endif; ?>
-						<!--
-						<div class="span12">
-
-						<?php if(isset($records)) : foreach($records as $row) : ?>
-						<table>
-								<tr>
-
-									<td><h3>Personal Details</h3></td>
-									<td>&nbsp;</td>
-								</tr>
-								
-								<tr>
-									<td>Name: </td>
-									<!--<td><?php echo $this->session->userdata('last_name').", ".$this->session->userdata('first_name')." ".$this->session->userdata('middle_name');?></td>
-									--
-									<td><?php echo $row->last_name.', '.$row->first_name.' '.$row->middle_name;?></td>
-								</tr>
-							
-								<tr>
-									<td>Address: </td>
-									<td><?php echo $row->address;?></td>
-								</tr>
-								<tr>
-									<td>Address 2: </td>
-									<?php if($row->address_2 == null) {
-										?>
-											<td><i class="muted">none</i></td>
-									<?php } else { ?>	
-											<td><?php echo $row->address_2;?></td>
-									<?php } ?>
-								</tr>
-								<tr>
-									<td>City: </td>
-									<td><?php echo $row->city;?></td>
-								</tr>
-								<tr>
-									<td>Province: </td>
-									<td><?php echo $row->state;?></td>
-								</tr>
-								<tr>
-									<td>Country: </td>
-									<td><?php echo $row->country;?></td>
-								</tr>
-								<tr>
-									<td>Address: </td>
-									<td><?php echo $row->address;?></td>
-								</tr>
-								<tr>
-									<td>Zipcode: </td>
-									<td><?php echo $row->zipcode;?></td>
-								</tr>
-								<tr>
-									<td>Phone: </td>
-									<td><?php echo $row->phone;?></td>
-								</tr>
-
-								
-								
-								<tr>
-									<td><h3>Account Details</h3></td>
-									<td>&nbsp;</td>
-								</tr>
-								<tr>
-									<td>Username: </td>
-									<td><?php echo $row->username;?></td>
-								</tr>
-								<tr>
-									<td>Email Address: </td>
-									<td><?php echo $row->email;?></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>&nbsp;</td>
-								</tr>
-								<tr>
-									<td><div class="bcTarget"></div>  </td>
-									<td></td>
-
-								</tr>
-								
-							</table>
-							<p>
-
-							<?php
-								
-								echo '<script type="text/javascript">$(".bcTarget").barcode("';
-								echo $row->register_id;
-								echo '", "code39");</script>';
-
-							?> 
-						</p>
-						<?php endforeach;?>
-						<?php endif; ?>
-							
+					
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
 

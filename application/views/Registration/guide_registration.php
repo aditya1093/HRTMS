@@ -43,7 +43,7 @@
       <div class="navbar navbar-inverse">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <a href="#" class="brand">
+          <a href="<?php echo base_url();?>" class="brand">
             <small>
               <i class="icon-group"></i>
               AMI - Registration
@@ -71,13 +71,14 @@
               <span>Registration</span>
             </a>
           </li>
-
+          <!--
           <li >
             <a href="<?php echo base_url();?>Registration/Site_map">
                   <i class="icon-map-marker"></i>
                  Site Map
                 </a>
           </li>
+          
             <li >
               <a href="#" class="dropdown-toggle">
                 <i class="icon-shield"></i>
@@ -110,7 +111,7 @@
             <li >
               <a href="#" class="dropdown-toggle">
                 <i class="icon-shield"></i>
-                <span>Screeening</span>
+                <span>Screening</span>
 
                 <b class="arrow icon-angle-down"></b>
               </a>
@@ -135,7 +136,28 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li>-->
+            <li >
+            <a href="<?php echo base_url();?>Registration/Site_map">
+                  <i class="icon-map-marker"></i>
+                 Site Map
+                </a>
+          </li>
+
+          <li class="" >
+            <a href="<?php echo base_url();?>Registration/requirements">
+                  <i class="icon-archive"></i>
+                 Requirements
+                </a>
+          </li>
+      
+          
+          <li class="" >
+            <a href="<?php echo base_url();?>Registration/screening">
+                  <i class="icon-eye-open"></i>
+                 Screening
+                </a>
+          </li>
           <li>
             <a href="">
               <i class="icon-question-sign"></i>
@@ -202,13 +224,19 @@
                       Take note that submitting your online application is just one of the steps
                       in the application process. Please read further for more information. We
                       provided you a step-by-step guide for your reference.</p>
-                    <h2>Registration</h2>
-                    <p>Before you proceed, please read carefully the following statement.</p>
+                     <h2>Registration</h2>
+                    <p>Before you proceed, please read carefully the following.</p>
+                    <p>
+                     <a href="<?php echo base_url();?>registration/site_map" target="_blank">Alliance Mansol Location</a><br>
+                     <a href="<?php echo base_url();?>registration/requirements" target="_blank">Complete the Requirements Needed</a><br>
+                     <a href="<?php echo base_url();?>registration/screening" target="_blank">Screening</a><br>
+
+                    </p>
                     <p>
                       <b>If you continue on your registration, you are agreeing that you are willing to be relocated depending on where AMI will deploy you as part of the company's policy. Proceed?</b> 
                     </p>
                     <br>
-                     <a href="<?php echo base_url();?>Registration/register" class="btn btn-inverse"><span class="btn-label">Proceed</span></a>
+                     <a href="<?php echo base_url();?>Registration/register" class="btn btn-info btn-small"><span class="btn-label"><i class="icon-arrow-right"></i> Proceed</span></a>
                      
                   </div>
                 </div>                

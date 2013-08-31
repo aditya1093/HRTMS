@@ -54,214 +54,6 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<li class="grey">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-tasks"></i>
-								<span class="badge badge-grey">4</span>
-							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-ok"></i>
-									Tasks to complete
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 1</span>
-											<span class="pull-right">65%</span>
-										</div>
-
-										<div class="progress progress-mini ">
-											<div style="width:65%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 2</span>
-											<span class="pull-right">35%</span>
-										</div>
-
-										<div class="progress progress-mini progress-danger">
-											<div style="width:35%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 3</span>
-											<span class="pull-right">15%</span>
-										</div>
-
-										<div class="progress progress-mini progress-warning">
-											<div style="width:15%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 4</span>
-											<span class="pull-right">90%</span>
-										</div>
-
-										<div class="progress progress-mini progress-success progress-striped active">
-											<div style="width:90%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										See tasks with details
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="purple">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-bell-alt icon-only icon-animated-bell"></i>
-								<span class="badge badge-important">8</span>
-							</a>
-
-							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-warning-sign"></i>
-									Notifications
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-pink icon-comment"></i>
-												New Comments
-											</span>
-											<span class="pull-right badge badge-info">+12</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<i class="btn btn-mini btn-primary icon-user"></i>
-										Error Occured
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-success icon-shopping-cart"></i>
-												New Members
-											</span>
-											<span class="pull-right badge badge-success">+8</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-info icon-twitter"></i>
-												Followers
-											</span>
-											<span class="pull-right badge badge-info">+11</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										See all notifications
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
-							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-envelope"></i>
-									5 Messages
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="messenger">
-										See all messages
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
 
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
@@ -311,6 +103,7 @@
 			</a>
 
 			<div id="sidebar">
+				<!--
 				<div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
 						<button class="btn btn-small btn-success">
@@ -389,7 +182,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="#">Home</a>
+							<a href="<?php echo base_url();?>dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
@@ -398,14 +191,6 @@
 						<li class="active">Control Panel</li>
 					</ul><!--.breadcrumb-->
 
-					<div id="nav-search">
-						<form class="form-search">
-							<span class="input-icon">
-								<input type="text" placeholder="Search ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
-								<i class="icon-search" id="nav-search-icon"></i>
-							</span>
-						</form>
-					</div><!--#nav-search-->
 				</div>
 
 				<div id="page-content" class="clearfix">
@@ -420,41 +205,101 @@
 					</div><!--/.page-header-->
 
 					<div class="row-fluid">
-						<!--PAGE CONTENT STARTS HERE-->
 						<div class="span12">
+							
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										Introduction
+										
+									</h4>
+								</div>
 
-						<div class="tabbable">
-										<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-											<li class="active">
-												<a data-toggle="tab" href="#home4">Home</a>
-											</li>
-
-											<li class="">
-												<a data-toggle="tab" href="#profile4">Profile</a>
-											</li>
-
-											<li class="">
-												<a data-toggle="tab" href="#dropdown14">More</a>
-											</li>
-										</ul>
-
-										<div class="tab-content">
-											<div id="home4" class="tab-pane active">
-
-												<h2 class="blue">Welcome to AMI - Alliance Mansol Inc.</h2>
-												<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-											</div>
-
-											<div id="profile4" class="tab-pane">
-												<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
-											</div>
-
-											<div id="dropdown14" class="tab-pane">
-												<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
-											</div>
-										</div>
+								<div class="widget-body">
+									<div class="widget-main">
+										<h2 class="blue center">Welcome to AMI - Alliance Mansol Inc.</h2>
+										<p align="center">
+											You are now registered as an applicant. Take note that this is just one of the steps in the application process.<br>
+											Please look below for the information about the screening.
+											
+										</p>
 									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<!--PAGE CONTENT STARTS HERE-->
+						<div class="span6" >
+							<div class="widget-box">
+								<div class="widget-header">
+									<h5><i class="icon-info"></i> AMI Info</h5>
 
+									<div class="widget-toolbar">	
+								
+										<a href="#" data-action="collapse">
+											<i class="icon-chevron-up"></i>
+										</a>
+
+										<a href="#" data-action="close">
+											<i class="icon-remove"></i>
+										</a>
+									</div>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+										
+							                    
+					                    <center><iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=santa+rosa+laguna+technopark+ems&amp;aq=&amp;sll=14.272868,121.082382&amp;sspn=0.100982,0.158443&amp;ie=UTF8&amp;hq=technopark+ems&amp;hnear=Santa+Rosa+City,+Laguna,+Calabarzon,+Philippines&amp;ll=14.272868,121.082382&amp;spn=0.062077,0.040192&amp;t=m&amp;output=embed"></iframe><br><br>
+					                    </center>  
+					                    <address>
+			                            <strong>Alliance Mansols Inc</strong>
+
+			                            <br>
+			                            117 Technology Ave. Laguna Technopark Inc
+			                            <br>
+			                            Binan City, Laguna
+			                            <br>
+			                            Philippines
+			                            <br>
+			                            <abbr title="Phone">P:</abbr>
+			                            (123) 456-7890
+			                          </address>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="span6" >
+							<div class="widget-box">
+								<div class="widget-header">
+									<h5><i class="icon-info"></i> Requirements</h5>
+
+									<div class="widget-toolbar">
+								
+										<a href="#" data-action="collapse">
+											<i class="icon-chevron-up"></i>
+										</a>
+
+										<a href="#" data-action="close">
+											<i class="icon-remove"></i>
+										</a>
+									</div>
+								</div>
+								<div class="widget-body">
+									<div class="widget-main">
+					                    <p>You must bring the following documents for your actual screening.</p>
+					                    <ul>
+					                    <li>Registration slip (Colored) - <a href="<?php echo base_url();?>profile">Click here.</a></li>
+					                    <li>Resume</li>
+					                    <li>Diploma</li>
+					                    <li>Form - 137 for Undergraduate</li>
+					                    <li>Transcript of Record for Graduate</li>
+					                    </ul>
+									</div>
+								</div>
+							</div>
+						</div>
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
 

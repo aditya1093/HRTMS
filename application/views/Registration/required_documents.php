@@ -109,7 +109,7 @@
             <li >
               <a href="#" class="dropdown-toggle">
                 <i class="icon-shield"></i>
-                <span>Screeening</span>
+                <span>Screening</span>
 
                 <b class="arrow icon-angle-down"></b>
               </a>
@@ -202,13 +202,14 @@
                     <li>Registraton slip (provided after your online registration)</li>
                     <li>Resume</li>
                     <li>Diploma</li>
-                    <li>Form - 137</li>
+                    <li>Form - 137 for Undergraduate</li>
+                    <li>Transcript of Record for Graduate</li>
                     </ul>
                      
                   </div>
                 </div>                
               </div> 
-
+              </div>
             <!--PAGE CONTENT ENDS HERE-->
           </div><!--/row-->
 

@@ -49,7 +49,7 @@
       <div class="navbar navbar-inverse">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <a href="#" class="brand">
+          <a href="<?php echo base_url();?>" class="brand">
             <small>
               <i class="icon-group"></i>
               AMI - Registration
@@ -77,7 +77,7 @@
               <span>Registration</span>
             </a>
           </li>
-
+          <!--
           <li >
             <a href="<?php echo base_url();?>Registration/Site_map">
                   <i class="icon-map-marker"></i>
@@ -116,7 +116,7 @@
             <li >
               <a href="#" class="dropdown-toggle">
                 <i class="icon-shield"></i>
-                <span>Screeening</span>
+                <span>Screening</span>
 
                 <b class="arrow icon-angle-down"></b>
               </a>
@@ -142,6 +142,29 @@
                 </li>
               </ul>
             </li>
+          -->
+          <li >
+            <a href="<?php echo base_url();?>Registration/Site_map">
+                  <i class="icon-map-marker"></i>
+                 Site Map
+                </a>
+          </li>
+
+          <li class="" >
+            <a href="<?php echo base_url();?>Registration/requirements">
+                  <i class="icon-archive"></i>
+                 Requirements
+                </a>
+          </li>
+      
+          
+          <li class="" >
+            <a href="<?php echo base_url();?>Registration/screening">
+                  <i class="icon-eye-open"></i>
+                 Screening
+                </a>
+          </li>
+      
           <li>
             <a href="">
               <i class="icon-question-sign"></i>
@@ -255,8 +278,6 @@
 			          <input type="text" id="city" class="input-medium" name="city" value="<?php echo $this->form_validation->set_value('city')?>">
 			          <input type="text" id="state" class="input-medium" name="state" value="<?php echo $this->form_validation->set_value('state')?>">
 			          <span nowrap="nowrap"><?php echo $country; ?></span>
-			          <label>Zip Code</label>
-			          <input type="text" class="input-medium" name="zipcode" value="<?php echo $this->form_validation->set_value('zipcode')?>">
 			          <label>Contact No.<span class="mandatory_star">*</span></label>
 			          <input type="text" class="input-medium" name="phone" value="<?php echo $this->form_validation->set_value('phone')?>">
 

@@ -16,9 +16,9 @@ class Registration extends CI_Controller {
 		$this->load->helper('registration_helper');
 
 		//validate form input
-		$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean|alpha');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean|alpha');
-		$this->form_validation->set_rules('middle_name', 'Middle Name', 'xss_clean|alpha');
+		$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean');
+		$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean');
+		$this->form_validation->set_rules('middle_name', 'Middle Name', 'xss_clean');
 		$this->form_validation->set_rules('birth_date_year', 'Year', 'required');
 		$this->form_validation->set_rules('birth_date__nc_month', 'Month', '');
 		$this->form_validation->set_rules('birth_date__nc_day', 'Day', '');
@@ -27,7 +27,6 @@ class Registration extends CI_Controller {
 		$this->form_validation->set_rules('city', 'City', 'required|xss_clean');
 		$this->form_validation->set_rules('state', 'State/Province', 'xss_clean');
 		$this->form_validation->set_rules('country', 'Country', 'required|xss_clean');
-		$this->form_validation->set_rules('zipcode', 'Zip/Postal code', 'required|xss_clean');
 		$this->form_validation->set_rules('phone', 'Phone', 'required|xss_clean');
 		
 		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
@@ -82,13 +81,12 @@ class Registration extends CI_Controller {
 				'city'    		=> $this->input->post('city'),
 				'province'    	=> $this->input->post('state'),
 				'country'    	=> $this->input->post('country'),
-				'zipcode'    	=> $this->input->post('zipcode'),
 				'phone'      	=> $this->input->post('phone'),
 				'active'		=> 0,
 				'date_created'	=> date('Y-m-d H:i:s')
 			);
-			$data2 = array(
-				'id'			=> $reg_id,
+			$userTable = array(
+				'user_id'			=> $reg_id,
 				'username' 		=> strtolower($this->input->post('username')),
 				'email'    		=> $this->input->post('email'),
 				'password' 		=> md5($this->input->post('password')),
@@ -100,7 +98,7 @@ class Registration extends CI_Controller {
 				);
 			
 		}
-		if ($this->form_validation->run() == true && $this->register_model->register($data) && $this->register_model->userTable($data))
+		if ($this->form_validation->run() == true && $this->register_model->register($data) && $this->register_model->userTable($userTable))
 		{ 
 			//check to see if we are creating the user
 			//redirect them to checkout page
@@ -161,6 +159,29 @@ class Registration extends CI_Controller {
 	} 
 
 	/* Requirements */
+
+
+	public function requirements()
+	{
+		if($this->session->userdata('is_logged_in')) {
+			redirect(base_url() . 'dashboard');
+		}
+		else {
+			$this->load->view('registration/requirements');
+		}
+		
+	}
+	public function screening()
+	{
+		if($this->session->userdata('is_logged_in')) {
+			redirect(base_url() . 'dashboard');
+		}
+		else {
+			$this->load->view('registration/screening');
+		}
+		
+	}
+
 
 	//Photo
 	public function photo_requirement()
