@@ -92,10 +92,11 @@
         jQuery(document).ready(function($) {
 
             $.backstretch([
-              "<?php echo base_url();?>assets/images/bg1.jpg", 
-              "<?php echo base_url();?>assets/images/bg2.jpg",
-              "<?php echo base_url();?>assets/images/bg1.jpg", 
-              "<?php echo base_url();?>assets/images/bg3.jpg"
+              "<?php echo base_url();?>assets/images/bg5.jpg",
+              "<?php echo base_url();?>assets/images/bg2.jpg", 
+              "<?php echo base_url();?>assets/images/bg5.jpg",
+              "<?php echo base_url();?>assets/images/bg2.jpg"
+              
             ], {duration: 3000, fade: 750});
 
             /*Messenger().post({

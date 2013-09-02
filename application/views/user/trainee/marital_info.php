@@ -724,24 +724,13 @@
 	               // $("#success").html(output_string);
 	                //$("#result_table").hide();
 	                // location.reload();
-	                /*$.gritter.add({
+	                $.gritter.add({
 						title: 'Human Resource Information Update',
 						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Marital Information has been updated.',
 						class_name: 'gritter-success gritter-center gritter-light'
 					});
-					*/
-					var string = "	<button id=\"bootbox-confirm\" class=\"btn btn-mini btn-info\">asdasd</button>"
-					$('#output').html(string);
-					$("#bootbox-confirm").on(ace.click_event, function() {
-						var id = $("#bootbox-confirm").val();
-						bootbox.confirm("Do you want to edit the information of this applicant?", function(result) {
-							if(result) {
-								//bootbox.alert(id);
-								//window.location='<?php echo base_url();?>applicant/view_info?>';
-								document.location.href='<?php echo base_url();?>applicant/edit_info/' + id;
-							}
-						});	
-					});
+					
+					
 		            //$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
 		            //$("#personal_info")[0].reset();
 	                $("html, body").animate({ scrollTop: 0 }, "slow");

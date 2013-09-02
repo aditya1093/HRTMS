@@ -629,7 +629,7 @@
 		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
 				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
 				fade_out_speed: 2000, // how fast the notices fade out
-				time: 1000 // hang on the screen for...
+				time: 3000 // hang on the screen for...
 			});
 
 			$("#getinfo").click(function(){
@@ -673,27 +673,71 @@
 								        $(this).closest('fieldset').find(':checkbox').prop('checked', this.checked);
 								    });
 							    	$("#acceptApp").click(function(e) {
-							    		$('#scnd_load').show();
- 										blurElement("#result_table", 2);
- 										e.preventDefault();
-								        setTimeout(accept, 200);
-								   		return false;                
+							    		              
 
 							        });//end acceptApp
 
-									var confirm = $("#bootbox-confirm").on('click', function() {
-										bootbox.confirm("Are you sure this applicant comply with the requirements?", function(result) {
+									var string = "<button id=\"bootbox-confirm\" class=\"btn btn-mini btn-info\">asdasd</button>"
+									//$('#btn').html(string);
+									$("#bootbox-confirm").on(ace.click_event, function() {
+										//alert("aw");
+										$('#result_table').show();
+										bootbox.confirm("Accept this Trainee?", function(result) {
 											if(result) {
 												$('#scnd_load').show();
 		 										blurElement("#result_table", 2);
-		 										e.preventDefault();
+		 										//e.preventDefault();
 										        setTimeout(accept, 200);
-										   		return false;  
+										   		//return false;  
 											}
-										});	
+										});
+										return false;
 									});
-
+									//$('#result_table').show();
 								    
+							    	function accept(){
+							    			 
+							            first_name = $("#first_name").val();
+							            middle_name = $("#middle_name").val();
+							            last_name = $("#last_name").val();
+							            address = $("#address").val();
+							            birth_date = $("#birth_date").val();
+							            city = $("#city").val();
+							            province = $("#province").val();
+							            gender = $("#gender").val();
+							            phone = $("#phone").val();
+							            username = $("#username").val();
+						              	password = $("#password").val();
+						                email = $("#email").val();
+						                register_id = $("#register_id").val();
+						                height = $("#height").val();
+						                civil_status = $("#civil_status").val();
+							          
+							            var datastr = 'first_name='+first_name + '&middle_name='+middle_name + '&last_name='+last_name + '&address='+address + '&birth_date='+birth_date + '&city='+city + '&province='+province + '&gender='+gender + '&phone='+phone + '&username='+username + '&password='+password + '&email='+email + '&register_id='+register_id + '&height='+height+ '&civil_status='+civil_status;    
+							           	//alert(province+phone+email);
+							            $.ajax({
+							                url:"<?php echo base_url();?>applicant/acceptApp",
+							                type:'POST',
+							                data:datastr,
+							                dataType:"json",
+							                success:function(result){
+							                $("#success").show();
+							                //$("#success").attr('class', 'alert alert-success');
+							                var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
+							                $("#success").html(output_string);
+							                $("#result_table").hide();
+							                $.gritter.add({
+												title: 'Applicant Accepted!',
+												text: result + ' has been added in AMI trainee.',
+												class_name: 'gritter-info gritter-center'
+											});
+												
+
+							                }
+
+							            });
+
+							    		}
 								}//end else
 				            	
 				           }//end success
@@ -820,13 +864,13 @@
 				<button class="btn btn-success btn-block" type="" id="bootbox-confirm">Accept Applicant</button>
 			</form>
 			<div class="center" id="scnd_load" style="display:none">
-									<div id="load"><i class="icon-spinner icon-spin blue icon-3x"></i></div><br>
-									<br>
-									<br>
-									<br>
-									<br>
-									<br>
-									<br>
+				<div id="load"><i class="icon-spinner icon-spin blue icon-3x"></i></div><br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
 			</div>
         </div>
         <form>

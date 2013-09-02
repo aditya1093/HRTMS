@@ -418,11 +418,10 @@
 							</small>
 						</h1>
 					</div><!--/.page-header-->
-
+					<?php if($this->session->userdata("is_active")==0) {?>
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 						
-
 						<div class="span8">
 							<div class="widget-box">
 								<div class="widget-header">
@@ -521,7 +520,9 @@
 						<!--PAGE CONTENT ENDS HERE-->
 					<!--/row-->
 
-				</div><!--/#page-content-->
+				</div>
+				<?php }?>
+				<!--/#page-content-->
 
 			</div><!--/#main-content-->
 		</div><!--/.fluid-container#main-container-->

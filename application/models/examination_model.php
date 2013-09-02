@@ -70,4 +70,6 @@ class Examination_model extends CI_Model{
 
         $this->db->delete('questions', array('question_id' => $id)); 
     }
+
+    
 }  

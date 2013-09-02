@@ -46,6 +46,7 @@ class Login_model extends CI_Model{
                     );
         
             $this->session->set_userdata($data);
+            $this->is_active();
             return true;
         }
         // If the previous process did not validate
@@ -53,6 +54,13 @@ class Login_model extends CI_Model{
         return false;
     }
 
+    /****************************** FOR TRAINEE VIEW *********************************/
+    function is_active() {
+
+        $str = "SELECT SUM(is_active) AS is_active FROM examination";
+        $query = $this->db->query($str);
+        $this->session->set_userdata("is_active",$query->row()->is_active);
+    }
    
 
 }
