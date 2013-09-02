@@ -1,4 +1,4 @@
-<?php if($this->session->userdata('permission') != 'Administrator') { redirect(base_url() . 'index.php/404');} ?>
+<?php if($this->session->userdata('permission') != 'Administrator'&& $this->session->userdata('permission') != 'HR') { redirect(base_url() . 'index.php/404');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -28,6 +28,8 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/datepicker.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/applicant/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
@@ -40,7 +42,7 @@
 	</head>
 
 	<body>
-
+		<?php if(!isset($no_visible_elements) || !$no_visible_elements)	{ ?>
 		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
@@ -52,7 +54,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<!--	
+					<!--	
 						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
@@ -297,9 +299,9 @@
 				</div><!--/.container-fluid-->
 			</div><!--/.navbar-inner-->
 		</div>
-	
+		<?php } ?>
 		<div class="container-fluid" id="main-container">
-			
+			<?php if(!isset($no_visible_elements) || !$no_visible_elements) { ?>
 			<a id="menu-toggler" href="#">
 				<span></span>
 			</a>
@@ -347,7 +349,8 @@
 					</li>
 
 					
-					<li>
+
+					<li class="active open">
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
 							<span>Registration</span>
@@ -356,7 +359,7 @@
 						</a>
 
 						<ul class="submenu">
-							<li >
+							<li  class="active">
 								<a href="<?php echo base_url();?>applicant">
 									<i class="icon-archive"></i>
 									<span>Applicants</span>
@@ -364,13 +367,14 @@
 							</li>
 
 							<li>
-								<a href="<?php echo base_url();?>manage/training">
+								<a href="<?php echo base_url();?>applicant/accept">
 									<i class="icon-user"></i>
 								   	<span>Accept</span>
 								</a>
 							</li>
 						</ul>
 					</li>
+
 
 
 					<li>
@@ -393,8 +397,8 @@
 							<span>Deployment Tagging</span>
 						</a>
 					</li>
- 
-					<li  class="">
+					<?php if($this->session->userdata("permission")=="Administrator") {?>
+					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
 							<span>Manage Accounts</span>
@@ -403,14 +407,14 @@
 						</a>
 
 						<ul class="submenu">
-							<li  class="">
+							<li>
 								<a href="<?php echo base_url();?>manage/hr">
 									<i class="icon-user"></i>
 									HR Department
 								</a>
 							</li>
 
-							<li class="">
+							<li>
 								<a href="<?php echo base_url();?>manage/training">
 									<i class="icon-user"></i>
 									Training Department
@@ -419,7 +423,7 @@
 						</ul>
 					</li>
 
-					<li class="active open">
+					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-cog"></i>
 							<span>Administrative Tools</span>
@@ -428,8 +432,8 @@
 						</a>
 
 						<ul class="submenu">
- 
-							<li class="active">
+
+							<li>
 								<a href="<?php echo base_url();?>administrative/audit">
 									<i class="icon-list"></i>
 									Audit Logs
@@ -446,7 +450,7 @@
 							
 						</ul>
 					</li>
-
+					<?php }?>
 					<!--<li>
 						
 						<a href="help">
@@ -470,119 +474,294 @@
 					<i class="icon-double-angle-left"></i>
 				</div>
 			</div>
+
+
+			
+			<?php } ?>
+		<?php if(isset($records)) : foreach($records as $row) : ?>
 			<div id="main-content" class="clearfix">
 				<div id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
-							<i class="icon-shield"></i>
-							<a href="#">Administrative</a>
+							<i class="icon-home"></i>
+							<a href="<?php echo base_url();?>dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">Audit Logs</li>
+						<li class=""><a href="<?php echo base_url();?>applicant">Registration</a></li>
+						<span class="divider">
+								<i class="icon-angle-right"></i>
+						</span>
+						<li class="active"><?php echo $row->register_id;?></li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
 						<form class="form-search">
 							<span class="input-icon">
 								<input type="text" placeholder="Search ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
-			 					<i class="icon-search" id="nav-search-icon"></i>
+								<i class="icon-search" id="nav-search-icon"></i>
 							</span>
 						</form>
 					</div><!--#nav-search-->
 				</div>
 
 				<div id="page-content" class="clearfix">
-					<div class="page-header position-relative">
-						<h1>
-							Users Account
-							<small>
-								<i class="icon-double-angle-right"></i>
-								Logs
-							</small>
-						</h1>
-					</div><!--/.page-header-->
-
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-
-						<div class="span12">
-
-							<div class="box">
-									<div class="box-header well" data-original-title>
-									
-										<div class="box-icon">
-											<!--
-											<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-											<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-											<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-										-->
-										</div>
-									</div>
-									<div class="box-content"> 
-
-										<div class="row-fluid">
-											
-											<div class="table-header">
-												 Results for "Accounts"
-											</div>
-											<table id="trainee_list" class="table table-striped table-bordered table-hover">
-											<thead>
-											<tr>
-												
-												<th>
-													Name
-												</th>
-												<th>
-													Username
-												</th>												
-												<th class="hidden-480">
-													Deparment
-												</th>
-												<th class="hidden-phone">													
-													Date Created
-												</th>
-												<th class="hidden-480">
-													Last Activity
-												</th>
-												<th> 
-												</th>
-											</tr> 
-											</thead>
-											<tbody>
-												<?php if(isset($records)) : foreach($records as $row) : ?>
-													<tr>
-														
-														<td><?php echo $row->last_name.', '.$row->first_name.' '.$row->middle_name;?></td>
-														<td><?php echo $row->username;?></td>
-														<td><?php echo $row->permission;?></td>														
-														<td><?php echo $row->date_created;?></td>
-														<td><?php echo $row->last_activity;?></td>
-														<td> 
-															<!--
-															<a id="<?php echo $row->id;?>" style="cursor:pointer;" class="editbutton btn btn-info"><i class="icon-edit icon-white"></i></a>
-															<a id="<?php echo $row->id;?>" style="cursor:pointer;" class="deletebutton btn btn-danger"><i class="icon-trash icon-white"></i> </a>	
-															!-->
-														</td>
-													</tr>
-													<?php endforeach;?>
-
-												<?php endif; ?>
-											</tbody>
-											</table>
-										</div>
-
-										<small>Page rendered in: {elapsed_time} seconds</small>
-									</div>
-								</div>
-
+						<div id="user-profile-2" class="user-profile row-fluid">
+									<div class="tabbable">
 								
-							</div> 
+										<div class="tab-content no-border padding-24">
+											<div id="home" class="tab-pane in active">
+												<div class="row-fluid">
+													<div class="span3 center">
+														<span class="profile-picture">
+															<img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
+														</span>
+														<div class="width-80 label label-info label-large arrowed-in arrowed-in-right">
+															<div class="inline position-relative">
+																<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+																	<i class="icon-circle light-green middle"></i>
+																	&nbsp;
+																	<span class="white middle bigger-120"><?php 
 
-						
+																		$m = $row->middle_name[0];
 
+																		echo $row->first_name.' '.$m.'. '.$row->last_name;?></span>
+																</a>
+															</div>
+														</div>
+
+														<div class="space space-4"></div>
+
+													</div><!--/span-->
+
+													<div class="span9">
+													<form class="form-horizontal" method="POST" action="<?php echo base_url();?>applicant/edit_info/<?php echo $row->register_id;?>">
+														<div class="alert alert-info">
+										                  <p>Items marked with an asterisk (<span class="mandatory_star">*</span>) are required.</p>  
+										              	</div>
+										               
+											              <div id="infoMessage" align="center"><?php 
+											              $success = $this->session->flashdata('success');
+											              if ($message == null){
+
+											              }
+											              else{
+											              echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+											              echo '<div class="alert alert-error">';
+											              echo $message;
+											              echo '</div>';
+											              }
+
+											              if($success != null){
+												              echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+												              echo '<div class="alert alert-success">';
+												              echo $success;
+												              echo '</div>';
+
+											              }
+											              else
+											              {
+
+											              }
+											              ?>
+											              </div>
+
+														<div class="profile-user-info">
+													
+															<div class="profile-info-row">
+																<div class="profile-info-name">Full Name </div>
+																
+																<div class="profile-info-value">
+																	
+																	<div class="control-group">
+																		<label class="control-label" for="first_name" >First Name</label>
+
+																		<div class="controls">
+																			<input type="text" id="first_name" name="first_name" value="<?php echo $row->first_name;?>">
+																		</div>
+																	</div>
+
+																	<div class="control-group">
+																		<label class="control-label" for="last_name" >Last Name</label>
+
+																		<div class="controls">
+																			<input type="text" id="last_name" name="last_name" value="<?php echo $row->last_name;?>">
+																		</div>
+																	</div>
+
+																	<div class="control-group">
+																		<label class="control-label" for="middle_name">Middle Name</label>
+
+																		<div class="controls">
+																			<input type="text" id="middle_name"  name="middle_name" value="<?php echo $row->middle_name;?>">
+																		</div>
+																	</div>
+
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Location </div>
+																<div class="profile-info-value">
+																	
+																	<div class="control-group">
+																		<label class="control-label" for="address" >Address</label>
+
+																		<div class="controls">
+																			<input type="text" id="address" name="address" value="<?php echo $row->address;?>">
+																		</div>
+																	</div>
+
+																	<div class="control-group">
+																		<label class="control-label" for="city" >City</label>
+
+																		<div class="controls">
+																			<input type="text" id="city" name="city" value="<?php echo $row->city;?>">
+																		</div>
+																	</div>
+
+																	<div class="control-group">
+																		<label class="control-label" for="province" >Province</label>
+
+																		<div class="controls">
+																			<input type="text" id="province" name="province" value="<?php echo $row->province;?>">
+																		</div>
+																	</div>
+
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Birthday </div>
+
+																<div class="profile-info-value">
+																		<div class = "controls input-append" >
+																		<input  placeholder="Click to add date" class="span10 date-picker" name="birth_date" id="birthdate"  value ="<?php echo $row->birth_date;?>" type="text" data-date-format="yyyy-mm-dd">
+																		<span class="add-on">
+																			<i class="icon-calendar"></i>
+																		</span>
+														          		</div>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Height </div>
+
+																<div class="profile-info-value">
+																	<input type="text" name="height" class="controls span2" value="<?php echo $row->height;?>">
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Civil Status </div>
+
+																<div class="profile-info-value">
+																	<div class="control-group">
+																		<label class="control-label" for="" ></label>
+
+																		<div class="controls">
+																			 <select id="" name = "civil_status">
+													                          <option disabled = "disabled" selected = "selected" value="">Select Status..</option>
+													                          <option value = "Single" <?php if($row->civil_status=='Single') echo 'selected';?>>Single</option>
+													                          <option value = "Married" <?php if($row->civil_status=='Married') echo 'selected';?>>Married</option>
+													                          <option value = "Separated" <?php if($row->civil_status=='Separated') echo 'selected';?>>Separated</option>
+													                          <option value = "Widowed" <?php if($row->civil_status=='Widowed') echo 'selected';?>>Widowed</option>
+													                          <option value = "Divorced" <?php if($row->civil_status=='Divorced') echo 'selected';?>>Divorced</option>
+													                        </select>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Phone </div>
+
+																<div class="profile-info-value">
+																	<input type="text" name="phone" class="controls" value="<?php echo $row->phone;?>">
+																</div>
+															</div>
+															<div class="form-actions">
+															<button class="btn btn-info btn-small" type="submit">
+																<i class="icon-ok bigger-110"></i>
+																Submit
+															</button>
+
+															&nbsp; &nbsp; &nbsp;
+															</div>
+													</form>
+													<form method="POST" action="<?php echo base_url();?>profile/">
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Account </div>
+
+																<div class="profile-info-value">
+																	<div class="control-group">
+																		<label class="control-label" for="username" name="username">Username</label>
+
+																		<div class="controls">
+																			<input type="text" id="username" value="<?php echo $row->username;?>">
+																		</div>
+																	</div>
+																	<div class="control-group">
+																		<label class="control-label" for="email" name="email">Email</label>
+
+																		<div class="controls">
+																			<input type="text" id="email" value="<?php echo $row->email;?>">
+																		</div>
+																	</div>
+																</div>
+																
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Password </div>
+
+																<div class="profile-info-value">
+																	<div class="control-group">
+																		<label class="control-label" for="oldPass" name="oldPass">Old Password</label>
+
+																		<div class="controls">
+																			<input type="password" id="oldPass" value="<?php echo $row->password;?>">
+																		</div>
+																	</div>
+																	<div class="control-group">
+																		<label class="control-label" for="newPass" name="newPass">New Password</label>
+
+																		<div class="controls">
+																			<input type="text" id="newPass">
+																		</div>
+																	</div>
+																</div>
+																
+															</div>
+
+
+														
+														
+														
+														<div class="form-actions">
+															<button class="btn btn-info btn-small" type="submit">
+																<i class="icon-ok bigger-110"></i>
+																Submit
+															</button>
+
+															&nbsp; &nbsp; &nbsp;
+														</div>
+													</form>
+														<div class="hr hr-8 dotted"></div>
+
+												
+													</div><!--/span-->
+												</div><!--/row-fluid-->
+
+												<div class="space-20"></div>
+
+											</div><!--#home-->
+
+										</div>
+									</div>
+						</div>
+					<?php endforeach;?> 
+					<?php endif; ?>
+									         
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
 				</div><!--/#page-content-->
@@ -619,7 +798,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
-
+		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
@@ -645,10 +824,10 @@
 					else $(this).closest('li').removeClass('selected');
 				});
 
-				//datatable initializatino
-				var oTable1 = $('#trainee_list').dataTable( {
-				"aoColumns": [null, null,			     
-			      null, null, null,
+				//datatable initialization
+				var oTable1 = $('#table_report').dataTable( {
+				"aoColumns": [
+			      null,null, null, null,
 				  { "bSortable": false }
 				] } );
 				
@@ -664,6 +843,17 @@
 				});
 			
 				$('[data-rel=tooltip]').tooltip();
+
+
+				$('.date-picker').datepicker().next().on(ace.click_event, function() {
+					$(this).prev().focus();
+				});
+
+				$('.date-picker').datepicker({
+				    onSelect: function(dateText, inst) {
+				      $("#date_requested").val(dateText);
+					}
+				});
 
 			});	
 		</script>

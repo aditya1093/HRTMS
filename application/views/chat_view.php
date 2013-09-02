@@ -86,11 +86,6 @@ assets/css/style-skins.min.css" />
 				<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
 					<li>
 					<a href="#">
-					<i class="icon-cog"></i>
-					Settings </a>
-					</li>
-					<li>
-					<a href="#">
 					<i class="icon-user"></i>
 					Profile </a>
 					</li>
@@ -407,6 +402,7 @@ assets/css/style-skins.min.css" />
 			
 
 			//var str = str.replace(':)','<img src="<?php echo base_url();?>assets/images/emoticon/smile.jpg">');
+        	console.log(str);
 
 			$(".dialogs").html(str);
 

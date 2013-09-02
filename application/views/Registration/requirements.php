@@ -156,7 +156,7 @@
       
                     <h1>Photograph Requirements</h1>
                     <br>
-                    <center><img src="<?php echo base_url();?>assets/images/dimensions-inch.gif"><br><br>
+                    <!--<center><img src="<?php echo base_url();?>assets/images/dimensions-inch.gif"><br><br>
                     </center>
                     <ul>
                     <li>Photo must be 2 inches by 2 inches</li>
@@ -166,7 +166,14 @@
                     <li>Staple or glue your photo in the designated space. If the photo is stapled, staples should be placed as far away as possible from the face. Please do not mount or enclose the photo in glassine paper, or any type of envelope.</li>
                     </ul>
                     <p><i>*Note: this photo should be placed on your <b>Registration Slip</b> provided after your registration.</i></p>      
-                             
+                    -->
+                    <ul>
+                      <li>The height of the head (top of hair to bottom of chin) should measure 1 inch to 1 3/8 inches (25 mm - 35 mm)
+                      </li>
+                      <li>Make sure the eye height is between 1 1/8 inches to 1 3/8 inches (28 mm – 35 mm) from the bottom of the photo</li>
+                    
+                    </ul>
+                  <p><i>*Note: Upload your photo after your registration.</i></p>      
                 </div>
                 </div>                
               </div> 

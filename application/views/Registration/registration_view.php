@@ -257,21 +257,40 @@
 			                        echo $birth_date_year;
 			                        ?>
 			          </div>
+                <div class="control-group">
+                  <label class="control-label" for="civil_status" >Civil Status<span class="mandatory_star">*</span></label>
+
+                  <div class="controls">
+                     <select id="civil_status" name = "civil_status">
+                        <option disabled = "disabled" selected = "selected" value="">Select Status..</option>
+                        <option value = "Single" <?php if($this->form_validation->set_value('civil_status')=='Single') echo 'selected';?>>Single</option>
+                        <option value = "Married" <?php if($this->form_validation->set_value('civil_status')=='Married') echo 'selected';?>>Married</option>
+                        <option value = "Separated" <?php if($this->form_validation->set_value('civil_status')=='Separated') echo 'selected';?>>Separated</option>
+                        <option value = "Widowed" <?php if($this->form_validation->set_value('civil_status')=='Widowed') echo 'selected';?>>Widowed</option>
+                        <option value = "Divorced" <?php if($this->form_validation->set_value('civil_status')=='Divorced') echo 'selected';?>>Divorced</option>
+                      </select>
+                  </div>
+                </div>
+                  <div class="control-group">
+                  <label class="control-label" for="height" >Height<span class="mandatory_star">*</span></label>
+
+                  <div class="controls">
+                   <input type="text" id="height" name="height" class="controls span2" value="<?php  echo $this->form_validation->set_value('height')?>">
+                  </div>
+                </div>
 			          <label>Gender<span class="mandatory_star">*</span></label>
 			          <label class="radio inline">
-			            <input type="radio" value="male"  name="gender" <?php if($this->input->post('gender')=='male') echo 'checked';?>>
+			            <input type="radio" value="Male"  name="gender" <?php if($this->form_validation->set_value('gender')=='Male') echo 'checked';?>>
 			            <span class = "lbl">Male</span> 
 			          </label>
 			          <label class="radio inline">
-			            <input type="radio" value="female"  name="gender"  <?php if($this->input->post('gender')=='female') echo 'checked';?>>
+			            <input type="radio" value="Female"  name="gender"  <?php if($this->form_validation->set_value('gender')=='Female') echo 'checked';?>>
 			            <span class = "lbl">Female</span>
 			          </label>
 
 			        <br><br>
-			          <label>Address 1<span class="mandatory_star">*</span></label>
+			          <label>Address<span class="mandatory_star">*</span></label>
 			          <input type="text" id="address" class="input-xlarge" name="address" value="<?php echo $this->form_validation->set_value('address')?>">
-			          <label>Address 2</label>
-			          <input type="text" id="address_2" class="input-xlarge" name="address_2">
 			          <label>City<span class="mandatory_star">*</span>  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
 			          &nbsp; &nbsp;&nbsp; State/Province<span class="mandatory_star">*</span> 
 			          &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;Country<span class="mandatory_star">*</span> </label>

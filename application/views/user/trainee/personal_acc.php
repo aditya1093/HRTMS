@@ -93,6 +93,8 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
+					<!--	
+						
 						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
@@ -229,7 +231,8 @@
 								</li>
 							</ul>
 						</li>
-
+					-->
+					
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
@@ -314,12 +317,6 @@
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
 
 								<li>
 									<a href="#">
@@ -406,12 +403,13 @@
 					</li>
 
 				
-					<li>
+					<!--<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="about">

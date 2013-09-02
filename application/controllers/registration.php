@@ -20,15 +20,16 @@ class Registration extends CI_Controller {
 		$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean');
 		$this->form_validation->set_rules('middle_name', 'Middle Name', 'xss_clean');
 		$this->form_validation->set_rules('birth_date_year', 'Year', 'required');
-		$this->form_validation->set_rules('birth_date__nc_month', 'Month', '');
-		$this->form_validation->set_rules('birth_date__nc_day', 'Day', '');
+		$this->form_validation->set_rules('birth_date_month', 'Month', 'required');
+		$this->form_validation->set_rules('birth_date_day', 'Day', 'required');
 		$this->form_validation->set_rules('address', 'Address', 'required|xss_clean');
-		$this->form_validation->set_rules('address_2', 'Address 2', 'xss_clean');
 		$this->form_validation->set_rules('city', 'City', 'required|xss_clean');
 		$this->form_validation->set_rules('state', 'State/Province', 'xss_clean');
 		$this->form_validation->set_rules('country', 'Country', 'required|xss_clean');
 		$this->form_validation->set_rules('phone', 'Phone', 'required|xss_clean');
-		
+		$this->form_validation->set_rules('height', 'Height', 'required|xss_clean|numeric');
+		$this->form_validation->set_rules('civil_status', 'Civil Status', 'required');
+		$this->form_validation->set_rules('gender', 'Gender', 'required');
 		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
 		//$this->form_validation->set_rules('email_confirm', 'Email Address Confrimation', 'required');
 		$this->form_validation->set_rules('username', 'Username', 'required|xss_clean|min_length[6]|is_unique[user_table.username]');
@@ -54,7 +55,7 @@ class Registration extends CI_Controller {
 		}
 		else
 		{
-			$p = '000';
+			$p = '0001';
 			$p = sprintf("%04d",$p) ;
 			$date = date('Y'); //this returns the current date time
 			$date2 = date('m');
@@ -77,11 +78,12 @@ class Registration extends CI_Controller {
 				'birth_date'  	=> $this->input->post('birth_date_year') . '-' .$this->input->post('birth_date_month') . '-'. $this->input->post('birth_date_day') ,
 				'gender'		=> $this->input->post('gender'),
 				'address'    	=> $this->input->post('address'),
-				'address_2'    	=> $this->input->post('address_2'),
 				'city'    		=> $this->input->post('city'),
 				'province'    	=> $this->input->post('state'),
 				'country'    	=> $this->input->post('country'),
-				'phone'      	=> $this->input->post('phone'),
+				'phone'       	=> $this->input->post('phone'),
+				'civil_status'  => $this->input->post('civil_status'),
+				'height'       	=> $this->input->post('height'),
 				'active'		=> 0,
 				'date_created'	=> date('Y-m-d H:i:s')
 			);

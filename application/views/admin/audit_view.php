@@ -52,6 +52,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
+						<!--	
 						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
@@ -188,6 +189,7 @@
 								</li>
 							</ul>
 						</li>
+					-->
 
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -273,12 +275,6 @@
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
 
 								<li>
 									<a href="#">
@@ -451,12 +447,13 @@
 						</ul>
 					</li>
 
-					<li>
+					<!--<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="about">
@@ -531,7 +528,7 @@
 											<div class="table-header">
 												 Results for "Accounts"
 											</div>
-											<table id="trainee_list" class="table table-striped table-bordered table-hover">
+											<table id="audit_list" class="table table-striped table-bordered table-hover">
 											<thead>
 											<tr>
 												
@@ -548,12 +545,6 @@
 													Date Created
 												</th>
 												<th class="hidden-480">
-													Last Login
-												</th>
-												<th class="hidden-480">
-													Last Logout
-												</th>
-												<th class="hidden-480">
 													Last Activity
 												</th>
 												<th> 
@@ -568,8 +559,6 @@
 														<td><?php echo $row->username;?></td>
 														<td><?php echo $row->permission;?></td>														
 														<td><?php echo $row->date_created;?></td>
-														<td><?php echo $row->last_login;?></td>
-														<td><?php echo $row->last_logout;?></td>
 														<td><?php echo $row->last_activity;?></td>
 														<td> 
 															<!--
@@ -657,9 +646,9 @@
 				});
 
 				//datatable initializatino
-				var oTable1 = $('#trainee_list').dataTable( {
+				var oTable1 = $('#audit_list').dataTable( {
 				"aoColumns": [null, null,			     
-			      null, null,null, null, null,
+			      null, null,null,
 				  { "bSortable": false }
 				] } );
 				

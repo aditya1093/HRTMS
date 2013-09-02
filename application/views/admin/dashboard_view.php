@@ -53,6 +53,8 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
+					<!--	
+						
 						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
@@ -189,7 +191,8 @@
 								</li>
 							</ul>
 						</li>
-
+					-->
+					
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
@@ -274,12 +277,6 @@
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
 
 								<li>
 									<a href="#">
@@ -399,7 +396,7 @@
 						</a>
 					</li>
  					<?php if($this->session->userdata("permission")=="Administrator") {?>
-					<li >
+					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
 							<span>Manage Accounts</span>
@@ -447,17 +444,16 @@
 									Backup &amp; Maintenance
 								</a>
 							</li>
-
-							
 						</ul>
 					</li>
 					<?php }?>
-					<li>
+					<!--<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="about">
@@ -511,7 +507,7 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-							<div class="span5">
+							<div class="span12">
 
 							<div class="alert alert-info">
 								<h2>Reports</h2>
@@ -532,7 +528,13 @@
 						<!--PAGE CONTENT ENDS HERE-->
 							</div>
 
-						<div class="span7">
+						<!--/row-->
+
+				</div>
+				<?php if($this->session->userdata("permission")=="Administrator") {?>
+				<div class="row-fluid">
+					
+					<div class="span12">
 							<div class="widget-box">
 								<div class="widget-header">
 									<h5><i class="icon-info"></i> Manpower Request Status</h5>
@@ -541,53 +543,42 @@
 								<div class="widget-body">
 									<div class="widget-main">
 										
-							          <table class="table table-striped table-bordered table-hover">
+							          <table id="table-request" class="table table-striped table-bordered table-hover">
 
 							          	<thead>
 							          		<tr>
 							          			<th>Request ID</th>
 							          			<th>Company</th>
-							          			<th>Date of Request</th>
-							          			<th>Requested Number</th>
+							          			<th>From</th>
+							          			<th>To</th>
+							          			<th width="70px">Requested No.</th>
 							          			<th>Status</th>
+							          			<th width="200px">Remarks</th>
+							          			<th>&nbsp;</th>
 							          		</tr>
 							          	</thead>
 							          	<tbody>
-							          		<tr>
-							          			<td>1</td>
-							          			<td>TOSHIBA</td>
-							          			<td>2013-04-20</td>
-							          			<td>100</td>
-							          			<td><button class="btn btn-warning btn-mini">Confirm Request</button></td>
-							          		</tr>
-							          		<tr>
-							          			<td>2</td>
-							          			<td>TOTOKU</td>
-							          			<td>2013-04-01</td>
-							          			<td>150</td>
-							          			<td><button class="btn btn-warning btn-mini">Confirm Request</button></td>
-							          		</tr>
-							          		<tr>
-							          			<td>3</td>
-							          			<td>TOSHIBA</td>
-							          			<td>2013-03-10</td>
-							          			<td>100</td>
-							          			<td><button class="btn btn-warning btn-mini">Confirm Request</button></td>
-							          		</tr>
-							          		<tr>
-							          			<td>4</td>
-							          			<td>HITACHI</td>
-							          			<td>2013-02-03</td>
-							          			<td>350</td>
-							          			<td><button class="btn btn-warning btn-mini">Confirm Request</button></td>
-							          		</tr>
-							          		<tr>
-							          			<td>5</td>
-							          			<td>TOSHIBA</td>
-							          			<td>2013-01-22</td>
-							          			<td>150</td>
-							          			<td><button class="btn btn-warning btn-mini">Confirm Request</button></td>
-							          		</tr>
+							          		
+
+							          		<?php if(isset($record)) : foreach($record as $row) : ?>
+												<tr>
+													<td><?php echo "AMI-REQ-".substr(date("Y"),-2)."".sprintf("%04d", $row->request_id);?></td>
+													<td><?php echo $row->company;?></td>
+								          			<td><?php echo $row->date_requested;?></td>
+								          			<td><?php echo $row->to;?></td>
+								          			<td><?php echo $row->no_of_manpower;?></td>
+								          			<td><?php if($row->confirmed == "0") {
+								          				echo '<span class="label label-warning">Not Confirmed</span>';
+								          				}
+								          				else {
+								          					echo '<span class="label label-success">Confirmed</span>';
+								          				}
+								          			?></td>
+								          			<td><?php echo $row->remarks;?></td>
+								          			<td><button id="<?php echo $row->request_id?>" class="bb btn btn-info btn-mini">Edit Confirmation</button></td>
+												</tr>
+											<?php endforeach;?>
+											<?php endif; ?>
 							          	</tbody>
 
 							          </table>
@@ -598,9 +589,10 @@
 							</p>
 							
 
-						</div><!--/row-->
-
-				</div><!--/#page-content-->
+						</div>
+				</div>
+				<?php }?>
+				<!--/#page-content-->
 
 			</div><!--/#main-content-->
 		</div><!--/.fluid-container#main-container-->
@@ -637,6 +629,9 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 
 		<!--ace scripts-->
 
@@ -673,7 +668,60 @@
 			     alert($a);  //use .val() if you're getting the value
 			   });
 
-			  
+			  $(document).ready(function() {
+
+			  	$('#table-request').dataTable({
+					"aoColumns": [
+						null,null,null,null,null,null,null,
+						{ "bSortable": false }
+					]
+				});
+
+				$(".bb").on(ace.click_event, function() {
+					var id = $(this).attr("id");
+					bootbox.dialog("Edit Request Confirmation", [{
+						"label" : "Confirm Request",
+						"class" : "btn-small btn-success",
+						"callback": function() {
+							//Example.show("great success");
+							$.ajax({
+								url: "administrative/confirm_request",
+								type: "post",
+								data: {
+									action: "confirm",
+									id: id
+								},
+								success: function(e) {
+									console.log(e);
+									location.reload();
+								}
+							});
+						}
+						}, {
+						"label" : "Decline Request",
+						"class" : "btn-small btn-danger",
+						"callback": function() {
+							$.ajax({
+								url: "administrative/confirm_request",
+								type: "post",
+								data: {
+									action: "pogi",
+									id: id
+								},
+								success: function(e) {
+									console.log(e);
+									location.reload();
+								}
+							});
+						}
+						}, {
+						"label" : "Cancel",
+						"class" : "btn-small"
+						}]
+					);
+				});
+
+			  });
 		
  
 										 

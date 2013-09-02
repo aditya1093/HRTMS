@@ -73,12 +73,6 @@
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
 
 								<li>
 									<a href="#">
@@ -159,12 +153,13 @@
 
 			
 
-					<li>
+					<!--<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="about">
@@ -246,7 +241,9 @@
 										                  <p>Items marked with an asterisk (<span class="mandatory_star">*</span>) are required.</p>  
 										              	</div>
 										               
-											              <div id="infoMessage" align="center"><?php 
+											              <div id="infoMessage" align="center"><?php
+											              $success = $this->session->flashdata('success');
+
 											              if ($message == null){
 
 											              }
@@ -256,7 +253,23 @@
 											              echo $message;
 											              echo '</div>';
 											              }
+
+											              if($success != null){
+												              echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+												              echo '<div class="alert alert-success">';
+												              echo $success;
+												              echo '</div>';
+
+											              }
+											              else
+											              {
+
+											              }
+											              
+
 											              ?>
+
+											              
 											              </div>
 
 														<div class="profile-user-info">
@@ -333,6 +346,33 @@
 														                        echo $birth_date_year;
 														                        ?>
 														          		</div>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Height </div>
+
+																<div class="profile-info-value">
+																	<input type="text" name="height" class="controls span2" value="<?php echo $row->height;?>">
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Civil Status </div>
+
+																<div class="profile-info-value">
+																	<div class="control-group">
+																		<label class="control-label" for="" ></label>
+
+																		<div class="controls">
+																			 <select id="" name = "civil_status">
+													                          <option disabled = "disabled" selected = "selected" value="">Select Status..</option>
+													                          <option value = "Single" <?php if($row->civil_status=='Single') echo 'selected';?>>Single</option>
+													                          <option value = "Married" <?php if($row->civil_status=='Married') echo 'selected';?>>Married</option>
+													                          <option value = "Separated" <?php if($row->civil_status=='Separated') echo 'selected';?>>Separated</option>
+													                          <option value = "Widowed" <?php if($row->civil_status=='Widowed') echo 'selected';?>>Widowed</option>
+													                          <option value = "Divorced" <?php if($row->civil_status=='Divorced') echo 'selected';?>>Divorced</option>
+													                        </select>
+																		</div>
+																	</div>
 																</div>
 															</div>
 															<div class="profile-info-row">

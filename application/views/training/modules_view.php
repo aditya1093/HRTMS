@@ -272,12 +272,6 @@
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
 
 								<li>
 									<a href="#">
@@ -387,12 +381,13 @@
 						</a>
 					</li>
 
-					<li>
+					<!--<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="about">
@@ -605,6 +600,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
@@ -632,8 +628,8 @@
 							"bSortable": false,
 							"fnRender": function (o) {
 
-		                    return '<button class="btn-edit btn btn-small btn-info" id=' + o.aData['module_id'] + '>' + 'Edit' + '</button> '+
-		                    '<button class="btn-delete btn btn-small btn-danger" id=' + o.aData['module_id'] + '>' + 'Delete' + '</button>';
+		                    return '<!--<button class="btn-edit btn btn-small btn-info" id=' + o.aData['module_id'] + '>' + 'Edit' + '</button>--> '+
+		                    '<button onclick="remove_list(' + o.aData['module_id'] + ')" class="btn-delete btn btn-small btn-danger" id=' + o.aData['module_id'] + '>' + 'Remove From List' + '</button>';
 
 		                	}
 						}
@@ -702,28 +698,93 @@
 			    });
 
 			});
+			
+			/*$(".btn-delete").on(ace.click_event, function() {
+				var id = $(this).attr("id");
+				alert(id);
+				bootbox.dialog("Remove From List?", [{
+					"label" : "Confirm Request",
+					"class" : "btn-small btn-success",
+					"callback": function() {
+						//Example.show("great success");
+						$.ajax({
+							url: "",
+							type: "post",
+							data: {
+								action: "confirm",
+								id: id
+							},
+							success: function(e) {
+								console.log(e);
+								location.reload();
+							}
+						});
+					}
+					}, {
+					"label" : "Cancel",
+					"class" : "btn-small"
+					}]
+				);
+			});*/
 
+			var remove_list = function(id) {
+
+				//var id = $(this).attr("id");
+
+				bootbox.dialog("Remove From List?", [{
+					"label" : "Remove",
+					"class" : "btn-small btn-danger",
+					"callback": function() {
+						//Example.show("great success");
+						$.ajax({
+							url: "modules/remove_list",
+							type: "post",
+							data: {
+								action: "confirm",
+								id: id
+							},
+							success: function(e) {
+								console.log(e);
+								location.reload();
+							}
+						});
+					}
+					}, {
+						"label" : "Cancel",
+						"class" : "btn-small"
+					}]
+				);
+			}
+			
 			$('#reg_submit').click(function() {
+				
 
-				var request = $.ajax({
-		        	url: "<?php echo base_url();?>modules/register_module",
-		        	type: 'POST',
-		        	data: { 
-		        		ajax: '1',
-		        		module_name: $("#module_name").val(),
-		        		company_name: $("#company_name").val(),
-		        		file_name: $("#file_name").val()
-		        	}
-		        });
+				if($.trim($("#module_name").val())!="" && $("#company_name").val() != '' && $("#file_name").val() != '') {
 
-		        request.done(function (response, textStatus, jqXHR) {
+					var request = $.ajax({
+			        	url: "<?php echo base_url();?>modules/register_module",
+			        	type: 'POST',
+			        	data: { 
+			        		ajax: '1',
+			        		module_name: $("#module_name").val(),
+			        		company_name: $("#company_name").val(),
+			        		file_name: $("#file_name").val()
+			        	}
+			        });
 
-		        	//gritter here
-		        	$("#module_name").val("");
-		        	$("#company_name").val("");
-		        	$("#file_name").html("");
-		        	location.reload();
-				});
+			        request.done(function (response, textStatus, jqXHR) {
+
+			        	//gritter here
+			        	$("#module_name").val("");
+			        	$("#company_name").val("");
+			        	$("#file_name").html("");
+			        	location.reload();
+					});
+				}
+				else {
+
+					alert("Please fill the forms correctly.");
+				}
 
 			});
 

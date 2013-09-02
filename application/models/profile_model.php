@@ -26,10 +26,10 @@ class Profile_model extends CI_Model{
         return $query->result();
     } 
 
-    function change_info($data) {
+    function change_info($id,$data) {
 
             $this->session->set_userdata($data);
-            $this->db->where('register_id', $this->session->userdata('user_id'));
+            $this->db->where('register_id', $id);
             $this->db->update('registration', $data);
             return true;
     }

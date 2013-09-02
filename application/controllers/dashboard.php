@@ -10,7 +10,9 @@ class Dashboard extends CI_Controller {
 
 		if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Administrator') {
 
-			$this->load->view('admin/dashboard_view');
+			$this->load->model('request_model');
+			$data['record'] = $this->request_model->list_request();
+			$this->load->view('admin/dashboard_view', $data);
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'HR') {
 			
@@ -23,7 +25,10 @@ class Dashboard extends CI_Controller {
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Client') {
 			
-			$this->load->view('User/client/dashboard_view');
+			$this->load->model('request_model');
+
+			$data["record"] = $this->request_model->list_confirmed();
+			$this->load->view('User/client/dashboard_view',$data);
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Trainee') {
 			$id = $this->session->userdata('user_id');
@@ -43,6 +48,7 @@ class Dashboard extends CI_Controller {
 		}
 		
 	}
+
 }
 
 /* End of file dashboard.php */

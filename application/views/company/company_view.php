@@ -51,6 +51,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
+					<!--	
 						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
@@ -187,7 +188,7 @@
 								</li>
 							</ul>
 						</li>
-
+					-->
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
@@ -511,7 +512,7 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-						<div class="span9">
+					<div class="span12">
 							<div class="alert alert-success">
 									<b>Note:</b>
 									<ul>
@@ -578,7 +579,12 @@
 
 						</div>
 
-						<div class="span3">
+					
+						</div>
+						<?php if ($this->session->userdata('permission') == 'Administrator') {?>
+
+						<div class="row-fluid">
+						<div class="span5">
 
 							<!-- ADD HR START -->
 							
@@ -601,6 +607,7 @@
 									</span>
 								</div>
 
+							
 								<div class="widget-body"><div class="widget-body-inner">
 									<div class="widget-main">
 										<div class="row-fluid">
@@ -608,11 +615,24 @@
 											<?php if(!is_null($this->session->userdata('error_client'))) echo $this->session->userdata('error_client'); ?>
 											<form method="post" action="<?php echo base_url();?>client/add_client">
  
-												<label><i class="light-red icon-asterisk"></i> Client Name:  </label>
-												<input autofocus  style="width: 94%" placeholder="Enter Name" type="text" id="client_name" name="client_name">
+												<label for="client_name" ><i class="light-red icon-asterisk"></i> Client Name:  </label>
+												<input  id="client_name" autofocus  style="width: 94%" placeholder="Enter Name" type="text" name="client_name">
 
-												<label><i class="light-red icon-asterisk"></i> Location: </label>
-												<input style="width: 94%" type="text" id="client_location" name="client_location">
+												<label for="client_location" ><i class="light-red icon-asterisk"></i> Location: </label>
+												<input  id="client_location" style="width: 94%" type="text" name="client_location">
+
+												<label for="client_username" ><i class="light-red icon-asterisk"></i> Username: </label>
+												<input  id="client_username" style="width: 94%" type="text"name="client_username">
+
+												<label for="client_password" ><i class="light-red icon-asterisk"></i> Password: </label>
+												<input  id="client_password" style="width: 94%" type="password" name="client_password">
+
+												<label for="client_password_confirmation" ><i class="light-red icon-asterisk"></i> Password: </label>
+												<input  id="client_password_confirmation" style="width: 94%" type="password" name="client_password_confirmation">
+
+												<label for="client_email" ><i class="light-red icon-asterisk"></i> Email: </label>
+												<input  id="client_email" style="width: 94%" type="text" name="client_email">
+
 
 												<hr>
 
@@ -623,6 +643,7 @@
 										</div>									
 									</div>
 								</div></div>
+							
 							</div>
 
 
@@ -630,10 +651,11 @@
 							<!-- ADD HR END -->
 
 						</div>
+						</div><?php }?>
 
 
 						<!--PAGE CONTENT ENDS HERE-->
-					</div><!--/row-->
+					<!--/row-->
 				</div><!--/#page-content-->
 
 			</div><!--/#main-content-->

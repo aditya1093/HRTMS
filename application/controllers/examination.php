@@ -117,6 +117,56 @@ class Examination extends CI_Controller {
 
 		echo $this->session->userdata("noc");
 	}
+
+	function toggle_activate() {
+
+		$this->load->model("examination_model");
+		
+		if($this->input->post("action") == "activate") {
+
+			$this->examination_model->toggle_activate($this->input->post("id"), array("is_active" => "1"));
+		}
+		else {
+
+			$this->examination_model->toggle_activate($this->input->post("id"), array("is_active" => "0"));
+		}
+	}
+
+	function toggle_activate_all() {
+
+		$this->load->model("examination_model");
+		
+		if($this->input->post("action") == "activate") {
+
+			$this->examination_model->toggle_activate_all(array("is_active" => "0"));
+		}
+
+	}
+
+	function rename_exam() {
+
+		$this->load->model("examination_model");
+
+		echo $this->input->post("id"). " " . $this->input->post("rename");
+
+		$this->examination_model->rename_exam($this->input->post("id"), array("examination_name" => $this->input->post("rename")));
+		
+	}
+
+	function delete_exam() {
+
+		$this->load->model("examination_model");
+		$this->examination_model->delete_exam($this->input->post("id"));
+	}
+
+	function delete_item() {
+
+		$this->load->model("examination_model");
+		echo $this->input->post("id");
+		$this->examination_model->delete_item($this->input->post("id"));
+
+	}
+
 }
 
 /* End of file examination.php */

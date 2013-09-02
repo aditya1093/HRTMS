@@ -66,6 +66,8 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
+					<!--	
+							
 						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
@@ -202,6 +204,8 @@
 								</li>
 							</ul>
 						</li>
+					-->
+					
 
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -289,13 +293,6 @@
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
 								<li>
 									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
 										<i class="icon-user"></i>
 										Profile
 									</a>
@@ -379,12 +376,13 @@
 					</li>
 
 				
-					<li>
+					<!--<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="about">
@@ -481,6 +479,7 @@
 	                           <button type="submit" class="btn btn-info btn-small">Save changes</button>
 	                        </div>
 	                      	</div>
+	                      	<div id="output"></div>
 		                </form>
 		                <?php endforeach;?>
 						<?php endif; ?>
@@ -575,6 +574,7 @@
 							<br>  
 							<br>
 
+
 				</div>	
 				</div><!--/row-->
 
@@ -623,6 +623,8 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
+
+		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 
 		<!--inline scripts related to this page-->
 
@@ -722,12 +724,24 @@
 	               // $("#success").html(output_string);
 	                //$("#result_table").hide();
 	                // location.reload();
-	                $.gritter.add({
+	                /*$.gritter.add({
 						title: 'Human Resource Information Update',
 						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Marital Information has been updated.',
 						class_name: 'gritter-success gritter-center gritter-light'
 					});
-					
+					*/
+					var string = "	<button id=\"bootbox-confirm\" class=\"btn btn-mini btn-info\">asdasd</button>"
+					$('#output').html(string);
+					$("#bootbox-confirm").on(ace.click_event, function() {
+						var id = $("#bootbox-confirm").val();
+						bootbox.confirm("Do you want to edit the information of this applicant?", function(result) {
+							if(result) {
+								//bootbox.alert(id);
+								//window.location='<?php echo base_url();?>applicant/view_info?>';
+								document.location.href='<?php echo base_url();?>applicant/edit_info/' + id;
+							}
+						});	
+					});
 		            //$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
 		            //$("#personal_info")[0].reset();
 	                $("html, body").animate({ scrollTop: 0 }, "slow");

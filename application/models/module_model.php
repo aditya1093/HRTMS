@@ -62,4 +62,10 @@ class Module_model extends CI_Model{
         return $query->result();
     }
 
+    function remove_list($param) {
+
+        $this->db->where('module_id', $param);
+        $this->db->delete('modules'); 
+    }
+
 }

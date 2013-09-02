@@ -274,12 +274,6 @@
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
 
 								<li>
 									<a href="#">
@@ -390,14 +384,15 @@
 						</a>
 					</li>
 
-					<li data-step="9" data-intro="Got a problem and you need help? See this for a detailed documentation">
+					<!--<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
-					<li data-step="10" data-intro="Or contact us! :)">
+					<li data-step="10" data-intro="Contact us! :)">
 						<a href="about">
 							<i class="icon-info"></i>
 							<span>About the Developers</span>

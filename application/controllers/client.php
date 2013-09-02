@@ -71,6 +71,33 @@ class Client extends CI_Controller {
 		redirect(base_url().'client', 'refresh');	
 	}
 
+	/********************* client view ************************/
+
+	function send_request() {
+
+		$arr = explode("-", $this->input->get("date-range-picker"));
+
+		$data = array(
+			'no_of_manpower' => $this->input->get("no_of_manpower"),
+			'date_requested' => date("Y-m-d", strtotime($arr[0])),
+			'to' => date("Y-m-d", strtotime($arr[1])),
+			'remarks' => $this->input->get("remarks"),
+			'company' => $this->session->userdata("company")
+		);
+
+		$this->load->model('request_model');
+		$this->request_model->send_request($data);
+
+		
+		redirect(base_url().'dashboard', 'refresh');	
+	}
+
+	function hide_confirmed() {
+
+		$this->load->model('request_model');
+		$this->request_model->hide_confirmed($this->input->post("id"), array("is_read" => "1"));
+	}
+
 }
 
 /* End of file client.php */

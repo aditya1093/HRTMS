@@ -52,6 +52,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
+					<!--	
 						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
@@ -188,6 +189,7 @@
 								</li>
 							</ul>
 						</li>
+					-->
 
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -273,12 +275,6 @@
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
 
 								<li>
 									<a href="#">
@@ -453,12 +449,13 @@
 						</ul>
 					</li>
 					<?php }?>
-					<li>
+					<!--<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="about">
@@ -563,21 +560,13 @@
 											<a href="<?php echo base_url();?>index.php/registration/registered/get_info/<?php  echo $row->register_id; ?>" style="cursor:pointer;" class="btn btn-info"><i class="icon-edit icon-white"></i></a>
 											 !-->
 											<div class="hidden-phone visible-desktop btn-group">
-												<button class="btn btn-mini btn-success">
+												<button onclick="window.location='<?php echo base_url();?>applicant/view_info/<?php  echo $row->register_id; ?>';" class="btn btn-mini btn-success">
 													<i class="icon-ok bigger-120"></i>
 												</button>
 
-												<button class="btn btn-mini btn-info">
+												<button id="bootbox-confirm" value="<?php echo $row->register_id?>" class="btn btn-mini btn-info">
 													<i class="icon-edit bigger-120"></i>
 												</button>
-
-												<button class="btn btn-mini btn-danger">
-													<i class="icon-trash bigger-120"></i>
-												</button>
-
-												<button class="btn btn-mini btn-warning">
-													<i class="icon-flag bigger-120"></i>
-												</button> 
 											</div>
 
 										</td>
@@ -632,6 +621,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 
 		<!--ace scripts-->
 
@@ -677,6 +667,18 @@
 				});
 			
 				$('[data-rel=tooltip]').tooltip();
+
+				$("#bootbox-confirm").on(ace.click_event, function() {
+					var id = $("#bootbox-confirm").val();
+					bootbox.confirm("Do you want to edit the information of this applicant?", function(result) {
+						if(result) {
+							//bootbox.alert(id);
+							//window.location='<?php echo base_url();?>applicant/view_info?>';
+							document.location.href='<?php echo base_url();?>applicant/edit_info/' + id;
+						}
+					});	
+				});
+
 
 			});	
 		</script>

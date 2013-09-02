@@ -1,9 +1,9 @@
-
+<?php if($this->session->userdata('permission') != 'Administrator'&& $this->session->userdata('permission') != 'HR') { redirect(base_url() . 'index.php/404');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Class Record - AMI</title>
+		<title>Dashboard - AMI</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,7 +28,9 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/applicant/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 
@@ -40,18 +42,20 @@
 	</head>
 
 	<body>
+		<?php if(!isset($no_visible_elements) || !$no_visible_elements)	{ ?>
 		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - Training Center Administration
+							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<!--<li class="grey">
+					<!--	
+						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
 								<span class="badge badge-grey">4</span>
@@ -60,7 +64,7 @@
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-ok"></i>
-									4 Tasks to complete
+									Tasks to complete
 								</li>
 
 								<li>
@@ -133,7 +137,7 @@
 							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-warning-sign"></i>
-									8 Notifications
+									Notifications
 								</li>
 
 								<li>
@@ -151,7 +155,7 @@
 								<li>
 									<a href="#">
 										<i class="btn btn-mini btn-primary icon-user"></i>
-										Bob just signed up as an editor ...
+										Error Occured
 									</a>
 								</li>
 
@@ -186,7 +190,8 @@
 									</a>
 								</li>
 							</ul>
-						</li>-->
+						</li>
+					-->
 
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -262,7 +267,7 @@
 
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="<?php echo $this->session->userdata('username');?>'s Photo" />
+								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
 									<?php echo $this->session->userdata('username');?>
@@ -283,7 +288,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="<?php echo base_url();?>index.php/logout">
+									<a href="<?php echo base_url();?>logout">
 										<i class="icon-off"></i>
 										Logout
 									</a>
@@ -294,8 +299,9 @@
 				</div><!--/.container-fluid-->
 			</div><!--/.navbar-inner-->
 		</div>
-
+		<?php } ?>
 		<div class="container-fluid" id="main-container">
+			<?php if(!isset($no_visible_elements) || !$no_visible_elements) { ?>
 			<a id="menu-toggler" href="#">
 				<span></span>
 			</a>
@@ -304,19 +310,19 @@
 				<div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
 						<button class="btn btn-small btn-success">
-							<i class="icon-ok"></i>
+							<i class="icon-signal"></i>
 						</button>
 
 						<button class="btn btn-small btn-info">
-							<i class="icon-puzzle-piece"></i>
-						</button>
-
-						<button class="btn btn-small btn-danger">
-							<i class="icon-star"></i>
+							<i class="icon-pencil"></i>
 						</button>
 
 						<button class="btn btn-small btn-warning">
-							<i class="icon-print"></i>
+							<i class="icon-group"></i>
+						</button>
+
+						<button class="btn btn-small btn-danger">
+							<i class="icon-cogs"></i>
 						</button>
 					</div>
 
@@ -325,62 +331,126 @@
 
 						<span class="btn btn-info"></span>
 
-						<span class="btn btn-danger"></span>
-
 						<span class="btn btn-warning"></span>
+
+						<span class="btn btn-danger"></span>
 					</div>
-				</div><!--#sidebar-shortcuts-->
+				</div>
+
+				<!--#sidebar-shortcuts-->
 
 				<ul class="nav nav-list">
+					
 					<li>
-						<a href="dashboard">
+						<a href="<?php echo base_url();?>dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
-					<li>
-						<a href="modules">
-							<i class="icon-folder-open"></i>
-							<span>Manage Modules</span>
+					
+
+					<li class="active open">
+						<a href="#" class="dropdown-toggle">
+							<i class="icon-shield"></i>
+							<span>Registration</span>
+
+							<b class="arrow icon-angle-down"></b>
 						</a>
+
+						<ul class="submenu">
+							<li  class="active">
+								<a href="<?php echo base_url();?>applicant">
+									<i class="icon-archive"></i>
+									<span>Applicants</span>
+								</a>
+							</li>
+
+							<li>
+								<a href="<?php echo base_url();?>applicant/accept">
+									<i class="icon-user"></i>
+								   	<span>Accept</span>
+								</a>
+							</li>
+						</ul>
 					</li>
+
+
 
 					<li>
-						<a href="presenter">
-							<i class="icon-desktop"></i>
-							<span>Classroom Presenter</span>
+						<a href="<?php echo base_url();?>training">
+							<i class="icon-book"></i>
+							<span>Training</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="examination">
-							<i class="icon-puzzle-piece"></i>
-							<span>Manage Examination</span>
+						<a href="<?php echo base_url();?>client">
+							<i class="icon-building"></i>
+							<span>Client Companies</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="attendance">
-							<i class="icon-ok"></i>
-							<span>Attendance Checker</span>
+						<a href="<?php echo base_url();?>deployment">
+							<i class="icon-tag"></i>
+							<span>Deployment Tagging</span>
 						</a>
 					</li>
+					<?php if($this->session->userdata("permission")=="Administrator") {?>
+					<li>
+						<a href="#" class="dropdown-toggle">
+							<i class="icon-shield"></i>
+							<span>Manage Accounts</span>
 
-					<li class="active">
-						<a href="class_record">
-							<i class="icon-star"></i>
-							<span>Class Record</span>
+							<b class="arrow icon-angle-down"></b>
 						</a>
+
+						<ul class="submenu">
+							<li>
+								<a href="<?php echo base_url();?>manage/hr">
+									<i class="icon-user"></i>
+									HR Department
+								</a>
+							</li>
+
+							<li>
+								<a href="<?php echo base_url();?>manage/training">
+									<i class="icon-user"></i>
+									Training Department
+								</a>
+							</li>
+						</ul>
 					</li>
 
 					<li>
-						<a href="reports">
-							<i class="icon-print"></i>
-							<span>Reports</span>
-						</a>
-					</li>
+						<a href="#" class="dropdown-toggle">
+							<i class="icon-cog"></i>
+							<span>Administrative Tools</span>
 
+							<b class="arrow icon-angle-down"></b>
+						</a>
+
+						<ul class="submenu">
+
+							<li>
+								<a href="<?php echo base_url();?>administrative/audit">
+									<i class="icon-list"></i>
+									Audit Logs
+								</a>
+							</li>
+
+							<li>
+								<a href="<?php echo base_url();?>administrative/backup">
+									<i class="icon-download-alt"></i>
+									Backup &amp; Maintenance
+								</a>
+							</li>
+
+							
+						</ul>
+					</li>
+					<?php }?>
 					<!--<li>
 						
 						<a href="help">
@@ -395,27 +465,36 @@
 							<span>About the Developers</span>
 						</a>
 					</li>
+			
+				</ul>
 
-					
-				</ul><!--/.nav-list-->
+				<!--/.nav-list-->
 
 				<div id="sidebar-collapse">
 					<i class="icon-double-angle-left"></i>
 				</div>
 			</div>
 
+
+			
+			<?php } ?>
+		<?php if(isset($records)) : foreach($records as $row) : ?>
 			<div id="main-content" class="clearfix">
 				<div id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="dashboard">Home</a>
+							<a href="<?php echo base_url();?>dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">Class Record</li>
+						<li class=""><a href="<?php echo base_url();?>applicant">Registration</a></li>
+						<span class="divider">
+								<i class="icon-angle-right"></i>
+						</span>
+						<li class="active"><?php echo $row->register_id;?></li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
@@ -429,53 +508,173 @@
 				</div>
 
 				<div id="page-content" class="clearfix">
-					<div class="page-header position-relative">
-						<h1>
-							Class Record
-							<small>
-								<i class="icon-double-angle-right"></i>
-								Training Management
-							</small>
-						</h1>
-					</div><!--/.page-header-->
-
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
+						<div class="row-fluid">
+							<div class="span3 center">
+								<span class="profile-picture">
+									<img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
+								</span>
+								
+								<!--<div class="width-80 label label-info label-large arrowed-in arrowed-in-right">
+									<div class="inline position-relative">
+										<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+											<i class="icon-circle light-green middle"></i>
+											&nbsp;
+											<span class="white middle bigger-120"><?php 
+												$mid = $row->middle_name;
+												if($mid != null)	{$m = $row->middle_name[0].'.';} else { $m = $mid;}
+												echo $row->first_name.' '.$m.' '.$row->last_name;?></span>
+										</a>
+									</div>
+								</div>-->
+								<div class="space space-4"></div>
+								
+									<div class="bcTarget"></div>
+										<?php
+											
+											echo '<script type="text/javascript">$(".bcTarget").barcode("';
+											echo $row->register_id;
+											echo '", "code39");</script>';
 
-						<div class="span8">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										Examination Scores
-										<small>Performance Assessment</small>
-									</h4>
+										?> 
+								
+
+							</div><!--/span-->
+
+							<div class="span9">
+
+								<div class="profile-user-info">
+									<div class="profile-info-row">
+										<div class="profile-info-name"> <span><?php if($row->active==0)
+												echo '<span class="label label-warning arrowed-in">Pending</span>';
+											 else
+												echo '<span class="label label-success arrowed-in">Active</span>';
+											?>
+											</span></div>
+
+										<div class="profile-info-value">
+											<span>&nbsp;</span>
+										</div>
+									</div>
+
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Name </div>
+
+										<div class="profile-info-value">
+											<span><?php 
+												$mid = $row->middle_name;
+												//if($mid != null)	{$m = $mid;} else { $m = $mid;}
+												echo $row->first_name.' '.$mid.' '.$row->last_name;?>
+											</span>
+										</div>
+									</div>
+
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Location </div>
+
+										<div class="profile-info-value">
+											<i class="icon-map-marker light-orange bigger-110"></i>
+											<span><?php echo $row->address.' '.$row->city;?></span>
+											<span><?php echo $row->province;?></span>
+											<span><?php echo $row->country;?></span>
+										</div>
+									</div>
+
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Age </div>
+
+										<div class="profile-info-value">
+											<span><?php
+											$birthdate = $row->birth_date;												
+										    list($y,$m,$d) = explode('-', $birthdate);
+
+										    if (($m = (date('m') - $m)) < 0) {
+										        $y++;
+										    } elseif ($m == 0 && date('d') - $d < 0) {
+										        $y++;
+										    }
+										    
+										    echo date('Y') - $y;
+										    ?></span>
+										</div>
+									</div>
+
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Birthday </div>
+
+										<div class="profile-info-value">
+											<span><?php echo $row->birth_date?></span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Height </div>
+
+										<div class="profile-info-value">
+											<span><?php echo $row->height?> cm</span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Civil Status </div>
+
+										<div class="profile-info-value">
+											<span><?php echo $row->civil_status?></span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Email </div>
+
+										<div class="profile-info-value">
+											<span><?php echo $row->email;?></span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Phone </div>
+
+										<div class="profile-info-value">
+											<span><?php echo $row->phone;?></span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Username </div>
+
+										<div class="profile-info-value">
+											<span><?php echo $row->username;?></span>
+										</div>
+									</div>
+
 								</div>
 
-								<div class="widget-body">
-									<div class="widget-main">
+								<div class="hr hr-8 dotted"></div>
+
+								<div class="profile-user-info">
+
+									<div class="profile-info-row">
+										<div class="profile-info-name">
+											<i class="middle icon-edit bigger-150 light-blue"></i>
+										</div>
+
+										<div class="profile-info-value">
+											<a href="#">Edit Applicant</a>
+										</div>
+
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name">
+											<i class="middle icon-print bigger-150 light-blue"></i>
+										</div>
+
+										<div class="profile-info-value">
+											<a href="#">Print</a>
+										</div>
 										
 									</div>
 								</div>
-							</div>
-						</div>
-
-						<div class="span4">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										Summary
-										<small>Finished Tests</small>
-									</h4>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">
-										
-									</div>
-								</div>
-							</div>
-						</div>
-
+							</div><!--/span-->
+						</div><!--/row-fluid-->
+					<?php endforeach;?> 
+					<?php endif; ?>
+									         
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
 				</div><!--/#page-content-->
@@ -518,6 +717,10 @@
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
+
+
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
@@ -533,165 +736,28 @@
 					if(this.checked) $(this).closest('li').addClass('selected');
 					else $(this).closest('li').removeClass('selected');
 				});
-			
-				var oldie = $.browser.msie && $.browser.version < 9;
-				$('.easy-pie-chart.percentage').each(function(){
-					var $box = $(this).closest('.infobox');
-					var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
-					var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
-					var size = parseInt($(this).data('size')) || 50;
-					$(this).easyPieChart({
-						barColor: barColor,
-						trackColor: trackColor,
-						scaleColor: false,
-						lineCap: 'butt',
-						lineWidth: parseInt(size/10),
-						animate: oldie ? false : 1000,
-						size: size
+
+				//datatable initialization
+				var oTable1 = $('#table_report').dataTable( {
+				"aoColumns": [
+			      null,null, null, null,
+				  { "bSortable": false }
+				] } );
+				
+				
+				$('table th input:checkbox').on('click' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
 					});
-				})
-			
-				$('.sparkline').each(function(){
-					var $box = $(this).closest('.infobox');
-					var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
-					$(this).sparkline('html', {tagValuesAttribute:'data-values', type: 'bar', barColor: barColor , chartRangeMin:$(this).data('min') || 0} );
-				});
-			
-			
-			
-			
-			  var data = [
-				{ label: "social networks",  data: 38.7, color: "#68BC31"},
-				{ label: "search engines",  data: 24.5, color: "#2091CF"},
-				{ label: "ad campaings",  data: 8.2, color: "#AF4E96"},
-				{ label: "direct traffic",  data: 18.6, color: "#DA5430"},
-				{ label: "other",  data: 10, color: "#FEE074"}
-			  ];
-			
-			  var placeholder = $('#piechart-placeholder').css({'width':'90%' , 'min-height':'150px'});
-			  $.plot(placeholder, data, {
-				
-				series: {
-			        pie: {
-			            show: true,
-						tilt:0.8,
-						highlight: {
-							opacity: 0.25
-						},
-						stroke: {
-							color: '#fff',
-							width: 2
-						},
-						startAngle: 2
 						
-			        }
-			    },
-			    legend: {
-			        show: true,
-					position: "ne", 
-				    labelBoxBorderColor: null,
-					margin:[-30,15]
-			    }
-				,
-				grid: {
-					hoverable: true,
-					clickable: true
-				},
-				tooltip: true, //activate tooltip
-				tooltipOpts: {
-					content: "%s : %y.1",
-					shifts: {
-						x: -30,
-						y: -50
-					}
-				}
-				
-			 });
-			
-			 
-			  var $tooltip = $("<div class='tooltip top in' style='display:none;'><div class='tooltip-inner'></div></div>").appendTo('body');
-			  placeholder.data('tooltip', $tooltip);
-			  var previousPoint = null;
-			
-			  placeholder.on('plothover', function (event, pos, item) {
-				if(item) {
-					if (previousPoint != item.seriesIndex) {
-						previousPoint = item.seriesIndex;
-						var tip = item.series['label'] + " : " + item.series['percent']+'%';
-						$(this).data('tooltip').show().children(0).text(tip);
-					}
-					$(this).data('tooltip').css({top:pos.pageY + 10, left:pos.pageX + 10});
-				} else {
-					$(this).data('tooltip').hide();
-					previousPoint = null;
-				}
-				
-			 });
-			
-			
-			
-			
-			
-			
-				var d1 = [];
-				for (var i = 0; i < Math.PI * 2; i += 0.5) {
-					d1.push([i, Math.sin(i)]);
-				}
-			
-				var d2 = [];
-				for (var i = 0; i < Math.PI * 2; i += 0.5) {
-					d2.push([i, Math.cos(i)]);
-				}
-			
-				var d3 = [];
-				for (var i = 0; i < Math.PI * 2; i += 0.2) {
-					d3.push([i, Math.tan(i)]);
-				}
-				
-			
-				var sales_charts = $('#sales-charts').css({'width':'100%' , 'height':'220px'});
-				$.plot("#sales-charts", [
-					{ label: "Domains", data: d1 },
-					{ label: "Hosting", data: d2 },
-					{ label: "Services", data: d3 }
-				], {
-					hoverable: true,
-					shadowSize: 0,
-					series: {
-						lines: { show: true },
-						points: { show: true }
-					},
-					xaxis: {
-						tickLength: 0
-					},
-					yaxis: {
-						ticks: 10,
-						min: -2,
-						max: 2,
-						tickDecimals: 3
-					},
-					grid: {
-						backgroundColor: { colors: [ "#fff", "#fff" ] },
-						borderWidth: 1,
-						borderColor:'#555'
-					}
 				});
 			
-			
-				$('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-				function tooltip_placement(context, source) {
-					var $source = $(source);
-					var $parent = $source.closest('.tab-content')
-					var off1 = $parent.offset();
-					var w1 = $parent.width();
-			
-					var off2 = $source.offset();
-					var w2 = $source.width();
-			
-					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
-					return 'left';
-				}
-			})
+				$('[data-rel=tooltip]').tooltip();
+
+			});	
 		</script>
 	</body>
 </html>

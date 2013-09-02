@@ -288,12 +288,6 @@
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
 
 								<li>
 									<a href="#">
@@ -403,12 +397,12 @@
 						</a>
 					</li>
 
-					<li>
+					<!--<li>
 						<a href="<?php echo base_url();?>help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="<?php echo base_url();?>about">
@@ -608,6 +602,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootstrap-tag.min.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 
 		<!--ace scripts-->
 
@@ -657,6 +652,8 @@
 				$(".item-list").sortable();
 	
 			});
+
+
 			
 			/********************** SAVE ADDING SETTINGS STATE ************************/
 
@@ -897,8 +894,8 @@
 					//obj[i].module_name
 
 					str += '<div class="pull-right">'
-					str += '<button id="'+obj[i].question_id+'" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button> '
-		   			str += '<button id="'+obj[i].question_id+'" class="btn-delete btn btn-minier btn-mini btn-danger"><i class="icon-trash"></i></button>'
+					str += '<!--<button id="'+obj[i].question_id+'" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>--> '
+		   			str += '<button id="'+obj[i].question_id+'" class="close" onclick="delete_item('+obj[i].question_id+')"><i class="icon-remove"></i></button>'
 					str += '</div>'
 					str += '<p id="q'+obj[i].question_id+'">'+obj[i].question+'</p>'
 
@@ -1144,13 +1141,38 @@
 					$('#q'+id).replaceWith("<p><textarea style='width:85%;'>"+q+"</textarea></p>");
 				});
 
-				/************************* DELETE ITEM ******************************/
 
-				$(".btn-delete").click(function(){
-
-					
-				});
 			}
+
+			/************************* DELETE ITEM ******************************/
+
+			var delete_item = function(id) {
+				//alert(id);
+				bootbox.dialog("<h3>Delete Item?</h3>", [{
+					"label" : "<i class=\'icon-trash\'></i> Delete",
+					"class" : "btn-small btn-danger",
+					"callback": function() {
+						//Example.show("great success");
+						$.ajax({
+							url: "<?php echo base_url();?>examination/delete_item",
+							type: "post",
+							data: {
+								id: id
+							},
+							success: function(e) {
+								console.log(e);
+								location.reload();
+							}
+						});
+						
+					}
+					}, {
+						"label" : "Cancel",
+						"class" : "btn-small"
+					}]
+				);
+			}
+
 		</script>
 	</body>
 </html>

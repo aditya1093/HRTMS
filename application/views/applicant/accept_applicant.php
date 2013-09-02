@@ -69,6 +69,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
+					<!--	
 						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
@@ -205,7 +206,7 @@
 								</li>
 							</ul>
 						</li>
-
+					-->
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
@@ -283,19 +284,13 @@
 								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
-									User
+									<?php echo $this->session->userdata('username');?>
 								</span>
 
 								<i class="icon-caret-down"></i>
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
 
 								<li>
 									<a href="#">
@@ -468,12 +463,13 @@
 						</ul>
 					</li>
 					<?php }?>
-					<li>
+					<!--<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="about">
@@ -604,6 +600,8 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
+
 
 		<!--ace scripts-->
 
@@ -616,7 +614,7 @@
 
 	
 		<script type="text/javascript">	
-		
+		$(function() {
 		   //set the css3 blur to an element
         	function blurElement(element, size){
 	            var filterVal = 'blur('+size+'px)';
@@ -682,47 +680,19 @@
 								   		return false;                
 
 							        });//end acceptApp
-							    	function accept(){
-							    			 
-							            first_name = $("#first_name").val();
-							            middle_name = $("#middle_name").val();
-							            last_name = $("#last_name").val();
-							            address = $("#address").val();
-							            birth_date = $("#birth_date").val();
-							            city = $("#city").val();
-							            province = $("#province").val();
-							            gender = $("#gender").val();
-							            phone = $("#phone").val();
-							            username = $("#username").val();
-						              	password = $("#password").val();
-						                email = $("#email").val();
-						                register_id = $("#register_id").val();
-							          
-							            var datastr = 'first_name='+first_name + '&middle_name='+middle_name + '&last_name='+last_name + '&address='+address + '&birth_date='+birth_date + '&city='+city + '&province='+province + '&gender='+gender + '&phone='+phone + '&username='+username + '&password='+password + '&email='+email + '&register_id='+register_id;    
-							           	//alert(province+phone+email);
-							            $.ajax({
-							                url:"<?php echo base_url();?>applicant/acceptApp",
-							                type:'POST',
-							                data:datastr,
-							                dataType:"json",
-							                success:function(result){
-							                $("#success").show();
-							                //$("#success").attr('class', 'alert alert-success');
-							                var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
-							                $("#success").html(output_string);
-							                $("#result_table").hide();
-							                $.gritter.add({
-												title: 'Applicant Accepted!',
-												text: result + ' has been added in AMI trainee.',
-												class_name: 'gritter-info gritter-center'
-											});
-												
 
-							                }
+									var confirm = $("#bootbox-confirm").on('click', function() {
+										bootbox.confirm("Are you sure this applicant comply with the requirements?", function(result) {
+											if(result) {
+												$('#scnd_load').show();
+		 										blurElement("#result_table", 2);
+		 										e.preventDefault();
+										        setTimeout(accept, 200);
+										   		return false;  
+											}
+										});	
+									});
 
-							            });
-
-							    		}
 								    
 								}//end else
 				            	
@@ -731,10 +701,8 @@
 				         });//end ajax
 				  
 				         return false;  //stop the actual form post !important!
-						
-   
 			}
-		    
+		});	
 
 		</script>
  
@@ -768,12 +736,6 @@
                     <td>${address}</td>
                 </tr>
                 <tr>
-         		
-                	<td>Address 2: </td>
-                    <td>${address_2}</td>
-        
-                </tr>
-                <tr>
                     <td>City: </td>
                     <td>${city}</td>
                 </tr>  
@@ -784,11 +746,7 @@
                 <tr>
                     <td>Country: </td>
                     <td>${country}</td>
-                </tr>                               
-                <tr>
-                    <td>Zipcode: </td>
-                    <td>${zipcode}</td>
-                </tr>
+                </tr>                              
                 <tr>
                     <td>Phone: </td>
                     <td>${phone}</td>
@@ -846,15 +804,20 @@
 							<input name="documents" class="ace" type="checkbox" />
 							<span class="lbl"> Diploma</span>
 						</label>
+							<label>
+							<input name="documents" class="ace" type="checkbox" />
+							<span class="lbl"> Medical Result</span>
+						</label>
 
 						<label>
 							<input name="documents" class="ace" type="checkbox" />
-							<span class="lbl"> Form - 137</span>
+							<span class="lbl"> Form - 137 for Undergrad / Transcript of Record for Graduate</span>
 						</label>
+						
 					</div>
 				</div>
 			</fieldset>
-				<button class="btn btn-success btn-block" type="submit" id="acceptApp">Accept Applicant</button>
+				<button class="btn btn-success btn-block" type="" id="bootbox-confirm">Accept Applicant</button>
 			</form>
 			<div class="center" id="scnd_load" style="display:none">
 									<div id="load"><i class="icon-spinner icon-spin blue icon-3x"></i></div><br>
@@ -880,6 +843,8 @@
 			<input type="hidden" name="username" id="username" value="${username}">
 			<input type="hidden" name="password" id="password" value="${password}">
 			<input type="hidden" name="email" id="email" value="${email}">
+			<input type="hidden" name="height" id="height" value="${height}">
+			<input type="hidden" name="civil_status" id="civil_status" value="${civil_status}">
 		</form>
         </div>
 		

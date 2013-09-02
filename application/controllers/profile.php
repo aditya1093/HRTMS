@@ -120,13 +120,14 @@ class Profile extends CI_Controller {
 			$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean|alpha');
 			$this->form_validation->set_rules('middle_name', 'Middle Name', 'xss_clean|alpha');
 			$this->form_validation->set_rules('birth_date_year', 'Year', 'required');
-			$this->form_validation->set_rules('birth_date__nc_month', 'Month', '');
-			$this->form_validation->set_rules('birth_date__nc_day', 'Day', '');
+			$this->form_validation->set_rules('birth_date_month', 'Month', 'required');
+			$this->form_validation->set_rules('birth_date_day', 'Day', 'required');
 			$this->form_validation->set_rules('address', 'Address', 'required|xss_clean');
 			$this->form_validation->set_rules('city', 'City', 'required|xss_clean');
 			$this->form_validation->set_rules('province', 'Province', 'required|xss_clean');
-			$this->form_validation->set_rules('zipcode', 'Zip/Postal code', 'required|xss_clean');
 			$this->form_validation->set_rules('phone', 'Phone', 'required|xss_clean');
+			$this->form_validation->set_rules('height', 'Height', 'required');
+			$this->form_validation->set_rules('civil_status', 'Civil Status', 'required');
 			
 			/*$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
 			//$this->form_validation->set_rules('email_confirm', 'Email Address Confrimation', 'required');
@@ -145,9 +146,10 @@ class Profile extends CI_Controller {
 					'birth_date'  	=> $this->input->post('birth_date_year') . '-' .$this->input->post('birth_date_month') . '-'. $this->input->post('birth_date_day') ,
 					'address'    	=> $this->input->post('address'),
 					'city'    		=> $this->input->post('city'),
-					'province'    		=> $this->input->post('province'),
-					'zipcode'    	=> $this->input->post('zipcode'),
+					'province'    	=> $this->input->post('province'),
 					'phone'      	=> $this->input->post('phone'),
+					'height'      	=> $this->input->post('height'),
+					'civil_status'  => $this->input->post('civil_status'),
 					'date_change'	=> date('Y-m-d H:i:s'),
 				);
 			}
@@ -155,12 +157,12 @@ class Profile extends CI_Controller {
 			{ 
 				//check to see if we are creating the user
 				//redirect them to checkout page
-      			$this->profile_model->change_info($data);
-      			$success = "Changes Successfully";
-      			$this->data = array (
-		            	'message' => $success
-		          );  
-		        $this->session->set_userdata($this->data);
+				$id = $this->session->userdata('user_id');
+      			$this->profile_model->change_info($id,$data);
+      			$success_message = "Changes Successfully";
+      		 	//$this->session->set_flashdata('message2',"Changes Successfully"); 
+		       
+		       	$this->session->set_flashdata('success',$success_message); 
 		        redirect(base_url().'profile/edit_profile', 'refresh');
 		        //$this->load->view('User/applicant/edit_profile_view',$this->data);
 			}

@@ -41,7 +41,8 @@ class Login_model extends CI_Model{
                     'security_answer' => $row->security_answer,
                     'email' => $row->email,
                     'permission' => $row->permission,
-                    'is_logged_in' => true
+                    'is_logged_in' => true,
+                    'company' => $row->company
                     );
         
             $this->session->set_userdata($data);

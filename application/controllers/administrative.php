@@ -10,6 +10,7 @@ class Administrative extends CI_Controller {
 		redirect(base_url() . 'index.php/dashboard');
 
 	}
+
 	function audit(){
 
 		//check kung naka-login
@@ -30,7 +31,6 @@ class Administrative extends CI_Controller {
 	function backup() {
 		
 		if($this->session->userdata('is_logged_in')) {
-
 			
 			$this->load->view('admin/backup_view');
 		}
@@ -38,6 +38,23 @@ class Administrative extends CI_Controller {
 
     		$this->load->view('login_view');
 		}	
+	}
+	
+	function confirm_request() {
+
+		$this->load->model("request_model");
+		$id = $this->input->post("id");
+
+		
+		
+		if($this->input->post("action") == "confirm") {
+			
+			$this->request_model->confirm_request($id, array("confirmed"=>"1","is_read"=>"0"));
+		}
+		else {
+
+			$this->request_model->confirm_request($id, array("confirmed"=>"0","is_read"=>"0"));
+		}
 	}
 
 

@@ -62,6 +62,7 @@
 				</a><!--/.brand-->
 
 				<ul class="nav ace-nav pull-right">
+				<!--	
 					<li class="grey">
 						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 							<i class="icon-tasks"></i>
@@ -198,6 +199,7 @@
 							</li>
 						</ul>
 					</li>
+				-->
 
 					<li class="green">
 						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -285,13 +287,6 @@
 						<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
 							<li>
 								<a href="#">
-									<i class="icon-cog"></i>
-									Settings
-								</a>
-							</li>
-
-							<li>
-								<a href="#">
 									<i class="icon-user"></i>
 									Profile
 								</a>
@@ -374,12 +369,13 @@
 					</li>
 
 				
-					<li>
+					<!--<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="about">
@@ -487,8 +483,8 @@
                           <option value = "Divorced" <?php if($row->civil_status=='Divorced') echo 'selected';?>>Divorced</option>
                         </select>
                         <label>Height
-                          <i>(e.g 5'4")</i> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Weight
-                          <i>in kilograms(kg)</i> &nbsp; &nbsp; Blood Type</label>
+                          <i>(cm)</i> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Weight
+                          <i>(kg)</i> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Blood Type</label>
                         <input type="text" class="input-medium" name = "height" value="<?php echo $row->height;?>">
                         <input type="text" class="input-medium" name = "weight" value="<?php echo $row->weight;?>">
                         <select name = "blood_type">

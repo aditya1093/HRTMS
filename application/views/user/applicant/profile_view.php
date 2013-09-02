@@ -71,12 +71,6 @@
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
 
 								<li>
 									<a href="#">
@@ -157,12 +151,13 @@
 
 			
 
-					<li>
+					<!--<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="about">
@@ -248,7 +243,7 @@
 										</ul>
 
 										<div class="tab-content no-border padding-24">
-											<div id="home" class="tab-pane in active">
+											<div id="home" class="tab-pane in active ">
 												<div class="row-fluid">
 													<div class="span3 center">
 														<span class="profile-picture">
@@ -262,9 +257,11 @@
 																	&nbsp;
 																	<span class="white middle bigger-120"><?php 
 
-																		$m = $row->middle_name[0];
+																	$mid = $row->middle_name;
+																	if($mid != null)	{$m = $row->middle_name[0].'.';} else { $m = $mid;}
+																		
 
-																		echo $row->first_name.' '.$m.'. '.$row->last_name;?></span>
+																		echo $row->first_name.' '.$m.' '.$row->last_name;?></span>
 																</a>
 															</div>
 														</div>
@@ -330,6 +327,20 @@
 																	<span><?php echo $row->birth_date?></span>
 																</div>
 															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Height </div>
+
+																<div class="profile-info-value">
+																	<span><?php echo $row->height?> cm</span>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Civil Status </div>
+
+																<div class="profile-info-value">
+																	<span><?php echo $row->civil_status?></span>
+																</div>
+															</div>
 
 															<div class="profile-info-row">
 																<div class="profile-info-name"> Email </div>
@@ -376,10 +387,134 @@
 												</div><!--/row-fluid-->
 
 												<div class="space-20"></div>
+												<div class="row-fluid">
+													<div class="span12">
+														
+														<div class="bcTarget align-left"></div>
+																<?php
+																	
+																	echo '<script type="text/javascript">$(".bcTarget").barcode("';
+																	echo $row->register_id;
+																	echo '", "code39");</script>';
+
+																?> 
+													</div>
+
+												</div>
+												<div class="row-fluid">
+													
+													<div class="span3 center">
+														<span class="profile-picture">
+															<img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
+														</span>
+														
+														<div class="width-80 label label-info label-large arrowed-in arrowed-in-right">
+															<div class="inline position-relative">
+																<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+																	<i class="icon-circle light-green middle"></i>
+																	&nbsp;
+																	<span class="white middle bigger-120"><?php 
+
+																		$m = $row->middle_name[0];
+
+																		echo $row->first_name.' '.$m.'. '.$row->last_name;?></span>
+																</a>
+															</div>
+														</div>
+														<div class="space space-4"></div>
+														
+					
+														
+
+													</div><!--/span-->
+
+													<div class="span9">
+
+														<div class="profile-user-info">
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Username </div>
+
+																<div class="profile-info-value">
+																	<span><?php echo $row->username;?></span>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Location </div>
+
+																<div class="profile-info-value">
+																	<i class="icon-map-marker light-orange bigger-110"></i>
+																	<span><?php echo $row->address.' '.$row->city;?></span>
+																	<span><?php echo $row->province;?></span>
+																	<span><?php echo $row->country;?></span>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Age </div>
+
+																<div class="profile-info-value">
+																	<span><?php
+																	$birthdate = $row->birth_date;												
+																    list($y,$m,$d) = explode('-', $birthdate);
+    
+																    if (($m = (date('m') - $m)) < 0) {
+																        $y++;
+																    } elseif ($m == 0 && date('d') - $d < 0) {
+																        $y++;
+																    }
+																    
+																    echo date('Y') - $y;
+																    ?></span>
+																</div>
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Birthday </div>
+
+																<div class="profile-info-value">
+																	<span><?php echo $row->birth_date?></span>
+																</div>
+															</div>
+															<div class="profile-info-row">
+															<div class="profile-info-name"> Height </div>
+
+																<div class="profile-info-value">
+																	<span><?php echo $row->height?> cm</span>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Civil Status </div>
+
+																<div class="profile-info-value">
+																	<span><?php echo $row->civil_status?></span>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Email </div>
+
+																<div class="profile-info-value">
+																	<span><?php echo $row->email;?></span>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Phone </div>
+
+																<div class="profile-info-value">
+																	<span><?php echo $row->phone;?></span>
+																</div>
+															</div>
+														</div>
+
+														<div class="hr hr-8 dotted"></div>
+
+													</div><!--/span-->
+												
+												</div><!--/row-fluid-->
+												
 
 											</div><!--#home-->
-
-											<div id="feed" class="tab-pane">
+												<div id="feed" class="tab-pane">
 												<div class="profile-feed row-fluid">
 													<div class="span6">
 														<div class="profile-activity clearfix">
@@ -1252,6 +1387,8 @@
 													</li>
 												</ul>
 											</div><!--/#pictures-->
+
+										
 										</div>
 									</div>
 						</div>
