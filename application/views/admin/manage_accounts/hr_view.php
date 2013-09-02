@@ -52,7 +52,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<!--	
+					<!--	
 						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
@@ -511,7 +511,7 @@
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 
-						<div class="span9">
+						<div class="span12">
 
 							<div class="box">
 									<div class="box-header well" data-original-title>
@@ -582,9 +582,6 @@
 																<i class="icon-trash bigger-120"></i>
 															</button>
 
-															<button class="btn btn-mini btn-warning">
-																<i class="icon-flag bigger-120"></i>
-															</button> 
 														</div>
 									
 														</td>
@@ -601,9 +598,10 @@
 								</div>
 
 								
-							</div> 
-
-						<div class="span3">
+							</div>
+							<div class="row-fluid">
+								
+						<div class="span5">
 
 							<!-- ADD HR START -->
 							
@@ -630,29 +628,36 @@
 									<div class="widget-main">
 										<div class="row-fluid">
 
-											<?php if(!is_null($this->session->userdata('error_hr'))) echo $this->session->userdata('error_hr'); ?>
+											<!--<?php if(!is_null($this->session->userdata('error_hr'))) echo $this->session->userdata('error_hr'); ?>
+											-->
+											<div id="infoMessage" align="center"><?php
+								              $message = $this->session->flashdata('hr_message');
+								              if ($message == null){}
+								              else{echo $message;}
+								              ?>         
+											</div>
 											<form method="post" action="<?php echo base_url();?>manage/add_hr">
  
 												<label><i class="light-red icon-asterisk"></i> Username:  </label>
-												<input autofocus  style="width: 94%" placeholder="Enter Username" type="text" id="username" name="username">
+												<input autofocus  style="width: 94%" placeholder="Enter Username" type="text" id="username" name="username" value="<?php echo $this->session->flashdata('username');?>">
 
 												<label><i class="light-red icon-asterisk"></i> Password: </label>
-												<input style="width: 94%" type="password" id="password" name="password">
+												<input style="width: 94%" type="password" id="password" name="password" value="">
 
 												<label><i class="light-red icon-asterisk"></i> Confirm Password: </label>
-												<input style="width: 94%" type="password" id="password_confirm" name="password_confirm">
+												<input style="width: 94%" type="password" id="password_confirm" name="password_confirm" value="">
 
 												<label><i class="light-red icon-asterisk"></i> First Name: </label>
-												<input style="width: 94%" type="text" id="first_name" name="first_name">
+												<input style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $this->session->flashdata('first_name');?>">
 
 												<label><i class="light-red icon-asterisk"></i> Last Name: </label>
-												<input style="width: 94%" type="text" id="last_name" name="last_name">
+												<input style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $this->session->flashdata('last_name');?>">
 
 												<label>Middle Name: </label>
-												<input style="width: 94%" type="text" id="middle_name" name="middle_name">
+												<input style="width: 94%" type="text" id="middle_name" name="middle_name" value="<?php echo $this->session->flashdata('middle_name');?>">
 
 												<label><i class="light-red icon-asterisk"></i> Email address: </label>
-												<input  style="width: 94%" type="email" id="email" name="email" >
+												<input  style="width: 94%" type="email" id="email" name="email"  value="<?php echo $this->session->flashdata('email');?>">
 
 												<hr>
 
@@ -670,6 +675,9 @@
 							<!-- ADD HR END -->
 
 						</div>
+
+
+							</div>
 
 						
 
@@ -709,6 +717,8 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
+
 
 		<!--ace scripts-->
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>

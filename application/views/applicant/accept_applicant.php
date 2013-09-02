@@ -672,28 +672,24 @@
 				              		$('#checkall').on('click', function () {
 								        $(this).closest('fieldset').find(':checkbox').prop('checked', this.checked);
 								    });
-							    	$("#acceptApp").click(function(e) {
-							    		              
-
-							        });//end acceptApp
-
-									var string = "<button id=\"bootbox-confirm\" class=\"btn btn-mini btn-info\">asdasd</button>"
-									//$('#btn').html(string);
-									$("#bootbox-confirm").on(ace.click_event, function() {
-										//alert("aw");
-										$('#result_table').show();
-										bootbox.confirm("Accept this Trainee?", function(result) {
-											if(result) {
-												$('#scnd_load').show();
-		 										blurElement("#result_table", 2);
-		 										//e.preventDefault();
-										        setTimeout(accept, 200);
-										   		//return false;  
-											}
-										});
-										return false;
-									});
-									//$('#result_table').show();
+							    
+							    	 $('#form_accept').submit(function() {
+									        if ($('input:checkbox', this).length == $('input:checked', this).length ) {
+									            bootbox.confirm("Accept this Trainee?", function(result) {
+													if(result) {
+														$('#scnd_load').show();
+				 										blurElement("#result_table", 2);
+				 										//e.preventDefault();
+												        setTimeout(accept, 200);
+												   		//return false;  
+													}
+												});
+												return false;
+									        } else {
+									            bootbox.alert('Accept applicant with complete requirements.');
+									            return false;
+									        }
+									    });
 								    
 							    	function accept(){
 							    			 
@@ -821,10 +817,10 @@
         <div class="span6">
         	<h3 class="header smaller lighter blue">
 				Documents
-				<small>Check the available documents.</small>
+				<small>Check the documents before accepting.</small>
 			</h3>
 	    
-			<form>
+			<form id="form_accept">
 			<fieldset>
 				<div class="control-group">
 					<label class="control-label"></label>

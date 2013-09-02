@@ -557,10 +557,6 @@
 												<button class="btn btn-mini btn-danger">
 													<i class="icon-trash bigger-120"></i>
 												</button>
-
-												<button class="btn btn-mini btn-warning">
-													<i class="icon-flag bigger-120"></i>
-												</button> 
 											</div>
 
 										</td>
@@ -612,26 +608,31 @@
 									<div class="widget-main">
 										<div class="row-fluid">
 
-											<?php if(!is_null($this->session->userdata('error_client'))) echo $this->session->userdata('error_client'); ?>
+											<div id="infoMessage" align="center"><?php
+										              $message = $this->session->flashdata('client_message');
+										              if ($message == null){}
+										              else{echo $message;}
+										              ?>         
+													</div>
 											<form method="post" action="<?php echo base_url();?>client/add_client">
  
 												<label for="client_name" ><i class="light-red icon-asterisk"></i> Client Name:  </label>
-												<input  id="client_name" autofocus  style="width: 94%" placeholder="Enter Name" type="text" name="client_name">
+												<input  id="client_name" autofocus  style="width: 94%" placeholder="Enter Name" type="text" name="client_name" value="<?php echo $this->session->flashdata('client_name');?>">
 
 												<label for="client_location" ><i class="light-red icon-asterisk"></i> Location: </label>
-												<input  id="client_location" style="width: 94%" type="text" name="client_location">
+												<input  id="client_location" style="width: 94%" type="text" name="client_location" value="<?php echo $this->session->flashdata('client_location');?>">
 
 												<label for="client_username" ><i class="light-red icon-asterisk"></i> Username: </label>
-												<input  id="client_username" style="width: 94%" type="text"name="client_username">
+												<input  id="client_username" style="width: 94%" type="text"name="client_username" value="<?php echo $this->session->flashdata('client_username');?>">
 
 												<label for="client_password" ><i class="light-red icon-asterisk"></i> Password: </label>
 												<input  id="client_password" style="width: 94%" type="password" name="client_password">
 
-												<label for="client_password_confirmation" ><i class="light-red icon-asterisk"></i> Password: </label>
+												<label for="client_password_confirmation" ><i class="light-red icon-asterisk"></i>Confirm Password: </label>
 												<input  id="client_password_confirmation" style="width: 94%" type="password" name="client_password_confirmation">
 
 												<label for="client_email" ><i class="light-red icon-asterisk"></i> Email: </label>
-												<input  id="client_email" style="width: 94%" type="text" name="client_email">
+												<input  id="client_email" style="width: 94%" type="text" name="client_email" value="<?php echo $this->session->flashdata('client_email');?>">
 
 
 												<hr>

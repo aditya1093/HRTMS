@@ -26,25 +26,59 @@ class Client extends CI_Controller {
 
 		$this->form_validation->set_rules('client_name', 'client Name', 'required|xss_clean');
 		$this->form_validation->set_rules('client_location', 'Location', 'required|xss_clean');
+		$this->form_validation->set_rules('client_username', 'Username', 'trim|required|xss_clean|min_length[6]|is_unique[user_table.username]|alpha_dash');
+		$this->form_validation->set_rules('client_password', 'Password', 'trim|required|matches[password_confirm]|min_length[6]');
+		$this->form_validation->set_rules('client_password_confirm', 'Password Confirmation', '');
+		$this->form_validation->set_rules('client_email', 'Email', 'required|valid_email');
 		
  
-        $this->session->unset_userdata('error_client');
+        //$this->session->unset_userdata('error_client');
+        $query = $this->db->query("select * from user_count where count_id = 1");
+		if ($query->num_rows() > 0)
+		{
+		   foreach ($query->result() as $row)
+		   {
+		      $p= $row->client_count + 1;
+		   }
+		   	$client_count = $p;
+			$p = sprintf("%04d",$p) ;
+			$permi = "-CLIENT-";
+			$user_id = 'AMI' .$permi.$p;
+		}
+		else
+		{
+			$this->db->insert('user_count', array('client_count' => '1' ));
+			$p = "1";
+			$p = sprintf("%04d",$p);
+			$permi = "-CLIENT-";
+			$user_id = 'AMI' .$permi.$p;
 
+		}
         if($this->form_validation->run() == true) {
 
         	$data = array(
+        			'user_id' => $user_id,
         			'client_name' => $this->input->post('client_name'),
-        			'client_location' => $this->input->post('client_location')
+        			'client_location' => $this->input->post('client_location'),
+        			'client_username' => $this->input->post('client_username'),
+        			'client_password' => md5($this->input->post('client_password')),
+        			'client_email' => $this->input->post('client_email')
         		);
+        	$count = array('client_count' => $client_count);
     		
 			$this->load->model('client_model');
-			$this->client_model->add_client($data);
+			$this->client_model->add_client($data,$count);
 
 			$config['hostname'] = 'ftp.jemnuine.com';
 	        $config['username'] = 'jemnuin2@jemnuine.com';
 	        $config['password'] = 'sinigang123';
 	        $config['debug']    = TRUE;
 
+
+	        $success_string = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Client account has successfully added.</div>';
+ 			$this->session->set_flashdata('client_message',$success_string); 
+
+ 			
 	        $this->ftp->connect($config);
 
 	        //$this->ftp->mirror('/', '/public_html/elfinder/files/');
@@ -55,16 +89,23 @@ class Client extends CI_Controller {
 	        	$this->ftp->close();
 	        }
 	        $this->ftp->close();
+	        
 
 		}
 		else
 		{
 
-			$error_string = '<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>' . validation_errors() . '</div>';
+			$error_string = '<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>' . validation_errors() .$user_id. '</div>';
 			$data = array (
-					'error_client' => $error_string
+					'client_message' => $error_string,
+					'client_name' => $this->input->post('client_name'),
+        			'client_location' => $this->input->post('client_location'),
+        			'client_username' => $this->input->post('client_username'),
+        			'client_email' => $this->input->post('client_email')
+
 				);	
-			$this->session->set_userdata($data);
+			//$this->session->set_userdata($data);
+			$this->session->set_flashdata($data); 
 			
 		}
 
