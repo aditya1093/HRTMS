@@ -543,9 +543,6 @@
 												<th class="hidden-phone">													
 													Date Created
 												</th>
-												<th class="hidden-480">
-													Last Login
-												</th>
 												<th> 
 												</th>
 											</tr> 
@@ -558,7 +555,6 @@
 														<td><?php echo $row->username;?></td>
 														<td><?php echo $row->email;?></td>														
 														<td><?php echo $row->date_created;?></td>
-														<td><?php echo $row->last_login;?></td>	
 														<td class="td-actions">
 
 																<!--
@@ -574,7 +570,7 @@
 																<i class="icon-edit bigger-120"></i>
 															</button>
 
-															<button class="btn btn-mini btn-danger">
+															<button class="btn btn-mini btn-danger" onClick="delete_user('<?php echo $row->id;?>','<?php echo $row->username;?>')">
 																<i class="icon-trash bigger-120"></i>
 															</button>
 
@@ -666,9 +662,7 @@
 										</div></div>
 									</div>
 
-						</div>
-
-
+							</div>
 							</div>
 
 					
@@ -741,7 +735,7 @@
 				//datatable initializatino
 				var oTable1 = $('#trainee_list').dataTable( {
 				"aoColumns": [			     
-			      null, null,null, null, null,
+			      null, null,null, null, 
 				  { "bSortable": false }
 				] } );
 				
@@ -758,7 +752,38 @@
 			
 				$('[data-rel=tooltip]').tooltip();
 
-			});	
+			});
+
+			var delete_user = function(id,username) {
+			var str = "<h3>Confirm</h3>" + username + " will be deleted";
+			str += ". Do you really want to delete this user?";
+
+			bootbox.dialog(str, [{
+					"label" : "<i class=\'icon-trash\'></i> Delete",
+					"class" : "btn-small btn-danger",
+					"callback": function() {
+						//Example.show("great success");
+
+						$.ajax({
+							url: "<?php echo base_url();?>manage/delete_user",
+							type: "post",
+							data: {
+								id: id
+							},
+							success: function(e) {
+								console.log(e);
+								location.reload();
+							}
+						});
+						
+					}
+					}, {
+						"label" : "Cancel",
+						"class" : "btn-small"
+					}]
+				);
+
+		}	
 		</script>
 	</body>
 </html>

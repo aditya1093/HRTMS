@@ -61,13 +61,21 @@ class Client extends CI_Controller {
         			'client_name' => $this->input->post('client_name'),
         			'client_location' => $this->input->post('client_location'),
         			'client_username' => $this->input->post('client_username'),
-        			'client_password' => md5($this->input->post('client_password')),
         			'client_email' => $this->input->post('client_email')
+        		);
+        	$userTable = array(
+        			'user_id' => $user_id,
+        			'first_name' => $this->input->post('client_name'),
+        			'username' => $this->input->post('client_username'),
+        			'password' => md5($this->input->post('client_password')),
+        			'email' => $this->input->post('client_email')
         		);
         	$count = array('client_count' => $client_count);
     		
 			$this->load->model('client_model');
-			$this->client_model->add_client($data,$count);
+			$this->client_model->add_client($data,$count,$userTable);
+
+
 
 			$config['hostname'] = 'ftp.jemnuine.com';
 	        $config['username'] = 'jemnuin2@jemnuine.com';

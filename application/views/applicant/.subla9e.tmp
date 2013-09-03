@@ -1,9 +1,9 @@
-<?php if($this->session->userdata('permission') != 'Administrator'&& $this->session->userdata('permission') != 'HR') { redirect(base_url() . 'index.php/404');} ?>
+<?php if($this->session->userdata('permission') != 'Administrator' && $this->session->userdata('permission') != 'HR') { redirect(base_url() . '404');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Dashboard - AMI</title>
+		<title>AMI - Registration</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,21 +28,36 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/datepicker.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/applicant/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
+			<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />	
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
+		
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
+		
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
 		<![endif]-->
 
 		<!--inline styles if any-->
+		<style type="text/css">
+				#mydiv {
+		    height: 400px;
+		    position: relative;
+		    background-color: gray; /* for demonstration */
+		}
+		.ajax-loader {
+		    position: absolute;
+		    left: 50%;
+		    top: 50%;
+		    margin-left: -32px; /* -1 * image width / 2 */
+		    margin-top: -32px;  /* -1 * image height / 2 */
+		    display: block;     
+		}</style>
 	</head>
 
 	<body>
-		<?php if(!isset($no_visible_elements) || !$no_visible_elements)	{ ?>
 		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
@@ -64,7 +79,7 @@
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-ok"></i>
-									Tasks to complete
+									4 Tasks to complete
 								</li>
 
 								<li>
@@ -137,7 +152,7 @@
 							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-warning-sign"></i>
-									Notifications
+									8 Notifications
 								</li>
 
 								<li>
@@ -155,7 +170,7 @@
 								<li>
 									<a href="#">
 										<i class="btn btn-mini btn-primary icon-user"></i>
-										Error Occured
+										Bob just signed up as an editor ...
 									</a>
 								</li>
 
@@ -192,7 +207,6 @@
 							</ul>
 						</li>
 					-->
-
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
@@ -288,7 +302,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="<?php echo base_url();?>logout">
+									<a href="<?php echo base_url();?>index.php/logout">
 										<i class="icon-off"></i>
 										Logout
 									</a>
@@ -299,9 +313,8 @@
 				</div><!--/.container-fluid-->
 			</div><!--/.navbar-inner-->
 		</div>
-		<?php } ?>
+
 		<div class="container-fluid" id="main-container">
-			<?php if(!isset($no_visible_elements) || !$no_visible_elements) { ?>
 			<a id="menu-toggler" href="#">
 				<span></span>
 			</a>
@@ -335,9 +348,7 @@
 
 						<span class="btn btn-danger"></span>
 					</div>
-				</div>
-
-				<!--#sidebar-shortcuts-->
+				</div><!--#sidebar-shortcuts-->
 
 				<ul class="nav nav-list">
 					
@@ -359,14 +370,14 @@
 						</a>
 
 						<ul class="submenu">
-							<li  class="active">
+							<li  class="">
 								<a href="<?php echo base_url();?>applicant">
 									<i class="icon-archive"></i>
 									<span>Applicants</span>
 								</a>
 							</li>
 
-							<li>
+							<li class="active">
 								<a href="<?php echo base_url();?>applicant/accept">
 									<i class="icon-user"></i>
 								   	<span>Accept</span>
@@ -397,7 +408,8 @@
 							<span>Deployment Tagging</span>
 						</a>
 					</li>
-					<?php if($this->session->userdata("permission")=="Administrator") {?>
+					<?php if($this->session->userdata("permission") == "Administrator") {?>
+
 					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
@@ -466,35 +478,25 @@
 						</a>
 					</li>
 			
-				</ul>
-
-				<!--/.nav-list-->
+				</ul><!--/.nav-list-->
 
 				<div id="sidebar-collapse">
 					<i class="icon-double-angle-left"></i>
 				</div>
 			</div>
 
-
-			
-			<?php } ?>
-		<?php if(isset($records)) : foreach($records as $row) : ?>
 			<div id="main-content" class="clearfix">
 				<div id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="<?php echo base_url();?>dashboard">Home</a>
+							<a href="dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class=""><a href="<?php echo base_url();?>applicant">Registration</a></li>
-						<span class="divider">
-								<i class="icon-angle-right"></i>
-						</span>
-						<li class="active"><?php echo $row->register_id;?></li>
+						<li class="active">About the Developers</li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
@@ -508,261 +510,58 @@
 				</div>
 
 				<div id="page-content" class="clearfix">
+					<div class="page-header position-relative">
+						<h1>
+							Registration
+							<small>
+								<i class="icon-double-angle-right"></i>
+								Accepting Applicant
+							</small>
+						</h1> 
+					</div><!--/.page-header-->
+
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-						<div id="user-profile-2" class="user-profile row-fluid">
-									<div class="tabbable">
-								
-										<div class="tab-content no-border padding-24">
-											<div id="home" class="tab-pane in active">
-												<div class="row-fluid">
-													<div class="span3 center">
-														<span class="profile-picture">
-															<img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
-														</span>
-														<div class="width-80 label label-info label-large arrowed-in arrowed-in-right">
-															<div class="inline position-relative">
-																<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
-																	<i class="icon-circle light-green middle"></i>
-																	&nbsp;
-																	<span class="white middle bigger-120"><?php 
-																	$mid = $row->middle_name;
-																	if($mid != null)	{$m = $row->middle_name[0].'.';} else { $m = $mid;}
-																		
 
-																		echo $row->first_name.' '.$m.' '.$row->last_name;?></span>
-																</a>
-															</div>
-														</div>
+						<div class="span12">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										Applicant
+										<small>accept Applicant with complete documents</small>
+									</h4>
+								</div>
 
-														<div class="space space-4"></div>
-
-													</div><!--/span-->
-
-													<div class="span9">
-													<form class="form-horizontal" method="POST" action="<?php echo base_url();?>applicant/edit_info/<?php echo $row->register_id;?>">
-														<div class="alert alert-info">
-										                  <p>Items marked with an asterisk (<span class="mandatory_star">*</span>) are required.</p>  
-										              	</div>
-										               
-											              <div id="infoMessage" align="center"><?php 
-											              $success = $this->session->flashdata('success');
-											              if ($message == null){
-
-											              }
-											              else{
-											              echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
-											              echo '<div class="alert alert-error">';
-											              echo $message;
-											              echo '</div>';
-											              }
-
-											              if($success != null){
-												              echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
-												              echo '<div class="alert alert-success">';
-												              echo $success;
-												              echo '</div>';
-
-											              }
-											              else
-											              {
-
-											              }
-											              ?>
-											              </div>
-
-														<div class="profile-user-info">
-													
-															<div class="profile-info-row">
-																<div class="profile-info-name">Full Name </div>
-																
-																<div class="profile-info-value">
-																	
-																	<div class="control-group">
-																		<label class="control-label" for="first_name" >First Name</label>
-
-																		<div class="controls">
-																			<input type="text" id="first_name" name="first_name" value="<?php echo $row->first_name;?>">
-																		</div>
-																	</div>
-
-																	<div class="control-group">
-																		<label class="control-label" for="last_name" >Last Name</label>
-
-																		<div class="controls">
-																			<input type="text" id="last_name" name="last_name" value="<?php echo $row->last_name;?>">
-																		</div>
-																	</div>
-
-																	<div class="control-group">
-																		<label class="control-label" for="middle_name">Middle Name</label>
-
-																		<div class="controls">
-																			<input type="text" id="middle_name"  name="middle_name" value="<?php echo $row->middle_name;?>">
-																		</div>
-																	</div>
-
-																</div>
-															</div>
-
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Location </div>
-																<div class="profile-info-value">
-																	
-																	<div class="control-group">
-																		<label class="control-label" for="address" >Address</label>
-
-																		<div class="controls">
-																			<input type="text" id="address" name="address" value="<?php echo $row->address;?>">
-																		</div>
-																	</div>
-
-																	<div class="control-group">
-																		<label class="control-label" for="city" >City</label>
-
-																		<div class="controls">
-																			<input type="text" id="city" name="city" value="<?php echo $row->city;?>">
-																		</div>
-																	</div>
-
-																	<div class="control-group">
-																		<label class="control-label" for="province" >Province</label>
-
-																		<div class="controls">
-																			<input type="text" id="province" name="province" value="<?php echo $row->province;?>">
-																		</div>
-																	</div>
-
-																</div>
-															</div>
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Birthday </div>
-
-																<div class="profile-info-value">
-																		<div class = "controls input-append" >
-																		<input  placeholder="Click to add date" class="span10 date-picker" name="birth_date" id="birthdate"  value ="<?php echo $row->birth_date;?>" type="text" data-date-format="yyyy-mm-dd">
-																		<span class="add-on">
-																			<i class="icon-calendar"></i>
-																		</span>
-														          		</div>
-																</div>
-															</div>
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Height </div>
-
-																<div class="profile-info-value">
-																	<input type="text" name="height" class="controls span2" value="<?php echo $row->height;?>">
-																</div>
-															</div>
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Civil Status </div>
-
-																<div class="profile-info-value">
-																	<div class="control-group">
-																		<label class="control-label" for="" ></label>
-
-																		<div class="controls">
-																			 <select id="" name = "civil_status">
-													                          <option disabled = "disabled" selected = "selected" value="">Select Status..</option>
-													                          <option value = "Single" <?php if($row->civil_status=='Single') echo 'selected';?>>Single</option>
-													                          <option value = "Married" <?php if($row->civil_status=='Married') echo 'selected';?>>Married</option>
-													                          <option value = "Separated" <?php if($row->civil_status=='Separated') echo 'selected';?>>Separated</option>
-													                          <option value = "Widowed" <?php if($row->civil_status=='Widowed') echo 'selected';?>>Widowed</option>
-													                          <option value = "Divorced" <?php if($row->civil_status=='Divorced') echo 'selected';?>>Divorced</option>
-													                        </select>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Phone </div>
-
-																<div class="profile-info-value">
-																	<input type="text" name="phone" class="controls" value="<?php echo $row->phone;?>">
-																</div>
-															</div>
-															<div class="form-actions">
-															<button class="btn btn-info btn-small" type="submit">
-																<i class="icon-ok bigger-110"></i>
-																Submit
-															</button>
-
-															&nbsp; &nbsp; &nbsp;
-															</div>
-													</form>
-													<form method="POST" action="<?php echo base_url();?>profile/">
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Account </div>
-
-																<div class="profile-info-value">
-																	<div class="control-group">
-																		<label class="control-label" for="username" name="username">Username</label>
-
-																		<div class="controls">
-																			<input type="text" id="username" value="<?php echo $row->username;?>">
-																		</div>
-																	</div>
-																	<div class="control-group">
-																		<label class="control-label" for="email" name="email">Email</label>
-
-																		<div class="controls">
-																			<input type="text" id="email" value="<?php echo $row->email;?>">
-																		</div>
-																	</div>
-																</div>
-																
-															</div>
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Password </div>
-
-																<div class="profile-info-value">
-																	<div class="control-group">
-																		<label class="control-label" for="oldPass" name="oldPass">Old Password</label>
-
-																		<div class="controls">
-																			<input type="password" id="oldPass" value="<?php echo $row->password;?>">
-																		</div>
-																	</div>
-																	<div class="control-group">
-																		<label class="control-label" for="newPass" name="newPass">New Password</label>
-
-																		<div class="controls">
-																			<input type="text" id="newPass">
-																		</div>
-																	</div>
-																</div>
-																
-															</div>
-
-
-														
-														
-														
-														<div class="form-actions">
-															<button class="btn btn-info btn-small" type="submit">
-																<i class="icon-ok bigger-110"></i>
-																Submit
-															</button>
-
-															&nbsp; &nbsp; &nbsp;
-														</div>
-													</form>
-														<div class="hr hr-8 dotted"></div>
-
-												
-													</div><!--/span-->
-												</div><!--/row-fluid-->
-
-												<div class="space-20"></div>
-
-											</div><!--#home-->
-
-										</div>
+								<div class="widget-body">
+								<div class="widget-main">
+					
+									<form class="form-inline" id="applicant">
+										<input autofocus type="text" class="span11" name="id" id="id" />
+										<button id="getinfo" class="btn btn-purple btn-small">
+											Get Data
+										</button>												
+									</form>
+									<div id='result_table'></div>
+									<br>
+									<br>
+									<div id="success" class=""></div>
+									
+									<div class="center" id="first_load" style="display:none">
+									<br>
+									<br><div id="load"><i class="icon-spinner icon-spin blue icon-3x"></i></div><br>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
 									</div>
+									
+
+								</div>
+							</div>
 						</div>
-					<?php endforeach;?> 
-					<?php endif; ?>
-									         
+						
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
 				</div><!--/#page-content-->
@@ -773,6 +572,7 @@
 		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
 		</a>
+	
 
 		<!--basic scripts-->
 
@@ -799,64 +599,307 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
+
+
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
-		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
-
-
+		<script src="<?php echo base_url();?>assets/js/jquery-templ.js" type="text/javascript"></script>
 		<!--inline scripts related to this page-->
+		
 
-		<script type="text/javascript">
-			$(function() {
-			
-				$('.dialogs,.comments').slimScroll({
-			        height: '300px'
-			    });
-				
-				$('#tasks').sortable();
-				$('#tasks').disableSelection();
-				$('#tasks input:checkbox').removeAttr('checked').on('click', function(){
-					if(this.checked) $(this).closest('li').addClass('selected');
-					else $(this).closest('li').removeClass('selected');
-				});
+	
+		<script type="text/javascript">	
+		$(function() {
+		   //set the css3 blur to an element
+        	function blurElement(element, size){
+	            var filterVal = 'blur('+size+'px)';
+	            $(element)
+	              .css('filter',filterVal)
+	              .css('webkitFilter',filterVal)
+	              .css('mozFilter',filterVal)
+	              .css('oFilter',filterVal)
+	              .css('msFilter',filterVal);
+       		 }
+       		$.extend($.gritter.options, { 
+		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+				fade_out_speed: 2000, // how fast the notices fade out
+				time: 3000 // hang on the screen for...
+			});
 
-				//datatable initialization
-				var oTable1 = $('#table_report').dataTable( {
-				"aoColumns": [
-			      null,null, null, null,
-				  { "bSortable": false }
-				] } );
-				
-				
-				$('table th input:checkbox').on('click' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
-					});
-						
-				});
-			
-				$('[data-rel=tooltip]').tooltip();
+			$("#getinfo").click(function(){
+					$('#first_load').show();
+					blurElement("#first_load", 2);
+					blurElement("#result_table", 0);
+					$('#result_table').hide();
+			        setTimeout(submitFormAjax, 200);
+			   		return false;
+			});
 
+			function submitFormAjax() {
+				var dataString = $("#id").val();
+				 $.ajax({ 
+				           url: "<?php echo base_url();?>applicant/searchApplicant",
+				     	   async: false,
+				           type: "POST",			          
+				           data: "id="+dataString, 
+				           dataType: 'json',
 
-				$('.date-picker').datepicker().next().on(ace.click_event, function() {
-					$(this).prev().focus();
-				});
+				           success: function(response){
+				               //alert(dataString); 
+				                //$('#result_table').html(output_string);
+				               
+				              if ( response.length == 0 ) {
+				              	$('#first_load').hide();
+				              	$('#scnd_load').hide();
+				              	$('#success').hide();
+				              	$('#result_table').show();
+				              	output_string = '"There is no applicant or the applicant has been accepted."';
+				              	$('#result_table').html('<br><br><br><br><div class="center"><b>'+output_string +'</b></div><br><br><br><br><br><br>');
+				              }
+				              else{	
+			              			$('#first_load').hide();
+			              			$('#scnd_load').hide();
+				                	output_string = $('#user').render(response);
+				                	$('#success').hide();
+				                	$('#result_table').show();
+				              		$('#result_table').html(output_string);
+				              		$('#checkall').on('click', function () {
+								        $(this).closest('fieldset').find(':checkbox').prop('checked', this.checked);
+								    });
+							    	$("#acceptApp").click(function(e) {
+							    		              
 
-				$('.date-picker').datepicker({
-				    onSelect: function(dateText, inst) {
-				      $("#date_requested").val(dateText);
-					}
-				});
+							        });//end acceptApp
+							    	if ($('input:checkbox', this).length == $('input:checked', this).length ) {
+							            // everything's fine...
+							        } else {
+							            alert('Please tick all checkboxes!');
+							            return false;
+							        }
+									
+									$("#bootbox-confirm").on(ace.click_event, function() {
+										//alert("aw");
+										$('#result_table').show();
+										bootbox.confirm("Accept this Trainee?", function(result) {
+											if(result) {
+												$('#scnd_load').show();
+		 										blurElement("#result_table", 2);
+		 										//e.preventDefault();
+										        setTimeout(accept, 200);
+										   		//return false;  
+											}
+										});
+										return false;
+									});
+									//$('#result_table').show();
+								    
+							    	function accept(){
+							    			 
+							            first_name = $("#first_name").val();
+							            middle_name = $("#middle_name").val();
+							            last_name = $("#last_name").val();
+							            address = $("#address").val();
+							            birth_date = $("#birth_date").val();
+							            city = $("#city").val();
+							            province = $("#province").val();
+							            gender = $("#gender").val();
+							            phone = $("#phone").val();
+							            username = $("#username").val();
+						              	password = $("#password").val();
+						                email = $("#email").val();
+						                register_id = $("#register_id").val();
+						                height = $("#height").val();
+						                civil_status = $("#civil_status").val();
+							          
+							            var datastr = 'first_name='+first_name + '&middle_name='+middle_name + '&last_name='+last_name + '&address='+address + '&birth_date='+birth_date + '&city='+city + '&province='+province + '&gender='+gender + '&phone='+phone + '&username='+username + '&password='+password + '&email='+email + '&register_id='+register_id + '&height='+height+ '&civil_status='+civil_status;    
+							           	//alert(province+phone+email);
+							            $.ajax({
+							                url:"<?php echo base_url();?>applicant/acceptApp",
+							                type:'POST',
+							                data:datastr,
+							                dataType:"json",
+							                success:function(result){
+							                $("#success").show();
+							                //$("#success").attr('class', 'alert alert-success');
+							                var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
+							                $("#success").html(output_string);
+							                $("#result_table").hide();
+							                $.gritter.add({
+												title: 'Applicant Accepted!',
+												text: result + ' has been added in AMI trainee.',
+												class_name: 'gritter-info gritter-center'
+											});
+												
 
-			});	
+							                }
+
+							            });
+
+							    		}
+								}//end else
+				            	
+				           }//end success
+				  
+				         });//end ajax
+				  
+				         return false;  //stop the actual form post !important!
+			}
+		});	
+
 		</script>
+ 
+		<script type="text/template" id="user">
+		<div class="row-fluid">
+		<div class="span6">
+		
+	    <table>
+                <tr> 
+                    <td><h3>Personal Details</h3></td>
+
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Registration ID :</td>
+                    <td>${register_id}</td>
+                </tr>
+             	<tr>
+                    <td>Name: </td>
+                    <td>${last_name}, ${first_name} ${middle_name}</td>
+                </tr>
+                <tr>
+
+                    <td>Birthday: </td>
+                    <td>${birth_date}</td>
+                </tr>
+
+                <tr>
+
+                    <td>Address: </td>
+                    <td>${address}</td>
+                </tr>
+                <tr>
+                    <td>City: </td>
+                    <td>${city}</td>
+                </tr>  
+                <tr>
+                    <td>Province: </td> 
+                    <td>${province}</td>
+                </tr>
+                <tr>
+                    <td>Country: </td>
+                    <td>${country}</td>
+                </tr>                              
+                <tr>
+                    <td>Phone: </td>
+                    <td>${phone}</td>
+                </tr>
+                <tr> 
+                <td><h3>Account Details</h3></td>
+                <td>&nbsp;</td>
+                </tr>
+                <td>Username: </td>
+                    <td>${username}</td>
+                </tr>
+                <tr>
+                    <td>Email Address: </td>
+                    <td>${email}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                <td><div class="bcTarget"></div></td>
+                <td>&nbsp;</td>
+
+            </tr>
+        </table>
+
+        </div>
+        <div class="span6">
+        	<h3 class="header smaller lighter blue">
+				Documents
+				<small>Check the documents before accepting.</small>
+			</h3>
+	    
+			<form>
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label"></label>
+ 
+					<div class="controls">
+						<label>
+							<input name="" type="checkbox" class="ace ace-switch" id="checkall" />
+							<span class="lbl">&nbsp;Check all</span>
+						</label>
+						<label>
+							<input name="documents" type="checkbox" class="ace" />
+							<span class="lbl"> Registraton slip</span>
+						</label>
+
+						<label>
+							<input name="documents" type="checkbox" class="ace" />
+							<span class="lbl"> Resume</span>
+						</label>
+
+						<label>
+							<input name="documents" class="ace" type="checkbox" />
+							<span class="lbl"> Diploma</span>
+						</label>
+							<label>
+							<input name="documents" class="ace" type="checkbox" />
+							<span class="lbl"> Medical Result</span>
+						</label>
+
+						<label>
+							<input name="documents" class="ace" type="checkbox" />
+							<span class="lbl"> Form - 137 for Undergrad / Transcript of Record for Graduate</span>
+						</label>
+						
+					</div>
+				</div>
+			</fieldset>
+				<button class="btn btn-success btn-block" type="" id="bootbox-confirm">Accept Applicant</button>
+			</form>
+			<div class="center" id="scnd_load" style="display:none">
+				<div id="load"><i class="icon-spinner icon-spin blue icon-3x"></i></div><br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+			</div>
+        </div>
+        <form>
+       		<input type="hidden" name="register_id" id="register_id" value="${register_id}">
+			<input type="hidden" name="first_name" id="first_name" value="${first_name}">
+			<input type="hidden" name="last_name" id="last_name" value="${last_name}"> 	
+			<input type="hidden" name="middle_name" id="middle_name"  value="${middle_name}">
+			<input type="hidden" name="birth_date" id="birth_date" value="${birth_date}"> 	
+			<input type="hidden" name="address" id="address" value="${address}"> 	
+			<input type="hidden" name="city" id="city"  value="${city}"> 	
+			<input type="hidden" name="province" id="province" value="${province}"> 	
+			<input type="hidden" name="gender" id="gender" value="${gender}"> 	
+			<input type="hidden" name="phone" id="phone" value="${phone}"> 	
+			<input type="hidden" name="username" id="username" value="${username}">
+			<input type="hidden" name="password" id="password" value="${password}">
+			<input type="hidden" name="email" id="email" value="${email}">
+			<input type="hidden" name="height" id="height" value="${height}">
+			<input type="hidden" name="civil_status" id="civil_status" value="${civil_status}">
+		</form>
+        </div>
+		
+		</script>
+
+		
+		
+
 	</body>
 </html>

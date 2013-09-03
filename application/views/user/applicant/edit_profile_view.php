@@ -224,9 +224,11 @@
 																	&nbsp;
 																	<span class="white middle bigger-120"><?php 
 
-																		$m = $row->middle_name[0];
+																		$mid = $row->middle_name;
+																	if($mid != null)	{$m = $row->middle_name[0].'.';} else { $m = $mid;}
+																		
 
-																		echo $row->first_name.' '.$m.'. '.$row->last_name;?></span>
+																		echo $row->first_name.' '.$m.' '.$row->last_name;?></span>
 																</a>
 															</div>
 														</div>

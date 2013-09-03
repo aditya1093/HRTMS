@@ -47,6 +47,7 @@ class Report_model extends CI_Model{
 
      function byBatch() {
         $this->db->select('batch_control_no');
+        $this->db->distinct();
         $this->db->from('hris');
         $this->db->join('gradesheet', 'hris.trainee_id = gradesheet.training_id','left');
         $this->db->order_by("batch_control_no", "asc"); 

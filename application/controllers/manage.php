@@ -11,10 +11,11 @@ class Manage extends CI_Controller {
 		redirect(base_url() . 'index.php/dashboard');
 	}
 
+	/******************* List HR USER ***************************************/
+
 	function hr() {
 		//check kung naka-login
 		if($this->session->userdata('is_logged_in')) {
-			$this->session->unset_userdata('edit_hr_error');
 
 			$this->load->model('manage_model');
 			$query = $this->manage_model->list_hr();
@@ -26,6 +27,8 @@ class Manage extends CI_Controller {
     		$this->load->view('login_view');
 		}	
 	}
+
+	/******************* ADD HR USER ***************************************/
 
 	function add_hr() {
 
@@ -102,10 +105,13 @@ class Manage extends CI_Controller {
 		redirect(base_url().'manage/hr', 'refresh');	
 	}
 
+
+	/******************* List TRAINER USER ***************************************/
+
+
 	function training() {
 		//check kung naka-login
 		if($this->session->userdata('is_logged_in')) {
-			$this->session->unset_userdata('edit_hr_error');
 
 			$this->load->model('manage_model');
 			$query = $this->manage_model->list_trainer();
@@ -117,6 +123,11 @@ class Manage extends CI_Controller {
     		$this->load->view('login_view');
 		}	
 	}
+
+
+
+	/******************* ADD TRAINER USER ***************************************/
+
 	function add_trainer() {
 
 		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean|min_length[6]|is_unique[user_table.username]|alpha_dash');
@@ -193,6 +204,26 @@ class Manage extends CI_Controller {
 
 		redirect(base_url().'manage/training', 'refresh');	
 	}
+
+
+	/******************* Delete User ******************************/
+
+	function delete_user() {
+		//check kung naka-login
+		if($this->session->userdata('is_logged_in')) {
+
+			$id = $this->input->post("id");
+			echo $id;
+			$this->load->model('manage_model');
+			$this->manage_model->delete_user($id);
+		}
+		else {
+
+    		$this->load->view('login_view');
+		}	
+	}
+
+
 }
 
 /* End of file manage.php */

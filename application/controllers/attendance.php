@@ -22,15 +22,6 @@ class Attendance extends CI_Controller {
 		}	
 	}
 
-	function hr() {
-
-		$this->load->view('admin/manage_accounts/hr');
-	}
-
-	function training() {
-
-		$this->load->view('admin/manage_accounts/training');
-	}
 }
 
 /* End of file attendance.php */

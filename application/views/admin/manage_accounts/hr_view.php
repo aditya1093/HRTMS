@@ -26,8 +26,10 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
-
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
+		
+	
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
@@ -547,9 +549,6 @@
 												<th class="hidden-phone">													
 													Date Created
 												</th>
-												<th class="hidden-480">
-													Last Login
-												</th>
 												<th> 
 												</th>
 											</tr>
@@ -558,11 +557,10 @@
 												<?php if(isset($records)) : foreach($records as $row) : ?>
 													<tr>
 														
-														<td><?php echo $row->last_name.', '.$row->first_name.' '.$row->middle_name;?></td>
+														<td id=""><?php echo $row->last_name.', '.$row->first_name.' '.$row->middle_name;?></td>
 														<td><?php echo $row->username;?></td>
 														<td><?php echo $row->email;?></td>														
 														<td><?php echo $row->date_created;?></td>
-														<td><?php echo $row->last_login;?></td>
 														<td class="td-actions">
 
 																<!--
@@ -577,17 +575,16 @@
 															<button class="btn btn-mini btn-info">
 																<i class="icon-edit bigger-120"></i>
 															</button>
-
-															<button class="btn btn-mini btn-danger">
+															<button class="btn btn-mini btn-danger" onClick="delete_user('<?php echo $row->id;?>','<?php echo $row->username;?>')" id="" value="<?php echo $row->id;?>">
 																<i class="icon-trash bigger-120"></i>
 															</button>
-
+															<input  id="username" type="hidden" value="<?php echo $row->username;?>">
+														
 														</div>
 									
 														</td>
 													</tr>
 													<?php endforeach;?>
-
 												<?php endif; ?>
 											</tbody>
 											</table>
@@ -596,85 +593,85 @@
 										<small>Page rendered in: {elapsed_time} seconds</small>
 									</div>
 								</div>
-
+								
 								
 							</div>
 							<div class="row-fluid">
-								
-						<div class="span5">
-
-							<!-- ADD HR START -->
-							
-				
-							<div class="widget-box">
-
-								<div class="widget-header">
-									<h4><i class="icon-user"></i> Add HR Account</h4>
-									
-									<span class="widget-toolbar">
-										<a href="#" data-action="collapse">
-											<i class="icon-chevron-up"></i>
-										</a>
-
-										<a href="#" data-action="reload">
-											<i class="icon-refresh"></i>
-										</a>
-
 										
-									</span>
-								</div>
+								<div class="span5">
 
-								<div class="widget-body"><div class="widget-body-inner">
-									<div class="widget-main">
-										<div class="row-fluid">
+									<!-- ADD HR START -->
+									
+						
+									<div class="widget-box">
 
-											<!--<?php if(!is_null($this->session->userdata('error_hr'))) echo $this->session->userdata('error_hr'); ?>
-											-->
-											<div id="infoMessage" align="center"><?php
-								              $message = $this->session->flashdata('hr_message');
-								              if ($message == null){}
-								              else{echo $message;}
-								              ?>         
-											</div>
-											<form method="post" action="<?php echo base_url();?>manage/add_hr">
- 
-												<label><i class="light-red icon-asterisk"></i> Username:  </label>
-												<input autofocus  style="width: 94%" placeholder="Enter Username" type="text" id="username" name="username" value="<?php echo $this->session->flashdata('username');?>">
+										<div class="widget-header">
+											<h4><i class="icon-user"></i> Add HR Account</h4>
+											
+											<span class="widget-toolbar">
+												<a href="#" data-action="collapse">
+													<i class="icon-chevron-up"></i>
+												</a>
 
-												<label><i class="light-red icon-asterisk"></i> Password: </label>
-												<input style="width: 94%" type="password" id="password" name="password" value="">
-
-												<label><i class="light-red icon-asterisk"></i> Confirm Password: </label>
-												<input style="width: 94%" type="password" id="password_confirm" name="password_confirm" value="">
-
-												<label><i class="light-red icon-asterisk"></i> First Name: </label>
-												<input style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $this->session->flashdata('first_name');?>">
-
-												<label><i class="light-red icon-asterisk"></i> Last Name: </label>
-												<input style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $this->session->flashdata('last_name');?>">
-
-												<label>Middle Name: </label>
-												<input style="width: 94%" type="text" id="middle_name" name="middle_name" value="<?php echo $this->session->flashdata('middle_name');?>">
-
-												<label><i class="light-red icon-asterisk"></i> Email address: </label>
-												<input  style="width: 94%" type="email" id="email" name="email"  value="<?php echo $this->session->flashdata('email');?>">
-
-												<hr>
-
-												<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Add HR</button>
+												<a href="#" data-action="reload">
+													<i class="icon-refresh"></i>
+												</a>
 
 												
-											</form>	
-										</div>									
+											</span>
+										</div>
+
+										<div class="widget-body"><div class="widget-body-inner">
+											<div class="widget-main">
+												<div class="row-fluid">
+
+													<!--<?php if(!is_null($this->session->userdata('error_hr'))) echo $this->session->userdata('error_hr'); ?>
+													-->
+													<div id="infoMessage" align="center"><?php
+										              $message = $this->session->flashdata('hr_message');
+										              if ($message == null){}
+										              else{echo $message;}
+										              ?>         
+													</div>
+													<form method="post" action="<?php echo base_url();?>manage/add_hr">
+		 
+														<label><i class="light-red icon-asterisk"></i> Username:  </label>
+														<input autofocus  style="width: 94%" placeholder="Enter Username" type="text" id="username" name="username" value="<?php echo $this->session->flashdata('username');?>">
+
+														<label><i class="light-red icon-asterisk"></i> Password: </label>
+														<input style="width: 94%" type="password" id="password" name="password" value="">
+
+														<label><i class="light-red icon-asterisk"></i> Confirm Password: </label>
+														<input style="width: 94%" type="password" id="password_confirm" name="password_confirm" value="">
+
+														<label><i class="light-red icon-asterisk"></i> First Name: </label>
+														<input style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $this->session->flashdata('first_name');?>">
+
+														<label><i class="light-red icon-asterisk"></i> Last Name: </label>
+														<input style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $this->session->flashdata('last_name');?>">
+
+														<label>Middle Name: </label>
+														<input style="width: 94%" type="text" id="middle_name" name="middle_name" value="<?php echo $this->session->flashdata('middle_name');?>">
+
+														<label><i class="light-red icon-asterisk"></i> Email address: </label>
+														<input  style="width: 94%" type="email" id="email" name="email"  value="<?php echo $this->session->flashdata('email');?>">
+
+														<hr>
+
+														<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Add HR</button>
+
+														
+													</form>	
+												</div>									
+											</div>
+										</div></div>
 									</div>
-								</div></div>
-							</div>
 
 
 
-							<!-- ADD HR END -->
+									<!-- ADD HR END -->
 
-						</div>
+								</div>
 
 
 							</div>
@@ -717,6 +714,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 
 
@@ -747,7 +745,7 @@
 				//datatable initializatino
 				var oTable1 = $('#table_report').dataTable( {
 				"aoColumns": [
-			      null, null,null, null, null,
+			      null, null,null, null,
 				  { "bSortable": false }
 				] } );
 				
@@ -764,7 +762,40 @@
 			
 				$('[data-rel=tooltip]').tooltip();
 
-			});	
+			
+
+				
+		});
+		var delete_user = function(id,username) {
+			var str = "<h3>Confirm</h3>" + username + " will be deleted";
+			str += ". Do you really want to delete this user?";
+
+			bootbox.dialog(str, [{
+					"label" : "<i class=\'icon-trash\'></i> Delete",
+					"class" : "btn-small btn-danger",
+					"callback": function() {
+						//Example.show("great success");
+
+						$.ajax({
+							url: "<?php echo base_url();?>manage/delete_user",
+							type: "post",
+							data: {
+								id: id
+							},
+							success: function(e) {
+								console.log(e);
+								location.reload();
+							}
+						});
+						
+					}
+					}, {
+						"label" : "Cancel",
+						"class" : "btn-small"
+					}]
+				);
+
+		}
 		</script>
 	</body>
 </html>

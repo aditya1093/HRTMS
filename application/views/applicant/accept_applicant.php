@@ -29,7 +29,7 @@
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
-			<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />	
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />	
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
 		
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />

@@ -51,7 +51,8 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<!--<li class="grey">
+					<!--
+						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
 								<span class="badge badge-grey">4</span>
@@ -186,7 +187,8 @@
 									</a>
 								</li>
 							</ul>
-						</li>-->
+						</li>
+					-->
 
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -525,6 +527,26 @@
 											</tbody>
 
 										</table> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										Create Batch Control
+										<small></small>
+									</h4>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+										 
+
 									</div>
 								</div>
 							</div>

@@ -14,7 +14,7 @@ class Administrative_model extends CI_Model{
         $this->db->where("permission !=","Trainee");
         $this->db->where("permission !=","Administrator");
         $this->db->join('user_logs', 'user_logs.user_id = user_table.id','left');
-        $query = $this->db->get(); 
+        $query = $this->db->get();
         return $query->result();
     } 
    

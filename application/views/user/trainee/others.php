@@ -848,8 +848,10 @@
 			var oTable1 = $('#table_dependent').dataTable( {
 			"aoColumns": [
 		     	null, null, null,
-			  { "bSortable": false }
-			] } );
+			  { "bSortable": false }],
+			  "aLengthMenu": [[5, 10, 15, 25, 50, 100 , -1], [5, 10, 15, 25, 50, 100, "All"]],
+				"iDisplayLength" : 5
+			   } );
 			
 			
 			$('table th input:checkbox').on('click' , function(){
@@ -863,11 +865,13 @@
 			});
 
 			//datatable initializatino
-			var oTable1 = $('#table_beneficiary').dataTable( {
+			var oTable2 = $('#table_beneficiary').dataTable( {
 			"aoColumns": [
 		     	null, null, null,
-			  { "bSortable": false }
-			] } );
+			  { "bSortable": false }],
+			  "aLengthMenu": [[5, 10, 15, 25, 50, 100 , -1], [5, 10, 15, 25, 50, 100, "All"]],
+				"iDisplayLength" : 5,
+				});
 			
 			
 			$('table th input:checkbox').on('click' , function(){
@@ -881,11 +885,13 @@
 			});
 
 			//datatable initializatino
-			var oTable1 = $('#table_character_reference').dataTable( {
+			var oTable3 = $('#table_character_reference').dataTable( {
 			"aoColumns": [
 		     null, null, null,
-			  { "bSortable": false }
-			] } );
+			  { "bSortable": false }],
+			  "aLengthMenu": [[5, 10, 15, 25, 50, 100 , -1], [5, 10, 15, 25, 50, 100, "All"]],
+				"iDisplayLength" : 5,
+			 } );
 			
 			
 			$('table th input:checkbox').on('click' , function(){

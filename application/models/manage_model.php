@@ -11,7 +11,7 @@ class Manage_model extends CI_Model{
         $this->db->select('*');
         $this->db->where('permission',$permission);
         $this->db->from('user_table');
-        $this->db->join('user_logs', 'user_logs.user_id = user_table.id','left');
+        //$this->db->join('user_logs', 'user_logs.user_id = user_table.id','left');
         $query = $this->db->get(); 
         return $query->result();
     } 
@@ -26,42 +26,12 @@ class Manage_model extends CI_Model{
     } 
     
     
-    function delete_hr($hr_id) {
+    function delete_user($id) {
 
-        $this->db->where('id', $hr_id);
-        $this->db->delete('uesr_table');
+        $this->db->where('id', $id);
+        $this->db->delete('user_table');
+
     }
-
-     function info($id)
-    {
-        $this->db->select('*');
-        $this->db->from('uesr_table');
-        $this->db->where('id', $id );
-        $query = $this->db->get();
-
-        if ( $query->num_rows() > 0 )
-        {
-          
-          /*  $row = $query->row_array();
-
-            return $row;
-
-            */
-           $row = $query->row();
-           $data = array(
-                    /* Info */
-                    'hr_id' => $row->id, 
-                    'hr_username' => $row->username,
-                    'hr_email' => $row->email,
-                    'hr_displayname' => $row->displayname,                    
-                    'hr_password' => $row->password  
-                
-                      
-                   
-                    );
-            return $data;
-        }
-    } 
 
     function change_info($displayname, $email) {
 
@@ -95,7 +65,7 @@ class Manage_model extends CI_Model{
         $this->db->select('*');
         $this->db->where('permission',$permission);
         $this->db->from('user_table');
-        $this->db->join('user_logs', 'user_logs.user_id = user_table.id','left');
+        //$this->db->join('user_logs', 'user_logs.user_id = user_table.id','left');
         $query = $this->db->get(); 
         return $query->result();
     } 
@@ -110,4 +80,5 @@ class Manage_model extends CI_Model{
        
     } 
     
+
 }  

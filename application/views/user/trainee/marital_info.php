@@ -684,8 +684,11 @@
 			var oTable1 = $('#table_children').dataTable( {
 			"aoColumns": [
 		     null, null, null,
-			  { "bSortable": false }
-			] } );
+			  { "bSortable": false }] ,
+				 "aLengthMenu": [[5, 10, 15, 25, 50, 100 , -1], [5, 10, 15, 25, 50, 100, "All"]],
+				"iDisplayLength" : 5
+			});
+
 			
 			
 			$('table th input:checkbox').on('click' , function(){

@@ -553,18 +553,6 @@
 												<button class="btn btn-mini btn-success">
 													<i class="icon-ok bigger-120"></i>
 												</button>
-
-												<button class="btn btn-mini btn-info">
-													<i class="icon-edit bigger-120"></i>
-												</button>
-
-												<button class="btn btn-mini btn-danger">
-													<i class="icon-trash bigger-120"></i>
-												</button>
-
-												<button class="btn btn-mini btn-warning">
-													<i class="icon-flag bigger-120"></i>
-												</button> 
 											</div>
 										</td>
 									</tr> 

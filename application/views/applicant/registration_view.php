@@ -564,7 +564,7 @@
 													<i class="icon-ok bigger-120"></i>
 												</button>
 
-												<button id="bootbox-confirm" value="<?php echo $row->register_id?>" class="btn btn-mini btn-info">
+												<button onclick="edit_applicant('<?php echo $row->register_id;?>')" class="btn btn-mini btn-info">
 													<i class="icon-edit bigger-120"></i>
 												</button>
 											</div>
@@ -668,19 +668,29 @@
 			
 				$('[data-rel=tooltip]').tooltip();
 
-				$("#bootbox-confirm").on(ace.click_event, function() {
-					var id = $("#bootbox-confirm").val();
-					bootbox.confirm("Do you want to edit the information of this applicant?", function(result) {
-						if(result) {
-							//bootbox.alert(id);
-							//window.location='<?php echo base_url();?>applicant/view_info?>';
+				
+
+
+			});
+			var edit_applicant = function(id) {
+			var str = "<h3>Confirm</h3>";
+			str += "Do you want to edit the information of this applicant?";
+
+			bootbox.dialog(str, [{
+					"label" : "<i class=\'icon-trash\'></i> Edit",
+					"class" : "btn-small btn-info",
+					"callback": function() {
+						//Example.show("great success");
 							document.location.href='<?php echo base_url();?>applicant/edit_info/' + id;
-						}
-					});	
-				});
+						
+					}
+					}, {
+						"label" : "Cancel",
+						"class" : "btn-small"
+					}]
+				);
 
-
-			});	
+		}
 		</script>
 	</body>
 </html>
