@@ -34,7 +34,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#"><img width="120px" src="<?php echo base_url();?>assets/images/logo.jpg" alt=""> AMI - Training System</a>
+          <a class="brand" href="<?php echo base_url();?>"><img width="120px" src="<?php echo base_url();?>assets/images/logo.jpg" alt=""> AMI - Training System</a>
         </div>
       </div>
     </div>

@@ -272,7 +272,7 @@
                   </div>
                 </div>
                   <div class="control-group">
-                  <label class="control-label" for="height" >Height<span class="mandatory_star">*</span></label>
+                  <label class="control-label" for="height" >Height<i>(cm)</i><span class="mandatory_star">*</span></label>
 
                   <div class="controls">
                    <input type="text" id="height" name="height" class="controls span2" value="<?php  echo $this->form_validation->set_value('height')?>">

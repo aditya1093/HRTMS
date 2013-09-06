@@ -165,6 +165,10 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
+			function print(batch)
+			{
+			 document.location.href='<?php echo base_url();?>reports/template3/' + batch;
+			}
 			$(function() {
 			
 				$('.dialogs,.comments').slimScroll({

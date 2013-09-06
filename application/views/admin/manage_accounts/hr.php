@@ -456,7 +456,7 @@
 					<li>
 						<a href="about">
 							<i class="icon-info"></i>
-							<span>About the Developers</span>
+							<span>The Developers</span>
 						</a>
 					</li>
 			

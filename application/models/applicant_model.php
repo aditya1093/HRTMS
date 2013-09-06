@@ -94,7 +94,12 @@ class Applicant_model extends CI_Model{
     }
 
 
+    function addBatchNo($data){
 
+        $this->db->insert('batch_no', $data);
+        $id = $this->db->insert_id();
+        return (isset($id)) ? $id : TRUE;  
+    }
 
 
 

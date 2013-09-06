@@ -25,15 +25,15 @@
 		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
 
 		<!--ace styles-->
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/applicant/ace.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap-editable.css">
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css"  media="screen,print"/>
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css"  media="screen,print"/>
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css"  media="screen,print"/>
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/applicant/ace.min.css"  media="screen,print"/>
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css"  media="screen,print"/>
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css"  media="screen,print"/>
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css"  media="screen,print"/>
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css" media="screen,print">
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap-editable.css" media="screen,print">
 
 		<script src="<?php echo base_url();?>assets/js/style-extra.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
@@ -42,8 +42,21 @@
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
 		<![endif]-->
-
+		<style type="text/css">
+			#print{display: none;}
+		</style>
 		<!--inline styles if any-->
+		<style type="text/css" media ="print">
+			body,td,tr,a{ margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:12px;line-height:20px;color:#333;background-color:#fff}
+			form{ display: none;}
+			h1{ color: red !important; }
+			a{ color:#005580 !important;}
+    		a[href]:after {content: none !important;}
+    		.navbar, #sidebar, .nav,#no-print,#breadcrumbs,#space,.page-header,#main-content ,#btn-scroll-up{display:none;}
+    		#print{	display: block;
+    		}
+
+		</style> 
 	</head>
 
 	<body>
@@ -99,9 +112,9 @@
 			<a id="menu-toggler" href="#">
 				<span></span>
 			</a>
-
+		
 			<div id="sidebar">
-				<div id="sidebar-shortcuts">
+				<!--<div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
 						<button class="btn btn-small btn-success">
 							<i class="icon-signal"></i>
@@ -244,7 +257,7 @@
 
 										<div class="tab-content no-border padding-24">
 											<div id="home" class="tab-pane in active ">
-												<div class="row-fluid">
+												<div class="row-fluid" id="no-print" >
 													<div class="span3 center">
 														<span class="profile-picture">
 															<img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
@@ -378,7 +391,7 @@
 																</div>
 
 																<div class="profile-info-value">
-																	<a href="#">Print</a>
+																	<a href="#" onclick="window.print()">Print</a>
 																</div>
 																
 															</div>
@@ -386,131 +399,7 @@
 													</div><!--/span-->
 												</div><!--/row-fluid-->
 
-												<div class="space-20"></div>
-												<div class="row-fluid">
-													<div class="span12">
-														
-														<div class="bcTarget align-left"></div>
-																<?php
-																	
-																	echo '<script type="text/javascript">$(".bcTarget").barcode("';
-																	echo $row->register_id;
-																	echo '", "code39");</script>';
-
-																?> 
-													</div>
-
-												</div>
-												<div class="row-fluid">
-													
-													<div class="span3 center">
-														<span class="profile-picture">
-															<img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
-														</span>
-														
-														<div class="width-80 label label-info label-large arrowed-in arrowed-in-right">
-															<div class="inline position-relative">
-																<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
-																	<i class="icon-circle light-green middle"></i>
-																	&nbsp;
-																	<span class="white middle bigger-120"><?php 
-
-																		$m = $row->middle_name[0];
-
-																		echo $row->first_name.' '.$m.'. '.$row->last_name;?></span>
-																</a>
-															</div>
-														</div>
-														<div class="space space-4"></div>
-														
-					
-														
-
-													</div><!--/span-->
-
-													<div class="span9">
-
-														<div class="profile-user-info">
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Username </div>
-
-																<div class="profile-info-value">
-																	<span><?php echo $row->username;?></span>
-																</div>
-															</div>
-
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Location </div>
-
-																<div class="profile-info-value">
-																	<i class="icon-map-marker light-orange bigger-110"></i>
-																	<span><?php echo $row->address.' '.$row->city;?></span>
-																	<span><?php echo $row->province;?></span>
-																	<span><?php echo $row->country;?></span>
-																</div>
-															</div>
-
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Age </div>
-
-																<div class="profile-info-value">
-																	<span><?php
-																	$birthdate = $row->birth_date;												
-																    list($y,$m,$d) = explode('-', $birthdate);
-    
-																    if (($m = (date('m') - $m)) < 0) {
-																        $y++;
-																    } elseif ($m == 0 && date('d') - $d < 0) {
-																        $y++;
-																    }
-																    
-																    echo date('Y') - $y;
-																    ?></span>
-																</div>
-															</div>
-
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Birthday </div>
-
-																<div class="profile-info-value">
-																	<span><?php echo $row->birth_date?></span>
-																</div>
-															</div>
-															<div class="profile-info-row">
-															<div class="profile-info-name"> Height </div>
-
-																<div class="profile-info-value">
-																	<span><?php echo $row->height?> cm</span>
-																</div>
-															</div>
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Civil Status </div>
-
-																<div class="profile-info-value">
-																	<span><?php echo $row->civil_status?></span>
-																</div>
-															</div>
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Email </div>
-
-																<div class="profile-info-value">
-																	<span><?php echo $row->email;?></span>
-																</div>
-															</div>
-															<div class="profile-info-row">
-																<div class="profile-info-name"> Phone </div>
-
-																<div class="profile-info-value">
-																	<span><?php echo $row->phone;?></span>
-																</div>
-															</div>
-														</div>
-
-														<div class="hr hr-8 dotted"></div>
-
-													</div><!--/span-->
-												
-												</div><!--/row-fluid-->
+												<div class="space-20" id="space"></div>
 												
 
 											</div><!--#home-->
@@ -1401,6 +1290,140 @@
 				</div><!--/#page-content-->
 
 			</div><!--/#main-content-->
+			<div id="print">
+				<div class="row-fluid" >
+					<div class="span6 center">
+						<a><img width="200px" src="<?php echo base_url();?>assets/images/logo.jpg" alt=""> AMI - Human Resource Training and Management System</a>	
+					</div>
+				</div>
+				<div class="row-fluid" >
+					
+					<div class="" style="margin-top:0px;margin-bottom:0px">
+				
+						<span class="pull-right">
+							<div class="bcTarget position relative" style="padding: 0px; overflow: auto; width: 253px;"></div>
+								<?php
+									
+									echo '<script type="text/javascript">$(".bcTarget").barcode("';
+									echo $row->register_id;
+									echo '", "code39");</script>';
+
+								?> 
+							<div class="profile-picture "><img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php echo base_url();?>assets/images/profile-pic.jpg"></div>
+							
+						</span>	<address class="pull-left" style="margin-left:50px">
+			                            <strong>Alliance Mansols Inc</strong>
+
+			                            <br>
+			                            117 Technology Ave. Laguna Technopark Inc
+			                            <br>
+			                            Binan City, Laguna
+			                            <br>
+			                            Philippines
+			                            <br>
+			                            <abbr title="Phone">P:</abbr>
+			                            (123) 456-7890
+			                          </address>
+
+					
+					</div><!--/span-->
+
+					
+					<div class="space-20"></div><div class="space-20"></div><div class="space-20"></div><div class="space-20"></div><div class="space-20"></div>
+					
+					<div class="span9">
+
+						<div class="profile-user-info" style="width:50%">
+							<div class="profile-info-row">
+								<div class="profile-info-name"> Name </div>
+
+								<div class="profile-info-value">
+									<span><?php 
+									$mid = $row->middle_name;
+									if($mid != null)	{$m = $row->middle_name.'.';} else { $m = $mid;}
+										echo $row->first_name.' '.$m.' '.$row->last_name;?></span>
+								</div>
+							</div>
+
+							<div class="profile-info-row">
+								<div class="profile-info-name"> Location </div>
+
+								<div class="profile-info-value">
+									<i class="icon-map-marker light-orange bigger-110"></i>
+									<span><?php echo $row->address.' '.$row->city;?></span>
+									<span><?php echo $row->province;?></span>
+									<span><?php echo $row->country;?></span>
+								</div>
+							</div>
+
+							<div class="profile-info-row">
+								<div class="profile-info-name"> Age </div>
+
+								<div class="profile-info-value">
+									<span><?php
+									$birthdate = $row->birth_date;												
+								    list($y,$m,$d) = explode('-', $birthdate);
+
+								    if (($m = (date('m') - $m)) < 0) {
+								        $y++;
+								    } elseif ($m == 0 && date('d') - $d < 0) {
+								        $y++;
+								    }
+								    
+								    echo date('Y') - $y;
+								    ?></span>
+								</div>
+							</div>
+
+							<div class="profile-info-row">
+								<div class="profile-info-name"> Birthday </div>
+
+								<div class="profile-info-value">
+									<span><?php echo $row->birth_date?></span>
+								</div>
+							</div>
+							<div class="profile-info-row">
+							<div class="profile-info-name"> Height </div>
+
+								<div class="profile-info-value">
+									<span><?php echo $row->height?> cm</span>
+								</div>
+							</div>
+							<div class="profile-info-row">
+								<div class="profile-info-name"> Civil Status </div>
+
+								<div class="profile-info-value">
+									<span><?php echo $row->civil_status?></span>
+								</div>
+							</div>
+							<div class="profile-info-row">
+								<div class="profile-info-name"> Email </div>
+
+								<div class="profile-info-value">
+									<span><?php echo $row->email;?></span>
+								</div>
+							</div>
+							<div class="profile-info-row">
+								<div class="profile-info-name"> Phone </div>
+
+								<div class="profile-info-value">
+									<span><?php echo $row->phone;?></span>
+								</div>
+							</div>
+						</div>
+						<div class="space-20"></div>
+						
+						<footer>
+									<p class="pull-left">&copy; <a href="" target="_blank">Alliance Mansols Incorporated</a> 2013</p>
+									<p class="pull-right">Powered by: <a href="">TDC</a></p>
+						</footer>
+
+					</div><!--/span-->
+				
+				</div><!--/row-fluid-->
+
+						
+			</div><!-- PRiNT -->
 		</div><!--/.fluid-container#main-container-->
 
 

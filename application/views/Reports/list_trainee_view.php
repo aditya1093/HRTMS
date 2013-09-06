@@ -43,7 +43,6 @@
 		<style type="text/css" media ="screen">
 		.foot{display: none;}
 	
-	
 		</style>
 
 		<style type="text/css" media ="print">
@@ -76,6 +75,7 @@
 	</div>
 </fieldset>
 </form>
+
 <!--<H1>List of Trainee:</H1>
 <table class="table table-striped table-bordered">
 	<thead>
@@ -180,8 +180,12 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
+			function print(batch)
+			{
+			 document.location.href='<?php echo base_url();?>reports/template2/' + batch;
+			}
 			$(function() {
-			
+				
 				$('.dialogs,.comments').slimScroll({
 			        height: '300px'
 			    });
@@ -214,7 +218,7 @@
 	                            //data is the html of the page where the request is made.
 	                            //alert(selState); 
 	                            $('#result_table').html(output_string);
-	                            console.log(output_string);
+	                            //console.log(output_string);
 	                        } 
 	                    })
 	                });

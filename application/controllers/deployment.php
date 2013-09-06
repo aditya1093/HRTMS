@@ -10,16 +10,7 @@ class Deployment extends CI_Controller {
 
 		redirect(base_url() . 'index.php/dashboard');
 	}
-
-	function hr() {
-
-		$this->load->view('admin/manage_accounts/hr');
-	}
-
-	function training() {
-
-		$this->load->view('admin/manage_accounts/training');
-	}
+	
 }
 
 /* End of file deployment.php */

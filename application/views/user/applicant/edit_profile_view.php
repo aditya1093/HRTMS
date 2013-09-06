@@ -393,6 +393,7 @@
 															&nbsp; &nbsp; &nbsp;
 															</div>
 													</form>
+												<!--
 													<form method="POST" action="<?php echo base_url();?>profile/">
 															<div class="profile-info-row">
 																<div class="profile-info-name"> Account </div>

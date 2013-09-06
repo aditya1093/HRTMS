@@ -11,6 +11,10 @@ class Applicant extends CI_Controller {
 
 		//check kung naka-login
 		if($this->session->userdata('is_logged_in')) {
+
+		$this->load->model('client_model');
+		$query = $this->client_model->list_company();
+		$data['records2'] = $query;
 	
 		$query = $this->applicant_model->applicant_list();
 		$data['records'] = $query;

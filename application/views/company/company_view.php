@@ -461,7 +461,7 @@
 					<li>
 						<a href="about">
 							<i class="icon-info"></i>
-							<span>About the Developers</span>
+							<span>The Developers</span>
 						</a>
 					</li>
 			
@@ -512,7 +512,7 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-					<div class="span12">
+						<div class="span9">
 							<div class="alert alert-success">
 									<b>Note:</b>
 									<ul>
@@ -574,13 +574,8 @@
 							</div>
 
 						</div>
-
-					
-						</div>
-						<?php if ($this->session->userdata('permission') == 'Administrator') {?>
-
-						<div class="row-fluid">
-						<div class="span5">
+						<div class="span3">
+							<div>
 
 							<!-- ADD HR START -->
 							
@@ -652,6 +647,13 @@
 							<!-- ADD HR END -->
 
 						</div>
+						</div>
+					
+						</div>
+						<?php if ($this->session->userdata('permission') == 'Administrator') {?>
+
+						<div class="row-fluid">
+						
 						</div><?php }?>
 
 

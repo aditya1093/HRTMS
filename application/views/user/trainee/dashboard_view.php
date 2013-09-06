@@ -385,144 +385,187 @@
 
 
 		<div id="main-content" class="clearfix">
-				<div id="breadcrumbs">
-					<ul class="breadcrumb">
-						<li>
-							<i class="icon-home"></i>
-							<a href="#">Home</a>
+			<div id="breadcrumbs">
+				<ul class="breadcrumb">
+					<li>
+						<i class="icon-home"></i>
+						<a href="#">Home</a>
 
-							<span class="divider">
-								<i class="icon-angle-right"></i>
-							</span>
-						</li>
-						<li class="active">Control Panel</li>
-					</ul><!--.breadcrumb-->
+						<span class="divider">
+							<i class="icon-angle-right"></i>
+						</span>
+					</li>
+					<li class="active">Control Panel</li>
+				</ul><!--.breadcrumb-->
 
-					<div id="nav-search">
-						<form class="form-search">
-							<span class="input-icon">
-								<input type="text" placeholder="Search ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
-								<i class="icon-search" id="nav-search-icon"></i>
-							</span>
-						</form>
-					</div><!--#nav-search-->
-				</div>
+				<div id="nav-search">
+					<form class="form-search">
+						<span class="input-icon">
+							<input type="text" placeholder="Search ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
+							<i class="icon-search" id="nav-search-icon"></i>
+						</span>
+					</form>
+				</div><!--#nav-search-->
+			</div>
 
-				<div id="page-content" class="clearfix">
-					<div class="page-header position-relative">
-						<h1>
-							AMI Trainee 
-							<small>
-								<i class="icon-double-angle-right"></i>
-								
-							</small>
-						</h1>
-					</div><!--/.page-header-->
-					<?php if($this->session->userdata("is_active")==0) {?>
-					<div class="row-fluid">
-						<!--PAGE CONTENT STARTS HERE-->
-						
-						<div class="span8">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										Viewer
-										<small>by Google Docs</small>
-									</h4>
-								</div>
+			<div id="page-content" class="clearfix">
+				<div class="page-header position-relative">
+					<h1>
+						AMI Trainee 
+						<small>
+							<i class="icon-double-angle-right"></i>
+							
+						</small>
+					</h1>
+				</div><!--/.page-header-->
+				<?php if($this->session->userdata("is_active")==0) { ?>
+				<div class="row-fluid">
+					<!--PAGE CONTENT STARTS HERE-->
+					
+					<div class="span8">
+						<div class="widget-box">
+							<div class="widget-header">
+								<h4 class="smaller">
+									Viewer
+									<small>by Google Docs</small>
+								</h4>
+							</div>
 
-								<div class="widget-body">
-									<div class="widget-main">
-										<span class="presenter">
-											<iframe src="http://docs.google.com/viewer?url=http://jemnuine.com/elfinder/files/GDOCS.pptx&amp;embedded=true" width="100%" height="400" style="border: none;"></iframe>
-										</span>
-										
-									</div>
+							<div class="widget-body">
+								<div class="widget-main">
+									<span class="presenter">
+										<iframe src="http://docs.google.com/viewer?url=http://jemnuine.com/elfinder/files/GDOCS.pptx&amp;embedded=true" width="100%" height="400" style="border: none;"></iframe>
+									</span>
+									
 								</div>
 							</div>
 						</div>
-						<div class="span4">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										Modules
-										<small>Select</small>
-									</h4>
-								</div>
+					</div>
+					<div class="span4">
+						<div class="widget-box">
+							<div class="widget-header">
+								<h4 class="smaller">
+									Modules
+									<small>Select</small>
+								</h4>
+							</div>
 
-								<div class="widget-body">
-									<div class="widget-main">
-										<table class="table">
-											<tbody><tr>
-												<td>
-													<label>Company: </label>
-													<select required="" name="company_name" id="company_name">
-														<option value="" selected="selected" style="color:#ddd;">Select Company...</option>
-															
-															<option value="TOSHIBA">TOSHIBA</option>
-															
-															<option value="TOTOKU">TOTOKU</option>
-															
-															<option value="SHINETSU">SHINETSU</option>
-															
-															<option value="AMI">AMI</option>
-															
-															<option value="HP">HP</option>
-																																									</select>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<label>Module Name: </label>
-													<select required="" name="module_name" id="module_name">
-														<option value="" selected="selected" style="color:#ddd;">Select Module...</option>
+							<div class="widget-body">
+								<div class="widget-main">
+									<table class="table">
+										<tbody><tr>
+											<td>
+												<label>Company: </label>
+												<select required="" name="company_name" id="company_name">
+													<option value="" selected="selected" style="color:#ddd;">Select Company...</option>
 														
-													</select>
+														<option value="TOSHIBA">TOSHIBA</option>
+														
+														<option value="TOTOKU">TOTOKU</option>
+														
+														<option value="SHINETSU">SHINETSU</option>
+														
+														<option value="AMI">AMI</option>
+														
+														<option value="HP">HP</option>
+																																								</select>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label>Module Name: </label>
+												<select required="" name="module_name" id="module_name">
+													<option value="" selected="selected" style="color:#ddd;">Select Module...</option>
+													
+												</select>
 
-													<i style="margin-left: 5px; display: none;" id="loading_file" class="icon-spinner icon-spin orange icon-2x"></i>
-												</td>
-											</tr>
-											<tr>	
-												<td>
-													<button id="view_module" class="btn btn-success"><i class="icon-arrow-left icon-white"></i> View Module</button>
-												</td>
-											</tr>
-											
-											
-										</tbody></table>
-									</div>
-								</div>
-							</div>
-							<p></p>
-							<div class="widget-box">
-								<div class="widget-header widget-header-small header-color-dark">
-									<h4 class="smaller">
-										Information
-										<small></small>
-									</h4>
-								</div>
-								<div class="widget-body">
-									<div class="widget-main">
-										<address>
-											<b>Module Name: </b><span id="dmodule"></span><br>
-											<b>Company Name: </b><span id="dcompany"></span><br>
-											<b>Path: </b><span id="dfile"></span><br>
-
-										</address>
-										<a id="download" class="btn btn-mini btn-info tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">
-											<i class="icon-cloud-download"></i>
-											Download File
-										</a>
-									</div>
+												<i style="margin-left: 5px; display: none;" id="loading_file" class="icon-spinner icon-spin orange icon-2x"></i>
+											</td>
+										</tr>
+										<tr>	
+											<td>
+												<button id="view_module" class="btn btn-success"><i class="icon-arrow-left icon-white"></i> View Module</button>
+											</td>
+										</tr>
+										
+										
+									</tbody></table>
 								</div>
 							</div>
 						</div>
-						<!--PAGE CONTENT ENDS HERE-->
-					<!--/row-->
+						<p></p>
+						<div class="widget-box">
+							<div class="widget-header widget-header-small header-color-dark">
+								<h4 class="smaller">
+									Information
+									<small></small>
+								</h4>
+							</div>
+							<div class="widget-body">
+								<div class="widget-main">
+									<address>
+										<b>Module Name: </b><span id="dmodule"></span><br>
+										<b>Company Name: </b><span id="dcompany"></span><br>
+										<b>Path: </b><span id="dfile"></span><br>
+
+									</address>
+									<a id="download" class="btn btn-mini btn-info tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">
+										<i class="icon-cloud-download"></i>
+										Download File
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--PAGE CONTENT ENDS HERE-->
+				<!--/row-->
 
 				</div>
-				<?php }?>
-				<!--/#page-content-->
+				<?php } else { ?>
+
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="widget-box">
+							<div class="widget-header">
+								<h4 class="smaller">
+									Examination Items
+									<small>Test Modules</small>
+								</h4>
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main">
+									<div class="loader">
+										<h4 align="center" class="smaller lighter grey">
+											<i class="icon-spinner icon-spin orange bigger-125"></i>
+											Loading Items..
+											<small></small>
+										</h4>
+									</div>
+									<table id="item_table" class="table table-striped table-bordered">
+										<thead>
+											<tr>
+												<th class="center" width="30px">
+													#
+												</th>
+												<th class="center">
+													Item
+												</th>					
+											</tr> 
+										</thead>
+										<tbody id="item_data">
+											
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<?php } ?>
+			<!--/#page-content-->
 
 			</div><!--/#main-content-->
 		</div><!--/.fluid-container#main-container-->
@@ -565,29 +608,169 @@
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
+
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
+
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">	
 
 
 			$("#student").submit(function(){
-			         var dataString = $("#student").serialize();
-			         $.ajax({ 
-			           url: "<?php echo base_url(); ?>ajax/user",
-			     	   async: false,
-			           type: "POST",			          
-			           data: dataString, 
-			           dataType: 'json',
-			 
-			           success: function(output_string){
-			               //alert(dataString);
-			                $('#result_table').html(output_string);
-			           }
-			 
-			         });
-			 
-			         return false;  //stop the actual form post !important!
+		         var dataString = $("#student").serialize();
+		         $.ajax({ 
+		           url: "<?php echo base_url(); ?>ajax/user",
+		     	   async: false,
+		           type: "POST",			          
+		           data: dataString, 
+		           dataType: 'json',
+		 
+		           success: function(output_string){
+		               //alert(dataString);
+		                $('#result_table').html(output_string);
+		           }
+		 
+		         });
+		 
+		         return false;  //stop the actual form post !important!
 			});
+
+			$(document).ready(function() {
+
+				$('#item_table').dataTable({
+					"aoColumns": [
+						{ "bSortable": false },
+						{ "bSortable": false }
+					]
+				});
+
+				load_items();
+
+			});
+
+			/********************** LOAD ITEMS FROM DB ******************************/
+
+			var load_items = function() {
+
+				var request = $.ajax({
+		        	url: "<?php echo base_url();?>examination/load_items",
+		        	type: 'POST',
+		        	data: { 
+		        		ajax: '1'
+		        	}
+		        });
+
+		        request.done(function (response, textStatus, jqXHR) {
+
+		        	$(".loader").hide();
+		        	strip_data(response);
+		        	console.log(response);
+					
+			    });
+			}
+
+
+			/************************* STUDENT DECODER ENGINE ********************************/
+
+			var strip_data = function(data) {
+
+				console.log(data);
+
+				obj = jQuery.parseJSON(data);
+
+				var len = 0, key;
+
+			    for (key in obj) {
+
+			        if (obj.hasOwnProperty(key)) len++;
+			    }
+
+			    var str = "";
+
+				for (var i = 0; i < len; i++) {
+
+					//obj[i].module_name
+
+					str += '<div class="pull-right">'
+					str += '<!--<button id="'+obj[i].question_id+'" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>--> '
+		   			str += '<button id="'+obj[i].question_id+'" class="close" onclick="delete_item('+obj[i].question_id+')"><i class="icon-remove"></i></button>'
+					str += '</div>'
+					str += '<p id="q'+obj[i].question_id+'">'+obj[i].question+'</p>'
+
+					if(obj[i].question_type==1) {
+
+						var a = obj[i].answers.split(separator);
+						var c = "", e = obj[i].key_answer;
+
+						for (var j = 0; j < a.length - 1; j++) {
+							
+							if((j+1)==e) {
+
+								c = "checked";
+							}
+							str += '<label><input '+c+' disabled name="radio_'+obj[i].question_id+'" type="radio">'+a[j]+'</label><br>';
+							c="";
+						};
+					}
+					else if(obj[i].question_type==2) {
+
+						var e = obj[i].key_answer, a="", c="";
+						if(e=="true") {
+
+							a = "checked";
+						}
+						else {
+
+							c = "checked";
+						}
+						str += '<label><input disabled '+a+' name="tf_'+obj[i].question_id+'" type="radio"> True</label><br>';
+						str += '<label><input disabled '+c+' name="tf_'+obj[i].question_id+'" type="radio"> False</label><br>';
+					}
+					else if(obj[i].question_type==3) {
+
+						var e = obj[i].key_answer;
+						str += '<textarea id="'+obj[i].question_id+'" disabled style="width:90%;">'+e+'</textarea>';
+						
+					}
+					else if(obj[i].question_type==4) {
+
+						var a = obj[i].answers.split(separator);
+						var c = "", e = obj[i].key_answer.split(separator);
+
+						for (var j = 0; j < a.length - 1; j++) {
+							
+							for (var k = 0; k < e.length; k++) {
+
+								if(e[k]==j+1) {
+
+									c = "checked";
+								}
+							};
+							
+							str += '<label><input '+c+' disabled name="check_'+obj[i].question_id+'" type="checkbox">'+a[j]+'</label><br>';
+							c = "";
+						};
+					}
+					else {
+
+						var e = obj[i].key_answer.split(separator);
+						str += '<ul class="item-list ui-sortable" style="width:90%;">';
+
+						for (var j = 0; j < a.length - 1; j++) {
+							
+							str += '<li class="item-grey"><i class="icon-reorder"></i><span style="margin-left:20px;">'+e[j]+'</span></li>';
+						};
+						str += '</ul>';
+					}
+
+					$('#item_table').dataTable().fnAddData([(i+1), str]);
+					
+					str = "";
+				};
+
+				$(".loader").hide();
+			}
  
 										 
 		</script>

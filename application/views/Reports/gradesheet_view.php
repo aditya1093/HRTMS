@@ -163,7 +163,11 @@
 		<script type="text/javascript">
 
 			$(".chzn-select").chosen(); 
-			$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+			$(".chzn-select-deselect").chosen({allow_single_deselect:true});
+			function print(batch)
+			{
+			 document.location.href='<?php echo base_url();?>reports/template/' + batch;
+			}
 
             $(document).ready(function () {
                 $('#byBatch select').change(function () {
