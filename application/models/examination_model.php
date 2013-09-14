@@ -71,5 +71,81 @@ class Examination_model extends CI_Model{
         $this->db->delete('questions', array('question_id' => $id)); 
     }
 
-    
+    function active_exam() {
+
+        $q = $this->db->query("SELECT examination_id FROM examination WHERE is_active=1 LIMIT 1");
+
+        $data["eid"] = $q->row()->examination_id;
+        $this->session->set_userdata($data);
+
+        $id = $this->session->userdata("user_id");
+
+        // PUT BATCH CONTROL NO ON SESSION
+
+        $query = $this->db->query("SELECT batch_control_no FROM hris WHERE trainee_id='".$id."'");
+        $data["b_id"] = $query->row()->batch_control_no;
+
+        $this->session->set_userdata($data);
+    }
+
+    function check_gradesheet($id, $b_id) {
+
+        $q = "SELECT * FROM gradesheet WHERE trainee_id='".$id."' AND batch_id='".$b_id."'";
+
+        $query = $this->db->query($q);
+        $count = $query->num_rows();
+
+        return $count;
+
+    }
+
+    function get_gradesheet($id, $b_id) {
+
+        $q = "SELECT * FROM gradesheet WHERE trainee_id='".$id."' AND batch_id='".$b_id."'";
+
+        $query = $this->db->query($q);
+        $result = $query->result();
+        
+        return $result;
+
+    }
+
+    //------------------------------------------------------
+    /* TO FIX LATER
+     */
+
+    function update_score($score, $over, $status) {
+
+        $id = $this->session->userdata("user_id");
+
+        $b_id = $this->session->userdata("b_id");
+
+        $count = $this->check_gradesheet($id, $b_id);
+
+        $data = array(
+
+            "trainee_id" => $id,
+            "batch_id" => $b_id,
+            "score" => $score,
+            "over" => $over,
+            "status" => $status
+
+        );
+
+        if($count != 0) {
+
+            $this->db->where('trainee_id', $id);
+            $this->db->where('batch_id', $b_id);
+            $this->db->update('gradesheet', $data); 
+
+            return true;
+        }
+        else {
+
+            $this->db->insert('gradesheet', $data);
+
+            return false;
+        }
+    }
+
 }  

@@ -181,7 +181,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="#">Home</a>
+							<a href="<?php echo base_url();?>dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>

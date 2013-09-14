@@ -18,6 +18,9 @@
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
 
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.custom.min.css" />
+
+
 		<!--page specific plugin styles-->
 
 		<!--fonts-->
@@ -32,7 +35,18 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
 
+		<style type="text/css">
+			input[type=checkbox],
+			input[type=radio] {
+				opacity: 100;
+				position: relative;
+				z-index: 12;
+				width: 18px;
+				height: 18px;
+				display:inline; margin:0px; padding:0px;
+			}
 
+		</style>
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
 		<![endif]-->
@@ -418,6 +432,12 @@
 						</small>
 					</h1>
 				</div><!--/.page-header-->
+				<?php if(isset($score)) {?>
+				<div class="alert alert-info">
+					
+
+				</div>
+				<?php }?>
 				<?php if($this->session->userdata("is_active")==0) { ?>
 				<div class="row-fluid">
 					<!--PAGE CONTENT STARTS HERE-->
@@ -524,7 +544,15 @@
 				<?php } else { ?>
 
 				<div class="row-fluid">
+
 					<div class="span12">
+						
+
+
+						<div class="progress progress-striped" data-percent="25%">
+							<div class="progress-bar progress-bar-success" style="width: 25%;"></div>
+						</div>
+						
 						<div class="widget-box">
 							<div class="widget-header">
 								<h4 class="smaller">
@@ -532,33 +560,36 @@
 									<small>Test Modules</small>
 								</h4>
 							</div>
-
-							<div class="widget-body">
-								<div class="widget-main">
-									<div class="loader">
-										<h4 align="center" class="smaller lighter grey">
-											<i class="icon-spinner icon-spin orange bigger-125"></i>
-											Loading Items..
-											<small></small>
-										</h4>
+							<form id='answers_form' >
+								<div class="widget-body">
+									<div class="widget-main">
+										<div class="loader">
+											<h4 align="center" class="smaller lighter grey">
+												<i class="icon-spinner icon-spin orange bigger-125"></i>
+												Loading Items..
+												<small></small>
+											</h4>
+										</div>
+										<table id="item_table" class="table table-striped table-bordered">
+											<thead>
+												<tr>
+													<th class="center" width="30px">
+														#
+													</th>
+													<th class="center">
+														Item
+													</th>					
+												</tr> 
+											</thead>
+											<tbody id="item_data">
+												
+											</tbody>
+										</table>
 									</div>
-									<table id="item_table" class="table table-striped table-bordered">
-										<thead>
-											<tr>
-												<th class="center" width="30px">
-													#
-												</th>
-												<th class="center">
-													Item
-												</th>					
-											</tr> 
-										</thead>
-										<tbody id="item_data">
-											
-										</tbody>
-									</table>
 								</div>
-							</div>
+								
+								<button class="btn btn-info" type="submit">Submit</button>
+							</form>
 						</div>
 					</div>
 
@@ -601,6 +632,8 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/spin.min.js"></script>
+
 
 
 		<!--ace scripts-->
@@ -616,24 +649,28 @@
 
 		<script type="text/javascript">	
 
+			var separator = "~/&^%-";
 
-			$("#student").submit(function(){
-		         var dataString = $("#student").serialize();
-		         $.ajax({ 
-		           url: "<?php echo base_url(); ?>ajax/user",
-		     	   async: false,
-		           type: "POST",			          
-		           data: dataString, 
-		           dataType: 'json',
-		 
-		           success: function(output_string){
-		               //alert(dataString);
-		                $('#result_table').html(output_string);
-		           }
-		 
-		         });
-		 
-		         return false;  //stop the actual form post !important!
+			/********************** SERIALIZE ******************************/
+
+			$( "#answers_form" ).on( "submit", function( event ) {
+
+			  event.preventDefault();
+			  var sData = $(this).serialize();
+			  //console.log(sData);
+
+			  $.ajax({
+
+	               	url:"examination/submit_answers",
+	                type: 'POST',
+	                data: sData,
+	                success:function(result){
+	                	
+	                	console.log(result);
+	                }
+
+	            });
+
 			});
 
 			$(document).ready(function() {
@@ -642,13 +679,17 @@
 					"aoColumns": [
 						{ "bSortable": false },
 						{ "bSortable": false }
-					]
+					],
+					'iDisplayLength': -1
 				});
 
 				load_items();
 
+				$(".dataTables_filter").hide();
+				$("#item_table_wrapper").find(".row-fluid").remove();
 			});
 
+		
 			/********************** LOAD ITEMS FROM DB ******************************/
 
 			var load_items = function() {
@@ -691,12 +732,8 @@
 				for (var i = 0; i < len; i++) {
 
 					//obj[i].module_name
-
-					str += '<div class="pull-right">'
-					str += '<!--<button id="'+obj[i].question_id+'" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>--> '
-		   			str += '<button id="'+obj[i].question_id+'" class="close" onclick="delete_item('+obj[i].question_id+')"><i class="icon-remove"></i></button>'
-					str += '</div>'
 					str += '<p id="q'+obj[i].question_id+'">'+obj[i].question+'</p>'
+
 
 					if(obj[i].question_type==1) {
 
@@ -705,32 +742,32 @@
 
 						for (var j = 0; j < a.length - 1; j++) {
 							
-							if((j+1)==e) {
+							/*if((j+1)==e) {
 
 								c = "checked";
-							}
-							str += '<label><input '+c+' disabled name="radio_'+obj[i].question_id+'" type="radio">'+a[j]+'</label><br>';
+							}*/
+							str += '<label><input '+c+' name="'+obj[i].question_id+'" type="radio" value="'+(j+1)+'">'+a[j]+'</label><br>';
 							c="";
 						};
 					}
 					else if(obj[i].question_type==2) {
 
 						var e = obj[i].key_answer, a="", c="";
-						if(e=="true") {
+						/*if(e=="true") {
 
 							a = "checked";
 						}
 						else {
 
 							c = "checked";
-						}
-						str += '<label><input disabled '+a+' name="tf_'+obj[i].question_id+'" type="radio"> True</label><br>';
-						str += '<label><input disabled '+c+' name="tf_'+obj[i].question_id+'" type="radio"> False</label><br>';
+						}*/
+						str += '<label><input '+a+' name="'+obj[i].question_id+'" type="radio" value="true"> True</label><br>';
+						str += '<label><input '+c+' name="'+obj[i].question_id+'" type="radio" value="false"> False</label><br>';
 					}
 					else if(obj[i].question_type==3) {
 
-						var e = obj[i].key_answer;
-						str += '<textarea id="'+obj[i].question_id+'" disabled style="width:90%;">'+e+'</textarea>';
+						var e = ""; //obj[i].key_answer;
+						str += '<textarea id="'+obj[i].question_id+'" style="width:90%;" name="'+obj[i].question_id+'">'+e+'</textarea>';
 						
 					}
 					else if(obj[i].question_type==4) {
@@ -744,11 +781,11 @@
 
 								if(e[k]==j+1) {
 
-									c = "checked";
+									//c = "checked";
 								}
 							};
 							
-							str += '<label><input '+c+' disabled name="check_'+obj[i].question_id+'" type="checkbox">'+a[j]+'</label><br>';
+							str += '<label><input '+c+' name="'+obj[i].question_id+'_'+(j+1)+'" type="checkbox" value="'+(j+1)+'">'+a[j]+'</label><br>';
 							c = "";
 						};
 					}

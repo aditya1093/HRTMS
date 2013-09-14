@@ -31,10 +31,24 @@ class Dashboard extends CI_Controller {
 			$this->load->view('User/client/dashboard_view',$data);
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Trainee') {
+
 			$id = $this->session->userdata('user_id');
 			$this->load->model("profile_model");
 			$query = $this->profile_model->profile_trainee($id);
 			$data['records'] = $query;
+
+			$this->load->model("examination_model");
+			$this->examination_model->active_exam();
+			
+			$id = $this->session->userdata("user_id");
+	        $b_id = $this->session->userdata("b_id");
+			$is_took = $this->examination_model->check_gradesheet($id, $b_id);
+
+			if($is_took == 0) {
+
+				$data["scores"] = $this->examination_model->get_gradesheet($id, $b_id);
+			}
+
 			$this->load->view('User/trainee/dashboard_view',$data);
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Applicant') {

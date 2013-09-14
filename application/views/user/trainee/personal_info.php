@@ -396,7 +396,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="#">Home</a>
+							<a href="<?php echo base_url();?>dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
@@ -701,7 +701,7 @@
 				{
 					tag_input2.tag(
 					  {
-						placeholder:tag_input.attr('placeholder'),
+						placeholder:tag_input2.attr('placeholder'),
 						//enable typeahead by specifying the source array
 						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
 					  }
@@ -717,7 +717,7 @@
 				{
 					tag_input3.tag(
 					  {
-						placeholder:tag_input.attr('placeholder'),
+						placeholder:tag_input3.attr('placeholder'),
 						//enable typeahead by specifying the source array
 						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
 					  }

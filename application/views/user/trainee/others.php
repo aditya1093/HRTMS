@@ -398,7 +398,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="#">Home</a>
+							<a href="<?php echo base_url();?>dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
@@ -944,16 +944,17 @@
 							var str,str2="";
 							var obj = $.parseJSON(result);
 				                $.each(obj, function(){
-				                	//var str = "<button class=\"btn btn-mini btn-info\" id="+this['id']+"><i class=\"icon-edit bigger-120\"></i></button><button class=\"btn btn-mini btn-danger\"> <i class=\"icon-trash bigger-120\"></i></button>";
-								   		str =	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
-										str2 =	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
-									
-												
+				                	str =	'<div class="hidden-phone visible-desktop btn-group">';
+			                		str +=	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
+									str +=	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
+									str += 	'</div>';
+
+
 								   $('#table_dependent').dataTable().fnAddData([
 										this['dependent_name'],
 										this['dependent_birthdate'],
 									   	this['dependent_relationship'],
-									 	str + " " +str2 ]
+									 	str ]
 									 	);
 				                });
 					}
@@ -994,16 +995,16 @@
 					var str,str2="";
 					var obj = $.parseJSON(result);
 		                $.each(obj, function(){
-		                	//var str = "<button class=\"btn btn-mini btn-info\" id="+this['id']+"><i class=\"icon-edit bigger-120\"></i></button><button class=\"btn btn-mini btn-danger\"> <i class=\"icon-trash bigger-120\"></i></button>";
-						   		str =	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
-								str2 =	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
-							
+	                		str =	'<div class="hidden-phone visible-desktop btn-group">';
+	                		str +=	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
+							str +=	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
+							str += 	'</div>';
 										
 						$('#table_beneficiary').dataTable().fnAddData([
 								this['beneficiary_name'],
 								this['beneficiary_birthdate'],
 							   	this['beneficiary_relationship'],
-							 	str + " " +str2 ]
+							 	str ]
 							 	);
 		                });
 			
@@ -1051,16 +1052,16 @@
 						var str,str2="";
 						var obj = $.parseJSON(result);
 			                $.each(obj, function(){
-			                	//var str = "<button class=\"btn btn-mini btn-info\" id="+this['id']+"><i class=\"icon-edit bigger-120\"></i></button><button class=\"btn btn-mini btn-danger\"> <i class=\"icon-trash bigger-120\"></i></button>";
-							   		str =	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
-									str2 =	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
-								
+			                	str =	'<div class="hidden-phone visible-desktop btn-group">';
+		                		str +=	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
+								str +=	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
+								str += 	'</div>';
 											
 							   $('#table_character_reference').dataTable().fnAddData([
 									this['character_name'],
 									this['character_company'],
 								   	this['character_contact_no'],
-								 	str + " " +str2 ]
+								 	str ]
 								 	);
 			                });
 	                }

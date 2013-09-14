@@ -213,9 +213,32 @@ class Manage extends CI_Controller {
 		if($this->session->userdata('is_logged_in')) {
 
 			$id = $this->input->post("id");
+			$username = $this->input->post("username");
 			echo $id;
 			$this->load->model('manage_model');
-			$this->manage_model->delete_user($id);
+			//$this->manage_model->delete_user($id);
+
+			$success_string = '<div class="alert alert-block alert-success">
+										<button type="button" class="close" data-dismiss="alert">
+											<i class="icon-remove"></i>
+										</button>
+
+										<p>
+											<strong>
+												<i class="icon-ok"></i>
+												Well done!
+											</strong>
+											You successfully delete '.$client_name.'.'.
+										'</p>
+
+										<p>
+											<button class="btn btn-small btn-success">Do This</button>
+											<button class="btn btn-small">Undo</button>
+										</p>
+									</div>';
+ 			$this->session->set_flashdata('delete_message',$success_string); 
+
+
 		}
 		else {
 

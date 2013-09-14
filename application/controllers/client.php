@@ -27,7 +27,7 @@ class Client extends CI_Controller {
 		$this->form_validation->set_rules('client_name', 'client Name', 'required|xss_clean');
 		$this->form_validation->set_rules('client_location', 'Location', 'required|xss_clean');
 		$this->form_validation->set_rules('client_username', 'Username', 'trim|required|xss_clean|min_length[6]|is_unique[user_table.username]|alpha_dash');
-		$this->form_validation->set_rules('client_password', 'Password', 'trim|required|matches[password_confirm]|min_length[6]');
+		$this->form_validation->set_rules('client_password', 'Password', 'trim|required|matches[client_password_confirm]|min_length[6]');
 		$this->form_validation->set_rules('client_password_confirm', 'Password Confirmation', '');
 		$this->form_validation->set_rules('client_email', 'Email', 'required|valid_email');
 		
@@ -87,7 +87,7 @@ class Client extends CI_Controller {
  			$this->session->set_flashdata('client_message',$success_string); 
 
  			
-	        $this->ftp->connect($config);
+	        //$this->ftp->connect($config);
 
 	        //$this->ftp->mirror('/', '/public_html/elfinder/files/');
 	        //$list = $this->ftp->list_files('/public_html/elfinder/files/Modules/'.$path);
@@ -120,24 +120,127 @@ class Client extends CI_Controller {
 		redirect(base_url().'client', 'refresh');	
 	}
 
+	/********************* Delete Client ************************/
+
+	function delete_client(){
+		//check kung naka-login
+		if($this->session->userdata('is_logged_in')) {
+
+			$id = $this->input->post('id');
+			$user_id = $this->input->post('user_id');
+			$client_name = $this->input->post('client_name');
+
+			$this->load->model('client_model');
+			//$this->client_model->delete_client($id,$user_id);
+
+			echo $id.'  '.$user_id;
+
+			//$success_string = '<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>Client account has successfully added.</div>';
+ 			$success_string = '<div class="alert alert-block alert-success">
+										<button type="button" class="close" data-dismiss="alert">
+											<i class="icon-remove"></i>
+										</button>
+
+										<p>
+											<strong>
+												<i class="icon-ok"></i>
+												Well done!
+											</strong>
+											You successfully delete '.$client_name.'.'.
+										'</p>
+
+										<p>
+											<button class="btn btn-small btn-success">Do This</button>
+											<button class="btn btn-small">Undo</button>
+										</p>
+									</div>';
+ 			$this->session->set_flashdata('delete_client_message',$success_string); 
+
+
+
+			}
+		else {
+
+    		$this->load->view('login_view', $data);
+		}	
+
+
+
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	/********************* client view ************************/
 
 	function send_request() {
 
+		
+		$query =$this->db->query("select count(*) as count from request where year(date_requested) = year(now()) group by year(date_requested)");
+		if ($query->num_rows() > 0)
+		{
+		   foreach ($query->result() as $row)
+		   {
+		      $p= $row->count + 1;
+		   }
+			$p = sprintf("%04d",$p) ;
+			$date = date('Y'); //this returns the current date
+			$req_id = 'AMI-REQ-' . substr($date, -2).$p;
+		}
+		else
+		{
+			$p = '0001';
+			$p = sprintf("%04d",$p) ;
+			$date = date('Y'); //this returns the current date
+			$req_id = 'AMI-REQ-' . substr($date, -2).$p;
+
+		}
+
+	
+
 		$arr = explode("-", $this->input->get("date-range-picker"));
 
+
 		$data = array(
+			'request_id' => $req_id,
 			'no_of_manpower' => $this->input->get("no_of_manpower"),
 			'date_requested' => date("Y-m-d", strtotime($arr[0])),
-			'to' => date("Y-m-d", strtotime($arr[1])),
+			'is_to' => date("Y-m-d", strtotime($arr[1])),
 			'remarks' => $this->input->get("remarks"),
-			'company' => $this->session->userdata("company")
+			'emp_reqdocuments' => $this->input->get("remarks"),
+			'emp_type' => $this->input->get("emp_type"),
+			'emp_department' =>$this->input->get("documents_req"),
+			'emp_gender' =>$this->input->get("emp_gender"),
+			'company' => $this->session->userdata("company"),
+			'is_active' => 0
 		);
 
 		$this->load->model('request_model');
 		$this->request_model->send_request($data);
 
-		
+		$success_string = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Your Manpower Request has been sent. Just wait for confirmation.</div>';
+		$this->session->set_flashdata('request_sent',$success_string); 
+
+	
 		redirect(base_url().'dashboard', 'refresh');	
 	}
 

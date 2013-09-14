@@ -263,6 +263,7 @@ class CI_Security {
 	 */
 	public function xss_clean($str, $is_image = FALSE)
 	{
+
 		/*
 		 * Is the string an array?
 		 *
@@ -275,6 +276,8 @@ class CI_Security {
 			}
 
 			return $str;
+
+			
 		}
 
 		/*
@@ -463,6 +466,15 @@ class CI_Security {
 		}
 
 		log_message('debug', "XSS Filtering completed");
+
+		// --------------------------------------------------------------------
+
+		/**
+		 * HRTMS Custom Strip Tags :D
+		 */
+
+		$str = strip_tags($str,"<b><i>"); 
+
 		return $str;
 	}
 

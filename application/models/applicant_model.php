@@ -40,7 +40,66 @@ class Applicant_model extends CI_Model{
         */ 
     }
 
-   
+    function list_batch_control(){
+        $this->db->select('*');
+        $this->db->where('is_training','1');
+        $this->db->from('batch_no');
+        $query = $this->db->get();
+        return $query->result();
+
+
+    }
+    function list_request(){
+        //$query = $this->db->query("SELECT * FROM request WHERE current != limit_no && is_training =1 ORDER BY batch_control_no ASC LIMIT 1");
+        $this->db->select('*');
+        $this->db->where('is_active',1);
+        $this->db->where('confirmed',1);
+        $this->db->from('request');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function getCompany($id){
+        $this->db->select('company');
+        $this->db->where('request_id',$id);
+        $this->db->from('request');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function updateRequest($id){
+      
+        $this->db->where('request_id', $id);
+        $this->db->update('request',array('is_training'=>'1'));
+        return TRUE;
+    }
+
+
+    function addBatchNo($data){
+
+        $this->db->insert('batch_no', $data);
+        $id = $this->db->insert_id();
+        return (isset($id)) ? $id : TRUE;  
+    }
+
+    function getIdBatchControl($id){
+
+        $this->db->select('*');    
+        $this->db->from('batch_no');
+        $this->db->where('request_id',$id);
+        $this->db->order_by("id", "desc"); 
+        $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+
+    function getBatch(){
+        $query = $this->db->query("SELECT batch_control_no FROM batch_no where is_training =1 ORDER BY batch_control_no ASC");
+        return $query->result();
+
+    }
+
 
     function info($register_id)
     {
@@ -52,8 +111,24 @@ class Applicant_model extends CI_Model{
       
     }
 
+    function batchInfo($id,$batch_no){
+        $query = $this->db->query("SELECT * 
+                        FROM batch_no
+                        JOIN request ON batch_no.request_id = request.request_id
+                        WHERE (
+                        current != limit_no
+                        AND batch_no.batch_control_no =  '".$batch_no."'
+                        )
+                        AND batch_no.request_id =  '".$id."'");
+        /*$this->db->select('*');     
+        $this->db->from('batch_no');
+        $this->db->where('batch_no.batch_control_no',$batch_no);
+        $this->db->where('batch_no.request_id',$id);
+        $this->db->join('request', 'request.request_id = batch_no.request_id');
+        $query = $this->db->get();*/
+        return $query->result();
 
-
+    }
 
 
 
@@ -93,35 +168,21 @@ class Applicant_model extends CI_Model{
 
     }
 
+    function updateBatch($batch_control_no,$current){
+        $this->db->where('batch_control_no',$batch_control_no);
+        $this->db->update('batch_no',array('current' => $current));
+        return TRUE;
+    }
 
-    function addBatchNo($data){
-
-        $this->db->insert('batch_no', $data);
+    function insertAttendance($data){
+        $this->db->insert('trainee_attendance', $data);
         $id = $this->db->insert_id();
-        return (isset($id)) ? $id : TRUE;  
+        return (isset($id)) ? $id : TRUE;   
+
     }
 
 
+ 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}  
+}

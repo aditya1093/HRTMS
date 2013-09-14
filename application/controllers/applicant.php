@@ -29,12 +29,145 @@ class Applicant extends CI_Controller {
 	
 	}
 
+	function batch_control() {
+
+		//check kung naka-login
+		if($this->session->userdata('is_logged_in')) {
+			//List Batch Control
+			$this->load->model('applicant_model');
+			$query = $this->applicant_model->list_batch_control();
+			$data['records'] = $query;
+
+
+			//List Client
+			$this->load->model('client_model');
+			$query = $this->applicant_model->list_request();
+			$data['records2'] = $query;
+			$this->load->view('applicant/batch_control', $data);
+		}
+		else {
+
+    		$this->load->view('login_view');
+		}
+
+	
+	}
+
+	function getCompany(){
+		//check kung naka-login
+		if($this->session->userdata('is_logged_in')) {
+			$id =  $this->input->post('req_id');
+
+			$this->load->model('applicant_model');
+			$query = $this->applicant_model->getCompany($id);
+			echo json_encode ($query);
+		}
+		else {
+
+    		$this->load->view('login_view');
+		}
+
+
+	}
+
+	function addBatchControl(){
+		if($this->session->userdata('is_logged_in')) {
+			$query = $this->db->query("SELECT batch_control_no FROM batch_no WHERE YEAR( date_created ) = YEAR( NOW( ) ) ORDER BY date_created DESC LIMIT 1");
+	        if ($query->num_rows() > 0)
+			{
+			   foreach ($query->result() as $row)
+			   {
+			   	  list($ts, $asb, $id) = explode("-", $row->batch_control_no);
+			      $p= $id + 1;
+			   }
+			   	//$hr_count = $p;
+				$p = sprintf("%03d",$p) ;
+				$permi = "-ASB-";
+				$date = date('Y');
+				$batch_no = 'TS' .substr($date, -2).$permi.$p;
+			}
+			else
+			{
+				//$this->db->insert('user_count', array('hr_count' => '1' ));
+				$p = "1";
+				$p = sprintf("%03d",$p) ;
+				$permi = "-ASB-";
+				$date = date('Y');
+				$batch_no = 'TS' .substr($date, -2).$permi.$p; 
+
+			}
+			$req_id = $this->input->post('req_id');
+			$client_name = $this->input->post('client_name');
+			$date_start = $this->input->post('date_start');
+			$training_days = $this->input->post('training_days');
+			$limit = $this->input->post('limit_no');
+			$is_training = '1';
+
+			$date_end = date('Y-m-d', strtotime($date_start. ' + '.$training_days.' days'));
+			//echo $batch_no;
+			
+			$data = array(
+				'request_id' => $req_id,
+				'batch_control_no' => $batch_no , 
+				'client' => $client_name, 
+				'date_start' => $date_start , 
+				'training_days' => $training_days,
+				'limit_no' => $limit,
+				'date_created' => date("Y-m-d H:i:s"),
+				'is_training' => $is_training
+
+				);
+			$this->load->model('applicant_model');
+			$this->applicant_model->addBatchNo($data);
+			$this->applicant_model->updateRequest($req_id);
+			
+			$query = $this->applicant_model->getIdBatchControl($req_id);
+			echo json_encode ($query);		
+		
+		}
+		else {
+   
+    		$this->load->view('login_view');
+		}
+
+	}
+
+	function getBatchInfo(){
+		//check kung naka-login
+		if($this->session->userdata('is_logged_in')) {
+			$batch =  $this->input->post('batch_no');
+
+			$query =$this->db->query("select request_id from batch_no where batch_control_no='".$batch."'");
+			//$query2 =$this->db->query("select  register_id from registration order by register_id desc");
+			//$id = "";
+			if ($query->num_rows() > 0)
+			{
+			   foreach ($query->result() as $row)
+			   {
+			      	$id= $row->request_id;
+			     	$this->load->model('applicant_model');
+					$query = $this->applicant_model->batchInfo($id, $batch);
+					echo json_encode ($query);
+			   }
+				
+			}
+			//echo $id;
+		
+		}
+		else {
+
+    		$this->load->view('login_view');
+		}
+
+
+	}
+
 	function accept() {
 
 		//check kung naka-login
 		if($this->session->userdata('is_logged_in')) {
 	
-		$this->load->view('applicant/accept_applicant');
+			$this->load->view('applicant/accept_applicant');
 		}
 		else {
 
@@ -53,10 +186,14 @@ class Applicant extends CI_Controller {
 		$m = $this->input->post('middle_name');
 		$name = $this->input->post('first_name') .' ' .$m[0].' '.$this->input->post('last_name'); 
 		$name .= ' ('.$train_id.')';
+		$batch_control_no = $this->input->post('batch_control_no');
+		$current = $this->input->post('current');
+		$current = $current + 1;
 		$this->output->set_output(json_encode($name));
 		$hris = array(
 					'register_id' => $reg_id,
 					'trainee_id' => $train_id,
+					'batch_control_no' => $batch_control_no,
         			'first_name' => $this->input->post('first_name'),
         			'last_name' => $this->input->post('last_name'),
         			'middle_name' => $this->input->post('middle_name'),
@@ -79,14 +216,20 @@ class Applicant extends CI_Controller {
         			'middle_name' => $this->input->post('middle_name'),
         			'email' => $this->input->post('email'),
         			'permission' => 'Trainee',
+        			'company' => $this->input->post('client'),
         			'date_created' => date('Y-m-d H:i:s')
         		);
-    		
-	
+    	$attendance = array(
+    				'training_id' => $train_id,
+    				'training_days' => $this->input->post('training_days')
+    			);	
+		
 		//
-			$this->applicant_model->add_trainee_hris($hris);  //Add to HRIS Table
+			/*$this->applicant_model->add_trainee_hris($hris);  //Add Applicant to HRIS Table
 			$this->applicant_model->update_userTable($reg_id,$user_table); //Update UserAccount in User_Table
 			$this->applicant_model->update_registration($reg_id); // Update Registration , Active to 1.
+			$this->applicant_model->updateBatch($batch_control_no,$current); // Update the number of current trainee in a batch.
+			$this->applicant_model->insertAttendance($attendance); // Insert applicant to trainee_attendace table*/
 		}
 		else {
 
@@ -101,11 +244,33 @@ class Applicant extends CI_Controller {
 	        $id=$this->input->post('id');
 	        $this->load->model('applicant_model');
 	        $data = $this->applicant_model->getInfo($id);
+	       	//$data = $this->applicant_model->getBatch();
 	        $this->output->set_output(json_encode($data));
 		}
 		else {
 		      header( 'Location: Accept' ) ;
 		}
+		 /*	$id=$this->input->post('id');
+	        $this->load->model('applicant_model');
+	        $data = $this->applicant_model->getInfo($id);
+	       	//$data[]= $this->applicant_model->getBatch();
+	        $this->output->set_output(json_encode($data));*/
+
+
+    }
+    function getBatch(){
+	    /*if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+	     	$this->load->model('applicant_model');
+	       	$data= $this->applicant_model->getBatch();
+	        $this->output->set_output(json_encode($data));
+		}
+		else {
+		      header( 'Location: Accept' ) ;
+		}*/
+		 	
+	        $this->load->model('applicant_model');
+	       	$query= $this->applicant_model->getBatch();
+	        echo json_encode ($query);
 
 
     }

@@ -356,6 +356,15 @@
 						</a>
 
 						<ul class="submenu">
+						<?php if($this->session->userdata("permission") == "Administrator") {?>
+
+							<li>
+								<a href="<?php echo base_url();?>applicant/batch_control">
+									<i class="icon-user"></i>
+								   	<span>Batch Control</span>
+								</a>
+							</li>
+						<?php }?>
 							<li >
 								<a href="<?php echo base_url();?>applicant">
 									<i class="icon-archive"></i>

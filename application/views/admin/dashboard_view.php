@@ -26,6 +26,8 @@
 		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
 
 		<!--ace styles-->
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
@@ -358,6 +360,15 @@
 						</a>
 
 						<ul class="submenu">
+						<?php if($this->session->userdata("permission") == "Administrator") {?>
+
+							<li>
+								<a href="<?php echo base_url();?>applicant/batch_control">
+									<i class="icon-user"></i>
+								   	<span>Batch Control</span>
+								</a>
+							</li>
+						<?php }?>
 							<li >
 								<a href="<?php echo base_url();?>applicant">
 									<i class="icon-archive"></i>
@@ -475,7 +486,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="#">Home</a>
+							<a href="<?php echo base_url();?>dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
@@ -549,11 +560,7 @@
 							          		<tr>
 							          			<th>Request ID</th>
 							          			<th>Company</th>
-							          			<th>From</th>
-							          			<th>To</th>
-							          			<th width="70px">Requested No.</th>
 							          			<th>Status</th>
-							          			<th width="200px">Remarks</th>
 							          			<th>&nbsp;</th>
 							          		</tr>
 							          	</thead>
@@ -562,11 +569,11 @@
 
 							          		<?php if(isset($record)) : foreach($record as $row) : ?>
 												<tr>
-													<td><?php echo "AMI-REQ-".substr(date("Y"),-2)."".sprintf("%04d", $row->request_id);?></td>
+													<td><?php //$date = date("Y",strtotime($row->date_requested)); echo "AMI-REQ-".substr($date,-2)."".sprintf("%04d", $row->request_id);
+														echo $row->request_id;
+														?>
+													</td>
 													<td><?php echo $row->company;?></td>
-								          			<td><?php echo $row->date_requested;?></td>
-								          			<td><?php echo $row->to;?></td>
-								          			<td><?php echo $row->no_of_manpower;?></td>
 								          			<td><?php if($row->confirmed == "0") {
 								          				echo '<span class="label label-warning">Not Confirmed</span>';
 								          				}
@@ -574,8 +581,10 @@
 								          					echo '<span class="label label-success">Confirmed</span>';
 								          				}
 								          			?></td>
-								          			<td><?php echo $row->remarks;?></td>
-								          			<td><button id="<?php echo $row->request_id?>" class="bb btn btn-info btn-mini">Edit Confirmation</button></td>
+								          			<td>
+								          				<button id="<?php echo $row->request_id?>" class="bview btn btn-info btn-mini">More info</button>
+								          				<button id="<?php echo $row->request_id?>" class="bconfirm btn btn-success btn-mini">Edit Confirmation</button>
+								          			</td>
 												</tr>
 											<?php endforeach;?>
 											<?php endif; ?>
@@ -620,6 +629,7 @@
 		<![endif]-->
 
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.full.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
@@ -638,11 +648,13 @@
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/jquery-templ.js" type="text/javascript"></script>
+
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">	
 
-		$("#getinfo").click(function(){
+			$("#getinfo").click(function(){
 			         var dataString = $("#id").val();
 			         $.ajax({ 
 			           url: "<?php echo base_url();?>ajax/user",
@@ -672,12 +684,12 @@
 
 			  	$('#table-request').dataTable({
 					"aoColumns": [
-						null,null,null,null,null,null,null,
+						null,null,null,
 						{ "bSortable": false }
 					]
 				});
 
-				$(".bb").on(ace.click_event, function() {
+				$(".bconfirm").on(ace.click_event, function() {
 					var id = $(this).attr("id");
 					bootbox.dialog("Edit Request Confirmation", [{
 						"label" : "Confirm Request",
@@ -720,11 +732,145 @@
 						}]
 					);
 				});
+				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+					_title: function(title) {
+						var $title = this.options.title || '&nbsp;'
+						if( ("title_html" in this.options) && this.options.title_html == true )
+							title.html($title);
+						else title.text($title);
+					}
+				}));
+				$(".bview").on(ace.click_event, function(e) {
+					e.preventDefault();
+					var id = $(this).attr("id");
+
+					$.ajax({
+						url: "administrative/viewRequest",
+						type: "post",
+						data: {
+							id: id
+						},
+						//dataType: 'json',
+						success: function(e) {
+							console.log(e);
+							result(e);
+							showDialog(id);
+						}
+					});
+					
+				});
+			
+
 
 			  });
 		
- 
-										 
+			var showDialog = function(id){
+				$( "#dialog" ).removeClass('hide').dialog({
+					dialogClass: "no-close",
+					resizable: false,
+					modal: true,
+					closeOnEscape: true,
+					title: "<div class='widget-header'><h4 class='smaller'><i class='icon-exchange'></i> "+id+". Manpower Details.</h4></div>",
+					title_html: true,
+					width: 600,
+					//maxWidth: 800,
+					maxHeight: 500,
+					buttons: [
+						    {
+						      text: "OK",
+						      "class" : "btn btn-info btn-mini",
+						      click: function() {
+						        $( this ).dialog( "close" );
+						      }
+						    }
+						  ]
+					
+				});
+
+			}
+			var result = function(e){
+				var obj = $.parseJSON(e);
+	                $.each(obj, function(){
+	                	//var str = "<button class=\"btn btn-mini btn-info\" id="+this['id']+"><i class=\"icon-edit bigger-120\"></i></button><button class=\"btn btn-mini btn-danger\"> <i class=\"icon-trash bigger-120\"></i></button>";
+					
+					output_string = "<div> <table class=\"table table-striped\">";
+					output_string += "<tr><td><h4>Manpower Info</h4></td><td></td></tr>";
+					output_string += "<tr><td>Status</td><td>";
+					if(this['confirmed']== 1){
+						output_string += "<span class=\"label label-lg label-success arrowed-right\">Confirmed</span>";
+					}
+					else{
+
+						output_string += "<span class=\"label label-lg label-warning arrowed-right\">Not Confirmed</span>";
+					}
+					output_string += "</td>";
+					output_string +="<tr><td>Company :</td><td>"+ this['company']+"</td></tr>";
+					output_string += "<tr><td>Manpower :</td><td>"+ this['no_of_manpower']+"</td></tr>";
+					output_string += "<tr><td>From :</td><td>"+ this['date_requested']+"</td></tr>";
+					output_string += "<tr><td>To :</td><td>"+ this['is_to']+"</td></tr>";
+					output_string += "<tr><td>Type :</td><td>";
+					if(this['emp_type']== 1){
+						output_string += "Contractual";
+					}
+					if(this['emp_type']== 2){
+
+						output_string += "Regular";
+					}
+					if(this['emp_type']== 3){
+
+						output_string += "Probation";
+					}
+					output_string += "</td></tr>";
+					output_string += "<tr><td>Department :</td><td>"+ this['emp_department']+"</td></tr>";
+					output_string += "<tr><td><h4>Applicant Requirements</h4></td><td></td></tr>";
+					output_string += "<tr><td>Gender :</td><td>";
+					if(this['emp_gender']== 1){
+						output_string += "Male Only";
+					}
+					if(this['emp_gender']== 2){
+						output_string += "Female Only";
+					}
+					if(this['emp_gender']== 3){
+						output_string += "Male / Female";
+					}
+					output_string += "</td></tr>"
+					output_string += "<tr><td>Remarks :</td><td>";
+				   	var str = this['remarks'];
+			        var str_array = str.split(',');
+
+					for(var i = 0; i < str_array.length; i++)
+					{
+					   // Trim the excess whitespace.
+					   str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
+					   // Add additional code here, such as:
+					   	output_string += "<ul>"; 
+					 	output_string += "<li>" +str_array[i] +  "</li>";
+					 	output_string += "</ul>";
+					}
+					output_string += "</td></tr>";
+					output_string += "<tr><td>Documents :</td><td>";
+				   	var str = this['emp_reqdocuments'];
+			        var str_array = str.split(',');
+
+					for(var i = 0; i < str_array.length; i++)
+					{
+					   // Trim the excess whitespace.
+					   str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
+					   // Add additional code here, such as:
+					   	output_string += "<ul>"; 
+					 	output_string += "<li>" +str_array[i] +  "</li>";
+					 	output_string += "</ul>";
+					}
+
+					output_string += "</td></tr></table></div>";
+	                });
+					$('#view').html(output_string);
+
+			}				 
 		</script>
+
 	</body>
+	<div id="dialog">
+	   <div id="view"></div>
+	</div>
 </html>

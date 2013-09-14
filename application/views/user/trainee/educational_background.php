@@ -402,7 +402,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="#">Home</a>
+							<a href="<?php echo base_url();?>dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
@@ -789,10 +789,10 @@
 					var str,str2="";
 					var obj = $.parseJSON(result);
 		                $.each(obj, function(){
-		                	//var str = "<button class=\"btn btn-mini btn-info\" id="+this['id']+"><i class=\"icon-edit bigger-120\"></i></button><button class=\"btn btn-mini btn-danger\"> <i class=\"icon-trash bigger-120\"></i></button>";
-						   		str =	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
-								str2 =	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
-							
+		                		str =	'<div class="hidden-phone visible-desktop btn-group">';
+		                		str +=	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
+								str +=	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
+								str += 	'</div>';
 										
 						   $('#table_employment_history').dataTable().fnAddData([
 								this['employment_company_name'],
@@ -801,7 +801,7 @@
 								this['employment_from'],
 								this['employment_to'],
 							   	this['employment_reason_leave'],
-							 	str + " " +str2 ]
+							 	str ]
 							 	);
 		                });//parseJson End
 		            }//Ajax Success End

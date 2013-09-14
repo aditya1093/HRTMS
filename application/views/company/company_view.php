@@ -360,6 +360,15 @@
 						</a>
 
 						<ul class="submenu">
+						<?php if($this->session->userdata("permission") == "Administrator") {?>
+
+							<li>
+								<a href="<?php echo base_url();?>applicant/batch_control">
+									<i class="icon-user"></i>
+								   	<span>Batch Control</span>
+								</a>
+							</li>
+						<?php }?>
 							<li >
 								<a href="<?php echo base_url();?>applicant">
 									<i class="icon-archive"></i>
@@ -461,7 +470,7 @@
 					<li>
 						<a href="about">
 							<i class="icon-info"></i>
-							<span>The Developers</span>
+							<span>About the Developers</span>
 						</a>
 					</li>
 			
@@ -478,7 +487,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="#">Home</a>
+							<a href="<?php echo base_url();?>dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
@@ -512,7 +521,7 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-						<div class="span9">
+					<div class="span12">
 							<div class="alert alert-success">
 									<b>Note:</b>
 									<ul>
@@ -520,6 +529,12 @@
 										<li>Use the Search bar to filter the information you need</li>
 										<li>Click the column name to toggle order by column</li>
 									</ul>						
+							</div>
+							<div id="infoMessage" align=""><?php
+						              $message = $this->session->flashdata('delete_client_message');
+						              if ($message == null){}
+						              else{echo $message;}
+						              ?>         
 							</div>
 							<div class="box-content">
 								<div class="row-fluid">
@@ -554,7 +569,7 @@
 													<i class="icon-edit bigger-120"></i>
 												</button>
 
-												<button class="btn btn-mini btn-danger">
+												<button class="btn btn-mini btn-danger" onClick="delete_user('<?php echo $row->client_id;?>','<?php echo $row->client_name;?>','<?php echo $row->user_id;?>')" >
 													<i class="icon-trash bigger-120"></i>
 												</button>
 											</div>
@@ -574,8 +589,13 @@
 							</div>
 
 						</div>
-						<div class="span3">
-							<div>
+
+					
+						</div>
+						<?php if ($this->session->userdata('permission') == 'Administrator') {?>
+
+						<div class="row-fluid">
+						<div class="span5">
 
 							<!-- ADD HR START -->
 							
@@ -608,7 +628,7 @@
 										              if ($message == null){}
 										              else{echo $message;}
 										              ?>         
-													</div>
+											</div>
 											<form method="post" action="<?php echo base_url();?>client/add_client">
  
 												<label for="client_name" ><i class="light-red icon-asterisk"></i> Client Name:  </label>
@@ -623,8 +643,8 @@
 												<label for="client_password" ><i class="light-red icon-asterisk"></i> Password: </label>
 												<input  id="client_password" style="width: 94%" type="password" name="client_password">
 
-												<label for="client_password_confirmation" ><i class="light-red icon-asterisk"></i>Confirm Password: </label>
-												<input  id="client_password_confirmation" style="width: 94%" type="password" name="client_password_confirmation">
+												<label for="client_password_confirm" ><i class="light-red icon-asterisk"></i>Confirm Password: </label>
+												<input  id="client_password_confirm" style="width: 94%" type="password" name="client_password_confirm">
 
 												<label for="client_email" ><i class="light-red icon-asterisk"></i> Email: </label>
 												<input  id="client_email" style="width: 94%" type="text" name="client_email" value="<?php echo $this->session->flashdata('client_email');?>">
@@ -647,13 +667,6 @@
 							<!-- ADD HR END -->
 
 						</div>
-						</div>
-					
-						</div>
-						<?php if ($this->session->userdata('permission') == 'Administrator') {?>
-
-						<div class="row-fluid">
-						
 						</div><?php }?>
 
 
@@ -694,6 +707,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 
 		<!--ace scripts-->
 
@@ -740,7 +754,41 @@
 			
 				$('[data-rel=tooltip]').tooltip();
 
-			});	
+			});
+			var delete_user = function(id,client_name,user_id) {
+			var str = "<h3>Confirm</h3>" + client_name + " will be deleted";
+			str += ". Do you really want to delete this client?";
+
+			bootbox.dialog(str, [{
+					"label" : "<i class=\'icon-trash\'></i> Delete",
+					"class" : "btn-small btn-danger",
+					"callback": function() {
+						//Example.show("great success");
+						//bootbox.alert(id);
+						$.ajax({
+							url: "<?php echo base_url();?>client/delete_client",
+							type: "post",
+							data: {
+								id: id,
+								user_id: user_id,
+								client_name : client_name
+
+							},
+							success: function(e) {
+								console.log(e);
+								location.reload();
+							}
+						});
+						
+					}
+					}, {
+						"label" : "Cancel",
+						"class" : "btn-small"
+					}]
+				);
+
+		}
+	
 		</script>
 	</body>
 </html>

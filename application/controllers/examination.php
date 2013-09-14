@@ -167,7 +167,99 @@ class Examination extends CI_Controller {
 
 	}
 
+	function submit_answers() {
+		
+		$this->load->model("examination_model");
+		$data = $this->examination_model->load_items();
+
+		$this->validate_answers($data);
+	}
+
+	function validate_answers($data) {
+
+		$div = "~/&^%-";
+		$c = 0; //items
+		$d = 0;
+
+		foreach ($data as $row) {	
+
+			$j = (string)$row->question_id; //get question_id
+
+			//CHECK MULTIPLE
+			if($row->question_type=='4') {
+
+				$c++;
+				$ans = "";
+
+				//echo $row->question;
+				for ($i=0; $i < $row->no_of_choices; $i++) { 
+					
+					$k = (string)($i + 1);
+
+					//skip blank checkbox
+					if(trim($this->input->post($j.'_'.$k))=="") {
+
+						continue;
+					}
+
+					$ans .= $this->input->post($j.'_'.$k).$div;
+
+				}
+
+				if($ans == $row->key_answer) {
+
+					//echo "Your answer on question no. ".$c." is correct\n";
+					$d++;
+
+					//do something
+				}
+				else {
+
+					//echo "Your answer on question no. ".$c." is wrong\n";
+				}
+
+			}
+			//MULTIPLE CHOICE, TRUE OR FALSE AND IDENTIFICATION
+			else {
+
+				$c++;
+				$ans = $this->input->post($j);
+
+				if(trim($ans) == trim($row->key_answer)) {
+
+					//echo "Your answer on question no. ".$c." is correct\n";
+					$d++;
+				}
+				else {
+
+					//echo "Your answer on question no. ".$c." is wrong\n";
+				}
+			}
+
+		} //end foreach
+
+		//echo "Score: ".$d."/".$c."\n";
+
+		$status = "passed";
+
+		if(floatval($d/$c) < 0.75) {
+
+			$status = "failed";
+		}
+
+		$this->load->model("examination_model");
+		
+		$is_took = $this->examination_model->update_score($d, $c, $status);
+		
+		if($is_took) {
+
+			echo "true";
+		}
+		
+	}
+
 }
 
 /* End of file examination.php */
 /* Location: ./application/controllers/examination.php */
+

@@ -12,6 +12,7 @@ class Request_model extends CI_Model{
 		$this->db->insert('request', $data);
         
     }
+    
 
     function list_request() {
         
@@ -36,5 +37,12 @@ class Request_model extends CI_Model{
 
         $this->db->where('request_id', $id);
         $this->db->update('request', $data); 
+    }
+
+
+    function viewRequest($id){
+
+        $query = $this->db->query("SELECT * FROM request WHERE request_id = '".$id."'");
+        return $query->result();
     }
 }

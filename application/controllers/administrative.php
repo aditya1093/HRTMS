@@ -57,6 +57,21 @@ class Administrative extends CI_Controller {
 		}
 	}
 
+	function viewRequest(){
+		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    	
+			$id = $this->input->post('id');
+			$this->load->model("request_model");
+			$data = $this->request_model->viewRequest($id);
+	        $this->output->set_output(json_encode($data));
+		}
+		else {
+
+			 header( 'Location: ../dashboard' ) ;
+		}
+
+	}
+
 
 }
 

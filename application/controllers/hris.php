@@ -69,7 +69,7 @@ class Hris extends CI_Controller {
     	
 		$m = $this->input->post('middle_name');
 		$name = $this->input->post('first_name') .' ' .$m[0].' '.$this->input->post('last_name'); 
-	
+		$id = $this->session->userdata('user_id');
 		//$this->output->set_output(json_encode($name));
 		$personal_info = array(
         			'first_name' => $this->input->post('first_name'),
@@ -120,7 +120,7 @@ class Hris extends CI_Controller {
 		//echo 'asd'.$this->input->post('skills');
     			
 		$this->load->model('hris_model');
-		$this->hris_model->personal_info($personal_info);
+		$this->hris_model->personal_info($personal_info,$id);
 	
 		}
 		else {
@@ -137,6 +137,7 @@ class Hris extends CI_Controller {
 		//$name = $this->input->post('first_name') .' ' .$m[0].' '.$this->input->post('last_name'); 
 		//$name = $this->input->post('passport_issue_date');
 		//$this->output->set_output(json_encode($name));
+		$id = $this->session->userdata('user_id');
 		$personal_info = array(
         			'sss_no' => $this->input->post('sss_no'),
         			'tin_no' => $this->input->post('tin_no'),
@@ -158,7 +159,7 @@ class Hris extends CI_Controller {
 		//echo $name;
     			
 		$this->load->model('hris_model');
-		$this->hris_model->personal_info($personal_info);
+		$this->hris_model->personal_info($personal_info,$id);
 	
 		}
 		else {

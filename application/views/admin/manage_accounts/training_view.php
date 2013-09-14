@@ -355,6 +355,15 @@
 						</a>
 
 						<ul class="submenu">
+						<?php if($this->session->userdata("permission") == "Administrator") {?>
+
+							<li>
+								<a href="<?php echo base_url();?>applicant/batch_control">
+									<i class="icon-user"></i>
+								   	<span>Batch Control</span>
+								</a>
+							</li>
+						<?php }?>
 							<li >
 								<a href="<?php echo base_url();?>applicant">
 									<i class="icon-archive"></i>
@@ -457,7 +466,7 @@
 					<li>
 						<a href="about">
 							<i class="icon-info"></i>
-							<span>The Developers</span>
+							<span>About the Developers</span>
 						</a>
 					</li>
 			
@@ -507,7 +516,7 @@
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 
-						<div class="span9">
+						<div class="span12">
 
 							<div class="box">
 									<div class="box-header well" data-original-title>
@@ -519,6 +528,12 @@
 											<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
 										-->
 										</div>
+									</div>
+									<div id="infoMessage" align=""><?php
+						              $message = $this->session->flashdata('delete_message');
+						              if ($message == null){}
+						              else{echo $message;}
+						              ?>         
 									</div>
 									<div class="box-content"> 
 
@@ -591,11 +606,14 @@
 
 								
 							</div> 
-							<div class="span3">
 
-								<!-- ADD Trainer START -->
+							<div class="row-fluid">
+								
+							<div class="span5">
 
-								<div class="widget-box">
+							<!-- ADD Trainer START -->
+
+							<div class="widget-box">
 
 										<div class="widget-header">
 											<h4><i class="icon-user"></i>Add Account</h4>
@@ -660,13 +678,10 @@
 									</div>
 
 							</div>
-							<div class="row-fluid">
-								
-							
 							</div>
 
 					
-							
+						
 
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
@@ -768,7 +783,8 @@
 							url: "<?php echo base_url();?>manage/delete_user",
 							type: "post",
 							data: {
-								id: id
+								id: id,
+								username: username
 							},
 							success: function(e) {
 								console.log(e);

@@ -28,6 +28,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/datepicker.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/client/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
@@ -41,6 +42,9 @@
 		<![endif]-->
 
 		<!--inline styles if any-->
+		<style type="text/css">
+		.tags{display:inline-block;padding:4px 6px;color:#777;vertical-align:middle;background-color:#FFF;border:1px solid #d5d5d5;width:70%}
+		</style>
 	</head>
 
 	<body>
@@ -303,15 +307,25 @@
 
 												<div class="row-fluid">
 													<div class="span12"> 
+														<div id="infoMessage" align=""><?php
+												              $message = $this->session->flashdata('request_sent');
+												              if ($message == null){}
+												              else{echo $message;}
+												              ?>         
+														</div>
 														<form action="client/send_request" method="get" id="send_request">
 															<div class="control-group">
+																<label class="control-label" for=""><h3>Manpower Information:</h3></label>
+															<!-- Quoted Number of Manpower -->
 																<label class="control-label" for="no_of_manpower">Quoted Number of Manpower:</label>
 
 																<div class="controls">
-																	<input required class="input-mini" type="text" name="no_of_manpower" placeholder="#">
+																	<input required class="input-mini" type="text" id="no_of_manpower" name="no_of_manpower" placeholder="#">
 																</div>
-															
-																<label class="control-label" for="date_requested">Date Requested:</label>
+															<!-- Quoted Number of Manpower -->
+
+															<!-- Date Range -->
+																<label class="control-label" for="date_range">Date Requested:</label>
 																
 																<!--<div class="row-fluid input-append">
 
@@ -320,30 +334,87 @@
 																		<i class="icon-calendar"></i>
 																	</span>
 																</div>-->
-
-															<!-- Date Range -->
 																<div class="control-group">
 																	<div class="row-fluid input-prepend">
 																		<span class="add-on">
 																			<i class="icon-calendar"></i>
 																		</span>
 
-																		<input class="span3" type="text" name="date-range-picker" id="id-date-range-picker-1" />
+																		<input required class="span3" type="text" name="date-range-picker" id="date_range" />
 																	</div>
 																</div>
 
-															<!-- Date Range -->
+															<!-- Date Range -->										
 																
-																<label class="control-label" for="remarks">Remarks:</label>
+															<!-- Employment Type -->
+																<label class="control-label" for="emp_type">Type of Employemt:</label>
+																	
+																<div class="controls">
+																	<select required name="emp_type" id="emp_type">
+																		<option selected disbaled value="">Select Type</option>
+																		<option value="1">Contractual</option>
+																		<option value="2">Regular</option>
+																		<option value="3">Probation</option>
+																	</select>
+																</div>
+															<!-- Employment Type -->
+
+															<!-- Designated Department -->
+																<label class="control-label" for="emp_department">Designate Department:</label>
+																	
+																<div class="controls">
+																	<input required name="emp_department" type="text" id="emp_department">
+																</div>
+
+															<!-- Designated Department -->
+																<label class="control-label" for=""><h3>Applicant Requirements:</h3></label>
+															<!-- Employee Gender -->
+																<label class="control-label" for="emp_gender">Employee Gender:</label>
+																	
+																<div class="controls">
+																	<div class="radio">
+																		<label>
+																			<input required name="emp_gender" type="radio" class="ace" value="1">
+																			<span class="lbl"> Male</span>
+																		</label>
+																	</div>
+																	<div class="radio">
+																		<label>
+																			<input name="emp_gender" type="radio" class="ace" value="2">
+																			<span class="lbl"> Female</span>
+																		</label>
+																	</div>
+																	<div class="radio">
+																		<label>
+																			<input name="emp_gender" type="radio" class="ace" value="3">
+																			<span class="lbl"> Both</span>
+																		</label>
+																	</div>
+																</div>
+															<!-- Employee Gender -->
+														
+															<!-- Remarks -->
+																<label class="control-label" for="remarks">Remarks <small class="muted">Enter for another input</small></label>
 
 																<div class="controls">
-																	<textarea name="remarks" style="width:90%"></textarea>
+																	<input required class="" id="remarks" name="remarks">
 																</div>
+															<!-- Remarks -->
+															<!-- Requirements -->
+																<label class="control-label" for="documents_req">Documents <small class="muted">Enter for another input</small></label>
+
+																<div class="controls">
+																	<input required class="" id="documents_req" name="documents_req">
+																</div>
+															<!-- Requirements -->	
+
+														
+	
 
 																<div class="controls">
 																	<label>
 																		<input required name="agree" name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox">
-																		<span class="lbl"> We have agreed upon the <a href="">Terms and Condition</a> upon requesting.</span>
+																		<span class="lbl"> We have agreed upon the <a href="#TAC">Terms and Condition</a> upon requesting.</span>
 																	</label>
 																</div>
 																<p></p>
@@ -410,7 +481,7 @@
 								
 								<div class="widget-box">
 									<div class="widget-header">
-										<h4 class="smaller">Terms And Conditions</h4>
+										<h4 id="TAC" class="smaller">Terms And Conditions</h4>
 									</div>
 
 									<div class="widget-body">
@@ -478,7 +549,7 @@
 														    	
 														    
 														    			    		
-																		<div class="clear"></div>
+												<div class="clear"></div>
 																			
 															
 														</div>
@@ -521,18 +592,13 @@
 
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/date-time/moment.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/date-time/daterangepicker.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.autosize-min.js"></script>	
 		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootstrap-tag.min.js"></script>
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/dropzone.min.js"></script>
@@ -558,9 +624,42 @@
 
 			    });
 				
+		        var tag_input = $('#remarks');	
+				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
+				{
+					tag_input.tag(
+					  {
+						placeholder:tag_input.attr('placeholder'),
+						//enable typeahead by specifying the source array
+						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
+					  }
+					);
+				}
+				else {
+					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+					tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+					//$('#skill').autosize({append: "\n"});
+				}
 
 
-				$('#id-date-range-picker-1').daterangepicker().prev().on(ace.click_event, function(){
+		        var tag_input2 = $('#documents_req');	
+				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
+				{
+					tag_input2.tag(
+					  {
+						placeholder:tag_input2.attr('placeholder'),
+						//enable typeahead by specifying the source array
+						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
+					  }
+					);
+				}
+				else {
+					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+					tag_input2.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+					//$('#skill').autosize({append: "\n"});
+				}
+
+				$('#date_range').daterangepicker().prev().on(ace.click_event, function(){
 					$(this).next().focus();
 				});
 			

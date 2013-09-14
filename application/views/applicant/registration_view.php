@@ -357,6 +357,15 @@
 						</a>
 
 						<ul class="submenu">
+						<?php if($this->session->userdata("permission") == "Administrator") {?>
+
+							<li>
+								<a href="<?php echo base_url();?>applicant/batch_control">
+									<i class="icon-user"></i>
+								   	<span>Batch Control</span>
+								</a>
+							</li>
+						<?php }?>
 							<li  class="active">
 								<a href="<?php echo base_url();?>applicant">
 									<i class="icon-archive"></i>
@@ -482,7 +491,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="#">Home</a>
+							<a href="<?php echo base_url();?>dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
@@ -677,7 +686,7 @@
 			str += "Do you want to edit the information of this applicant?";
 
 			bootbox.dialog(str, [{
-					"label" : "<i class=\'icon-trash\'></i> Edit",
+					"label" : "<i class=\'icon-edit\'></i> Edit",
 					"class" : "btn-small btn-info",
 					"callback": function() {
 						//Example.show("great success");

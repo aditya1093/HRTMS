@@ -1,9 +1,9 @@
-<?php if($this->session->userdata('permission') != 'Administrator') { redirect(base_url() . 'index.php/404');} ?>
+<?php if($this->session->userdata('permission') != 'Administrator'&& $this->session->userdata('permission') != 'HR') { redirect(base_url() . 'index.php/404');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Dashboard - AMI</title>
+		<title>Batch Control - AMI</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,11 +28,11 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
-		
-	
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/applicant/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -42,7 +42,7 @@
 	</head>
 
 	<body>
-
+		<?php if(!isset($no_visible_elements) || !$no_visible_elements)	{ ?>
 		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
@@ -299,9 +299,9 @@
 				</div><!--/.container-fluid-->
 			</div><!--/.navbar-inner-->
 		</div>
-	
+		<?php } ?>
 		<div class="container-fluid" id="main-container">
-			
+			<?php if(!isset($no_visible_elements) || !$no_visible_elements) { ?>
 			<a id="menu-toggler" href="#">
 				<span></span>
 			</a>
@@ -349,7 +349,8 @@
 					</li>
 
 					
-					<li>
+
+					<li class="active open">
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
 							<span>Registration</span>
@@ -360,14 +361,14 @@
 						<ul class="submenu">
 						<?php if($this->session->userdata("permission") == "Administrator") {?>
 
-							<li>
+							<li class="active">
 								<a href="<?php echo base_url();?>applicant/batch_control">
 									<i class="icon-user"></i>
 								   	<span>Batch Control</span>
 								</a>
 							</li>
 						<?php }?>
-							<li >
+							<li  class="">
 								<a href="<?php echo base_url();?>applicant">
 									<i class="icon-archive"></i>
 									<span>Applicants</span>
@@ -382,6 +383,7 @@
 							</li>
 						</ul>
 					</li>
+
 
 
 					<li>
@@ -404,8 +406,8 @@
 							<span>Deployment Tagging</span>
 						</a>
 					</li>
- 
-					<li  class="active open">
+					<?php if($this->session->userdata("permission")=="Administrator") {?>
+					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
 							<span>Manage Accounts</span>
@@ -414,10 +416,10 @@
 						</a>
 
 						<ul class="submenu">
-							<li  class="active">
+							<li>
 								<a href="<?php echo base_url();?>manage/hr">
 									<i class="icon-user"></i>
-									HR Department 
+									HR Department
 								</a>
 							</li>
 
@@ -429,7 +431,7 @@
 							</li>
 						</ul>
 					</li>
- 
+
 					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-cog"></i>
@@ -457,7 +459,7 @@
 							
 						</ul>
 					</li>
-
+					<?php }?>
 					<!--<li>
 						
 						<a href="help">
@@ -484,25 +486,27 @@
 
 
 			
+			<?php } ?>
+
 			<div id="main-content" class="clearfix">
 				<div id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
-							<i class="icon-shield"></i>
-							<a href="#">Manage Accounts</a>
+							<i class="icon-home"></i>
+							<a href="<?php echo base_url();?>dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">HR Department</li>
+						<li class="active">Registration</li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
 						<form class="form-search">
 							<span class="input-icon">
 								<input type="text" placeholder="Search ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
-			 					<i class="icon-search" id="nav-search-icon"></i>
+								<i class="icon-search" id="nav-search-icon"></i>
 							</span>
 						</form>
 					</div><!--#nav-search-->
@@ -511,187 +515,156 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Human Resource Department Management
+							Registration
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Staff Accounts
+								Batch Control
 							</small>
 						</h1>
 					</div><!--/.page-header-->
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-
-						<div class="span12">
-
-							<div class="box">
-									<div class="box-header well" data-original-title>
-										<h2><i class="icon-key"></i> Login Accounts for HR Staffs</h2>
-										<div class="box-icon">
-											<!--
-											<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-											<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-											<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-										-->
-										</div>
-									</div>
-									<div id="infoMessage" align=""><?php
-						              $message = $this->session->flashdata('delete_message');
-						              if ($message == null){}
-						              else{echo $message;}
-						              ?>         
-									</div>
-									<div class="box-content">
-
-										<div class="row-fluid">
-											
-											<div class="table-header">
-												 Results for "Accounts"
-											</div>
-											<table id="table_report" class="table table-striped table-bordered table-hover">
-											<thead>
-											<tr>
-												
-												<th>
-													Name
-												</th>
-												<th>
-													Username
-												</th>
-												<th class="hidden-480">
-													Email Address
-												</th>
-												<th class="hidden-phone">													
-													Date Created
-												</th>
-												<th> 
-												</th>
-											</tr>
-											</thead>
-											<tbody>
-												<?php if(isset($records)) : foreach($records as $row) : ?>
-													<tr>
-														
-														<td id=""><?php echo $row->last_name.', '.$row->first_name.' '.$row->middle_name;?></td>
-														<td><?php echo $row->username;?></td>
-														<td><?php echo $row->email;?></td>														
-														<td><?php echo $row->date_created;?></td>
-														<td class="td-actions">
-
-																<!--
-																		<a id="<?php echo $row->id;?>" style="cursor:pointer;" class="editbutton btn btn-info"><i class="icon-edit icon-white"></i></a>
-																		<a id="<?php echo $row->id;?>" style="cursor:pointer;" class="deletebutton btn btn-danger"><i class="icon-trash icon-white"></i> </a>	
-																		!-->
-														 <div class="hidden-phone visible-desktop btn-group">
-															<button class="btn btn-mini btn-success">
-																<i class="icon-ok bigger-120"></i>
-															</button>
-
-															<button class="btn btn-mini btn-info">
-																<i class="icon-edit bigger-120"></i>
-															</button>
-															<button class="btn btn-mini btn-danger" onClick="delete_user('<?php echo $row->id;?>','<?php echo $row->username;?>')" id="" value="<?php echo $row->id;?>">
-																<i class="icon-trash bigger-120"></i>
-															</button>
-															<input  id="username" type="hidden" value="<?php echo $row->username;?>">
-														
-														</div>
-									
-														</td>
-													</tr>
-													<?php endforeach;?>
-												<?php endif; ?>
-											</tbody>
-											</table>
-										</div>
-
-										<small>Page rendered in: {elapsed_time} seconds</small>
-									</div>
-								</div>
-								
-								
-							</div>
-							<div class="row-fluid">
-										
-								<div class="span5">
-
-									<!-- ADD HR START -->
-									
-						
+							<div class="span4">
+							
+								<div class="span12">
 									<div class="widget-box">
-
-										<div class="widget-header">
-											<h4><i class="icon-user"></i> Add HR Account</h4>
-											
-											<span class="widget-toolbar">
-												<a href="#" data-action="collapse">
-													<i class="icon-chevron-up"></i>
-												</a>
-
-												<a href="#" data-action="reload">
-													<i class="icon-refresh"></i>
-												</a>
-
-												
-											</span>
+										<div class="widget-header header-color-dark">
+											<h4 class="smaller">
+												New Batch of Trainees
+												<small></small>
+											</h4>
 										</div>
 
-										<div class="widget-body"><div class="widget-body-inner">
+										<div class="widget-body">
 											<div class="widget-main">
-												<div class="row-fluid">
-
-													<!--<?php if(!is_null($this->session->userdata('error_hr'))) echo $this->session->userdata('error_hr'); ?>
-													-->
-													<div id="infoMessage" align="center"><?php
-										              $message = $this->session->flashdata('hr_message');
-										              if ($message == null){}
-										              else{echo $message;}
-										              ?>         
+												 <form id="addBatchControl"> 
+												 	<div class="control-group">
+														<label class="control-label" for="req_id">Request ID</label>
+														<div class="controls">
+															<select class="chzn-select" id="req_id"  name="req_id">
+																	<option selected disabled value=""></option>
+																<?php if(isset($records2)) : foreach($records2 as $row) : ?>
+																	<option value="<?php echo $row->request_id;?>"><?php echo $row->request_id;?></option>
+																<?php endforeach;?>
+																<?php endif; ?>
+															</select> 
+														</div>
+													
+														<div id="company" style="display:none">
+															<label class="control-label" for="company_name">Company</label>
+															<div class="controls">
+																<input type="text" id="company_name" disabled=""  name="">
+																<input type="hidden" id="company_name2" name="client_name">
+															</div>
+													
+														</div>
+													
+														<label class="control-label" for="date_start">Date start</label>
+														<div class="controls" >
+															<span class="input-append">
+																<input class="span8 date-picker" name="date_start" id="date_start"  value ="" type="text" data-date-format="yyyy-mm-dd">
+																<span class="add-on">	
+																	<i class="icon-calendar"></i>
+																</span>
+																<!--<button class="btn btn-purple">Now</button>-->
+															</span>
+														</div>
+													
+														<label class="control-label" for="training_days">Training Days</label>
+														<div class="controls">
+															<input type="text" id="training_days" name="training_days" placeholder="#" class="input-mini">
+														</div>
+													
+														<label class="control-label" for="limit">Limit</label>
+														<div class="controls">
+															<input type="text" id="limit" name="limit_no" placeholder="#" class="input-mini">
+														</div>
 													</div>
-													<form method="post" action="<?php echo base_url();?>manage/add_hr">
-		 
-														<label><i class="light-red icon-asterisk"></i> Username:  </label>
-														<input autofocus  style="width: 94%" placeholder="Enter Username" type="text" id="username" name="username" value="<?php echo $this->session->flashdata('username');?>">
-
-														<label><i class="light-red icon-asterisk"></i> Password: </label>
-														<input style="width: 94%" type="password" id="password" name="password" value="">
-
-														<label><i class="light-red icon-asterisk"></i> Confirm Password: </label>
-														<input style="width: 94%" type="password" id="password_confirm" name="password_confirm" value="">
-
-														<label><i class="light-red icon-asterisk"></i> First Name: </label>
-														<input style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $this->session->flashdata('first_name');?>">
-
-														<label><i class="light-red icon-asterisk"></i> Last Name: </label>
-														<input style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $this->session->flashdata('last_name');?>">
-
-														<label>Middle Name: </label>
-														<input style="width: 94%" type="text" id="middle_name" name="middle_name" value="<?php echo $this->session->flashdata('middle_name');?>">
-
-														<label><i class="light-red icon-asterisk"></i> Email address: </label>
-														<input  style="width: 94%" type="email" id="email" name="email"  value="<?php echo $this->session->flashdata('email');?>">
-
-														<hr>
-
-														<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Add HR</button>
+													<div class="form-actions">
+														<button class="btn span6 btn-info" type="submit">
+															<i class="icon-ok bigger-110"></i>
+															Submit
+														</button>
 
 														
-													</form>	
-												</div>									
+														<button class="btn span6" type="reset">
+															<i class="icon-undo bigger-110"></i>
+															Reset
+														</button>
+													</div>
+												 </form>
+
 											</div>
-										</div></div>
+										</div>
 									</div>
+								</div>
+						
+						</div> 	
+						<div class="span8">
+							<div class="alert alert-success">
+									<b>Note:</b>
+									<ul>
+										<li>Here you can view the active batch records</li>
+										<li>Use the Search bar to filter the information you need</li>
+										<li>Click the column name to toggle order by column</li>
+									</ul>						
+							</div>
+							<div class="box-content">
+								<div class="row-fluid">
+									<table id="table_report" class="table table-striped table-bordered table-hover">
+									    <thead>
+									        <tr>
+									        	<th>Request ID</th>
+									            <th>Batch Control No.</th>
+												<th>Client</th>
+												<th>Date Started</th>
+												<th></th>
+												 
+									        </tr>
+									    </thead>
+									    <tbody>
+									   <?php if(isset($records)) : foreach($records as $row) : ?>
 
+									<tr>
+										<?php 
+						  					 
+						  				?>
+						  				<td><?php echo $row->request_id;?></td>
+						  				<td><?php echo $row->batch_control_no;?></td>
+										<td><?php echo $row->client?></td>
+										<td class="hidden-480"><?php echo $row->date_start;?></td>
+										<td class="td-actions">
+											<!--
+											<a href="<?php echo base_url();?>index.php/registration/registered/get_info/<?php  echo $row->register_id; ?>" style="cursor:pointer;" class="btn btn-info"><i class="icon-edit icon-white"></i></a>
+											 !-->
+											<div class="hidden-phone visible-desktop btn-group">
+												<button onclick="" class="btn btn-mini btn-success">
+													<i class="icon-ok bigger-120"></i>
+												</button>
 
+												<button onclick="edit_applicant('<?php echo $row->id;?>')" class="btn btn-mini btn-info">
+													<i class="icon-edit bigger-120"></i>
+												</button>
+											</div>
 
-									<!-- ADD HR END -->
+										</td>
+
+										
+									</tr>
+									<?php endforeach;?>
+ 
+								<?php endif; ?>
+									         
+									    </tbody>
+
+									</table>
 
 								</div>
-
-
 							</div>
 
-						
+						</div>
+					
 
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
@@ -729,11 +702,13 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
-
+		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
 		<!--ace scripts-->
+
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
@@ -757,12 +732,14 @@
 					else $(this).closest('li').removeClass('selected');
 				});
 
-				//datatable initializatino
+				//datatable initialization
 				var oTable1 = $('#table_report').dataTable( {
 				"aoColumns": [
-			      null, null,null, null,
-				  { "bSortable": false }
-				] } );
+			      null,null, null, null,
+				  { "bSortable": false }] ,
+				   "aLengthMenu": [[5, 10,-1], [5, 10, "All"]],
+					"iDisplayLength" : 5
+				} );
 				
 				
 				$('table th input:checkbox').on('click' , function(){
@@ -777,41 +754,99 @@
 			
 				$('[data-rel=tooltip]').tooltip();
 
+				$('.date-picker').datepicker().next().on(ace.click_event, function() {
+					$(this).prev().focus();
+				});
+				$(".chzn-select").chosen(); 
+				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+				
+
+				$.extend($.gritter.options, { 
+		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+				fade_out_speed: 1000, // how fast the notices fade out
+				time: 1000 // hang on the screen for...
+				});
+
+
+				$( "#addBatchControl" ).on( "submit", function( event ) {
+				//$( "#addBatchControl" ).on( "submit", function() {
 			
+				  event.preventDefault();
+				  var sData = $(this).serialize();
+				  console.log(sData);
+				  $.ajax({
+		               	url:"<?php echo base_url();?>applicant/addBatchControl",
+		                type:'POST',
+		                data:sData,
+		                //dataType: "json",
+		                success:function(result){
+			    			console.log(result);
+			                $.gritter.add({
+								title: 'Batch Control',
+								text: '<i class="icon-spinner icon-spin green icon-2x"></i> Successfully added batch training .',
+								class_name: 'gritter-success gritter-center gritter-light'
+							});
+							$( '#addBatchControl' ).each(function(){
+							    this.reset();
+							});
+							$('#company').hide();
+
+							var obj = $.parseJSON(result);
+			                $.each(obj, function(){
+			                str =  	'<div class="hidden-phone visible-desktop btn-group">';			
+					   		str +=	'<button class="btn btn-mini btn-success"><i class="icon-ok bigger-120"></i></button>';
+							str +=	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
+							str += 	'</div>';
+											
+							   $('#table_report').dataTable().fnAddData([
+									this['request_id'],
+									this['batch_control_no'],
+								   	this['client'],
+								   	this['date_start'],
+								 	str  ]
+								 	);table_report
+			                });	
+		                }//End Success
+
+		            	});
+						//return false;
+					});//End #addBatchControl Submit
 
 				
-		});
-		var delete_user = function(id,username) {
-			var str = "<h3>Confirm</h3>" + username + " will be deleted";
-			str += ". Do you really want to delete this user?";
+				$('#req_id').change(function () {
+                    //var batch = $(this).attr('value');
+                    $('#company').hide();
+                    var req_id = $(this).find("option:selected").attr('value')
+                    console.log(req_id);
+                    $.ajax({    
+                        url: "<?php echo base_url();?>applicant/getCompany", //The url where the server req would we made.
+                        async: false, 
+                        type: "POST", //The type which you want to use: GET/POST
+                        data: "req_id="+req_id, //The variables which are going.
+                         
+                        //This is the function which will be called if ajax call is successful.
+                        success: function(e) {
+                            //data is the html of the page where the request is made.
+                            var obj = $.parseJSON(e);
+                            var val ="";
+	                		$.each(obj, function(){
+	                			val = this['company'];
+	                		});
+	                		//alert(val);
+                      		$('#company').slideToggle('fast');
+                        	$("#company_name").val(val);
+                        	$("#company_name2").val(val);
 
-			bootbox.dialog(str, [{
-					"label" : "<i class=\'icon-trash\'></i> Delete",
-					"class" : "btn-small btn-danger",
-					"callback": function() {
-						//Example.show("great success");
+                        } 
+                    })
+                });
+			});
 
-						$.ajax({
-							url: "<?php echo base_url();?>manage/delete_user",
-							type: "post",
-							data: {
-								id: id,
-								username: username
-							},
-							success: function(e) {
-								console.log(e);
-								location.reload();
-							}
-						});
-						
-					}
-					}, {
-						"label" : "Cancel",
-						"class" : "btn-small"
-					}]
-				);
+			var edit_applicant = function(id){
 
-		}
+				alert(id);
+			}
 		</script>
 	</body>
 </html>

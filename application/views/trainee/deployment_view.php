@@ -1,4 +1,5 @@
-<?php if($this->session->userdata('permission') != 'Administrator') { redirect(base_url() . 'index.php/404');} ?>
+<?php if($this->session->userdata('permission') != 'Administrator'&& $this->session->userdata('permission') != 'HR') {  echo $this->session->userdata('permission');}//redirect(base_url() . 'index.php/logout');} ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -27,12 +28,11 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
-		
-	
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
+
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -42,8 +42,7 @@
 	</head>
 
 	<body>
-
-		<div class="navbar navbar-inverse">
+			<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
 					<a href="#" class="brand">
@@ -55,6 +54,7 @@
 
 					<ul class="nav ace-nav pull-right">
 					<!--	
+						
 						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
@@ -192,7 +192,7 @@
 							</ul>
 						</li>
 					-->
-
+					
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
@@ -299,9 +299,9 @@
 				</div><!--/.container-fluid-->
 			</div><!--/.navbar-inner-->
 		</div>
-	
+
 		<div class="container-fluid" id="main-container">
-			
+		
 			<a id="menu-toggler" href="#">
 				<span></span>
 			</a>
@@ -398,14 +398,14 @@
 						</a>
 					</li>
 
-					<li>
+					<li class="active">
 						<a href="<?php echo base_url();?>deployment">
 							<i class="icon-tag"></i>
 							<span>Deployment Tagging</span>
 						</a>
 					</li>
- 
-					<li  class="active open">
+ 					<?php if($this->session->userdata("permission")=="Administrator") {?>
+					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-shield"></i>
 							<span>Manage Accounts</span>
@@ -414,10 +414,10 @@
 						</a>
 
 						<ul class="submenu">
-							<li  class="active">
+							<li  >
 								<a href="<?php echo base_url();?>manage/hr">
 									<i class="icon-user"></i>
-									HR Department 
+									HR Department
 								</a>
 							</li>
 
@@ -429,7 +429,7 @@
 							</li>
 						</ul>
 					</li>
- 
+
 					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-cog"></i>
@@ -453,11 +453,9 @@
 									Backup &amp; Maintenance
 								</a>
 							</li>
-
-							
 						</ul>
 					</li>
-
+					<?php }?>
 					<!--<li>
 						
 						<a href="help">
@@ -473,9 +471,7 @@
 						</a>
 					</li>
 			
-				</ul>
-
-				<!--/.nav-list-->
+				</ul><!--/.nav-list-->
 
 				<div id="sidebar-collapse">
 					<i class="icon-double-angle-left"></i>
@@ -483,26 +479,25 @@
 			</div>
 
 
-			
-			<div id="main-content" class="clearfix">
+		<div id="main-content" class="clearfix">
 				<div id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
-							<i class="icon-shield"></i>
-							<a href="#">Manage Accounts</a>
+							<i class="icon-home"></i>
+							<a href="<?php echo base_url();?>dashboard">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">HR Department</li>
+						<li class="active">Control Panel</li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
 						<form class="form-search">
 							<span class="input-icon">
 								<input type="text" placeholder="Search ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
-			 					<i class="icon-search" id="nav-search-icon"></i>
+								<i class="icon-search" id="nav-search-icon"></i>
 							</span>
 						</form>
 					</div><!--#nav-search-->
@@ -511,194 +506,94 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Human Resource Department Management
+							Control Panel
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Staff Accounts
+								Deployment
 							</small>
 						</h1>
 					</div><!--/.page-header-->
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
+							<div class="span4">
 
-						<div class="span12">
-
-							<div class="box">
-									<div class="box-header well" data-original-title>
-										<h2><i class="icon-key"></i> Login Accounts for HR Staffs</h2>
-										<div class="box-icon">
-											<!--
-											<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-											<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-											<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-										-->
-										</div>
-									</div>
-									<div id="infoMessage" align=""><?php
-						              $message = $this->session->flashdata('delete_message');
-						              if ($message == null){}
-						              else{echo $message;}
-						              ?>         
-									</div>
-									<div class="box-content">
-
-										<div class="row-fluid">
-											
-											<div class="table-header">
-												 Results for "Accounts"
-											</div>
-											<table id="table_report" class="table table-striped table-bordered table-hover">
-											<thead>
-											<tr>
-												
-												<th>
-													Name
-												</th>
-												<th>
-													Username
-												</th>
-												<th class="hidden-480">
-													Email Address
-												</th>
-												<th class="hidden-phone">													
-													Date Created
-												</th>
-												<th> 
-												</th>
-											</tr>
-											</thead>
-											<tbody>
-												<?php if(isset($records)) : foreach($records as $row) : ?>
-													<tr>
-														
-														<td id=""><?php echo $row->last_name.', '.$row->first_name.' '.$row->middle_name;?></td>
-														<td><?php echo $row->username;?></td>
-														<td><?php echo $row->email;?></td>														
-														<td><?php echo $row->date_created;?></td>
-														<td class="td-actions">
-
-																<!--
-																		<a id="<?php echo $row->id;?>" style="cursor:pointer;" class="editbutton btn btn-info"><i class="icon-edit icon-white"></i></a>
-																		<a id="<?php echo $row->id;?>" style="cursor:pointer;" class="deletebutton btn btn-danger"><i class="icon-trash icon-white"></i> </a>	
-																		!-->
-														 <div class="hidden-phone visible-desktop btn-group">
-															<button class="btn btn-mini btn-success">
-																<i class="icon-ok bigger-120"></i>
-															</button>
-
-															<button class="btn btn-mini btn-info">
-																<i class="icon-edit bigger-120"></i>
-															</button>
-															<button class="btn btn-mini btn-danger" onClick="delete_user('<?php echo $row->id;?>','<?php echo $row->username;?>')" id="" value="<?php echo $row->id;?>">
-																<i class="icon-trash bigger-120"></i>
-															</button>
-															<input  id="username" type="hidden" value="<?php echo $row->username;?>">
-														
-														</div>
-									
-														</td>
-													</tr>
-													<?php endforeach;?>
-												<?php endif; ?>
-											</tbody>
-											</table>
+							<div class="widget-box">
+										<div class="widget-header header-color-dark">
+											<h4 class="smaller">
+												Deployment
+												<small></small>
+											</h4>
 										</div>
 
-										<small>Page rendered in: {elapsed_time} seconds</small>
-									</div>
-								</div>
-								
-								
-							</div>
-							<div class="row-fluid">
-										
-								<div class="span5">
-
-									<!-- ADD HR START -->
-									
-						
-									<div class="widget-box">
-
-										<div class="widget-header">
-											<h4><i class="icon-user"></i> Add HR Account</h4>
-											
-											<span class="widget-toolbar">
-												<a href="#" data-action="collapse">
-													<i class="icon-chevron-up"></i>
-												</a>
-
-												<a href="#" data-action="reload">
-													<i class="icon-refresh"></i>
-												</a>
-
-												
-											</span>
-										</div>
-
-										<div class="widget-body"><div class="widget-body-inner">
+										<div class="widget-body">
 											<div class="widget-main">
-												<div class="row-fluid">
-
-													<!--<?php if(!is_null($this->session->userdata('error_hr'))) echo $this->session->userdata('error_hr'); ?>
-													-->
-													<div id="infoMessage" align="center"><?php
-										              $message = $this->session->flashdata('hr_message');
-										              if ($message == null){}
-										              else{echo $message;}
-										              ?>         
+												 <form id="addBatchControl"> 
+												 	<div class="control-group">
+														<label class="control-label" for="company">Deployment Company</label>
+														<div class="controls">
+															<select class="chzn-select"  name="client_name">
+																	<option selected disabled value="">Select a company </option>
+																<?php if(isset($records2)) : foreach($records2 as $row) : ?>
+																	<option value="<?php echo $row->client_name;?>"><?php echo $row->client_name;?></option>
+																<?php endforeach;?>
+																<?php endif; ?>
+															</select> 
+														</div>
 													</div>
-													<form method="post" action="<?php echo base_url();?>manage/add_hr">
-		 
-														<label><i class="light-red icon-asterisk"></i> Username:  </label>
-														<input autofocus  style="width: 94%" placeholder="Enter Username" type="text" id="username" name="username" value="<?php echo $this->session->flashdata('username');?>">
+													<!--<div class="control-group">
+														<label class="control-label" for="date_start">Date start</label>
+														<div class="controls" >
+															<span class="input-append">
+																<input class="span8 date-picker" name="date_start" id="date_start"  value ="" type="text" data-date-format="yyyy-mm-dd">
+																<span class="add-on">	
+																	<i class="icon-calendar"></i>
 
-														<label><i class="light-red icon-asterisk"></i> Password: </label>
-														<input style="width: 94%" type="password" id="password" name="password" value="">
-
-														<label><i class="light-red icon-asterisk"></i> Confirm Password: </label>
-														<input style="width: 94%" type="password" id="password_confirm" name="password_confirm" value="">
-
-														<label><i class="light-red icon-asterisk"></i> First Name: </label>
-														<input style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $this->session->flashdata('first_name');?>">
-
-														<label><i class="light-red icon-asterisk"></i> Last Name: </label>
-														<input style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $this->session->flashdata('last_name');?>">
-
-														<label>Middle Name: </label>
-														<input style="width: 94%" type="text" id="middle_name" name="middle_name" value="<?php echo $this->session->flashdata('middle_name');?>">
-
-														<label><i class="light-red icon-asterisk"></i> Email address: </label>
-														<input  style="width: 94%" type="email" id="email" name="email"  value="<?php echo $this->session->flashdata('email');?>">
-
-														<hr>
-
-														<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Add HR</button>
+																</span>
+																
+															</span>
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="training_days">Training Days</label>
+														<div class="controls">
+															<input type="text" id="training_days" name="training_days" placeholder="#" class="input-mini">
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="limit">Limit</label>
+														<div class="controls">
+															<input type="text" id="limit" name="limit_no" placeholder="#" class="input-mini">
+														</div>
+													</div>
+													<div class="form-actions">
+														<button class="btn span6 btn-info" type="submit">
+															<i class="icon-ok bigger-110"></i>
+															Submit
+														</button>
 
 														
-													</form>	
-												</div>									
+														<button class="btn span6" type="reset">
+															<i class="icon-undo bigger-110"></i>
+															Reset
+														</button>-->
+													</div>
+												 </form>
+
 											</div>
-										</div></div>
+										</div>
 									</div>
-
-
-
-									<!-- ADD HR END -->
-
-								</div>
-
-
+						<!--PAGE CONTENT ENDS HERE-->
 							</div>
 
-						
+						<!--/row-->
 
-						<!--PAGE CONTENT ENDS HERE-->
-					</div><!--/row-->
-				</div><!--/#page-content-->
+				</div>
+				<!--/#page-content-->
 
 			</div><!--/#main-content-->
 		</div><!--/.fluid-container#main-container-->
+
 
 		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
@@ -729,89 +624,43 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
-
-
-		<!--ace scripts-->
-		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 
+		<!--ace scripts-->
+
+		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">
-			$(function() {
-			
-				$('.dialogs,.comments').slimScroll({
-			        height: '300px'
-			    });
+		<script type="text/javascript">	
+
+				$(".chzn-select").chosen(); 
+				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
 				
-				$('#tasks').sortable();
-				$('#tasks').disableSelection();
-				$('#tasks input:checkbox').removeAttr('checked').on('click', function(){
-					if(this.checked) $(this).closest('li').addClass('selected');
-					else $(this).closest('li').removeClass('selected');
-				});
-
-				//datatable initializatino
-				var oTable1 = $('#table_report').dataTable( {
-				"aoColumns": [
-			      null, null,null, null,
-				  { "bSortable": false }
-				] } );
-				
-				
-				$('table th input:checkbox').on('click' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
-					});
-						
-				});
-			
-				$('[data-rel=tooltip]').tooltip();
-
-			
-
-				
-		});
-		var delete_user = function(id,username) {
-			var str = "<h3>Confirm</h3>" + username + " will be deleted";
-			str += ". Do you really want to delete this user?";
-
-			bootbox.dialog(str, [{
-					"label" : "<i class=\'icon-trash\'></i> Delete",
-					"class" : "btn-small btn-danger",
-					"callback": function() {
-						//Example.show("great success");
-
-						$.ajax({
-							url: "<?php echo base_url();?>manage/delete_user",
-							type: "post",
-							data: {
-								id: id,
-								username: username
-							},
-							success: function(e) {
-								console.log(e);
-								location.reload();
-							}
-						});
-						
-					}
-					}, {
-						"label" : "Cancel",
-						"class" : "btn-small"
-					}]
-				);
-
-		}
+				 $('.chzn-select').change(function () {
+                    var batch =  $(this).find("option:selected").attr('value');
+                    console.log(batch);
+                    /*$.ajax({    
+                        url: "<?php echo base_url();?>reports/gradesheetByBatch", //The url where the server req would we made.
+                        async: false, 
+                        type: "POST", //The type which you want to use: GET/POST
+                        data: "batch="+batch, //The variables which are going.
+                        dataType: 'json', //Return data type (what we expect).
+                         
+                        //This is the function which will be called if ajax call is successful.
+                        success: function(output_string) {
+                            //data is the html of the page where the request is made.
+                            //alert(selState); 
+                            $('#result_table').html(output_string);
+                        } 
+                    })*/
+                });
+										 	
 		</script>
 	</body>
 </html>
