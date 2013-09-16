@@ -229,7 +229,9 @@ class Applicant extends CI_Controller {
 			$this->applicant_model->update_userTable($reg_id,$user_table); //Update UserAccount in User_Table
 			$this->applicant_model->update_registration($reg_id); // Update Registration , Active to 1.
 			$this->applicant_model->updateBatch($batch_control_no,$current); // Update the number of current trainee in a batch.
-			$this->applicant_model->insertAttendance($attendance); // Insert applicant to trainee_attendace table*/
+			$this->applicant_model->insertAttendance($attendance); // Insert applicant to trainee_attendace table
+		
+			*/	
 		}
 		else {
 
@@ -299,7 +301,7 @@ class Applicant extends CI_Controller {
 
 			
 			
-			$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean|alpha');
+			$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean');
 			$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean|alpha');
 			$this->form_validation->set_rules('middle_name', 'Middle Name', 'xss_clean|alpha');
 			$this->form_validation->set_rules('birth_date', 'Birthdate', 'required');

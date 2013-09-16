@@ -27,10 +27,10 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
@@ -562,6 +562,7 @@
 							          			<th>Company</th>
 							          			<th>Status</th>
 							          			<th>&nbsp;</th>
+							          			<th>Date Requested</th>
 							          		</tr>
 							          	</thead>
 							          	<tbody>
@@ -583,8 +584,15 @@
 								          			?></td>
 								          			<td>
 								          				<button id="<?php echo $row->request_id?>" class="bview btn btn-info btn-mini">More info</button>
+								          				<?php $dep = $row->is_deployed ; $train = $row->is_training;
+								          				if($train == 0 && $dep == 0){?>
 								          				<button id="<?php echo $row->request_id?>" class="bconfirm btn btn-success btn-mini">Edit Confirmation</button>
+								          				<?php }
+								          				else {?>
+								          				<button id="<?php echo $row->request_id?>" class="bconfirm btn btn-success btn-mini" disabled>Edit Confirmation</button>
+								          				<?php }?>
 								          			</td>
+								          			<td><?php echo $row->date_requested?></td>
 												</tr>
 											<?php endforeach;?>
 											<?php endif; ?>
@@ -682,12 +690,15 @@
 
 			  $(document).ready(function() {
 
-			  	$('#table-request').dataTable({
+			  	var oTable =  $('#table-request').dataTable({
 					"aoColumns": [
 						null,null,null,
-						{ "bSortable": false }
-					]
+						{ "bSortable": false },
+						{ "bVisible":    false },
+					],
+					
 				});
+				oTable.fnSort( [ [4,'desc']] );
 
 				$(".bconfirm").on(ace.click_event, function() {
 					var id = $(this).attr("id");
@@ -793,7 +804,12 @@
 	                $.each(obj, function(){
 	                	//var str = "<button class=\"btn btn-mini btn-info\" id="+this['id']+"><i class=\"icon-edit bigger-120\"></i></button><button class=\"btn btn-mini btn-danger\"> <i class=\"icon-trash bigger-120\"></i></button>";
 					
-					output_string = "<div> <table class=\"table table-striped\">";
+					output_string = "<div> <table class=\"table table-striped\" style=\"width: 100%; word-wrap:break-word; table-layout: fixed;\">";
+					output_string += "<colgroup>";
+	    			output_string += "<col span=\"1\" style=\"width: 40%;\">";
+	    			output_string += "<col span=\"1\" style=\"width: 60%;\">";
+	    			output_string += "</colgroup>";
+
 					output_string += "<tr><td><h4>Manpower Info</h4></td><td></td></tr>";
 					output_string += "<tr><td>Status</td><td>";
 					if(this['confirmed']== 1){

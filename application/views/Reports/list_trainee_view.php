@@ -27,7 +27,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" media="screen,print"/>
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" media="screen,print" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" media="screen,print" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" media="screen,print" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" media="screen,print" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" media="screen,print" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" media="screen,print" />

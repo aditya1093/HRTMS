@@ -23,7 +23,7 @@ assets/css/font-awesome.min.css" />
 assets/css/font.css" />
 <link rel="stylesheet" href="<?php echo base_url();?>
 assets/css/style.min.css" />
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php if($this->session->userdata("permission") == "Client") { echo 'client'; } else if($this->session->userdata("permission") == "Trainer") { echo 'training'; } else if($this->session->userdata("permission") == "HR") { echo 'hr'; } else if($this->session->userdata("permission") == "Trainee") { echo 'manpower'; } else if($this->session->userdata("permission") == "Administrator") { echo 'admin'; } ?>/custom.css" />
+<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 <link rel="stylesheet" href="<?php echo base_url();?>
 assets/css/style-responsive.min.css" />
 <link rel="stylesheet" href="<?php echo base_url();?>

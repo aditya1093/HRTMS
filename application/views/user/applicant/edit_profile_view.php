@@ -27,7 +27,7 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/applicant/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
@@ -381,7 +381,9 @@
 																<div class="profile-info-name"> Phone </div>
 
 																<div class="profile-info-value">
-																	<input type="text" name="phone" class="controls" value="<?php echo $row->phone;?>">
+																	
+																	<input class="controls input-mask-phone" type="text" id="form-field-mask-2" name="phone" value="<?php echo $row->phone;?>" />
+
 																</div>
 															</div>
 															<div class="form-actions">
@@ -506,6 +508,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>>
 
 
 		<!--ace scripts-->
@@ -516,7 +519,11 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
-    
+    	
+    	$.mask.definitions['~']='[+-]';
+      	$('.input-mask-phone').mask('(999) 999-9999');
+
+
     	function generateBarcode(){
         var value = $("#barcodeValue").val();
         var btype = $("input[name=btype]:checked").val();

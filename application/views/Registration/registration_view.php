@@ -297,8 +297,10 @@
 			          <input type="text" id="city" class="input-medium" name="city" value="<?php echo $this->form_validation->set_value('city')?>">
 			          <input type="text" id="state" class="input-medium" name="state" value="<?php echo $this->form_validation->set_value('state')?>">
 			          <span nowrap="nowrap"><?php echo $country; ?></span>
-			          <label>Contact No.<span class="mandatory_star">*</span></label>
-			          <input type="text" class="input-medium" name="phone" value="<?php echo $this->form_validation->set_value('phone')?>">
+			          <label>Contact No.<span class="mandatory_star">*</span><span class="muted">10-digit</span></label>
+                <input class="form-control input-mask-phone" type="text" id="form-field-mask-2" name="phone" value="<?php echo $this->form_validation->set_value('phone')?>" />
+
+
 
 			        <h2>Account Details</h2>
 			          <label>E-mail Address<span class="mandatory_star">*</span></label>
@@ -360,6 +362,7 @@
     <script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>>
 
 
     <!--ace scripts-->
@@ -368,10 +371,11 @@
     <script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
     <!--inline scripts related to this page-->
-s
+
     <script type="text/javascript"> 
 
-    
+      $.mask.definitions['~']='[+-]';
+      $('.input-mask-phone').mask('(999) 999-9999');
 
       $("#student").submit(function(){
                var dataString = $("#student").serialize();

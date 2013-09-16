@@ -29,8 +29,8 @@
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />	
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />	
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
@@ -878,8 +878,8 @@
     		/**************** OUTPUT *****************************/
     			output_string = "<table class=\"table table-striped\" style=\"width: 100%; word-wrap:break-word; table-layout: fixed;\">";
     			output_string += "<colgroup>";
-    			output_string += "<col span=\"1\" style=\"width: 40%;\">";
-    			output_string += "<col span=\"1\" style=\"width: 60%;\">";
+    			output_string += "<col span=\"1\" style=\"width: 30%;\">";
+    			output_string += "<col span=\"1\" style=\"width: 70%;\">";
     			output_string += "</colgroup>";
 
     			output_string += "<tr>";
@@ -927,18 +927,13 @@
 
 			/**************** OUTPUT *****************************/
 
-
-
     		/**************** HIDDEN INPUT *****************************/
-
 
     			output_string +="<input type=\"hidden\" name=\"batch_control_no\" id=\"batch_control_no\" value=\""+ batch_no +"\">";
     			output_string +="<input type=\"hidden\" name=\"client\" id=\"client\" value=\""+ client +"\">";
     			output_string +="<input type=\"hidden\" name=\"training_days\" id=\"training_days\" value=\""+ training_days +"\">";
     			output_string +="<input type=\"hidden\" name=\"current\" id=\"current\" value=\""+ current +"\">";
     			output_string +="";
-
-
 
     		/**************** HIDDEN INPUT *****************************/
  
@@ -1021,8 +1016,8 @@
 		
 	    <table class="table table-striped" style="width: 100%; word-wrap:break-word; table-layout: fixed;">
 	    	<colgroup>
-		       <col span="1" style="width: 40%;">
-		       <col span="1" style="width: 60%;">
+		       <col span="1" style="width: 35%;">
+		       <col span="1" style="width: 65%;">
 		    </colgroup>
 	    	<tr> 
                 <td><h3>Personal Details</h3></td>

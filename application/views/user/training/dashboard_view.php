@@ -28,7 +28,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 
@@ -377,14 +377,14 @@
 						</a>
 					</li>
 
-					<li data-step="9" data-intro="Print the Gradesheets, Attendance Sheets, Masterlists of Passers and Exam Analysis">
+					<!--<li data-step="9" data-intro="Print the Gradesheets, Attendance Sheets, Masterlists of Passers and Exam Analysis">
 						<a href="reports">
 							<i class="icon-print"></i>
 							<span>Reports</span>
 						</a>
 					</li>
 
-					<!--<li>
+					<li>
 						
 						<a href="help">
 							<i class="icon-question-sign"></i>

@@ -29,7 +29,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/applicant/ace.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />

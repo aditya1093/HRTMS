@@ -46,7 +46,7 @@ class Dashboard extends CI_Controller {
 
 			if($is_took == 0) {
 
-				$data["scores"] = $this->examination_model->get_gradesheet($id, $b_id);
+				$data["score"] = $this->examination_model->get_gradesheet($id, $b_id);
 			}
 
 			$this->load->view('User/trainee/dashboard_view',$data);

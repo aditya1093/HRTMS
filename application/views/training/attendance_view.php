@@ -29,9 +29,9 @@
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
 
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
@@ -381,14 +381,14 @@
 						</a>
 					</li>
 
-					<li>
+					<!--<li>
 						<a href="reports">
 							<i class="icon-print"></i>
 							<span>Reports</span>
 						</a>
 					</li>
 
-					<!--<li>
+					<li>
 						
 						<a href="help">
 							<i class="icon-question-sign"></i>
@@ -475,69 +475,7 @@
 								
 							</div>
 
-							<div class="row-fluid">
-								<div class="span12">
-									<div class="widget-box">
-										<div class="widget-header header-color-dark">
-											<h4 class="smaller">
-												New Batch of Trainees
-												<small></small>
-											</h4>
-										</div>
-
-										<div class="widget-body">
-											<div class="widget-main">
-												 <form id="addBatchControl"> 
-												 	<div class="control-group">
-														<label class="control-label" for="company">Deployment Company</label>
-														<div class="controls">
-															<select class="chzn-select"  name="client_name">
-																	<option selected></option>
-																<?php if(isset($records2)) : foreach($records2 as $row) : ?>
-																	<option value="<?php echo $row->client_name;?>"><?php echo $row->client_name;?></option>
-																<?php endforeach;?>
-																<?php endif; ?>
-															</select> 
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label" for="date_start">Date start</label>
-														<div class="controls" >
-															<span class="input-append">
-																<input class="span8 date-picker" name="date_start" id="date_start"  value ="" type="text" data-date-format="yyyy-mm-dd">
-																<span class="add-on">	
-																	<i class="icon-calendar"></i>
-
-																</span>
-																<!--<button class="btn btn-purple">Now</button>-->
-															</span>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label" for="training_days">Training Days</label>
-														<div class="controls">
-															<input type="text" id="training_days" name="training_days" placeholder="#" class="input-mini">
-														</div>
-													</div>
-													<div class="form-actions">
-														<button class="btn span6 btn-info" type="submit">
-															<i class="icon-ok bigger-110"></i>
-															Submit
-														</button>
-
-														
-														<button class="btn span6" type="reset">
-															<i class="icon-undo bigger-110"></i>
-															Reset
-														</button>
-													</div>
-												 </form>
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+						
 						</div>
 
 						<div class="span8">

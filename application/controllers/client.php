@@ -230,8 +230,7 @@ class Client extends CI_Controller {
 			'emp_type' => $this->input->get("emp_type"),
 			'emp_department' =>$this->input->get("documents_req"),
 			'emp_gender' =>$this->input->get("emp_gender"),
-			'company' => $this->session->userdata("company"),
-			'is_active' => 0
+			'company' => $this->session->userdata("company")
 		);
 
 		$this->load->model('request_model');

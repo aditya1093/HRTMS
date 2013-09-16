@@ -27,8 +27,8 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
@@ -193,7 +193,8 @@
 								</li>
 							</ul>
 						</li>
-					-->
+					--> <!--
+					<!--
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
@@ -265,7 +266,7 @@
 								</li>
 							</ul>
 						</li>
-
+						-->
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
 								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
@@ -279,14 +280,10 @@
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
 
-								<li>
-									<a href="#">
-										<i class="icon-user"></i>
-										Profile
-									</a>
-								</li>
 
-								<li class="divider"></li>
+								
+
+
 
 								<li>
 									<a href="<?php echo base_url();?>logout">
@@ -348,12 +345,7 @@
 						</a>
 					</li>
 
-					<li class="">
-						<a href="<?php echo base_url();?>profile">
-							<i class="icon-user"></i>
-							<span>Profile</span>
-						</a>
-					</li>
+					
 
 					<li class="active">
 						<a href="<?php echo base_url();?>profile/HRIS">
@@ -416,7 +408,7 @@
 							Control Panel
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Profile <?php echo $this->session->userdata('id');?>
+								Profile <?php echo $this->session->userdata('user_id');?>
 							</small>
 						</h1>
 					</div><!--/.page-header-->

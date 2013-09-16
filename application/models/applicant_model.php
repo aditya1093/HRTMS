@@ -9,6 +9,7 @@ class Applicant_model extends CI_Model{
     function applicant_list() {
     	
         $this->db->select('*');
+        //$this->db->order_by('register_id','desc');
         $query = $this->db->get('registration');
         return $query->result();
     }
@@ -16,6 +17,7 @@ class Applicant_model extends CI_Model{
     function trainee_list() {
         
         $this->db->select('*');
+
         $query = $this->db->get('hris');
         return $query->result();
     }
@@ -52,7 +54,7 @@ class Applicant_model extends CI_Model{
     function list_request(){
         //$query = $this->db->query("SELECT * FROM request WHERE current != limit_no && is_training =1 ORDER BY batch_control_no ASC LIMIT 1");
         $this->db->select('*');
-        $this->db->where('is_active',1);
+        $this->db->where('is_deployed',0);
         $this->db->where('confirmed',1);
         $this->db->from('request');
         $query = $this->db->get();

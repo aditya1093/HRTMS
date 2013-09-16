@@ -17,7 +17,9 @@ class Request_model extends CI_Model{
     function list_request() {
         
         $this->db->select('*');
-        $query = $this->db->get('request');
+        $this->db->order_by('company','asc');
+        //$this->db->order_by('is_active','asc');
+        $query = $this->db->query("SELECT * FROM request ORDER BY request_id desc");
         return $query->result();
     }
 

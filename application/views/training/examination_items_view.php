@@ -31,7 +31,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 
@@ -390,14 +390,14 @@
 						</a>
 					</li>
 
-					<li>
+					<!--<li>
 						<a href="<?php echo base_url();?>reports">
 							<i class="icon-print"></i>
 							<span>Reports</span>
 						</a>
 					</li>
 
-					<!--<li>
+					<li>
 						<a href="<?php echo base_url();?>help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>

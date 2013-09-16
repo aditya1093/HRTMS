@@ -339,7 +339,7 @@
 						</a>
 					</li>
 
-					<li>
+					<!--<li>
 						<a href="modules">
 							<i class="icon-folder-open"></i>
 							<span>Manage Modules</span>
@@ -381,7 +381,7 @@
 						</a>
 					</li>
 
-					<!--<li>
+					<li>
 						
 						<a href="help">
 							<i class="icon-question-sign"></i>

@@ -28,8 +28,8 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/datepicker.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/ace.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/client/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
