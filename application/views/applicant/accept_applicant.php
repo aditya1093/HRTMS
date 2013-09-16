@@ -638,8 +638,8 @@
        		$.extend($.gritter.options, { 
 		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
 				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
-				fade_out_speed: 2000, // how fast the notices fade out
-				time: 3000 // hang on the screen for...
+				fade_out_speed: 1000, // how fast the notices fade out
+				time: 1000 // hang on the screen for...
 			});
 
 			$("#getinfo").click(function(){
@@ -683,23 +683,34 @@
 	              		checkall();
 	              		getBatch();
 	              		selectBatch();
+	              		
 
-				    	 $('#form_accept').submit(function() {
-					        if ($('input:checkbox', this).length == $('input:checked', this).length ) {
-					            bootbox.confirm("Accept this Trainee?", function(result) {
-									if(result) {
-										$('#scnd_load').show();
- 										blurElement("#result_table", 2);
- 										//e.preventDefault();
-								        setTimeout(accept, 200);
-								   		//return false;  
-									}
-								});
-								return false;
-					        } else {
-					            bootbox.alert('Accept applicant with complete requirements.');
-					            return false;
-					        }
+				    	$('#form_accept').submit(function() {
+				    		a = $("#batch_control_no").val();
+				    		if ( a == null)
+				    		{
+				    			bootbox.alert('Select a batch for this Applicant');
+				    		}
+
+				    		else{
+
+						        if ($('input:checkbox', this).length == $('input:checked', this).length ) {
+						            bootbox.confirm("Accept this Trainee?", function(result) {
+										if(result) {
+											$('#scnd_load').show();
+	 										blurElement("#result_table", 2);
+	 										//e.preventDefault();
+									        setTimeout(accept, 200);
+									   		//return false;  
+										}
+									});
+									return false;
+						        } else {
+						            bootbox.alert('Accept applicant with complete requirements.');
+						            return false;
+						        }
+					    	}
+					    	return false;
 					    });
 				    
 					    	
@@ -727,22 +738,44 @@
 			           //dataType: 'json',
 
 			           success: function(response){
-			            	console.log(response);
-			            	//$output_string = $('#batchTable').render(response);
-			            	var output_string = "";
+			            	//console.log(response);
 			            	var obj = $.parseJSON(response);
-			            	
-			            	var list = $("#batch_no");
-			            	$.each(obj, function(index,item){
-			            		output_string = "<option value=\""+ this['batch_control_no'] +"\" >"+ this['batch_control_no']+"</option>";
-			            		item =  this['batch_control_no'];
-			            		console.log(item);
-			            		list.append(new Option(item, item));
-			
-			            	});
+			            	console.log(obj);
+                            if (isEmpty(obj) ) {
+			              		//no_search()
+			              			$('#result_table').hide();
+									var	str = "No batch active. Create a batch.";
 
-			         		$(".chzn-select").chosen(); 
-							$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+									bootbox.dialog(str, [{
+											"label" : "<i class=\'icon-edit\'></i> Ok",
+											"class" : "btn-small btn-info",
+											"callback": function() {
+												//Example.show("great success");
+													document.location.href='<?php echo base_url();?>applicant/batch_control';
+												
+											}
+											}]
+										);
+															
+
+			             		}
+			              	else{
+			              				//$output_string = $('#batchTable').render(response);
+					            	var obj = $.parseJSON(response);
+					            	var list = $("#batch_no");
+					            	$.each(obj, function(index,item){
+					            		output_string = "<option value=\""+ this['batch_control_no'] +"\" >"+ this['batch_control_no']+"</option>";
+					            		item =  this['batch_control_no'];
+					            		console.log(item);
+					            		list.append(new Option(item, item));
+					
+					            	});
+
+					         		$(".chzn-select").chosen(); 
+									$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+			                       
+                       			
+                       		}
 			            	
 							
 			         		
@@ -750,11 +783,18 @@
 			  
 			    });//end ajax
 			}
+			function isEmpty(obj) {
+			    for(var prop in obj) {
+			        if(obj.hasOwnProperty(prop))
+			            return false;
+			    }
 
+			    return true;
+			}
 
 			var selectBatch = function(){
 				$('#batch_no').change(function () {
-                    $('#batch_result').hide();
+                 	$('#batch_result').slideToggle('fast');
                     var batch = $(this).find("option:selected").attr('value')
                     console.log(batch);
                     $.ajax({    
@@ -766,16 +806,8 @@
                         //This is the function which will be called if ajax call is successful.
                         success: function(e) {
                             //data is the html of the page where the request is made.
-                            
-                            if ( e.length == 0 ) {
-			              		//no_search();
-			              			alert("No Batch Create/Active");
-			             		}
-			              	else{
-
-			              			showBatchResult(e);
-	                       
-                       			} 
+                            showBatchResult(e);
+                    
                        		}
                     })
               
@@ -784,52 +816,136 @@
 			var showBatchResult = function(e){
 		     	console.log(e);
 
+
                 var obj = $.parseJSON(e);
                 //var val ="";
         		$.each(obj, function(){
+        			batch_no = this['batch_control_no']
         			client = this['client'];
         			schedule = this['date_start'];
         			training_days = this['training_days'];
         			limit_no = this['limit_no'];
         			current = this['current'];
-        			emp_type = this['emp_type'];
         			emp_department = this['emp_department'];
-        			emp_gender = this['emp_gender'];
-
         			
-        			var str = this['remarks'];
-			        var str_array = str.split(',');
-
-					for(var i = 0; i < str_array.length; i++)
-					{
-					   // Trim the excess whitespace.
-					   str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
-					   // Add additional code here, such as:
-					   	output_string = "<ul>"; 
-					 	output_string += "<li>" +str_array[i] +  "</li>";
-					 	output_string += "</ul>";
+        			// Department
+        			if(this['emp_type']== 1){
+						emp_type  = "Contractual";
 					}
+					if(this['emp_type']== 2){
 
+						emp_type  = "Regular";
+					}
+					if(this['emp_type']== 3){
+
+						emp_type  = "Probation";
+					}
+					// Gender
+        			if(this['emp_gender']== 1){
+						emp_gender = "Male Only";
+					}
+					if(this['emp_gender']== 2){
+						emp_gender = "Female Only";
+					}
+					if(this['emp_gender']== 3){
+						emp_gender = "Male / Female";
+					}
+					// Documents
 					var str = this['emp_reqdocuments'];
 			        var str_array = str.split(',');
-
+			        emp_documents = "<ul>"; 
 					for(var i = 0; i < str_array.length; i++)
 					{
-					   // Trim the excess whitespace.
-					   str_array[i] += str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
-					   // Add additional code here, such as:
-					   	output_string += "<ul>"; 
-					 	output_string += "<li>" +str_array[i] +  "</li>";
-					 	output_string += "</ul>";
+					   	str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");					  
+					 	emp_documents += "<li>" +str_array[i] +  "</li>";
+					 	
 					}
+					emp_documents += "</ul>";	
+					// Remarks
+					var str = this['remarks'];
+			        var str_array = str.split(',');
+			        emp_remarks = "<ul>"; 
+					for(var i = 0; i < str_array.length; i++)
+					{
+					   	str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
+					   
+					 	emp_remarks += "<li>" +str_array[i] +  "</li>";
+					 	
+					}
+					emp_remarks += "</ul>";
 
+
+    		/**************** OUTPUT *****************************/
+    			output_string = "<table class=\"table table-striped\" style=\"width: 100%; word-wrap:break-word; table-layout: fixed;\">";
+    			output_string += "<colgroup>";
+    			output_string += "<col span=\"1\" style=\"width: 40%;\">";
+    			output_string += "<col span=\"1\" style=\"width: 60%;\">";
+    			output_string += "</colgroup>";
+
+    			output_string += "<tr>";
+    				output_string += "<td>Client</td>";	
+    				output_string += "<td>"+client+"</td>";
+    			output_string += "</tr>";
+    			output_string += "<tr>";
+    				output_string += "<td>Type</td>";	
+    				output_string += "<td>"+emp_type+"</td>";
+    			output_string += "</tr>";
+    			output_string += "<tr>";
+    				output_string += "<td>Department</td>";	
+    				output_string += "<td>"+emp_department+"</td>";
+    			output_string += "</tr>";
+    			output_string += "<tr>";
+    				output_string += "<td>Schedule</td>";	
+    				output_string += "<td>"+schedule+"</td>";
+    			output_string += "</tr>";
+    			output_string += "<tr>";
+    				output_string += "<td>Training Days</td>";	
+    				output_string += "<td>"+training_days+"</td>";
+    			output_string += "</tr>";
+    			output_string += "<tr>";
+    				output_string += "<td>Current Trainee</td>";	
+    				output_string += "<td>"+current+" / "+limit_no+"</td>";
+    			output_string += "</tr>";
+    			output_string += "<tr>";
+    				output_string += "<td><b>Requirements</b></td>";	
+    				output_string += "<td>&nbsp;</td>";
+    			output_string += "</tr>";
+    			output_string += "<tr>";
+    				output_string += "<td>Gender</td>";	
+    				output_string += "<td>"+emp_gender+"</td>";
+    			output_string += "</tr>";
+    			output_string += "<tr>";
+    				output_string += "<td>Documents</td>";	
+    				output_string += "<td>"+emp_documents+"</td>";
+    			output_string += "</tr>";
+    			output_string += "<tr>";
+    				output_string += "<td>Remarks</td>";	
+    				output_string += "<td>"+emp_remarks+"</td>";
+    			output_string += "</tr>";
+
+    			output_string += "</table>";
+
+			/**************** OUTPUT *****************************/
+
+
+
+    		/**************** HIDDEN INPUT *****************************/
+
+
+    			output_string +="<input type=\"hidden\" name=\"batch_control_no\" id=\"batch_control_no\" value=\""+ batch_no +"\">";
+    			output_string +="<input type=\"hidden\" name=\"client\" id=\"client\" value=\""+ client +"\">";
+    			output_string +="<input type=\"hidden\" name=\"training_days\" id=\"training_days\" value=\""+ training_days +"\">";
+    			output_string +="<input type=\"hidden\" name=\"current\" id=\"current\" value=\""+ current +"\">";
+    			output_string +="";
+
+
+
+    		/**************** HIDDEN INPUT *****************************/
+ 
+        			
         		});
-        		//alert(val);
         		$('#batch_result').html(output_string);
-          		$('#batch_result').slideToggle('fast');
-            	/*$("#company_name").val(val);
-            	$("#company_name2").val(val);*/
-
+           		$('#batch_result').slideToggle('fast');
 
 			}
 
@@ -837,7 +953,8 @@
 
           		$('#checkall').on('click', function () {
 			        $(this).closest('fieldset').find(':checkbox').prop('checked', this.checked);
-			    });    
+			    });
+			   
 
 			}
 
@@ -858,14 +975,14 @@
 	                register_id = $("#register_id").val();
 	                height = $("#height").val();
 	                civil_status = $("#civil_status").val();
-	                //batch_control_no = $('#batch_control_no').val();
-	                //client = $('#client').val();
-	                //training_days = $('#training_days').val();
-	                //current = $('#current').val();
+	                batch_control_no = $('#batch_control_no').val();
+	                client = $('#client').val();
+	                training_days = $('#training_days').val();
+	                current = $('#current').val();
 
 		          
-		            //var datastr = 'first_name='+first_name + '&middle_name='+middle_name + '&last_name='+last_name + '&address='+address + '&birth_date='+birth_date + '&city='+city + '&province='+province + '&gender='+gender + '&phone='+phone + '&username='+username + '&password='+password + '&email='+email + '&register_id='+register_id + '&height='+height+ '&civil_status='+civil_status+ '&batch_control_no='+batch_control_no+ '&client='+client+ '&training_days='+training_days+ '&current='+current;    
-		           	var datastr = 'first_name='+first_name + '&middle_name='+middle_name + '&last_name='+last_name + '&address='+address + '&birth_date='+birth_date + '&city='+city + '&province='+province + '&gender='+gender + '&phone='+phone + '&username='+username + '&password='+password + '&email='+email + '&register_id='+register_id + '&height='+height+ '&civil_status='+civil_status;  
+		            var datastr = 'first_name='+first_name + '&middle_name='+middle_name + '&last_name='+last_name + '&address='+address + '&birth_date='+birth_date + '&city='+city + '&province='+province + '&gender='+gender + '&phone='+phone + '&username='+username + '&password='+password + '&email='+email + '&register_id='+register_id + '&height='+height+ '&civil_status='+civil_status+ '&batch_control_no='+batch_control_no+ '&client='+client+ '&training_days='+training_days+ '&current='+current;    
+		           	//var datastr = 'first_name='+first_name + '&middle_name='+middle_name + '&last_name='+last_name + '&address='+address + '&birth_date='+birth_date + '&city='+city + '&province='+province + '&gender='+gender + '&phone='+phone + '&username='+username + '&password='+password + '&email='+email + '&register_id='+register_id + '&height='+height+ '&civil_status='+civil_status;  
 		           	console.log(datastr);
 		            $.ajax({
 		                url:"<?php echo base_url();?>applicant/acceptApp",
@@ -897,128 +1014,95 @@
 		});	
 
 		</script>
- 		<script type="text/template" id="batchTable">
-	 		<table class="table table-striped">
-				<tr>
-	            	<td width="165px"><h3>Batch Details</h3></td>
-	            	<td>&nbsp;</td>
-	            </tr>
-	            <tr>
-	            	<td>Batch No: </td>
-	            	<td>${batch_control_no}</td>
-	            </tr>
-	            <tr>
-	            	<td>Client: </td>
-	            	<td>${client}</td>
-	            </tr>
-	            <tr>
-	            	<td>Schedule: </td>
-	            	<td>${date_start}</td>
-	            </tr>
-	            <tr>
-	            	<td>Training Day/s: </td>
-	            	<td>${training_days}</td>
-	            </tr>
-	            <tr>
-	            	<td>Current Trainee : </td>
-	            	<td>${current}</td>
-	            </tr>
-	    		<input type="hidden" name="batch_control_no" id="batch_control_no" value="${batch_control_no}">
-				<input type="hidden" name="client" id="client" value="${client}">
-				<input type="hidden" name="training_days" id="training_days" value="${training_days}"> 	
-				<input type="hidden" name="current" id="current"  value="${current}">
-
-	 		</table>
-
- 		</script>
+ 
 		<script type="text/template" id="user">
 		<div class="row-fluid">
 		<div class="span6">
 		
-	    <table class="table table-striped">
-                <tr> 
-                    <td><h3>Personal Details</h3></td>
+	    <table class="table table-striped" style="width: 100%; word-wrap:break-word; table-layout: fixed;">
+	    	<colgroup>
+		       <col span="1" style="width: 40%;">
+		       <col span="1" style="width: 60%;">
+		    </colgroup>
+	    	<tr> 
+                <td><h3>Personal Details</h3></td>
 
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>Registration ID :</td>
-                    <td>${register_id}</td>
-                </tr>
-             	<tr>
-                    <td>Name: </td>
-                    <td>${last_name}, ${first_name} ${middle_name}</td>
-                </tr>
-                 <tr>
-                    <td>Gender: </td>
-                    <td>${gender}</td>
-                </tr>
-                <tr>
-                    <td>Birthday: </td>
-                    <td>${birth_date}</td>
-                </tr>
-                 <tr>
-                    <td>Height: </td>
-                    <td>${height} <span class="muted">cm</span></td>
-                </tr>
-                 <tr>
-                    <td>Civil Status: </td>
-                    <td>${civil_status}</td>
-                </tr>
-                <tr>
-                    <td>Address: </td>
-                    <td>${address}</td>
-                </tr>
-                <tr>
-                    <td>City: </td>
-                    <td>${city}</td>
-                </tr>  
-                <tr>
-                    <td>Province: </td> 
-                    <td>${province}</td>
-                </tr>
-                <tr>
-                    <td>Country: </td>
-                    <td>${country}</td>
-                </tr>                              
-                <tr>
-                    <td>Phone: </td>
-                    <td>${phone}</td>
-                </tr>
-                <tr> 
-                	<td><h3>Account Details</h3></td>
-                	<td>&nbsp;</td>
-                </tr>
-                <td>Username: </td>
-                    <td>${username}</td>
-                </tr>
-                <tr>
-                    <td>Email Address: </td>
-                    <td>${email}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>&nbsp;</td>
-                </tr>
-             
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Registration ID :</td>
+                <td>${register_id}</td>
+            </tr>
+         	<tr>
+                <td>Name: </td>
+                <td>${last_name}, ${first_name} ${middle_name}</td>
+            </tr>
+             <tr>
+                <td>Gender: </td>
+                <td>${gender}</td>
+            </tr>
+            <tr>
+                <td>Birthday: </td>
+                <td>${birth_date}</td>
+            </tr>
+             <tr>
+                <td>Height: </td>
+                <td>${height} <span class="muted">cm</span></td>
+            </tr>
+             <tr>
+                <td>Civil Status: </td>
+                <td>${civil_status}</td>
+            </tr>
+            <tr>
+                <td>Address: </td>
+                <td>${address}</td>
+            </tr>
+            <tr>
+                <td>City: </td>
+                <td>${city}</td>
+            </tr>  
+            <tr>
+                <td>Province: </td> 
+                <td>${province}</td>
+            </tr>
+            <tr>
+                <td>Country: </td>
+                <td>${country}</td>
+            </tr>                              
+            <tr>
+                <td>Phone: </td>
+                <td>${phone}</td>
+            </tr>
+            <tr> 
+            	<td><h3>Account Details</h3></td>
+            	<td>&nbsp;</td>
+            </tr>
+            <td>Username: </td>
+                <td>${username}</td>
+            </tr>
+            <tr>
+                <td>Email Address: </td>
+                <td>${email}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>&nbsp;</td>
+            </tr>
+         
         </table>
         
   
         </div>
         <div class="span6">
-        	<table class="table table-striped">
+        	<table class="table table-striped" id="">
 				<tr>
 	            	<td width="165px"><h3>Batch Details</h3></td>
-	            	<td>&nbsp;</td>
+	            	<td class="center">&nbsp;<br><select class="chzn-select" id="batch_no"  name="batch_no"><option value="" selected disabled></option></select></td>
 	            </tr>
-	            <tr>
-	            	<td>Batch No: </td>
-	            	<td><select class="chzn-select" id="batch_no"  name="batch_no"><option value="" selected disabled></option></select></td>
-	            </tr>
-	            <div id="batch_result"></div>
-	          
-	    
-	 		</table>	
+	 
+	 		</table>
+	 		<div id="batch_result"></div>
+	 		
         	<h3 class="header smaller lighter blue">
 				Documents
 				<small>Check the documents before accepting.</small>

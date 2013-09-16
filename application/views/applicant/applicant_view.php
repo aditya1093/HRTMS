@@ -366,12 +366,6 @@
 								</a>
 							</li>
 						<?php }?>
-							<li>
-								<a href="<?php echo base_url();?>applicant/batch_control">
-									<i class="icon-user"></i>
-								   	<span>Batch Control</span>
-								</a>
-							</li>
 							<li  class="active">
 								<a href="<?php echo base_url();?>applicant">
 									<i class="icon-archive"></i>
@@ -543,14 +537,6 @@
 								</div>-->
 								<div class="space space-4"></div>
 								
-									<div class="bcTarget"></div>
-										<?php
-											
-											echo '<script type="text/javascript">$(".bcTarget").barcode("';
-											echo $row->register_id;
-											echo '", "code39");</script>';
-
-										?> 
 								
 
 							</div><!--/span-->

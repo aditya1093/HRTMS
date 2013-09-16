@@ -95,7 +95,13 @@ class Applicant_model extends CI_Model{
 
 
     function getBatch(){
-        $query = $this->db->query("SELECT batch_control_no FROM batch_no where is_training =1 ORDER BY batch_control_no ASC");
+        $query = $this->db->query("SELECT * 
+                        FROM batch_no
+                        WHERE is_training =1
+                        AND current != limit_no
+                        GROUP BY request_id
+                        ORDER BY batch_control_no ASC 
+                        LIMIT 0 , 30");
         return $query->result();
 
     }
@@ -107,12 +113,12 @@ class Applicant_model extends CI_Model{
         $this->db->from('registration');
         $this->db->where('register_id', $register_id );
         $query = $this->db->get();
-        return $query->result();
+        return $query->result(); 
       
     }
 
     function batchInfo($id,$batch_no){
-        $query = $this->db->query("SELECT * 
+        $query = $this->db->query("SELECT *
                         FROM batch_no
                         JOIN request ON batch_no.request_id = request.request_id
                         WHERE (
