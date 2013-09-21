@@ -467,12 +467,13 @@
 		                    				<td><?php echo $row->dependent_name;?></td>
 		                    				<td><?php echo $row->dependent_birthdate;?></td>
 		                    				<td><?php echo $row->dependent_relationship?></td>
-		                    				<td><button class="btn btn-mini btn-info">
+		                    				<td><div class="btn-group"><button class="btn btn-mini btn-info">
 													<i class="icon-edit bigger-120"></i>
 												</button>
 												<button class="btn btn-mini btn-danger">
 													<i class="icon-trash bigger-120"></i>
 												</button>
+												</div>
 											</td>
 		                    			</tr>
 		                    	
@@ -555,12 +556,13 @@
 		                    				<td><?php echo $row->beneficiary_name;?></td>
 		                    				<td><?php echo $row->beneficiary_birthdate;?></td>
 		                    				<td><?php echo $row->beneficiary_relationship?></td>
-		                    				<td><button class="btn btn-mini btn-info">
+		                    				<td><div class="btn-group"><button class="btn btn-mini btn-info">
 													<i class="icon-edit bigger-120"></i>
 												</button>
 												<button class="btn btn-mini btn-danger">
 													<i class="icon-trash bigger-120"></i>
 												</button>
+												</div>
 											</td>
 		                    			</tr>
 		                    		
@@ -643,12 +645,13 @@
 			                    				<td><?php echo $row->character_name;?></td>
 			                    				<td><?php echo $row->character_company;?></td>
 			                    				<td><?php echo $row->character_contact_no?></td>
-			                    				<td><button class="btn btn-mini btn-info">
-													<i class="icon-edit bigger-120"></i>
-												</button>
-												<button class="btn btn-mini btn-danger">
-													<i class="icon-trash bigger-120"></i>
-												</button>
+			                    				<td><div class="btn-group"><button class="btn btn-mini btn-info">
+														<i class="icon-edit bigger-120"></i>
+													</button>
+													<button class="btn btn-mini btn-danger">
+														<i class="icon-trash bigger-120"></i>
+													</button>
+													</div>
 												</td>
 			                    			</tr>
 			                    			
@@ -682,7 +685,7 @@
 											<label class="control-label" for="CR_contact_no">Contact No</label>
 
 											<div class="controls">
-												<input type="text" id="CR_contact_no" name="CR_contact_no">
+												<input class="input-mask-phone" type="text" id="CR_contact_no" name="CR_contact_no">
 											</div>
 										</div>
 				                      	<div class="form-actions">
@@ -755,7 +758,7 @@
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootstrap-tag.min.js"></script>
-
+		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>>
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
@@ -771,6 +774,7 @@
 		<script type="text/javascript">
 		
 		$( document ).ready(function() {
+			$('.input-mask-phone').mask('(999) 999-9999');
 
 		/** Add Dependent **/	
 			$("#addDependent").click(function() {
@@ -839,7 +843,7 @@
 			"aoColumns": [
 		     	null, null, null,
 			  { "bSortable": false }],
-			  "aLengthMenu": [[5, 10, 15, 25, 50, 100 , -1], [5, 10, 15, 25, 50, 100, "All"]],
+			  "aLengthMenu": [[5, 10, 15, 25, -1], [5, 10, 15, 25, "All"]],
 				"iDisplayLength" : 5
 			   } );
 			
@@ -859,7 +863,7 @@
 			"aoColumns": [
 		     	null, null, null,
 			  { "bSortable": false }],
-			  "aLengthMenu": [[5, 10, 15, 25, 50, 100 , -1], [5, 10, 15, 25, 50, 100, "All"]],
+			  "aLengthMenu": [[5, 10, 15, 25, -1], [5, 10, 15, 25, "All"]],
 				"iDisplayLength" : 5,
 				});
 			
@@ -879,7 +883,7 @@
 			"aoColumns": [
 		     null, null, null,
 			  { "bSortable": false }],
-			  "aLengthMenu": [[5, 10, 15, 25, 50, 100 , -1], [5, 10, 15, 25, 50, 100, "All"]],
+			  "aLengthMenu": [[5, 10, 15, 25, -1], [5, 10, 15, 25, "All"]],
 				"iDisplayLength" : 5,
 			 } );
 			

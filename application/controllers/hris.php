@@ -294,7 +294,7 @@ class Hris extends CI_Controller {
 			           'dependent_relationship' => $relationship
 			           );
 
-			//$this->hris_model->insert_dependent($data);
+			$this->hris_model->insert_dependent($data);
 			//$this->output->set_output(json_encode($name.'&&'.$dob.'&&'.$relationship));
 
 			$query = $this->hris_model->getIdDependent($id);

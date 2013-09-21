@@ -14,7 +14,7 @@ class Class_Record extends CI_Controller {
 			$data['records'] = $query;
 
 			
-			$this->load->view('training/class_record_view',$data);
+			$this->load->view('user/training/class_record_view',$data);
 		}
 		else {
 

@@ -27,7 +27,7 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/applicant/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
@@ -654,11 +654,11 @@
 										</div>
 
 										<div class="profile-info-value">
-											<a href="#">Edit Applicant</a>
+											<a href="<?php echo base_url();?>applicant/edit_info/<?php echo $row->register_id;?>">Edit Applicant</a>
 										</div>
 
 									</div>
-									<div class="profile-info-row">
+									<!--<div class="profile-info-row">
 										<div class="profile-info-name">
 											<i class="middle icon-print bigger-150 light-blue"></i>
 										</div>
@@ -667,7 +667,7 @@
 											<a href="#">Print</a>
 										</div>
 										
-									</div>
+									</div>-->
 								</div>
 							</div><!--/span-->
 						</div><!--/row-fluid-->

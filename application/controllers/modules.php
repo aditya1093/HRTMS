@@ -18,7 +18,7 @@ class Modules extends CI_Controller {
 			$query = $this->client_model->list_company();
 			$data['client_record'] = $query;
 			
-			$this->load->view('training/modules_view',$data);
+			$this->load->view('user/training/modules_view',$data);
 		}
 		else {
 

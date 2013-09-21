@@ -3,6 +3,7 @@
 /*   $GLOBAL   */
 /* ##########  */
 /* line 10, ../sass/typica-login.scss */
+
 html {
   height: 100%;
 }
@@ -250,7 +251,7 @@ footer.white {
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 1px;
-  text-transform: uppercase;
+  
 }
 
 /* login form */

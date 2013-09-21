@@ -28,9 +28,14 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
+
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/datepicker.css" />
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -51,6 +56,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
+					<!--
 						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
@@ -187,6 +193,7 @@
 								</li>
 							</ul>
 						</li>
+					-->
 
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -272,12 +279,6 @@
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
 
 								<li>
 									<a href="#">
@@ -380,7 +381,7 @@
 						</a>
 					</li>
 
-					<li>
+					<!--<li>
 						<a href="reports">
 							<i class="icon-print"></i>
 							<span>Reports</span>
@@ -388,11 +389,12 @@
 					</li>
 
 					<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="about">
@@ -446,95 +448,108 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
+						<div class="span4">
 
-						<div class="span12">
-							<div class="alert alert-success"><b>Heads Up!</b> You can use a barcode reader for attendance checking.</div>
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										Attendance
-										<small>Training Monitor</small>
-									</h4>
+							<div class="row-fluid">
+								<div class="span12">
+									
+									<div class="widget-box">
+										<div class="widget-header header-color-dark">
+											<h4 class="smaller">
+												Attendance
+												<small>Training Monitor</small>
+											</h4>
+										</div>
+
+										<div class="widget-body">
+											<div class="alert alert-success"><b>Heads Up!</b> You can use a barcode reader for attendance checking.</div>
+											<div class="widget-main">
+												
+													<input autofocus type="text" style="width:95%">
+													<button class="btn btn-success btn-block btn-small"><i class="icon-check"></i> Mark As Present</button>
+												
+											</div>
+										</div>
+									</div>
 								</div>
+								
+							</div>
 
-								<div class="widget-body">
-									<div class="widget-main">
+						
+						</div>
 
-										<p class="muted">
-											<input autofocus type="text" class="span12">
-										</p>
-										<p align="center">
-											<span class="btn btn-success btn-small tooltip-success" data-rel="tooltip" data-placement="right" title="" data-original-title="Right Success">Present</span>
-											<span class="btn btn-danger btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Absent</span>
+						<div class="span8">
+							
+							<div class="row-fluid">
+								<div class="widget-box">
+									<div class="widget-header">
+										<h4 class="smaller">
+											List of Students
+											<small></small>
+										</h4>
+									</div>
 
-										</p>
+									<div class="widget-body">
+										<div class="widget-main">
+											<table id="attendance-table" class="table table-striped table-bordered">
+												<thead>
+												<tr>
+													<th class="center">
+														Trainee ID
+													</th>
+													<th class="center">
+														Student Name
+													</th>
+													<th class="center">
+														Batch Control Number
+													</th>
+													<th class="center">
+														
+													</th>
+												</tr> 
+												</thead>
+												<tbody>
+												<?php if(isset($records)) : foreach($records as $row) : ?>
+													<tr>
+														<td>
+														<?php echo $row->trainee_id;?>
+														</td>
+														<td>
+															<?php echo $row->last_name.', '.$row->first_name.' '.$row->middle_name;?>	
+														</td>
+														<td>
+															<?php echo $row->batch_control_no;?>	
+														</td>
+														<td>
+															<button class="btn btn-small btn-success">
+																<i class="icon-check"></i>
+																
+															</button>
+															<button class="btn btn-small btn-danger">
+																<i class="icon-remove"></i>
+																
+															</button>
+														</td>
+													</tr>
+													<?php endforeach;?>
+															<?php endif; ?>
+												</tbody>
+
+											</table> 
+										</div>
 									</div>
 								</div>
 							</div>
+
 						</div>
+
+						
 
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
 
-					<div class="row-fluid">
-						<div class="span12">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										List of Students
-										<small></small>
-									</h4>
-								</div>
+					
 
-								<div class="widget-body">
-									<div class="widget-main">
-										<table id="attendance-table" class="table table-striped table-bordered">
-											<thead>
-											<tr>
-												<th class="center">
-													Trainee ID
-												</th>
-												<th class="center">
-													Student Name
-												</th>
-												<th class="center">
-													Batch Control Number
-												</th>
-												<th class="center">
-													
-												</th>
-											</tr> 
-											</thead>
-											<tbody>
-												<tr>
-													<td>
-
-													</td>
-													<td>
-
-													</td>
-													<td>
-
-													</td>
-													<td>
-														<button class="btn btn-small btn-success">
-															<i class=""></i>
-															Rename
-														</button>
-														<button class="btn btn-small btn-danger">
-															<i class=""></i>
-															Delete
-														</button>
-													</td>
-												</tr>
-											</tbody>
-
-										</table> 
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div><!--/#page-content-->
 
 			</div><!--/#main-content-->
@@ -569,7 +584,9 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
-
+		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
@@ -601,8 +618,11 @@
 						
 				});
 			
-			
+				$(".chzn-select").chosen(); 
+				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+				
 				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+				
 				function tooltip_placement(context, source) {
 					var $source = $(source);
 					var $parent = $source.closest('table')
@@ -615,6 +635,36 @@
 					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
 					return 'left';
 				}
+
+				$('.date-picker').datepicker().next().on(ace.click_event, function() {
+					$(this).prev().focus();
+				});
+
+				$( "#addBatchControl" ).on( "submit", function( event ) {
+				  event.preventDefault();
+				  var sData = $(this).serialize();
+				  console.log(sData);
+				  $.ajax({
+		               url:"<?php echo base_url();?>attendance/addBatchControl",
+		                type:'POST',
+		                data:sData,
+		                //dataType: "json",
+		                success:function(result){
+		    			console.log(result);
+		                $.gritter.add({
+							title: 'Batch Control',
+							text: '<i class="icon-spinner icon-spin green icon-2x"></i> Successfully added batch training .',
+							class_name: 'gritter-success gritter-center gritter-light'
+						});
+						$( '#addBatchControl' ).each(function(){
+						    this.reset();
+						});
+						
+		                }//End Success
+
+		            	});
+					});//End #addBatchControl Submit
+
 			});
 		</script>
 	</body>

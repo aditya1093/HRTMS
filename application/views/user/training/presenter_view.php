@@ -28,7 +28,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 
@@ -51,7 +51,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<li class="grey">
+						<!--<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
 								<span class="badge badge-grey">4</span>
@@ -186,7 +186,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li>-->
 
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -272,12 +272,6 @@
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
 
 								<li>
 									<a href="#">
@@ -380,7 +374,7 @@
 						</a>
 					</li>
 
-					<li>
+					<!--<li>
 						<a href="reports">
 							<i class="icon-print"></i>
 							<span>Reports</span>
@@ -388,11 +382,12 @@
 					</li>
 
 					<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="about">
@@ -451,13 +446,16 @@
 							<div class="widget-box">
 								<div class="widget-header">
 									<h4 class="smaller">
-										Presenter
-										<small>Powered by Google Docs</small>
+										Viewer
+										<small>by Google Docs</small>
 									</h4>
 								</div>
 
 								<div class="widget-body">
 									<div class="widget-main">
+										<span class="presenter">
+											<iframe src="http://docs.google.com/viewer?url=http://jemnuine.com/elfinder/files/GDOCS.pptx&embedded=true" width="100%" height="400" style="border: none;"></iframe>
+										</span>
 										
 									</div>
 								</div>
@@ -475,7 +473,61 @@
 
 								<div class="widget-body">
 									<div class="widget-main">
-										
+										<table class="table">
+											<tr>
+												<td>
+													<label>Company: </label>
+													<select required name="company_name" id="company_name">
+														<option value="" selected="selected" style="color:#ddd;">Select Company...</option>
+														<?php if(isset($client_record)) : foreach($client_record as $item) : ?>	
+															<option value="<?php echo $item->client_name?>"><?php echo $item->client_name?></option>
+														<?php endforeach;?>
+														<?php endif;?>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<label>Module Name: </label>
+													<select required name="module_name" id="module_name">
+														<option value="" selected="selected" style="color:#ddd;">Select Module...</option>
+														
+													</select>
+
+													<i style="margin-left: 5px;" id="loading_file" class="icon-spinner icon-spin orange icon-2x"></i>
+												</td>
+											</tr>
+											<tr>	
+												<td>
+													<button id="view_module" class="btn btn-success"><i class="icon-arrow-left icon-white"></i> View Module</button>
+												</td>
+											</tr>
+											
+											
+										</table>
+									</div>
+								</div>
+							</div>
+							<p></p>
+							<div class="widget-box">
+								<div class="widget-header widget-header-small header-color-dark">
+									<h4 class="smaller">
+										Information
+										<small></small>
+									</h4>
+								</div>
+								<div class="widget-body">
+									<div class="widget-main">
+										<address>
+											<b>Module Name: </b><span id="dmodule"></span><br>
+											<b>Company Name: </b><span id="dcompany"></span><br>
+											<b>Path: </b><span id="dfile"></span><br>
+
+										</address>
+										<a id="download" class="btn btn-mini btn-info tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">
+											<i class="icon-cloud-download"></i>
+											Download File
+										</a>
 									</div>
 								</div>
 							</div>
@@ -526,177 +578,90 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
-			$(function() {
-			
-				$('.dialogs,.comments').slimScroll({
-			        height: '300px'
-			    });
-				
-				$('#tasks').sortable();
-				$('#tasks').disableSelection();
-				$('#tasks input:checkbox').removeAttr('checked').on('click', function(){
-					if(this.checked) $(this).closest('li').addClass('selected');
-					else $(this).closest('li').removeClass('selected');
-				});
-			
-				var oldie = $.browser.msie && $.browser.version < 9;
-				$('.easy-pie-chart.percentage').each(function(){
-					var $box = $(this).closest('.infobox');
-					var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
-					var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
-					var size = parseInt($(this).data('size')) || 50;
-					$(this).easyPieChart({
-						barColor: barColor,
-						trackColor: trackColor,
-						scaleColor: false,
-						lineCap: 'butt',
-						lineWidth: parseInt(size/10),
-						animate: oldie ? false : 1000,
-						size: size
-					});
-				})
-			
-				$('.sparkline').each(function(){
-					var $box = $(this).closest('.infobox');
-					var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
-					$(this).sparkline('html', {tagValuesAttribute:'data-values', type: 'bar', barColor: barColor , chartRangeMin:$(this).data('min') || 0} );
-				});
-			
-			
-			
-			
-			  var data = [
-				{ label: "social networks",  data: 38.7, color: "#68BC31"},
-				{ label: "search engines",  data: 24.5, color: "#2091CF"},
-				{ label: "ad campaings",  data: 8.2, color: "#AF4E96"},
-				{ label: "direct traffic",  data: 18.6, color: "#DA5430"},
-				{ label: "other",  data: 10, color: "#FEE074"}
-			  ];
-			
-			  var placeholder = $('#piechart-placeholder').css({'width':'90%' , 'min-height':'150px'});
-			  $.plot(placeholder, data, {
-				
-				series: {
-			        pie: {
-			            show: true,
-						tilt:0.8,
-						highlight: {
-							opacity: 0.25
-						},
-						stroke: {
-							color: '#fff',
-							width: 2
-						},
-						startAngle: 2
-						
-			        }
-			    },
-			    legend: {
-			        show: true,
-					position: "ne", 
-				    labelBoxBorderColor: null,
-					margin:[-30,15]
+
+			var obj;
+			var getObjectSize = function(obj) {
+		   		var len = 0, key;
+			    for (key in obj) {
+			        if (obj.hasOwnProperty(key)) len++;
 			    }
-				,
-				grid: {
-					hoverable: true,
-					clickable: true
-				},
-				tooltip: true, //activate tooltip
-				tooltipOpts: {
-					content: "%s : %y.1",
-					shifts: {
-						x: -30,
-						y: -50
-					}
-				}
+			    return len;
+			};
+
+			$(document).ready(function() {
+
+			    $("#loading_file").hide();
+			    
+			});
+
+			$("#company_name").change(function() {
+
+				$("#loading_file").show();
+				var request = $.ajax({
+		        	url: "<?php echo base_url();?>presenter/list_module/"+$("#company_name").val(),
+		        	type: 'POST',
+		        	data: { ajax: '1' }
+		        });
+
+		        request.done(function (response, textStatus, jqXHR) {
+
+		        	console.log(response);
+
+					obj = jQuery.parseJSON(response);
+
+					var str = '<option value="" disabled selected="selected" style="color:#ddd;">Select Module...</option>';
+
+					for (var i = 0; i < getObjectSize(obj); i++) {
+
+						str += '<option value="'+obj[i].module_name+'">'+obj[i].module_name+'</option>\n';
+					};
+
+					$("#module_name").html(str);
+					$("#loading_file").hide();
+
+			    });
+
+			});
+
+			$("#view_module").click(function () {
+
+				var str = '';
+
+				var request = $.ajax({
+		        	url: "<?php echo base_url();?>presenter/list_file",
+		        	type: 'POST',
+		        	data: { 
+		        		ajax: '1',
+		        		company_name: $("#company_name").val(),
+		        		module_name: $("#module_name").val()
+		        	}
+		        });
+
+		        request.done(function (response, textStatus, jqXHR) {
+
+		        	console.log(response);
+
+					obj = jQuery.parseJSON(response);
+
+					
+					for (var i = 0; i < getObjectSize(obj); i++) {
+
+						str = obj[i].file_name
+						$("#dfile").text($("#company_name").val() + "/"+ str);
+
+						$(".presenter").html('<iframe src="http://docs.google.com/viewer?url=http://jemnuine.com/elfinder/files/AMI-Training/'+$("#company_name").val()+'/'+str+'&embedded=true" width="100%" height="400" style="border: none;"></iframe>');
+						$("#download").prop("href", 'http://jemnuine.com/elfinder/files/AMI-Training/'+$("#company_name").val()+'/'+str);
+					};
+					
+			    });
+
+				$("#dcompany").text($("#company_name").val());
+				$("#dmodule").text($("#module_name").val());
+
 				
-			 });
-			
-			 
-			  var $tooltip = $("<div class='tooltip top in' style='display:none;'><div class='tooltip-inner'></div></div>").appendTo('body');
-			  placeholder.data('tooltip', $tooltip);
-			  var previousPoint = null;
-			
-			  placeholder.on('plothover', function (event, pos, item) {
-				if(item) {
-					if (previousPoint != item.seriesIndex) {
-						previousPoint = item.seriesIndex;
-						var tip = item.series['label'] + " : " + item.series['percent']+'%';
-						$(this).data('tooltip').show().children(0).text(tip);
-					}
-					$(this).data('tooltip').css({top:pos.pageY + 10, left:pos.pageX + 10});
-				} else {
-					$(this).data('tooltip').hide();
-					previousPoint = null;
-				}
-				
-			 });
-			
-			
-			
-			
-			
-			
-				var d1 = [];
-				for (var i = 0; i < Math.PI * 2; i += 0.5) {
-					d1.push([i, Math.sin(i)]);
-				}
-			
-				var d2 = [];
-				for (var i = 0; i < Math.PI * 2; i += 0.5) {
-					d2.push([i, Math.cos(i)]);
-				}
-			
-				var d3 = [];
-				for (var i = 0; i < Math.PI * 2; i += 0.2) {
-					d3.push([i, Math.tan(i)]);
-				}
-				
-			
-				var sales_charts = $('#sales-charts').css({'width':'100%' , 'height':'220px'});
-				$.plot("#sales-charts", [
-					{ label: "Domains", data: d1 },
-					{ label: "Hosting", data: d2 },
-					{ label: "Services", data: d3 }
-				], {
-					hoverable: true,
-					shadowSize: 0,
-					series: {
-						lines: { show: true },
-						points: { show: true }
-					},
-					xaxis: {
-						tickLength: 0
-					},
-					yaxis: {
-						ticks: 10,
-						min: -2,
-						max: 2,
-						tickDecimals: 3
-					},
-					grid: {
-						backgroundColor: { colors: [ "#fff", "#fff" ] },
-						borderWidth: 1,
-						borderColor:'#555'
-					}
-				});
-			
-			
-				$('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-				function tooltip_placement(context, source) {
-					var $source = $(source);
-					var $parent = $source.closest('.tab-content')
-					var off1 = $parent.offset();
-					var w1 = $parent.width();
-			
-					var off2 = $source.offset();
-					var w2 = $source.width();
-			
-					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
-					return 'left';
-				}
-			})
+			});
+
+
 		</script>
 	</body>
 </html>

@@ -27,6 +27,7 @@
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url();?>assets/_home/img/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed" href="<?php echo base_url();?>assets/_home/img/apple-touch-icon-57-precomposed.png">
 <link rel="shortcut icon" href="<?php echo base_url();?>assets/_home/img/favicon.png">
+
 <!-- End Fav and touch icons -->
 </head>
 <body>
@@ -120,7 +121,7 @@
           Through our network of clients, we can introduce you to a variety of roles in 
           different sectors to allow you to flourish in your chosen field. That's the 
           difference when you utilize a Workforce Strategies Provider.</p>
-        <p><a class="metro pull-right" style="background: #852121;" href="<?php echo base_url();?>login">AMI Login &raquo;</a></p>
+        <p><a class="metro pull-right" style="background: #852121;" href="<?php echo base_url();?>login">AMI Employee Login &raquo;</a></p>
       </div>
       <!-- end span4 section-box-->
       <div class="span4 section-box">
@@ -178,29 +179,9 @@
         <span style="padding-left:17px;"> Binan City, Laguna</span></div>
       <div title="Phone"><span style="padding-left:17px;"> Philippines </span> <br />
        <i class="icon-comment"> </i> (123) 456-7890 </div>
-      
+      <br>
     </div>
-    <div class="span5">
-      <h3>Latest news</h3>
-      <div class="latest-news-box">
-        <div class="latest-news-box-img"><img class="img-circle img-polaroid" src="<?php echo base_url();?>assets/_home/images/Data-Properties.png" alt="image" /></div>
-        <div class="latest-news-box-text">
-          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-        </div>
-      </div>
-      <div class="latest-news-box">
-        <div class="latest-news-box-img"><img class="img-circle img-polaroid" src="<?php echo base_url();?>assets/_home/images/Business-Man.png" alt="image"  /></div>
-        <div class="latest-news-box-text">
-          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-        </div>
-      </div>
-      <div class="latest-news-box">
-        <div class="latest-news-box-img"><img class="img-circle img-polaroid" src="<?php echo base_url();?>assets/_home/images/Message-Edit.png" alt="image" /></div>
-        <div class="latest-news-box-text">
-          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-        </div>
-      </div>
-    </div>
+    
     <div class="span3">
       <h3>Alliance Mansols Inc.</h3>
       <p>We make conscious and informed 

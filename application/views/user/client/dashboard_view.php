@@ -243,7 +243,7 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Manpower
+							Manpower <?php echo $this->session->userdata('user_id');?>
 							<small>
 								<i class="icon-double-angle-right"></i>
 								Dashboard
@@ -611,7 +611,7 @@
 		<script type="text/javascript">	
 
 			$(document).ready(function() {
-
+				
 				var request = $.ajax({
 		        	url: "<?php echo base_url();?>hrtms/module_init",
 		        	type: 'POST',

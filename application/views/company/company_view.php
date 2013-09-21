@@ -26,7 +26,8 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
-
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
@@ -37,6 +38,9 @@
 		<![endif]-->
 
 		<!--inline styles if any-->
+		<style type="text/css">
+			.no-close .ui-dialog-titlebar-close {display: none }
+		</style>
 	</head>
 
 	<body>
@@ -460,12 +464,13 @@
 						</ul>
 					</li>
 					<?php }?>
-					<li>
+					<!--<li>
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
 					</li>
+					-->
 
 					<li>
 						<a href="about">
@@ -550,34 +555,29 @@
 									    <tbody>
 									   <?php if(isset($records)) : foreach($records as $row) : ?>
 
-										<tr>
-										<?php 
-						  					 
-						  				?>
-						  				<td><?php echo $row->client_name;?></td>
-										<td ><?php echo $row->client_location;?></td>	
-										<td class="td-actions">
-											<!--
-											<a href="<?php echo base_url();?>index.php/registration/registered/get_info/<?php  echo $row->register_id; ?>" style="cursor:pointer;" class="btn btn-info"><i class="icon-edit icon-white"></i></a>
-											 !-->
-											<div class="hidden-phone visible-desktop btn-group">
-												<button class="btn btn-mini btn-success">
-													<i class="icon-ok bigger-120"></i>
-												</button>
+									
+						  				<tr>
+							  				<td><?php echo $row->client_name;?></td>
+											<td ><?php echo $row->client_location;?></td>	
+											<td class="td-actions">
+												
+												<div class="hidden-phone visible-desktop btn-group">
+													<button class="view_client btn btn-mini btn-success" value="<?php echo $row->client_id?>">
+														<i class="icon-ok bigger-120"></i>
+													</button>
 
-												<button class="btn btn-mini btn-info">
-													<i class="icon-edit bigger-120"></i>
-												</button>
+													<button class="btn btn-mini btn-info">
+														<i class="icon-edit bigger-120"></i>
+													</button>
+												<!--
+													<button class="btn btn-mini btn-danger" onClick="delete_user('<?php echo $row->client_id;?>','<?php echo $row->client_name;?>','<?php echo $row->user_id;?>')" >
+														<i class="icon-trash bigger-120"></i>
+													</button>
+												-->
+												</div>
 
-												<button class="btn btn-mini btn-danger" onClick="delete_user('<?php echo $row->client_id;?>','<?php echo $row->client_name;?>','<?php echo $row->user_id;?>')" >
-													<i class="icon-trash bigger-120"></i>
-												</button>
-											</div>
-
-										</td>
-
-										
-									</tr>
+											</td>	
+										</tr>
 									<?php endforeach;?>
  
 								<?php endif; ?>
@@ -585,6 +585,7 @@
 									    </tbody>
 
 									</table>
+								
 								</div>
 							</div>
 
@@ -636,6 +637,12 @@
 
 												<label for="client_location" ><i class="light-red icon-asterisk"></i> Location: </label>
 												<input  id="client_location" required style="width: 94%" type="text" name="client_location" value="<?php echo $this->session->flashdata('client_location');?>">
+
+												<label for="clien_phone" ><i class="light-red icon-asterisk"></i> Phone # : </label>
+												<input  id="clien_phone" class="input-mask-phone" required style="width: 94%" type="text"name="clien_phone" value="<?php echo $this->session->flashdata('clien_phone');?>">
+
+												<label for="client_tel" ><i class="light-red icon-asterisk"></i> Telephone #: </label>
+												<input  id="client_tel" class="input-mask-tel" required style="width: 94%" type="text"name="client_tel" value="<?php echo $this->session->flashdata('client_tel');?>">
 
 												<label for="client_username" ><i class="light-red icon-asterisk"></i> Username: </label>
 												<input  id="client_username" required style="width: 94%" type="text"name="client_username" value="<?php echo $this->session->flashdata('client_username');?>">
@@ -700,14 +707,11 @@
 		<![endif]-->
 
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.full.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
 
 		<!--ace scripts-->
 
@@ -718,77 +722,144 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
 
 
+
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
+		
 			$(function() {
 			
+				$.mask.definitions['~']='[+-]';
+				$('.input-mask-phone').mask('(999) 999-9999');
+				$('.input-mask-tel').mask('999-99-99');
+
+
 				$('.dialogs,.comments').slimScroll({
 			        height: '300px'
 			    });
 				
-				$('#tasks').sortable();
-				$('#tasks').disableSelection();
-				$('#tasks input:checkbox').removeAttr('checked').on('click', function(){
-					if(this.checked) $(this).closest('li').addClass('selected');
-					else $(this).closest('li').removeClass('selected');
-				});
+				
 
 				//datatable initialization
 				var oTable1 = $('#table_report').dataTable( {
 				"aoColumns": [
-			      null, null,
+			      null,{ "bSortable": false }, 
 				  { "bSortable": false }
 				] } );
+
 				
 				
-				$('table th input:checkbox').on('click' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
+				$( ".view_client" ).on(ace.click_event,function() {
+					var id = $(this).attr("value");
+					//alert(id);
+				 	$.ajax({
+					url: "client/view_client",
+					type: "post",
+					data: {
+						id: id
+					},
+					dataType: 'json',
+					success: function(e) {
+						console.log(e);
+
+						$('#client_view').html(e);
+			            oTable2();
+						showDialog(id);
+					}
 					});
-						
 				});
-			
-				$('[data-rel=tooltip]').tooltip();
+
+				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+					_title: function(title) {
+						var $title = this.options.title || '&nbsp;'
+						if( ("title_html" in this.options) && this.options.title_html == true )
+							title.html($title);
+						else title.text($title);
+					}
+				}));
+
 
 			});
 			var delete_user = function(id,client_name,user_id) {
-			var str = "<h3>Confirm</h3>" + client_name + " will be deleted";
-			str += ". Do you really want to delete this client?";
+				var str = "<h3>Confirm</h3>" + client_name + " will be deleted";
+				str += ". Do you really want to delete this client?";
 
-			bootbox.dialog(str, [{
-					"label" : "<i class=\'icon-trash\'></i> Delete",
-					"class" : "btn-small btn-danger",
-					"callback": function() {
-						//Example.show("great success");
-						//bootbox.alert(id);
-						$.ajax({
-							url: "<?php echo base_url();?>client/delete_client",
-							type: "post",
-							data: {
-								id: id,
-								user_id: user_id,
-								client_name : client_name
+				bootbox.dialog(str, [{
+						"label" : "<i class=\'icon-trash\'></i> Delete",
+						"class" : "btn-small btn-danger",
+						"callback": function() {
+							//Example.show("great success");
+							//bootbox.alert(id);
+							$.ajax({
+								url: "<?php echo base_url();?>client/delete_client",
+								type: "post",
+								data: {
+									id: id,
+									user_id: user_id,
+									client_name : client_name
 
-							},
-							success: function(e) {
-								console.log(e);
-								location.reload();
-							}
-						});
-						
-					}
-					}, {
-						"label" : "Cancel",
-						"class" : "btn-small"
-					}]
-				);
+								},
+								success: function(e) {
+									console.log(e);
+									location.reload();
+								}
+							});
+							
+						}
+						}, {
+							"label" : "Cancel",
+							"class" : "btn-small"
+						}]
+					);
 
-		}
+			}
+
+
+			var showDialog = function(id){
+				$( "#dialog" ).removeClass('hide').dialog({
+					//dialogClass: "no-close",
+					resizable: false,
+					modal: true,
+					closeOnEscape: true,
+					title: "<div class='widget-header'><h4 class='smaller'><i class='icon-exchange'></i> "+id+". Client Details.</h4></div>",
+					title_html: true,
+					width: 1200,
+					//maxWidth: 800,
+					maxHeight: 800,
+					buttons: [
+						    {
+						      text: "OK",
+						      "class" : "btn btn-info btn-mini",
+						      click: function() {
+						        $( this ).dialog( "close" );
+						      }
+						    }
+						  ]
+					
+				});
+
+			}
+
+			var oTable2 = function() {
+				
+			 $('#table_request').dataTable( {
+				"aoColumns": [
+			      null, null, null,null,
+				  { "bSortable": false }
+				] } );
+			}
+
+			
+
+			var a = function  (a) {
+					bootbox.alert(a);
+				}
 	
 		</script>
+		
 	</body>
+	<div id="dialog">
+	   <div id="client_view"></div>
+	  <div id="request_view"></div>
+	</div>
 </html>

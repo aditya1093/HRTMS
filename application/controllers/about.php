@@ -23,16 +23,6 @@ class About extends CI_Controller {
     		$this->load->view('login_view');		
 		}	
 	}
-
-	function hr() {
-
-		$this->load->view('admin/manage_accounts/hr');
-	}
-
-	function training() {
-
-		$this->load->view('admin/manage_accounts/training');
-	}
 }
 
 /* End of file attendance.php */

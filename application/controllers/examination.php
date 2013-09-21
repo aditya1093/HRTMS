@@ -14,7 +14,7 @@ class Examination extends CI_Controller {
 			$query = $this->applicant_model->trainee_list();
 			$data['records'] = $query;
 			
-			$this->load->view('training/examination_view',$data);
+			$this->load->view('user/training/examination_view',$data);
 		}
 		else {
 
@@ -59,7 +59,7 @@ class Examination extends CI_Controller {
 				
 				$this->examination_model->name_exam();
 
-				$this->load->view('training/examination_items_view');
+				$this->load->view('user/training/examination_items_view');
 			}
 		}
 		else {

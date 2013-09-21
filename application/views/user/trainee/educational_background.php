@@ -489,15 +489,16 @@
                 				<td><?php echo $row->employment_from;?></td>
                 				<td><?php echo $row->employment_to;?></td>
                 				<td><?php echo $row->employment_reason_leave;?></td>
-                				<td><button class="btn btn-mini btn-info">
+                				<td><div class="btn-group"><button class="btn btn-mini btn-info">
 										<i class="icon-edit bigger-120"></i>
 									</button>
 									<button class="btn btn-mini btn-danger">
 										<i class="icon-trash bigger-120"></i>
 									</button>
+									</div>
 								</td>
                 			</tr>
-                			
+                				
 	                <?php endforeach;?>
 					<?php endif; ?>
 					</tbody>

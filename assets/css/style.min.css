@@ -7824,3 +7824,8 @@ td.td-actions a.td-action {
     position: static;
     margin-bottom: 5px;
 }
+
+#nav-search {
+
+    display: none;
+}

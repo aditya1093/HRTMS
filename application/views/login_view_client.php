@@ -11,8 +11,12 @@
 
     <link rel="stylesheet" href="<?php echo base_url();?>assets/_login/css/typica-login.css">
 
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/messenger.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/messenger-theme-air.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css" />
+    <style type="text/css">
+      .red {
+        color: red!important;
+      }
+    </style>
     
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -44,8 +48,14 @@
 
         <div id="login-wraper">
             <form class="form login-form" action='<?php echo base_url();?>index.php/authenticate' method="post">
-                <legend>Sign in to <span class="blue">HRTMS</span></legend>
-            
+                <legend><span class="blue">Client</span> Login</legend>
+                <?php 
+                  if($this->session->flashdata('error_msg')) {
+                    echo $this->session->flashdata('error_msg');
+
+                  }
+
+                ?>
                 <div class="body">
                     <label>Username 
                     <input autofocus name="username" id="username" type="text"></label>
@@ -54,7 +64,7 @@
                     <input name="password" id="password" type="password">
                     </label>
                     <label class="checkbox inline">
-                        <input type="checkbox" id="inlineCheckbox1" value="option1"> Remember me
+                        <input type="checkbox" id="inlineCheckbox1"  name="remember" value="remember"> Remember me
                     </label>
                     <br>
                     

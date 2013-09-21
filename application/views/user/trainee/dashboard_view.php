@@ -10,6 +10,9 @@
 
 		<!--basic styles-->
 
+		
+		
+
 		<link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="<?php echo base_url();?>assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css" />
@@ -35,6 +38,8 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
 
+		
+
 		<style type="text/css">
 			input[type=checkbox],
 			input[type=radio] {
@@ -45,7 +50,6 @@
 				height: 18px;
 				display:inline; margin:0px; padding:0px;
 			}
-
 		</style>
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -481,7 +485,7 @@
 														<option value="AMI">AMI</option>
 														
 														<option value="HP">HP</option>
-																																								</select>
+												</select>
 											</td>
 										</tr>
 										<tr>
@@ -538,14 +542,7 @@
 
 				<div class="row-fluid">
 
-					<div class="span12">
-						
-
-
-						<div class="progress progress-striped" data-percent="25%">
-							<div class="progress-bar progress-bar-success" style="width: 25%;"></div>
-						</div>
-						
+					<div class="span8">
 						<div class="widget-box">
 							<div class="widget-header">
 								<h4 class="smaller">
@@ -580,11 +577,130 @@
 										</table>
 									</div>
 								</div>
-								
-								<button class="btn btn-info" type="submit">Submit</button>
+								<br>
+								<button class="btn btn-info btn-large" type="submit"><i class="icon-check"></i> Submit</button>
 							</form>
 						</div>
 					</div>
+
+					<div class="span4">
+						
+						<div class="row-fluid">
+
+							<div class="widget-box">
+								<div class="widget-header header-color-dark">
+									<h5 class="bigger lighter"><i class="icon-info"></i> Examination Progress</h5>
+
+									<div class="widget-toolbar">
+
+									</div>
+								</div>
+								
+								<div class="widget-body">
+									<div class="widget-main">
+										
+										<div>
+											
+											<b>Overall Progess</b> (60%): 
+											<div class="progress progress-mini progress-warning progress-striped active">
+												<div class="bar" style="width: 60%"></div>
+
+											</div>
+											
+										</div>
+										<div>
+											
+											<b>Overall Score</b> 90/100 (90%): 
+											<div class="progress progress-mini progress-info progress-striped active">
+												<div class="bar" style="width: 90%"></div>
+
+											</div>
+											
+										</div>
+									</div>
+								</div>
+									
+							</div>
+						</div>
+
+						<div class="row-fluid">
+							<div class="widget-box">
+								<div class="widget-header header-color-dark">
+									<h5 class="bigger lighter"><i class="icon-book"></i> Examination Set</h5>
+
+									<div class="widget-toolbar">
+									<span class="label label-important">TOSHIBA</span>
+									</div>
+								</div>
+								
+								<div class="widget-body">
+									<div class="widget-main">
+										<table class="table table-striped">
+											
+											<tr>
+												<td>
+													Sample Exam 1
+													<span class="pull-right">
+														<button class="btn btn-purple btn-mini"><i class="icon-pencil"></i> Take Exam</button>
+													</span>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													Sample Exam 2
+													<span class="pull-right">
+														<button class="btn btn-purple btn-mini"><i class="icon-pencil"></i> Take Exam</button>
+													</span>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													Sample Exam 2
+													<span class="pull-right">
+														<button class="btn btn-purple btn-mini"><i class="icon-pencil"></i> Take Exam</button>
+													</span>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													Sample Exam 2
+													<span class="pull-right">
+														<button class="btn btn-purple btn-mini"><i class="icon-pencil"></i> Take Exam</button>
+													</span>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													Sample Exam 2
+													<span class="pull-right">
+														<button class="btn btn-purple btn-mini"><i class="icon-pencil"></i> Take Exam</button>
+													</span>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													Sample Exam 3 - 90%  <i class="icon-ok green"></i> 
+													<span class="pull-right">
+														Passed
+													</span>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													Sample Exam 4 - 50% <i class="icon-remove red"></i> 
+													<span class="pull-right">
+														Failed
+													</span>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+									
+							</div>
+						</div>
+					</div>
+
 
 				</div>
 
@@ -676,7 +792,7 @@
 					'iDisplayLength': -1
 				});
 
-				load_items();
+				load_items("");
 
 				$(".dataTables_filter").hide();
 				$("#item_table_wrapper").find(".row-fluid").remove();
@@ -685,10 +801,10 @@
 		
 			/********************** LOAD ITEMS FROM DB ******************************/
 
-			var load_items = function() {
-
+			var load_items = function(id) {
+				
 				var request = $.ajax({
-		        	url: "<?php echo base_url();?>examination/load_items",
+		        	url: "<?php echo base_url();?>examination/load_items/"+id,
 		        	type: 'POST',
 		        	data: { 
 		        		ajax: '1'

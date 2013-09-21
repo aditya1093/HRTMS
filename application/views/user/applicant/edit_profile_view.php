@@ -25,10 +25,13 @@
 		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
 
 		<!--ace styles-->
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.custom.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css"/>
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap-editable.css"/>
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/applicant/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
@@ -215,8 +218,8 @@
 												<div class="row-fluid">
 													<div class="span3 center">
 														<span class="profile-picture">
-															<img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
-														</span>
+															<img class="editable" alt="Alex&#39;s Avatar" id="avatar" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
+														</span>	
 														<div class="width-80 label label-info label-large arrowed-in arrowed-in-right">
 															<div class="inline position-relative">
 																<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
@@ -502,13 +505,11 @@
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>>
+		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootstrap-editable.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/style-editable.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
 
 		<!--ace scripts-->
@@ -524,187 +525,110 @@
       	$('.input-mask-phone').mask('(999) 999-9999');
 
 
-    	function generateBarcode(){
-        var value = $("#barcodeValue").val();
-        var btype = $("input[name=btype]:checked").val();
-        var renderer = $("input[name=renderer]:checked").val();
-        
-		var quietZone = false;
-        if ($("#quietzone").is(':checked') || $("#quietzone").attr('checked')){
-          quietZone = true;
-        }
+    	
+      		//editables on first profile page
+				$.fn.editable.defaults.mode = 'inline';
+				$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
+			    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
+			                                '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';    
+				
 		
-        var settings = {
-          output:renderer,
-          bgColor: $("#bgColor").val(),
-          color: $("#color").val(),
-          barWidth: $("#barWidth").val(),
-          barHeight: $("#barHeight").val(),
-          moduleSize: $("#moduleSize").val(),
-          posX: $("#posX").val(),
-          posY: $("#posY").val(),
-          addQuietZone: $("#quietZoneSize").val()
-        };
-        if ($("#rectangular").is(':checked') || $("#rectangular").attr('checked')){
-          value = {code:value, rect: true};
-        }
-        if (renderer == 'canvas'){
-          clearCanvas();
-          $("#barcodeTarget").hide();
-          $("#canvasTarget").show().barcode(value, btype, settings);
-        } else {
-          $("#canvasTarget").hide();
-          $("#barcodeTarget").html("").show().barcode(value, btype, settings);
-        }
-      }
-          
-      function showConfig1D(){
-        $('.config .barcode1D').show();
-        $('.config .barcode2D').hide();
-      }
-      
-      function showConfig2D(){
-        $('.config .barcode1D').hide();
-        $('.config .barcode2D').show();
-      }
-      
-      function clearCanvas(){
-        var canvas = $('#canvasTarget').get(0);
-        var ctx = canvas.getContext('2d');
-        ctx.lineWidth = 1;
-        ctx.lineCap = 'butt';
-        ctx.fillStyle = '#FFFFFF';
-        ctx.strokeStyle  = '#000000';
-        ctx.clearRect (0, 0, canvas.width, canvas.height);
-        ctx.strokeRect (0, 0, canvas.width, canvas.height);
-      }
-      
-      $(function(){
-        $('input[name=btype]').click(function(){
-          if ($(this).attr('id') == 'datamatrix') showConfig2D(); else showConfig1D();
-        });
-        $('input[name=renderer]').click(function(){
-          if ($(this).attr('id') == 'canvas') $('#miscCanvas').show(); else $('#miscCanvas').hide();
-        });
-        generateBarcode();
-      });
-  		
-
-		$('#avatar2').on('click', function(){
-			var modal = 
-			'<div class="modal hide fade">\
-				<div class="modal-header">\
-					<button type="button" class="close" data-dismiss="modal">&times;</button>\
-					<h4 class="blue">Change Avatar</h4>\
-				</div>\
-				\
-				<form class="no-margin">\
-				<div class="modal-body">\
-					<div class="space-4"></div>\
-					<div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
-				</div>\
-				\
-				<div class="modal-footer center">\
-					<button type="submit" class="btn btn-small btn-success"><i class="icon-ok"></i> Submit</button>\
-					<button type="button" class="btn btn-small" data-dismiss="modal"><i class="icon-remove"></i> Cancel</button>\
-				</div>\
-				</form>\
-			</div>';
+			
+				// *** editable avatar *** //
+				try {//ie8 throws some harmless exception, so let's catch it
+			
+					//it seems that editable plugin calls appendChild, and as Image doesn't have it, it causes errors on IE at unpredicted points
+					//so let's have a fake appendChild for it!
+					if( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ) Image.prototype.appendChild = function(el){}
+			
+					var last_gritter
+					$('#avatar').editable({
+						type: 'image',
+						name: 'avatar',
+						value: null,
+						image: {
+							//specify ace file input plugin's options here
+							btn_choose: 'Change Avatar',
+							droppable: true,
+							/**
+							//this will override the default before_change that only accepts image files
+							before_change: function(files, dropped) {
+								return true;
+							},
+							*/
+			
+							//and a few extra ones here
+							name: 'avatar',//put the field name here as well, will be used inside the custom plugin
+							max_size: 5242880,//~100Kb
+							on_error : function(code) {//on_error function will be called when the selected file has a problem
+								if(last_gritter) $.gritter.remove(last_gritter);
+								if(code == 1) {//file format error
+									last_gritter = $.gritter.add({
+										title: 'File is not an image!',
+										text: 'Please choose a jpg|gif|png image!',
+										class_name: 'gritter-error gritter-center'
+									});
+								} else if(code == 2) {//file size rror
+									last_gritter = $.gritter.add({
+										title: 'File too big!',
+										text: 'Image size should not exceed 5mb!',
+										class_name: 'gritter-error gritter-center'
+									});
+								}
+								else {//other error
+								}
+							},
+							on_success : function() {
+								$.gritter.removeAll();
+							}
+						},
+					    url: function(params) {
+							// ***UPDATE AVATAR HERE*** //
+							//You can replace the contents of this function with examples/profile-avatar-update.js for actual upload
 			
 			
-			var modal = $(modal);
-			modal.modal("show").on("hidden", function(){
-				modal.remove();
-			});
-	
-			var working = false;
-	
-			var form = modal.find('form:eq(0)');
-			var file = form.find('input[type=file]').eq(0);
-			file.ace_file_input({
-				style:'well',
-				btn_choose:'Click to choose new avatar',
-				btn_change:null,
-				no_icon:'icon-picture',
-				thumbnail:'small',
-				before_remove: function() {
-					//don't remove/reset files while being uploaded
-					return !working;
-				},
-				before_change: function(files, dropped) {
-					var file = files[0];
-					if(typeof file === "string") {
-						//file is just a file name here (in browsers that don't support FileReader API)
-						if(! (/\.(jpe?g|png|gif)$/i).test(file) ) return false;
-					}
-					else {//file is a File object
-						var type = $.trim(file.type);
-						if( ( type.length > 0 && ! (/^image\/(jpe?g|png|gif)$/i).test(type) )
-								|| ( type.length == 0 && ! (/\.(jpe?g|png|gif)$/i).test(file.name) )//for android default browser!
-							) return false;
-	
-						if( file.size > 110000 ) {//~100Kb
-							return false;
+							var deferred = new $.Deferred
+			
+							//if value is empty, means no valid files were selected
+							//but it may still be submitted by the plugin, because "" (empty string) is different from previous non-empty value whatever it was
+							//so we return just here to prevent problems
+							var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
+							if(!value || value.length == 0) {
+								deferred.resolve();
+								return deferred.promise();
+							}
+			
+			
+							//dummy upload
+							setTimeout(function(){
+								if("FileReader" in window) {
+									//for browsers that have a thumbnail of selected image
+									var thumb = $('#avatar').next().find('img').data('thumb');
+									if(thumb) $('#avatar').get(0).src = thumb;
+								}
+								
+								deferred.resolve({'status':'OK'});
+			
+								if(last_gritter) $.gritter.remove(last_gritter);
+								last_gritter = $.gritter.add({
+									title: 'Avatar Updated!',
+									text: 'Uploading to server can be easily implemented. A working example is included with the template.',
+									class_name: 'gritter-info gritter-center'
+								});
+								
+							 } , parseInt(Math.random() * 800 + 800))
+			
+							return deferred.promise();
+						},
+						
+						success: function(response, newValue) {
 						}
-					}
-	
-					return true;
-				}
-			});
-	
-			form.on('submit', function(){
-				if(!file.data('ace_input_files')) return false;
+					})
+				}catch(e) {}
 				
-				file.ace_file_input('disable');
-				form.find('button').attr('disabled', 'disabled');
-				form.find('.modal-body').append("<div class='center'><i class='icon-spinner icon-spin bigger-150 orange'></i></div>");
-				
-				var deferred = new $.Deferred;
-				working = true;
-				deferred.done(function() {
-					form.find('button').removeAttr('disabled');
-					form.find('input[type=file]').ace_file_input('enable');
-					form.find('.modal-body > :last-child').remove();
-					
-					modal.modal("hide");
+		
 	
-					var thumb = file.next().find('img').data('thumb');
-					if(thumb) $('#avatar2').get(0).src = thumb;
-	
-					working = false;
-				});
-				
-				
-				setTimeout(function(){
-					deferred.resolve();
-				} , parseInt(Math.random() * 800 + 800));
-	
-				return false;
-			});
-					
-		});
 
-
-		///////////////////////////////////////////////////
-		//show the user info on right or left depending on its position
-		$('#user-profile-2 .memberdiv').on('mouseenter', function(){
-			var $this = $(this);
-			var $parent = $this.closest('.tab-pane');
-	
-			var off1 = $parent.offset();
-			var w1 = $parent.width();
-	
-			var off2 = $this.offset();
-			var w2 = $this.width();
-	
-			var place = 'left';
-			if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) place = 'right';
-			
-			$this.find('.popover').removeClass('right left').addClass(place);
-		}).on('click', function() {
-			return false;
-		});
-	
     </script>
 	</body>
 </html>

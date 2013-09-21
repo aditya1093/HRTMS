@@ -440,7 +440,6 @@
                         <label >Date of Birth&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                          &nbsp; &nbsp; Place of Birth</label>
                           <input class ="input-medium"  id="dob" type="date" name="birthdate" value="<?php echo $row->birthdate;?>">
-
                           <input type="text" class="input-large" name = "place_of_birth" value ="<?php echo $row->place_of_birth;?>"> &nbsp;
                     <!-- End of Employee Name -->
                     <!-- Gender -->
@@ -492,10 +491,10 @@
                           <input type="text" class="input-medium" id="religion"  name = "religion" value="<?php echo $row->religion;?>">
                         <label>Home Tel. No. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                           &nbsp; &nbsp; Mobile no. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alternate Contact No.</label>
-                          <input type="text" class="input-medium" name ="home_no" value="<?php echo $row->home_no;?>">
-                          <input type="text" class="input-medium" name ="mobile_no" value="<?php echo $row->mobile_no;?>">
-                          <input type="text" class="input-medium" name ="alternative_no" value="<?php echo $row->alternative_no;?>">
+                          &nbsp; &nbsp; &nbsp; &nbsp; Alternate Contact No.</label>
+                          <input class="input-mask-tel input-medium" type="text" id="" name="home_no" value="<?php echo $row->home_no;?>" />
+                          <input class="input-mask-phone input-medium" type="text" id="" name="mobile_no" value="<?php echo $row->mobile_no;?>" />
+                          <input class="input-mask-alt input-medium" type="text" id="" name="alternative_no" value="<?php echo $row->alternative_no;?>" />
                     <!-- End of Citizenship / Civil Status / Height / Weight / Blood Type / Religion / Home & Mobile No. -->
                     <!-- Employee Address -->
                         <label>Present Home Address &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -558,7 +557,7 @@
 						  		</label>
                                 <input type="text" class="input-xxlarge"  id="father_address" name ="father_address" value="<?php echo $row->father_address;?>">
                                 <label for="father_contact" >Contact No.</label>
-                                <input type="text" class="input-medium" id="father_contact"  name ="father_contact_no" value="<?php echo $row->father_contact_no;?>"> 
+                                <input type="text" class="input-mask-phone input-medium" id="father_contact"  name ="father_contact_no" value="<?php echo $row->father_contact_no;?>"> 
                               </div>
                             </div>
                         <!-- End of Father's Information -->
@@ -583,7 +582,7 @@
 						  		  </label>
                                    <input type="text" class="input-xxlarge"  id="mother_address" name = "mother_address"  value="<?php echo $row->mother_address;?>">
                                   <label for="mother_contact" >Contact No.</label>
-                                  <input type="text" class="input-medium" id="mother_contact" name = "mother_contact_no"  value="<?php echo $row->mother_contact_no;?>"> 
+                                  <input type="text" class="input-mask-phone input-medium" id="mother_contact" name = "mother_contact_no"  value="<?php echo $row->mother_contact_no;?>"> 
                                		
                                 </div>
                             </div>
@@ -658,7 +657,7 @@
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootstrap-tag.min.js"></script>
-
+		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>>
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
@@ -668,61 +667,7 @@
 
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">
-		
-		
-		$( document ).ready(function() {
-				//we could just set the data-provide="tag" of the element inside HTML, but IE8 fails!
-
-				var tag_input = $('#skills');	
-				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
-				{
-					tag_input.tag(
-					  {
-						placeholder:tag_input.attr('placeholder'),
-						//enable typeahead by specifying the source array
-						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
-					  }
-					);
-				}
-				else {
-					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
-					tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
-					//$('#skill').autosize({append: "\n"});
-				}
-
-				var tag_input2 = $('#hobbies');
-				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
-				{
-					tag_input2.tag(
-					  {
-						placeholder:tag_input2.attr('placeholder'),
-						//enable typeahead by specifying the source array
-						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
-					  }
-					);
-				}
-				else {
-					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
-					tag_input2.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
-					//$('#hobbies').autosize({append: "\n"});
-				}
-				var tag_input3 = $('#interests');
-				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
-				{
-					tag_input3.tag(
-					  {
-						placeholder:tag_input3.attr('placeholder'),
-						//enable typeahead by specifying the source array
-						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
-					  }
-					);
-				}
-				else {
-					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
-					tag_input3.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
-					//$('#interest').autosize({append: "\n"});
-				}
-			function sameadd(form){
+		function sameadd(form){
 	          	if(form.sameashome.checked){
 	                form.provincial_address.value = form.present_address.value;
 	                form.provincial_city.value = form.present_city.value;
@@ -810,6 +755,65 @@
 	                                         
 	                }
 	          }
+		
+		$( document ).ready(function() {
+
+				$.mask.definitions['~']='[+-]';
+      			$('.input-mask-tel').mask('999-99-99');
+      			$('.input-mask-phone').mask('(999) 999-9999');
+      			$('.input-mask-alt').mask('(999) 999-9999');
+
+
+				var tag_input = $('#skills');	
+				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
+				{
+					tag_input.tag(
+					  {
+						placeholder:tag_input.attr('placeholder'),
+						//enable typeahead by specifying the source array
+						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
+					  }
+					);
+				}
+				else {
+					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+					tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+					//$('#skill').autosize({append: "\n"});
+				}
+
+				var tag_input2 = $('#hobbies');
+				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
+				{
+					tag_input2.tag(
+					  {
+						placeholder:tag_input2.attr('placeholder'),
+						//enable typeahead by specifying the source array
+						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
+					  }
+					);
+				}
+				else {
+					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+					tag_input2.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+					//$('#hobbies').autosize({append: "\n"});
+				}
+				var tag_input3 = $('#interests');
+				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
+				{
+					tag_input3.tag(
+					  {
+						placeholder:tag_input3.attr('placeholder'),
+						//enable typeahead by specifying the source array
+						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
+					  }
+					);
+				}
+				else {
+					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+					tag_input3.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+					//$('#interest').autosize({append: "\n"});
+				}
+			
 
 
 					

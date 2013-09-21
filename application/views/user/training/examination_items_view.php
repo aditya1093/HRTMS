@@ -62,7 +62,7 @@
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-group"></i>
-							AMI - Training Center Administration
+							AMI - Employee Module
 						</small>
 					</a><!--/.brand-->
 

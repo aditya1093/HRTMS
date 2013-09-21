@@ -439,7 +439,7 @@
 		                	
 		             <div class="" id="profile3">
 		                	
-	                  
+	                
 	            		<div class="marital_div" id="marital">
 		                <form id="marital_info">
 		               
@@ -484,25 +484,26 @@
 	               				<tr>
 	               					<th>Name</th>
 	               					<th>Birthdate</th>
-	               					<th>Contact No</th>
+	               					<th>School / Work</th>
 	               					<th></th>
 	               				</tr>
 	               			</thead>
 	               			<tbody>
 			              	<?php if(isset($records2)) : foreach($records2 as $row) : ?>
 			              			
-	                    			<tr>
-	                    				<td><?php echo $row->children_name;?></td>
-	                    				<td><?php echo $row->children_birthdate;?></td>
-	                    				<td><?php echo $row->children_school_or_work;?></td>
-	                    				<td><button class="btn btn-mini btn-info">
-												<i class="icon-edit bigger-120"></i>
-											</button>
-											<button class="btn btn-mini btn-danger">
-												<i class="icon-trash bigger-120"></i>
-											</button>
-										</td>
-	                    			</tr>
+                    			<tr>
+                    				<td><?php echo $row->children_name;?></td>
+                    				<td><?php echo $row->children_birthdate;?></td>
+                    				<td><?php echo $row->children_school_or_work;?></td>
+                    				<td><div class="btn-group"><button class="btn btn-mini btn-info">
+											<i class="icon-edit bigger-120"></i>
+										</button>
+										<button class="btn btn-mini btn-danger">
+											<i class="icon-trash bigger-120"></i>
+										</button>
+										</div>
+									</td>
+                    			</tr>
 	                    			
 			                <?php endforeach;?>
 							<?php endif; ?>
@@ -543,8 +544,6 @@
 										<i class="icon-ok bigger-110"></i>
 										Submit
 									</button>
-
-									&nbsp; &nbsp; &nbsp;
 									<button class="btn btn-small" type="reset">
 										<i class="icon-undo bigger-110"></i>
 										Reset

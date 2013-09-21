@@ -519,24 +519,32 @@
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 							<div class="span12">
+								<div class="alert alert-sucess" data-step="1" data-intro="Let's take a quick guide with the basics!">
+									<button type="button" class="close" data-dismiss="alert">
+										<i class="icon-remove"></i>
+									</button>
+									<strong>Hello there!</strong>
+										You logged as <?php echo $this->session->userdata("permission");?>.
+									<br>
+								</div>
 
-							<div class="alert alert-info">
-								<h2>Reports</h2>
-								
-								<a target ="_blank" href="<?php echo base_url();?>Reports/list_trainee">List of Trainee</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/trainee_attendance">Trainee Attendance</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/gradesheet">Gradesheet</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Certificate</a><br>
-								<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Completed Modules</a>
-										 
-							</div>
-							<div class="box-content">
-								<div class="row-fluid">
+								<div class="alert alert-info">
+									<h2>Reports</h2>
 									
-								</div>								
-							</div> 
+									<a target ="_blank" href="<?php echo base_url();?>Reports/list_trainee">List of Trainee</a><br>
+									<a target ="_blank" href="<?php echo base_url();?>Reports/trainee_attendance">Trainee Attendance</a><br>
+									<a target ="_blank" href="<?php echo base_url();?>Reports/gradesheet">Gradesheet</a><br>
+									<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Certificate</a><br>
+									<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Completed Modules</a>
+											 
+								</div>
+								<div class="box-content">
+									<div class="row-fluid">
+										
+									</div>								
+								</div> 
 
-						<!--PAGE CONTENT ENDS HERE-->
+							<!--PAGE CONTENT ENDS HERE-->
 							</div>
 
 						<!--/row-->
@@ -546,6 +554,7 @@
 				<div class="row-fluid">
 					
 					<div class="span12">
+							
 							<div class="widget-box">
 								<div class="widget-header">
 									<h5><i class="icon-info"></i> Manpower Request Status</h5>
@@ -561,8 +570,9 @@
 							          			<th>Request ID</th>
 							          			<th>Company</th>
 							          			<th>Status</th>
-							          			<th>&nbsp;</th>
 							          			<th>Date Requested</th>
+							          			<th>&nbsp;</th>
+							          			
 							          		</tr>
 							          	</thead>
 							          	<tbody>
@@ -582,6 +592,7 @@
 								          					echo '<span class="label label-success">Confirmed</span>';
 								          				}
 								          			?></td>
+								          			<td><?php echo   date("d M Y", strtotime($row->date_requested) );?></td>
 								          			<td>
 								          				<button id="<?php echo $row->request_id?>" class="bview btn btn-info btn-mini">More info</button>
 								          				<?php $dep = $row->is_deployed ; $train = $row->is_training;
@@ -592,7 +603,7 @@
 								          				<button id="<?php echo $row->request_id?>" class="bconfirm btn btn-success btn-mini" disabled>Edit Confirmation</button>
 								          				<?php }?>
 								          			</td>
-								          			<td><?php echo $row->date_requested?></td>
+								          			
 												</tr>
 											<?php endforeach;?>
 											<?php endif; ?>
@@ -640,11 +651,6 @@
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.full.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
@@ -662,118 +668,97 @@
 
 		<script type="text/javascript">	
 
-			$("#getinfo").click(function(){
-			         var dataString = $("#id").val();
-			         $.ajax({ 
-			           url: "<?php echo base_url();?>ajax/user",
-			     	   async: false,
-			           type: "POST",			          
-			           data: "id="+dataString, 
-			           dataType: 'json', 
-			        
-			 
-			           success: function(output_string){
-			               alert(dataString);
-			               $('#result_table').html(output_string);
-			           }
-			 
-			         });
-			 
-			         return false;  //stop the actual form post !important!
+		$(document).ready(function() {
+
+		  	var oTable =  $('#table-request').dataTable({
+				"aoColumns": [
+					null,null,null,
+					null,
+					{ "bSortable": false },
+				],
+				
+			});
+			oTable.fnSort( [ [3,'desc']] );
+
+			$(".bconfirm").on(ace.click_event, function() {
+
+				var id = $(this).attr("id");
+				bootbox.dialog("Edit Request Confirmation", [{
+					"label" : "Confirm Request",
+					"class" : "btn-small btn-success",
+					"callback": function() {
+						//Example.show("great success");
+						$.ajax({
+							url: "administrative/confirm_request",
+							type: "post",
+							data: {
+								action: "confirm",
+								id: id
+							},
+							success: function(e) {
+								console.log(e);
+								location.reload();
+							}
+						});
+					}
+					}, {
+					"label" : "Decline Request",
+					"class" : "btn-small btn-danger",
+					"callback": function() {
+						$.ajax({
+							url: "administrative/confirm_request",
+							type: "post",
+							data: {
+								action: "pogi",
+								id: id
+							},
+							success: function(e) {
+								console.log(e);
+								location.reload();
+							}
+						});
+					}
+					}, {
+					"label" : "Cancel",
+					"class" : "btn-small"
+					}]
+				);
 			});
 
-		 	$('#acceptApp').click(function(){ 
-			   	 $a = "aw";
-			   	// $(this).closest('fieldset').find(':checkbox').prop('checked', this.checked);
-			     alert($a);  //use .val() if you're getting the value
-			   });
 
-			  $(document).ready(function() {
+			$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+				_title: function(title) {
+					var $title = this.options.title || '&nbsp;'
+					if( ("title_html" in this.options) && this.options.title_html == true )
+						title.html($title);
+					else title.text($title);
+				}
+			}));
+			$(".bview").on(ace.click_event, function(e) {
+				e.preventDefault();
+				var id = $(this).attr("id");
 
-			  	var oTable =  $('#table-request').dataTable({
-					"aoColumns": [
-						null,null,null,
-						{ "bSortable": false },
-						{ "bVisible":    false },
-					],
-					
-				});
-				oTable.fnSort( [ [4,'desc']] );
+				$.ajax({
+					url: "administrative/viewRequest",
+					type: "post",
+					data: {
+						id: id
+					},
+					dataType: 'json',
+					success: function(e) {
+						console.log(e);
+						$('#view').html(e);
 
-				$(".bconfirm").on(ace.click_event, function() {
-					var id = $(this).attr("id");
-					bootbox.dialog("Edit Request Confirmation", [{
-						"label" : "Confirm Request",
-						"class" : "btn-small btn-success",
-						"callback": function() {
-							//Example.show("great success");
-							$.ajax({
-								url: "administrative/confirm_request",
-								type: "post",
-								data: {
-									action: "confirm",
-									id: id
-								},
-								success: function(e) {
-									console.log(e);
-									location.reload();
-								}
-							});
-						}
-						}, {
-						"label" : "Decline Request",
-						"class" : "btn-small btn-danger",
-						"callback": function() {
-							$.ajax({
-								url: "administrative/confirm_request",
-								type: "post",
-								data: {
-									action: "pogi",
-									id: id
-								},
-								success: function(e) {
-									console.log(e);
-									location.reload();
-								}
-							});
-						}
-						}, {
-						"label" : "Cancel",
-						"class" : "btn-small"
-						}]
-					);
-				});
-				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
-					_title: function(title) {
-						var $title = this.options.title || '&nbsp;'
-						if( ("title_html" in this.options) && this.options.title_html == true )
-							title.html($title);
-						else title.text($title);
+						//result(e);
+						showDialog(id);
 					}
-				}));
-				$(".bview").on(ace.click_event, function(e) {
-					e.preventDefault();
-					var id = $(this).attr("id");
-
-					$.ajax({
-						url: "administrative/viewRequest",
-						type: "post",
-						data: {
-							id: id
-						},
-						//dataType: 'json',
-						success: function(e) {
-							console.log(e);
-							result(e);
-							showDialog(id);
-						}
-					});
-					
 				});
-			
+				
+			});
+		
 
 
-			  });
+		});
 		
 			var showDialog = function(id){
 				$( "#dialog" ).removeClass('hide').dialog({
@@ -799,90 +784,7 @@
 				});
 
 			}
-			var result = function(e){
-				var obj = $.parseJSON(e);
-	                $.each(obj, function(){
-	                	//var str = "<button class=\"btn btn-mini btn-info\" id="+this['id']+"><i class=\"icon-edit bigger-120\"></i></button><button class=\"btn btn-mini btn-danger\"> <i class=\"icon-trash bigger-120\"></i></button>";
-					
-					output_string = "<div> <table class=\"table table-striped\" style=\"width: 100%; word-wrap:break-word; table-layout: fixed;\">";
-					output_string += "<colgroup>";
-	    			output_string += "<col span=\"1\" style=\"width: 40%;\">";
-	    			output_string += "<col span=\"1\" style=\"width: 60%;\">";
-	    			output_string += "</colgroup>";
-
-					output_string += "<tr><td><h4>Manpower Info</h4></td><td></td></tr>";
-					output_string += "<tr><td>Status</td><td>";
-					if(this['confirmed']== 1){
-						output_string += "<span class=\"label label-lg label-success arrowed-right\">Confirmed</span>";
-					}
-					else{
-
-						output_string += "<span class=\"label label-lg label-warning arrowed-right\">Not Confirmed</span>";
-					}
-					output_string += "</td>";
-					output_string +="<tr><td>Company :</td><td>"+ this['company']+"</td></tr>";
-					output_string += "<tr><td>Manpower :</td><td>"+ this['no_of_manpower']+"</td></tr>";
-					output_string += "<tr><td>From :</td><td>"+ this['date_requested']+"</td></tr>";
-					output_string += "<tr><td>To :</td><td>"+ this['is_to']+"</td></tr>";
-					output_string += "<tr><td>Type :</td><td>";
-					if(this['emp_type']== 1){
-						output_string += "Contractual";
-					}
-					if(this['emp_type']== 2){
-
-						output_string += "Regular";
-					}
-					if(this['emp_type']== 3){
-
-						output_string += "Probation";
-					}
-					output_string += "</td></tr>";
-					output_string += "<tr><td>Department :</td><td>"+ this['emp_department']+"</td></tr>";
-					output_string += "<tr><td><h4>Applicant Requirements</h4></td><td></td></tr>";
-					output_string += "<tr><td>Gender :</td><td>";
-					if(this['emp_gender']== 1){
-						output_string += "Male Only";
-					}
-					if(this['emp_gender']== 2){
-						output_string += "Female Only";
-					}
-					if(this['emp_gender']== 3){
-						output_string += "Male / Female";
-					}
-					output_string += "</td></tr>"
-					output_string += "<tr><td>Remarks :</td><td>";
-				   	var str = this['remarks'];
-			        var str_array = str.split(',');
-
-					for(var i = 0; i < str_array.length; i++)
-					{
-					   // Trim the excess whitespace.
-					   str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
-					   // Add additional code here, such as:
-					   	output_string += "<ul>"; 
-					 	output_string += "<li>" +str_array[i] +  "</li>";
-					 	output_string += "</ul>";
-					}
-					output_string += "</td></tr>";
-					output_string += "<tr><td>Documents :</td><td>";
-				   	var str = this['emp_reqdocuments'];
-			        var str_array = str.split(',');
-
-					for(var i = 0; i < str_array.length; i++)
-					{
-					   // Trim the excess whitespace.
-					   str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
-					   // Add additional code here, such as:
-					   	output_string += "<ul>"; 
-					 	output_string += "<li>" +str_array[i] +  "</li>";
-					 	output_string += "</ul>";
-					}
-
-					output_string += "</td></tr></table></div>";
-	                });
-					$('#view').html(output_string);
-
-			}				 
+						 
 		</script>
 
 	</body>

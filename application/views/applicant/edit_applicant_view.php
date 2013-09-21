@@ -26,10 +26,10 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
-
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.custom.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/datepicker.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/applicant/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
@@ -528,7 +528,7 @@
 												<div class="row-fluid">
 													<div class="span3 center">
 														<span class="profile-picture">
-															<img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
+															<img class="editable" alt="Alex&#39;s Avatar" id="avatar" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
 														</span>
 														<div class="width-80 label label-info label-large arrowed-in arrowed-in-right">
 															<div class="inline position-relative">
@@ -688,7 +688,9 @@
 																<div class="profile-info-name"> Phone </div>
 
 																<div class="profile-info-value">
-																	<input type="text" name="phone" class="controls" value="<?php echo $row->phone;?>">
+																	
+																	<input class="controls input-mask-phone" type="text" id="form-field-mask-2" name="phone" value="<?php echo $row->phone;?>" />
+
 																</div>
 															</div>
 															<div class="form-actions">
@@ -810,6 +812,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
@@ -823,7 +826,10 @@
 
 		<script type="text/javascript">
 			$(function() {
-			
+				$.mask.definitions['~']='[+-]';
+      			$('.input-mask-phone').mask('(999) 999-9999');
+				
+
 				$('.dialogs,.comments').slimScroll({
 			        height: '300px'
 			    });
@@ -867,6 +873,7 @@
 				});
 
 			});	
+
 		</script>
 	</body>
 </html>

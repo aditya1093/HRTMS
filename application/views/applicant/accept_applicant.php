@@ -43,19 +43,8 @@
 
 		<!--inline styles if any-->
 		<style type="text/css">
-				#mydiv {
-		    height: 400px;
-		    position: relative;
-		    background-color: gray; /* for demonstration */
-		}
-		.ajax-loader {
-		    position: absolute;
-		    left: 50%;
-		    top: 50%;
-		    margin-left: -32px; /* -1 * image width / 2 */
-		    margin-top: -32px;  /* -1 * image height / 2 */
-		    display: block;     
-		}</style>
+			.no-close .ui-dialog-titlebar-close {display: none }
+		</style>
 	</head>
 
 	<body>

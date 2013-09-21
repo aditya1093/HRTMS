@@ -25,10 +25,12 @@
 		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
 
 		<!--ace styles-->
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/applicant/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
@@ -556,6 +558,7 @@
 															<div class="controls">
 																<input type="text" id="company_name" disabled=""  name="">
 																<input type="hidden" id="company_name2" name="client_name">
+																<input type="hidden" id="client_id" name="client_id">
 															</div>
 													
 														</div>
@@ -635,15 +638,13 @@
 										<td><?php echo $row->client?></td>
 										<td class="hidden-480"><?php echo $row->date_start;?></td>
 										<td class="td-actions">
-											<!--
-											<a href="<?php echo base_url();?>index.php/registration/registered/get_info/<?php  echo $row->register_id; ?>" style="cursor:pointer;" class="btn btn-info"><i class="icon-edit icon-white"></i></a>
-											 !-->
+										
 											<div class="hidden-phone visible-desktop btn-group">
-												<button onclick="" class="btn btn-mini btn-success">
+												<button class="view_batch btn btn-mini btn-success" id="<?php echo $row->id;?>">
 													<i class="icon-ok bigger-120"></i>
 												</button>
 
-												<button onclick="edit_applicant('<?php echo $row->id;?>')" class="btn btn-mini btn-info">
+												<button onclick="edit_batch('<?php echo $row->id;?>')" class="btn btn-mini btn-info">
 													<i class="icon-edit bigger-120"></i>
 												</button>
 											</div>
@@ -695,6 +696,7 @@
 		<![endif]-->
 
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.full.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
@@ -720,17 +722,6 @@
 
 		<script type="text/javascript">
 			$(function() {
-			
-				$('.dialogs,.comments').slimScroll({
-			        height: '300px'
-			    });
-				
-				$('#tasks').sortable();
-				$('#tasks').disableSelection();
-				$('#tasks input:checkbox').removeAttr('checked').on('click', function(){
-					if(this.checked) $(this).closest('li').addClass('selected');
-					else $(this).closest('li').removeClass('selected');
-				});
 
 				//datatable initialization
 				var oTable1 = $('#table_report').dataTable( {
@@ -742,18 +733,6 @@
 				} );
 				
 				
-				$('table th input:checkbox').on('click' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
-					});
-						
-				});
-			
-				$('[data-rel=tooltip]').tooltip();
-
 				$('.date-picker').datepicker().next().on(ace.click_event, function() {
 					$(this).prev().focus();
 				});
@@ -768,10 +747,17 @@
 				time: 1000 // hang on the screen for...
 				});
 
+				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+				_title: function(title) {
+					var $title = this.options.title || '&nbsp;'
+					if( ("title_html" in this.options) && this.options.title_html == true )
+						title.html($title);
+					else title.text($title);
+				}
+				}));
+
 
 				$( "#addBatchControl" ).on( "submit", function( event ) {
-				//$( "#addBatchControl" ).on( "submit", function() {
-			
 				  event.preventDefault();
 				  var sData = $(this).serialize();
 				  console.log(sData);
@@ -805,7 +791,7 @@
 								   	this['client'],
 								   	this['date_start'],
 								 	str  ]
-								 	);table_report
+								 	);
 			                });	
 		                }//End Success
 
@@ -837,16 +823,66 @@
                       		$('#company').slideToggle('fast');
                         	$("#company_name").val(val);
                         	$("#company_name2").val(val);
+                        	$("#client_id").val(val);
 
                         } 
                     })
                 });
+
+				$('.view_batch').on(ace.click_event, function(){
+					id = $(this).attr('id');	
+					//console.log(id);
+					$.ajax({
+						url: "<?php echo base_url();?>applicant/batch_info",
+						type: "post",
+						data: {
+							id: id
+						},
+						dataType: 'json',
+						success: function(e) {
+							console.log(e);
+							$('#view').html(e);
+							showDialog(id);
+							
+						}//Success
+					});//End Ajax
+
+				});
 			});
 
-			var edit_applicant = function(id){
-
+			var edit_batch = function(id){
 				alert(id);
+			
 			}
+
+			var showDialog = function(id){
+				$( "#dialog" ).removeClass('hide').dialog({
+					dialogClass: "no-close",
+					resizable: false,
+					modal: true,
+					closeOnEscape: true,
+					title: "<div class='widget-header'><h4 class='smaller'><i class='icon-exchange'></i> "+id+". Batch Details.</h4></div>",
+					title_html: true,
+					width: 600,
+					//maxWidth: 800,
+					maxHeight: 500,
+					buttons: [
+						    {
+						      text: "OK",
+						      "class" : "btn btn-info btn-mini",
+						      click: function() {
+						        $( this ).dialog( "close" );
+						      }
+						    }
+						  ]
+					
+				});
+
+			}
+				
 		</script>
 	</body>
+	<div id="dialog">
+	   <div id="view"></div>
+	</div>
 </html>

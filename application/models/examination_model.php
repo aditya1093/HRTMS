@@ -73,10 +73,10 @@ class Examination_model extends CI_Model{
 
     function active_exam() {
 
-        $q = $this->db->query("SELECT examination_id FROM examination WHERE is_active=1 LIMIT 1");
+        $q = $this->db->query("SELECT examination_id FROM examination WHERE is_active=1");
 
-        $data["eid"] = $q->row()->examination_id;
-        $this->session->set_userdata($data);
+        //$data["eid"] = $q->row()->examination_id;
+        //$this->session->set_userdata($data);
 
         $id = $this->session->userdata("user_id");
 

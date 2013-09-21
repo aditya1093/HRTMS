@@ -48,7 +48,11 @@ class Dashboard extends CI_Controller {
 
 				$data["score"] = $this->examination_model->get_gradesheet($id, $b_id);
 			}
+			
+			$id64 = $this->input->get("exam");
+			for ($i=0; $i < 7; $i++) { $id64 = base64_encode($id64); }
 
+			//echo $id64;
 			$this->load->view('User/trainee/dashboard_view',$data);
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Applicant') {

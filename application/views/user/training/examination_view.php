@@ -28,7 +28,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/training/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 
@@ -51,7 +51,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<li class="grey">
+						<!--<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
 								<span class="badge badge-grey">4</span>
@@ -186,7 +186,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li>-->
 
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -272,12 +272,6 @@
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
 
 								<li>
 									<a href="#">
@@ -380,7 +374,7 @@
 						</a>
 					</li>
 
-					<li>
+					<!--<li>
 						<a href="reports">
 							<i class="icon-print"></i>
 							<span>Reports</span>
@@ -388,11 +382,12 @@
 					</li>
 
 					<li>
+						
 						<a href="help">
 							<i class="icon-question-sign"></i>
 							<span>Help</span>
 						</a>
-					</li>
+					</li>-->
 
 					<li>
 						<a href="about">
@@ -444,72 +439,9 @@
 						</h1>
 					</div><!--/.page-header-->
 
+
 					<div class="row-fluid">
-						<!--PAGE CONTENT STARTS HERE-->
-
-						<div class="span8">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										List of Examinations
-										<small>Test Modules</small>
-									</h4>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">
-										<table id="exam-table" class="table table-striped table-bordered">
-											<thead>
-											<tr>
-												<th class="center">
-													Examination Name
-												</th>
-												<th class="center">
-													No. Of Items
-												</th>
-												<th class="center">
-													Date Modified
-												</th>
-												<th class="center">
-													
-												</th>
-											</tr> 
-											</thead>
-											<tbody>
-												<tr>
-													<td>
-
-													</td>
-													<td>
-
-													</td>
-													<td>
-
-													</td>
-													<td>
-														<button class="btn btn-small btn-primary">
-															<i class=""></i>
-															Edit Items
-														</button>
-														<button class="btn btn-small btn-success">
-															<i class=""></i>
-															Rename
-														</button>
-														<button class="btn btn-small btn-danger">
-															<i class=""></i>
-															Delete
-														</button>
-													</td>
-												</tr>
-											</tbody>
-
-										</table> 
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="span4">
+						<div class="span6">
 							<div class="widget-box">
 								<div class="widget-header">
 									<h4 class="smaller">
@@ -520,15 +452,151 @@
 
 								<div class="widget-body">
 									<div class="widget-main">
-										
+
+										<table class="table">
+											<tbody>
+												<tr>
+													<td>
+														<label>Examination Name: </label>
+														<input autofocus type="text" id="examination_name" name="examination_name">
+													</td>	
+												</tr>
+												<tr>
+													<td>
+														<button id="create_exam" class="btn btn-purple"><i class="icon-pencil icon-white"></i> Create Examination</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+
 									</div>
 								</div>
 							</div>
 						</div>
+						<!--<div class="span6">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										Examination Control
+										<small></small>
+									</h4>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+
+										<table class="table">
+											<tbody>
+												<tr>
+													
+													<td>
+														<div class="alert alert-warning">
+															<button type="button" class="close" data-dismiss="alert">
+																<i class="icon-remove"></i>
+															</button>
+															<strong>Heads Up!</strong>
+
+															When you deactivate exams, it will 
+															no longer be available to the trainees. And the scores will be recorded.
+															<br>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														
+														<button id="dexam" class="btn btn-block btn-danger"><i class="icon-stop icon-white"></i> Deactivate All Exams</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+
+									</div>
+								</div>
+							</div>
+						</div>-->
+
+					</div>
+					<p></p>
+					<div class="row-fluid">
+						<!--PAGE CONTENT STARTS HERE-->
+
+						<div class="span12">
+							
+
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+									<i class="icon-dashboard"></i> 
+										Examinations
+										<small>Test Modules</small>
+									</h4>
+
+									<div class="widget-toolbar no-border">
+										<ul class="nav nav-tabs" id="myTab">
+											<li class="active">
+												<a data-toggle="tab" href="#home">Modules</a>
+											</li>
+
+											<li class="">
+												<a data-toggle="tab" href="#profile">Examination Sets</a>
+											</li>
+
+											
+										</ul>
+									</div>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main padding-6">
+										<div class="tab-content">
+											<div id="home" class="tab-pane active">
+												<table id="exam_table" class="table table-striped table-bordered">
+													<thead>
+														<tr>
+															<th class="center">
+																Examination Name
+															</th>
+															<th width="70px" class="center">
+																Items
+															</th>
+															<!--<th width="130px" class="center">
+																Date Modified
+															</th>-->
+															<th class="center" width="70px">
+																Status
+															</th>
+															<th class="center" width="300px">
+																
+															</th>
+														</tr> 
+													</thead>
+													<tbody>
+														
+													</tbody>
+												</table> 
+											</div>
+
+											<div id="profile" class="tab-pane">
+
+												</div>
+
+											
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+
+						
 
 
 						<!--PAGE CONTENT ENDS HERE-->
-					</div><!--/row-->
+					</div>
+
+					<!--/row-->
 				</div><!--/#page-content-->
 
 			</div><!--/#main-content-->
@@ -564,6 +632,8 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
+
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
@@ -576,41 +646,211 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
-			$(function() {
-				var oTable1 = $('#exam-table').dataTable( {
-				"aoColumns": [
-			      null,
-			      null, 
-			      null,
-			      { "bSortable": false }
-				] } );
-				
-				
-				$('table th input:checkbox').on('click' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
-					});
-						
+
+			var init_datatable = function() {
+				var oTable1 = $('#exam_table').dataTable( {
+
+					"bProcessing": true,
+					"sAjaxSource": "<?php echo base_url();?>examination/list_exam",
+					"aoColumns": [
+						{ "mDataProp": "examination_name" },
+						{ "mDataProp": "items" },	
+						//{ "mDataProp": "date_modified" },
+						{ "mDataProp": "is_active" },
+						{ 
+							"mDataProp": "examination_id", 
+							//"bVisible": false,
+							"bSortable": false,
+							"fnRender": function (o) {
+
+		                    return '<button onClick="activate_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-purple" id=' + o.aData['examination_id'] + '>' + '<i class="icon-time icon-white"></i>  Toggle Exam' + '</button> '+
+		                    '<button onClick="edit_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-success" id=' + o.aData['examination_id'] + '>' + '<i class="icon-edit icon-white"></i>  Edit' + '</button> '+
+		                    '<button onClick="rename_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-info" id=' + o.aData['examination_id'] + '>' + '<i class="icon-pencil icon-white"></i>  ' + '</button> '+
+		                    '<button onClick="delete_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-danger" id=' + o.aData['examination_id'] + '>' + '<i class="icon-trash icon-white"></i>' + '</button>';
+
+		                	}
+						}
+					]
 				});
-			
-			
-				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-				function tooltip_placement(context, source) {
-					var $source = $(source);
-					var $parent = $source.closest('table')
-					var off1 = $parent.offset();
-					var w1 = $parent.width();
-			
-					var off2 = $source.offset();
-					var w2 = $source.width();
-			
-					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
-					return 'left';
-				}
+				
+			}
+
+			$("#dexam").click(function() {
+
+				bootbox.dialog("<h3>Confirm</h3>Are you sure that you want to deactivate all examinations?", [{
+					"label" : "<i class=\'icon-stop\'></i> Deactivate and Record Examinations Taken",
+					"class" : "btn-small btn-danger",
+					"callback": function() {
+						//Example.show("great success");
+						$.ajax({
+							url: "examination/toggle_activate_all",
+							type: "post",
+							data: {
+								action: "activate",
+								id: id
+							},
+							success: function(e) {
+								console.log(e);
+								location.reload();
+							}
+						});
+					}
+					}, {
+						"label" : "Cancel",
+						"class" : "btn-small"
+					}]
+				);
 			});
+
+			var rename_exam = function(id) {
+
+				bootbox.prompt("Rename Exam", function(result) {
+
+					if($.trim(result)!="") {
+						$.ajax({
+							url: "examination/rename_exam",
+							type: "post",
+							data: {
+								id: id, 
+								rename: result
+							},
+							success: function(e) {
+								location.reload();
+								
+
+							}
+						});
+					}
+				});
+
+			} 
+
+			var delete_exam = function(id) {
+
+				var str = "<h3>Confirm</h3>Examination items will also be deleted";
+				str += ". Do you really want to delete this examination?";
+
+				bootbox.dialog(str, [{
+						"label" : "<i class=\'icon-trash\'></i> Delete",
+						"class" : "btn-small btn-danger",
+						"callback": function() {
+							//Example.show("great success");
+
+							$.ajax({
+								url: "examination/delete_exam",
+								type: "post",
+								data: {
+									id: id
+								},
+								success: function(e) {
+									
+									location.reload();
+								}
+							});
+							
+						}
+						}, {
+							"label" : "Cancel",
+							"class" : "btn-small"
+						}]
+					);
+
+			} 
+
+			var activate_exam = function(id) {
+				//var id = $(this).attr("id");
+
+				var str = '<h3>Toggle Examination</h3><div class="alert alert-info">';
+				str += 'When you <strong>Start the Exam</strong>';
+				str += ', trainee accounts will be able to take the exam.';
+				str += '<br>';
+				str += '</div>';
+
+				bootbox.dialog(str, [{
+						"label" : "<i class=\'icon-play\'></i> Start",
+						"class" : "btn-small btn-success",
+						"callback": function() {
+							//Example.show("great success");
+							$.ajax({
+								url: "examination/toggle_activate",
+								type: "post",
+								data: {
+									action: "activate",
+									id: id
+								},
+								success: function(e) {
+									console.log(e);
+									location.reload();
+								}
+							});
+						}
+						}, {
+						"label" : "<i class=\'icon-stop\'></i> End",
+						"class" : "btn-small btn-danger",
+						"callback": function() {
+							//Example.show("uh oh, look out!");
+							$.ajax({
+								url: "examination/toggle_activate",
+								type: "post",
+								data: {
+									action: "deactivate",
+									id: id
+								},
+								success: function(e) {
+									console.log(e);
+									location.reload();
+								}
+							});
+						}
+						}, {
+						"label" : "Cancel",
+						"class" : "btn-small"
+						}]
+					);
+
+			}
+
+			$(document).ready(function() {
+
+				init_datatable();
+			});
+
+			$("#create_exam").click(function() {
+
+				if($("#examination_name").val().trim() != "") {
+
+					var request = $.ajax({
+			        	url: "<?php echo base_url();?>examination/create_exam",
+			        	type: 'POST',
+			        	data: { 
+			        		ajax: '1',
+			        		examination_name: $("#examination_name").val()
+			        	}
+			        });
+
+			        request.done(function (response, textStatus, jqXHR) {
+
+						console.log(response);
+						location.reload();
+						$("#examination_name").val("");
+
+				    });
+				}
+				else {
+
+					//gritter here
+					alert("Enter Examination Name");
+				}
+
+			});
+
+			var id = 0;
+			
+			var edit_exam = function(id) {
+	
+				window.location.href = "<?php echo base_url();?>examination/edit_exam/"+id;
+			}
+
 		</script>
 	</body>
 </html>

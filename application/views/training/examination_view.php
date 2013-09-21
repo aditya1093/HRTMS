@@ -459,8 +459,7 @@
 													<td>
 														<label>Examination Name: </label>
 														<input autofocus type="text" id="examination_name" name="examination_name">
-													</td>
-													
+													</td>	
 												</tr>
 												<tr>
 													<td>
@@ -473,8 +472,8 @@
 									</div>
 								</div>
 							</div>
-							</div>
-							<div class="span6">
+						</div>
+						<!--<div class="span6">
 							<div class="widget-box">
 								<div class="widget-header">
 									<h4 class="smaller">
@@ -515,7 +514,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
 
 					</div>
 					<p></p>
@@ -523,44 +522,72 @@
 						<!--PAGE CONTENT STARTS HERE-->
 
 						<div class="span12">
+							
+
 							<div class="widget-box">
 								<div class="widget-header">
 									<h4 class="smaller">
-										List of Examinations
+									<i class="icon-dashboard"></i> 
+										Examinations
 										<small>Test Modules</small>
 									</h4>
+
+									<div class="widget-toolbar no-border">
+										<ul class="nav nav-tabs" id="myTab">
+											<li class="active">
+												<a data-toggle="tab" href="#home">Modules</a>
+											</li>
+
+											<li class="">
+												<a data-toggle="tab" href="#profile">Examination Sets</a>
+											</li>
+
+											
+										</ul>
+									</div>
 								</div>
 
 								<div class="widget-body">
-									<div class="widget-main">
-										<table id="exam_table" class="table table-striped table-bordered">
-											<thead>
-												<tr>
-													<th class="center">
-														Examination Name
-													</th>
-													<th width="70px" class="center">
-														Items
-													</th>
-													<th width="130px" class="center">
-														Date Modified
-													</th>
-													<th class="center" width="70px">
-														Status
-													</th>
-													<th class="center" width="300px">
+									<div class="widget-main padding-6">
+										<div class="tab-content">
+											<div id="home" class="tab-pane active">
+												<table id="exam_table" class="table table-striped table-bordered">
+													<thead>
+														<tr>
+															<th class="center">
+																Examination Name
+															</th>
+															<th width="70px" class="center">
+																Items
+															</th>
+															<!--<th width="130px" class="center">
+																Date Modified
+															</th>-->
+															<th class="center" width="70px">
+																Status
+															</th>
+															<th class="center" width="300px">
+																
+															</th>
+														</tr> 
+													</thead>
+													<tbody>
 														
-													</th>
-												</tr> 
-											</thead>
-											<tbody>
-												
-											</tbody>
-										</table> 
+													</tbody>
+												</table> 
+											</div>
 
+											<div id="profile" class="tab-pane">
+
+												</div>
+
+											
+										</div>
 									</div>
 								</div>
 							</div>
+
+
 						</div>
 
 						
@@ -628,7 +655,7 @@
 					"aoColumns": [
 						{ "mDataProp": "examination_name" },
 						{ "mDataProp": "items" },	
-						{ "mDataProp": "date_modified" },
+						//{ "mDataProp": "date_modified" },
 						{ "mDataProp": "is_active" },
 						{ 
 							"mDataProp": "examination_id", 

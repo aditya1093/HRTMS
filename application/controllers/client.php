@@ -24,12 +24,16 @@ class Client extends CI_Controller {
 	}
 	function add_client() {
 
-		$this->form_validation->set_rules('client_name', 'client Name', 'required|xss_clean');
+		$this->form_validation->set_rules('client_name', 'client Name', 'required|xss_clean|is_unique[client.client_name]');
 		$this->form_validation->set_rules('client_location', 'Location', 'required|xss_clean');
 		$this->form_validation->set_rules('client_username', 'Username', 'trim|required|xss_clean|min_length[6]|is_unique[user_table.username]|alpha_dash');
 		$this->form_validation->set_rules('client_password', 'Password', 'trim|required|matches[client_password_confirm]|min_length[6]');
 		$this->form_validation->set_rules('client_password_confirm', 'Password Confirmation', '');
 		$this->form_validation->set_rules('client_email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('client_phone', 'Phone Number', 'required');
+		$this->form_validation->set_rules('client_tel', 'Telephone Number', 'required');
+
+		
 		
  
         //$this->session->unset_userdata('error_client');
@@ -55,20 +59,23 @@ class Client extends CI_Controller {
 
 		}
         if($this->form_validation->run() == true) {
+        	$username = strtolower($this->input->post('client_username'));
+        	$client_name = strtoupper($this->input->post('client_name'));
 
         	$data = array(
         			'user_id' => $user_id,
-        			'client_name' => $this->input->post('client_name'),
+        			'client_name' => $client_name,
         			'client_location' => $this->input->post('client_location'),
-        			'client_username' => $this->input->post('client_username'),
+        			'client_username' => $username,
         			'client_email' => $this->input->post('client_email')
         		);
         	$userTable = array(
         			'user_id' => $user_id,
-        			'first_name' => $this->input->post('client_name'),
-        			'username' => $this->input->post('client_username'),
+        			'username' => $username,
         			'password' => md5($this->input->post('client_password')),
-        			'email' => $this->input->post('client_email')
+        			'email' => $this->input->post('client_email'),
+        			'permission' => 'Client',
+        			'company' => $client_name
         		);
         	$count = array('client_count' => $client_count);
     		
@@ -87,10 +94,10 @@ class Client extends CI_Controller {
  			$this->session->set_flashdata('client_message',$success_string); 
 
  			
-	        //$this->ftp->connect($config);
+	        $this->ftp->connect($config);
 
-	        //$this->ftp->mirror('/', '/public_html/elfinder/files/');
-	        //$list = $this->ftp->list_files('/public_html/elfinder/files/Modules/'.$path);
+	        $this->ftp->mirror('/', '/public_html/elfinder/files/');
+	        $list = $this->ftp->list_files('/public_html/elfinder/files/Modules/'.$path);
 	        if(!$this->ftp->mkdir('/public_html/elfinder/files/AMI-Training/'.strtoupper($this->input->post('client_name')).'/', DIR_WRITE_MODE))
 	        {
 	        	redirect(base_url().'client', 'refresh');
@@ -103,7 +110,7 @@ class Client extends CI_Controller {
 		else
 		{
 
-			$error_string = '<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>' . validation_errors() .$user_id. '</div>';
+			$error_string = '<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>' . validation_errors() . '</div>';
 			$data = array (
 					'client_message' => $error_string,
 					'client_name' => $this->input->post('client_name'),
@@ -166,9 +173,134 @@ class Client extends CI_Controller {
 
 
 
+	}
+
+
+	function view_client(){
+		$id = $this->input->post('id');
+
+		$this->load->model('client_model');
+		$data = $this->client_model->view($id);
+
+		foreach($data as $row) {
+			$user_id = $row->user_id;
+			$output_string  = "<div class=\"row-fluid\">";
+			$output_string .= "<div class=\"span6\">";
+			$output_string .=  "<table class=\"table table-striped\" style=\"width: 100%; word-wrap:break-word; table-layout: fixed;\">";
+        	$output_string .= "<colgroup>";
+			$output_string .= "<col span=\"1\" style=\"width: 30%;\">";
+			$output_string .= "<col span=\"1\" style=\"width: 70%;\">";
+			$output_string .= "</colgroup>";
+
+			$output_string .= "<tr>";
+				$output_string .= "<td>ID</td>";	
+				$output_string .= "<td>".$row->user_id."</td>";
+			$output_string .= "</tr>";
+			$output_string .= "<tr>";
+				$output_string .= "<td>Name</td>";	
+				$output_string .= "<td>".$row->client_name."</td>";
+			$output_string .= "</tr>";
+			$output_string .= "<tr>";
+				$output_string .= "<td>Location</td>";	
+				$output_string .= "<td>".$row->client_location."</td>";
+			$output_string .= "</tr>";
+			$output_string .= "<tr>";
+				$output_string .= "<td>Phone #</td>";	
+				$output_string .= "<td>".$row->client_mobile."</td>";
+			$output_string .= "</tr>";
+			$output_string .= "<tr>";
+				$output_string .= "<td>Telephone #</td>";	
+				$output_string .= "<td>".$row->client_tel."</td>";
+			$output_string .= "</tr>";
+			$output_string .= "<tr>";
+				$output_string .= "<td>Username</td>";	
+				$output_string .= "<td>".$row->client_username."</td>";
+			$output_string .= "</tr>";
+			$output_string .= "<tr>";
+				$output_string .= "<td>Email</td>";	
+				$output_string .= "<td>".$row->client_email."</td>";
+			$output_string .= "</tr>";
+        	
+
+        	$output_string .= "</table>";
+        	$output_string .= "</div></div>";
+
+        	//$output_string['result'] .= "<button class=\"btn btn-mini btn-success\" onclick=\"a('"."')\"><i class=\"icon-ok bigger-120\"></i></button>";
+
+
+        }
+        
+        $data = $this->client_model->view_request($user_id);
+        //$output_string .= "<h1>Request History</h1>";
+        $output_string .= "<div class=\"row-fluid\">";
+        $output_string .= "<div class=\"span12\">";
+        $output_string .= "<div class=\"table-header\">Request History</div>";
+    	$output_string .= "<table id=\"table_request\" class=\"table table-striped table-bordered table-hover\" style=\"width: 100%; word-wrap:break-word; table-layout: fixed;\">";
+		$output_string .= "<colgroup>";
+		$output_string .= "<col span=\"1\" style=\"width: 10%;\">";
+		$output_string .= "<col span=\"1\" style=\"width: 10%;\">";
+		$output_string .= "<col span=\"1\" style=\"width: 10%;\">";
+		$output_string .= "<col span=\"1\" style=\"width: 15%;\">";
+		$output_string .= "<col span=\"1\" style=\"width: 55%;\">";
+		$output_string .= "</colgroup>";
+    	$output_string .= "<thead>";
+		$output_string .= "<tr>";
+		$output_string .= "<th>Request ID</th>";
+		$output_string .= "<th>No. of Manpower</th>";								
+		$output_string .= "<th>Status</th>";								
+		$output_string .= "<th>Date Request</th>";								
+		$output_string .= "<th>Remarks</th>";						 
+		$output_string .= "</tr>";
+		$output_string .= "</thead>";
+		$output_string .= "<tbody>";
+        foreach($data as $row) {
+        $stat = $row->confirmed;
+        if ($stat==0) {
+        	$stat = "<span class=\"label label-lg label-warning arrowed-right\">Not Confirmed</span>";
+        }
+        elseif ($stat==1) {
+        	$stat = "<span class=\"label label-lg label-success arrowed-right\">Confirmed</span>";
+        }
+        else{
+        	$stat = "<span class=\"label label-lg label-danger arrowed-right\">No records</span>";
+        }
+      
+      
+        $date =   date("d M Y", strtotime($row->date_requested) ) ." - ".   date("d M Y", strtotime($row->is_to) );
+
+        	$output_string .= "<tr>";
+        	$output_string .= "<td><a href=\"#\">".$row->request_id."</a></td>";
+        	$output_string .= "<td>".$row->no_of_manpower."</td>";
+        	$output_string .= "<td>".$stat."</td>";
+        	$output_string .= "<td>".$date."</td>";
+        	$output_string .= "<td>".$row->remarks."</td>";
+        	$output_string .= "</tr>";
+       	
+        }
+        $output_string .= "</tbody>";
+        $output_string .= "</table>";
+        $output_string .= "</div>";
+        $output_string .= "</div>";
+		
+		//$output_string['id'] = $user_id;
+		$this->output->set_output(json_encode($output_string));
+
 
 	}
 
+
+	public function view_request()
+	{
+		$id = $this->input->post('id');
+		$this->load->model('client_model');
+		$data = $this->client_model->view_request($id);
+		$this->output->set_output(json_encode($data));
+
+
+
+	}
+
+	
 
 
 
@@ -222,6 +354,7 @@ class Client extends CI_Controller {
 
 		$data = array(
 			'request_id' => $req_id,
+			'client_id' => $this->session->userdata('user_id'),
 			'no_of_manpower' => $this->input->get("no_of_manpower"),
 			'date_requested' => date("Y-m-d", strtotime($arr[0])),
 			'is_to' => date("Y-m-d", strtotime($arr[1])),

@@ -9,10 +9,16 @@
     <link href="<?php echo base_url();?>assets/_login/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/_login/css/bootstrap-responsive.min.css" rel="stylesheet">
 
+    
+
     <link rel="stylesheet" href="<?php echo base_url();?>assets/_login/css/typica-login.css">
 
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/messenger.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/messenger-theme-air.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css" />
+    <style type="text/css">
+      .red {
+        color: red!important;
+      }
+    </style>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -41,11 +47,18 @@
 
     <div class="container">
 
+        
         <div id="login-wraper">
+
             <form class="form login-form" action='<?php echo base_url();?>index.php/authenticate' method="post">
                 <legend>Sign in to <span class="blue">HRTMS</span></legend>
-            
+                <?php 
+                  if($this->session->flashdata('error_msg')) {
+                    echo $this->session->flashdata('error_msg');
+                  }
+                ?>
                 <div class="body">
+
                     <label>Username 
                     <input autofocus name="username" id="username" type="text"></label>
                     
@@ -53,10 +66,9 @@
                     <input name="password" id="password" type="password">
                     </label>
                     <label class="checkbox inline">
-                        <input type="checkbox" id="inlineCheckbox1" value="option1"> Remember me
+                        <input type="checkbox" id="inlineCheckbox1" name="remember" value="remember"> Remember me
                     </label>
                     <br>
-                    
                 </div>
                 
                 <div class="footer">
@@ -86,11 +98,13 @@
     <script src="<?php echo base_url();?>assets/_login/js/backstretch.min.js"></script>
     <script src="<?php echo base_url();?>assets/_login/js/typica-login.js"></script>
     <script src="<?php echo base_url();?>assets/js/messenger.min.js"></script>
-    
+    <script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
     <script type="text/javascript">
-        jQuery(document).ready(function($) {
 
+        $(document).ready(function($) {
+
+            
             $.backstretch([
               "<?php echo base_url();?>assets/images/bg1.jpg", 
               "<?php echo base_url();?>assets/images/bg2.jpg",
@@ -103,8 +117,13 @@
                 type: 'error',
                 showCloseButton: true
             });*/
-                
+
         });
+
+        
+
+
+       
     </script>
 
   </body>

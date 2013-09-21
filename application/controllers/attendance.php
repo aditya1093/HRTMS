@@ -18,7 +18,7 @@ class Attendance extends CI_Controller {
 			$data['records2'] = $query;
 			
 			//$this->load->view('company/company_view', $data);
-			$this->load->view('training/attendance_view',$data);
+			$this->load->view('user/training/attendance_view',$data);
 		}
 		else {
    

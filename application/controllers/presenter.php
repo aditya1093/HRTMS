@@ -14,7 +14,7 @@ class Presenter extends CI_Controller {
 			$query = $this->client_model->list_company();
 			$data['client_record'] = $query;
 	
-			$this->load->view('training/presenter_view',$data);
+			$this->load->view('user/training/presenter_view',$data);
 		}
 		else {
 

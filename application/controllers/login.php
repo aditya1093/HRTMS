@@ -4,10 +4,6 @@ class Login extends CI_Controller {
 
 	function load_view($view_name) {
 
-		$data = array (
-			'error_msg' => NULL
-		);
-
 		//check kung naka-login
 		if($this->session->userdata('is_logged_in')) {
 
@@ -15,23 +11,29 @@ class Login extends CI_Controller {
 		}
 		else {
 
-    		$this->load->view($view_name, $data);
+    		$this->load->view($view_name);
 		}	
 
 	}
 
 	function index() {
 
+		$this->session->set_userdata('login_type', 'employee');
+
 		$this->load_view('login_view');		
 	}
 
 	function client() {
+
+		$this->session->set_userdata('login_type', 'client');
 		
 		$this->load_view('login_view_client');	
 	}
 
 	function training() {
 		
+		$this->session->set_userdata('login_type', 'candidate');
+
 		$this->load_view('login_view_training');	
 	}
 }
