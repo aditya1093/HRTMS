@@ -11,7 +11,7 @@ class Module_model extends CI_Model{
 
         $config['hostname'] = 'ftp.jemnuine.com';
         $config['username'] = 'jemnuin2@jemnuine.com';
-        $config['password'] = 'sinigang123';
+        $config['password'] = 'bakerking123';
         $config['debug']    = TRUE;
 
         return $config;        

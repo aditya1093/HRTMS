@@ -1,0 +1,240 @@
+TODO LIST
+//////////////////////////////////////////
+------------------------------------------
+LOG 1
+------------------------------------------
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+extras
+--------------
+messages
+noti
+remove settings navbar - 15min ok
+profile: change password - 20min
+tanggalin lahat ng help - 15min ok
+
+
+client
+---------------
+remove manpower request status ok
+ami info remove ok
+move manpower info - 15min ok
+fix date picker - 20min
+pagaganahin request - 1hour
+generate request id - 1hour
+display logo ng client - 10min
+upload module - 30 min ok
+
+registration
+---------------
+remove photo req - 5min
+add upload image after registration - 1.5hour
+
+admin/hr
+---------------
+remove gray and purple sa nav - 15min ok
+reports move to other page - 15min
+pagaganahin confirm request - 30min ok
+reg > applicants > remove extra icons except view & edit
+reg > applicants > pagaganahin edit - 1hour
+reg > applicants > edit > editable lang ang basic info bukod sa id
+reg > applicants > hi-charts para sa monthly registrants - 30min
+reg > accept: - 5min
+- remove zipcode
+- form 137/tor
+- add medical result
+- add prompt in accepting applicant
+- disable accept button after accept
+- add company
+- 
+
+training > remove extra icons except view & edit
+client > adding client > add username, password, contact, logo - 1hour
+
+admin
+---------------
+manage > separate count table - 1hour
+audit > remove login/logout
+backup > ?
+
+trainer
+---------------
+manage module > edit/delete para sa modules - 1hour
+manage exam > edit:
+- edit items - XXX
+- delete items - 15 min
+manage exam > rename tska delete, activate exam: select exams to activate - 
+attendance checker > batch control - 1hour 
+class record > by batch tska hi-charts - 
+
+reports
+---------------
+list of trainee info - 1hour
+gradesheet - percentage - 1hour
+certificate - 1hour
+attendance - 1hour
+monthly summary of reports - 1hour
+
+trainee
+---------------
+take exam/view modules 
+- if atleast 1 exam activated, di mag-vview module ok
+modules dapat according to company
+
+fail-safe
+---------------
+validation - VERY IMPORTANT
+session control - usernames
+privilege
+separate login
+
+26.5 hours na pde pahinga
+21.5 hours na work
+
+//////////////////////////////////////////
+------------------------------------------
+LOG 2
+------------------------------------------
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+EXTRA
+-------------------------------
+messages
+profile: change password
+login error message
+
+CLIENT
+-------------------------------
+display logo
+upload module
+display message when submitting request
+reports
+
+REGISTRATION
+-------------------------------
+upload image
+registration slip
+
+ADMIN/HR
+-------------------------------
+reports
+
+
+//////////////////////////////////////////
+------------------------------------------
+LOG 3
+------------------------------------------
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+extras
+--------------
+messages (chat)
+notification on top bar
+profile: change password
+//login error message
+//separate login for the 4 subsystems
+//red nav (admin), purple (hr) 
+about the developers
+validate date
+bug display request id when confirmed on client view
+check icon on training view (admin)
+
+client
+---------------
+display logo
+upload module on their folder
+client controller send request
+deployment records (reports)
+
+
+registration
+---------------
+upload image
+
+admin/hr
+---------------
+dashboard content
+nav bar similar to other accounts
+move reports
+reg > applicants > hi-charts para sa monthly registrants
+training > check button
+training > add company column
+client > crud (edit)
+client > adding of account > make client side validation
+
+deployment > manpower pooling (refer below)
+
+	/******************************************************/
+	SOLUTION:
+	Batch Control Procedure
+	---------------------
+	Rules isset ng (number of trainee per batch, for_company [tbRef] by admin)
+	Accept trainee + Assign batch_control_no (by hr/admin)
+	ADD Re-Apply (basis is the trainee number)
+
+	Create Pooling table
+	---------------------
+	trainee id
+	status (deployed, passer, reserved, unavailable) (failed - for future enhancement)
+	for_company
+	date_updated
+
+	//pagsset ng hr/admin sa deployment, example queue:
+	number of people: 100
+	for company: TOSHIBA
+
+	//sa deployment magkakaroon ng queue based sa sinet ng hr/admin
+
+	select * FROM pooling WHERE (status='passer' OR status='reserved') and for_company = 'TOSHIBA' ORDER BY date_updated ASC LIMIT 0, number_of_people
+
+	//kung tinawagan or kinontact ng hr ang isang passer/reserved pero hindi pde, tag as 'unavailable'
+
+	//ung updates run daily by cron job on server..
+	/******************************************************/
+
+hr dept > crud (edit)
+training dept > crud (edit)
+
+audit > functions
+backup > backup, restore, backup logs
+
+trainer
+---------------
+dashboard content
+remove reports tab
+exam not editable/deletable when active
+item analysis
+assign exam to batches !important
+//attendance > remove new batch 
+attendance function
+class record > per batch
+
+trainee
+---------------
+accessible modules for their training only
+divide examination by module
+show score after exam
+remove profile tab
+require filling of hris
+
+reports
+---------------
+certificate
+
+fail-safe
+---------------
+validation - VERY FUCKING IMPORTANT
+session control - usernames
+privilege
+
+documentation
+---------------
+chapter 3 must update LAHAT or create new
+manual/cd
+
+* for the reference of the domain object model:
+- 45+ methods
+
+* for the reference of the data dictionary:
+- database (current): 21 db table
+

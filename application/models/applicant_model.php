@@ -94,6 +94,14 @@ class Applicant_model extends CI_Model{
 
     }
 
+    function batch_list_view($id){
+        $this->db->select('*');
+        $this->db->where('batch_control_no',$id);
+        $this->db->from('hris');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 /************************** Batch Control  *********************************/
     
 

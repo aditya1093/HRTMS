@@ -302,9 +302,6 @@ assets/css/style-skins.min.css" />
 <script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 <!--ace scripts-->
 <script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/style.min.js"></script>

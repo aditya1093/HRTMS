@@ -7829,3 +7829,7 @@ td.td-actions a.td-action {
 
     display: none;
 }
+
+.required {
+    color: red!important;
+}

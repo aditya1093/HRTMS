@@ -22,10 +22,22 @@ class Examination_model extends CI_Model{
 
     }
 
+    function list_exam_modules() {
+
+        $str = "SELECT examination_id, COUNT( question_id ) AS items , examination_name, date_modified, IF(is_active=0,0,1) AS is_active
+            FROM examination
+            LEFT OUTER JOIN questions ON examination.examination_id = questions.exam_id 
+            GROUP BY examination_id";
+        $query = $this->db->query($str);
+        return $query->result();
+    }
 
     function add_item($data) {
 
         $this->db->insert('questions', $data);
+
+        /*$this->db->where('examination_id', $this->session->userdata("eid"));
+        $this->db->update('examination', array('date_modified' => date('Y-m-d H:i:s')));*/
     }
 
     function load_items() {
@@ -148,4 +160,67 @@ class Examination_model extends CI_Model{
         }
     }
 
-}  
+    function is_editable_exam($id) {
+
+        $q = "SELECT is_active FROM examination WHERE examination_id=".$id;
+        $result = $this->db->query($q);
+        $row = $result->row();
+        
+        if($row->is_active == '0') {
+            
+
+            return true;
+        }
+        else {
+            
+            return false;
+        }
+    }
+
+    function add_exam_set($data) {
+
+        $this->db->insert('exam_set', $data);
+    }
+
+    function if_exist_set($batch) {
+
+        $str = "SELECT * FROM exam_set WHERE batch_id='".$batch."'";
+        $q = $this->db->query($str);
+        
+        if($q->num_rows() > 0) {
+
+            return false;
+        }
+        return true;
+    }
+
+    function list_batches() {
+
+        $str = "SELECT batch_control_no FROM batch_no 
+        LEFT JOIN exam_set
+        ON batch_no.batch_control_no=exam_set.batch_id WHERE is_training=1 AND batch_control_no
+        NOT IN (SELECT batch_id FROM exam_set) GROUP BY batch_control_no";
+        $query = $this->db->query($str);
+        return $query->result();
+    }
+
+    function list_exam_set() {
+
+        $str = "SELECT id, batch_id, set_name, exam_id, SUM(items) as items, date_created FROM exam_set GROUP BY batch_id ORDER BY id DESC";
+        $q = $this->db->query($str);
+
+        return $q->result();
+    }
+
+    function remove_exam_set($id) {
+
+        $this->db->delete('exam_set', array('batch_id' => $id)); 
+    }
+
+    function list_batch_to_set($id) {
+
+        $str = "SELECT * FROM exam_set WHERE batch_id=".$id;
+        $query = $this->db->query($str);
+        return $query->num_rows();
+    }
+}

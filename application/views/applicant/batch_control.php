@@ -198,65 +198,16 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success"></span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope"></i>
-									5 Messages
+									Messages
 								</li>
 
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
+								
 
 								<li>
 									<a href="messenger">
@@ -542,7 +493,7 @@
 											<div class="widget-main">
 												 <form id="addBatchControl"> 
 												 	<div class="control-group">
-														<label class="control-label" for="req_id">Request ID</label>
+														<label class="control-label" for="req_id">Request ID (<span class="required">*</span>):</label>
 														<div class="controls">
 															<select class="chzn-select" id="req_id"  name="req_id">
 																	<option selected disabled value=""></option>
@@ -554,7 +505,7 @@
 														</div>
 													
 														<div id="company" style="display:none">
-															<label class="control-label" for="company_name">Company</label>
+															<label class="control-label" for="company_name">Company (<span class="required">*</span>):</label>
 															<div class="controls">
 																<input type="text" id="company_name" disabled=""  name="">
 																<input type="hidden" id="company_name2" name="client_name">
@@ -563,10 +514,10 @@
 													
 														</div>
 													
-														<label class="control-label" for="date_start">Date start</label>
+														<label class="control-label" for="date_start">Date start (<span class="required">*</span>):</label>
 														<div class="controls" >
 															<span class="input-append">
-																<input class="span8 date-picker" name="date_start" id="date_start"  value ="" type="text" data-date-format="yyyy-mm-dd">
+																<input required class="span8 date-picker input-date" name="date_start" id="date_start"  value ="" type="text" data-date-format="yyyy-mm-dd">
 																<span class="add-on">	
 																	<i class="icon-calendar"></i>
 																</span>
@@ -574,14 +525,14 @@
 															</span>
 														</div>
 													
-														<label class="control-label" for="training_days">Training Days</label>
+														<label class="control-label" for="training_days">Training Days (<span class="required">*</span>):</label>
 														<div class="controls">
-															<input type="text" id="training_days" name="training_days" placeholder="#" class="input-mini">
+															<input required type="number" min="1" id="training_days" name="training_days" placeholder="#" class="input-mini">
 														</div>
 													
-														<label class="control-label" for="limit">Limit</label>
+														<label class="control-label" for="limit">Limit (<span class="required">*</span>):</label>
 														<div class="controls">
-															<input type="text" id="limit" name="limit_no" placeholder="#" class="input-mini">
+															<input required type="number" min="1" id="limit" name="limit_no" placeholder="#" class="input-mini">
 														</div>
 													</div>
 													<div class="form-actions">
@@ -615,7 +566,8 @@
 							</div>
 							<div class="box-content">
 								<div class="row-fluid">
-									<table id="table_report" class="table table-striped table-bordered table-hover">
+									<table id="table_report" class="table table-striped table-bordered table-hover" >
+									   
 									    <thead>
 									        <tr>
 									        	<th>Request ID</th>
@@ -717,12 +669,16 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
+
 
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
 			$(function() {
 
+				$('.input-date').mask('9999-99-99');
+				
 				//datatable initialization
 				var oTable1 = $('#table_report').dataTable( {
 				"aoColumns": [
@@ -759,6 +715,9 @@
 
 				$( "#addBatchControl" ).on( "submit", function( event ) {
 				  event.preventDefault();
+
+				  
+
 				  var sData = $(this).serialize();
 				  console.log(sData);
 				  $.ajax({

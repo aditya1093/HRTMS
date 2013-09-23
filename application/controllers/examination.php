@@ -13,13 +13,58 @@ class Examination extends CI_Controller {
 			$this->load->model('applicant_model');
 			$query = $this->applicant_model->trainee_list();
 			$data['records'] = $query;
-			
+
+			$this->load->model("examination_model");
+
+			$data['exams'] = $this->examination_model->list_exam_modules();
+
+			$data['batches'] = $this->examination_model->list_batches();
+
+			$data['sets'] = $this->examination_model->list_exam_set();
+			 
 			$this->load->view('user/training/examination_view',$data);
+			
 		}
 		else {
 
     		$this->load->view('login_view');
 		}	
+
+	}
+
+	function set_exam() {
+		
+		$data = array(
+			'batch_id' => $this->input->post("batchid"), 	
+			'set_name' => $this->input->post("examination_name"), 
+			'exam_id' => $this->input->post("id"),
+			'items' => $this->input->post("items"),
+			'date_created' => date('Y-m-d H:i:s')
+		);
+		
+
+
+		$this->load->model("examination_model");
+
+		$this->examination_model->add_exam_set($data);
+
+		/*if($this->examination_model->if_exist_set($this->input->post("batchid"))) {
+
+			$this->examination_model->add_exam_set($data);
+		}
+		else {
+
+			echo "The batch examination is already existing.";
+		}*/
+
+		
+	}
+
+	function remove_set() {
+
+		//echo $this->input->post("id");
+		$this->load->model("examination_model");
+		$this->examination_model->remove_exam_set($this->input->post("id"));
 
 	}
 
@@ -59,6 +104,16 @@ class Examination extends CI_Controller {
 				
 				$this->examination_model->name_exam();
 
+				if($this->examination_model->is_editable_exam($param)) {
+
+					$this->session->set_userdata('editable', '1');
+				}
+				else {
+
+					$this->session->set_userdata('editable', '0');
+				}
+				
+
 				$this->load->view('user/training/examination_items_view');
 			}
 		}
@@ -84,6 +139,27 @@ class Examination extends CI_Controller {
 
 		$this->load->model("examination_model");
 		$this->examination_model->add_item($data);
+
+	}
+
+	function edit_item() {
+
+		$this->load->model("examination_model");
+		$this->examination_model->delete_item($this->input->post("id"));
+
+		$data = array(
+			'question' => $this->input->post("question"),
+			'question_id' => $this->input->post("id"),
+			'answers' => $this->input->post("answers"),
+			'key_answer' => $this->input->post("key_answer"),
+			'question_type' => $this->input->post("question_type"),
+			'exam_id' => $this->session->userdata("eid"),
+			'no_of_choices' => $this->input->post("no_of_choices")
+
+		);
+
+		$this->examination_model->add_item($data);
+		echo $this->input->post("id");
 
 	}
 	

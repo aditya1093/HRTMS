@@ -198,64 +198,13 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success"></span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope"></i>
-									5 Messages
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
+									Messages
 								</li>
 
 								<li>
@@ -515,34 +464,67 @@
 							</small>
 						</h1>
 					</div><!--/.page-header-->
-
 					<div class="row-fluid">
-						<!--PAGE CONTENT STARTS HERE-->
-							<div class="span12">
-								<div class="alert alert-sucess" data-step="1" data-intro="Let's take a quick guide with the basics!">
+						<div class="alert alert-success" data-step="1" data-intro="Let's take a quick guide with the basics!">
 									<button type="button" class="close" data-dismiss="alert">
 										<i class="icon-remove"></i>
 									</button>
 									<strong>Hello there!</strong>
 										You logged as <?php echo $this->session->userdata("permission");?>.
 									<br>
+
+								</div>
+					</div>
+
+					<div class="row-fluid">
+
+						<!--PAGE CONTENT STARTS HERE-->
+							<div class="span5">
+								
+								<div class="widget-box">
+									<div class="widget-header">
+										<h4 class="smaller">
+											<i class="icon-info"></i> Introduction
+											<small>HRTMS</small>
+										</h4>
+									</div>
+
+									<div class="widget-body">
+										<div class="widget-main">
+											<p align="center">
+												In this account you will be able to manage HR information and accounts.
+											</p>
+											<p align="center">
+												<a class="btn btn-success btn-small tooltip-success" data-rel="tooltip" data-placement="right" title="" data-original-title="Right Success" href="javascript:void(0);" onclick="javascript:introJs().start();"><i class="icon-star"></i> Start A Tour</a>
+												<span class="btn btn-primary btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger"><i class="icon-book"></i> See Documentation</span>
+												
+												
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="span7">
+								
+
+								
+								
+								<div class="widget-box">
+								<div class="widget-header">
+									<h5><i class="icon-folder-close"></i> Reports</h5>
 								</div>
 
-								<div class="alert alert-info">
-									<h2>Reports</h2>
-									
-									<a target ="_blank" href="<?php echo base_url();?>Reports/list_trainee">List of Trainee</a><br>
-									<a target ="_blank" href="<?php echo base_url();?>Reports/trainee_attendance">Trainee Attendance</a><br>
-									<a target ="_blank" href="<?php echo base_url();?>Reports/gradesheet">Gradesheet</a><br>
-									<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Certificate</a><br>
-									<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Completed Modules</a>
-											 
+								<div class="widget-body">
+									<div class="widget-main">
+										<a target ="_blank" href="<?php echo base_url();?>Reports/list_trainee">List of Trainee</a><br>
+										<a target ="_blank" href="<?php echo base_url();?>Reports/trainee_attendance">Trainee Attendance</a><br>
+										<a target ="_blank" href="<?php echo base_url();?>Reports/gradesheet">Gradesheet</a><br>
+										<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Certificate</a><br>
+										<a target ="_blank" href="<?php echo base_url();?>Reports/certificate">Completed Modules</a>
+									</div>
 								</div>
-								<div class="box-content">
-									<div class="row-fluid">
-										
-									</div>								
-								</div> 
+							</div>
 
 							<!--PAGE CONTENT ENDS HERE-->
 							</div>
@@ -550,6 +532,7 @@
 						<!--/row-->
 
 				</div>
+				<p></p>
 				<?php if($this->session->userdata("permission")=="Administrator") {?>
 				<div class="row-fluid">
 					

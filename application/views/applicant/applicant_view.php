@@ -194,65 +194,16 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success"></span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope"></i>
-									5 Messages
+									Messages
 								</li>
 
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
+								
 
 								<li>
 									<a href="messenger">
@@ -520,7 +471,18 @@
 						<div class="row-fluid">
 							<div class="span3 center">
 								<span class="profile-picture">
-									<img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
+									<img class="editable" alt="Avatar" style="height:226px;width:226px;" id="avatar2" src="<?php 
+																		$link = $row->image_url;
+																		$filename = './assets/avatars/$link';
+																		$path2 = base_url()."assets/images/profile-pic.jpg";
+																		$path = base_url()."assets/avatars/$link";
+																if ($link != "") {
+																	echo $path;
+																}
+																else{
+																	echo $path2;
+																}
+															 ?>">
 								</span>
 								
 								<!--<div class="width-80 label label-info label-large arrowed-in arrowed-in-right">
@@ -647,16 +609,16 @@
 								<div class="hr hr-8 dotted"></div>
 
 								<div class="profile-user-info">
-
+									<!--
 									<div class="profile-info-row">
 										<div class="profile-info-name">
 											<i class="middle icon-edit bigger-150 light-blue"></i>
 										</div>
-
+									
 										<div class="profile-info-value">
 											<a href="<?php echo base_url();?>applicant/edit_info/<?php echo $row->register_id;?>">Edit Applicant</a>
 										</div>
-
+									-->
 									</div>
 									<!--<div class="profile-info-row">
 										<div class="profile-info-name">

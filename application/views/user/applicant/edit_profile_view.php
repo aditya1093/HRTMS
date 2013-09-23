@@ -218,8 +218,21 @@
 												<div class="row-fluid">
 													<div class="span3 center">
 														<span class="profile-picture">
-															<img class="editable" alt="Alex&#39;s Avatar" id="avatar" src="<?php echo base_url();?>assets/images/profile-pic.jpg">
+															<img class="editable" alt="Alex&#39;s Avatar" id="avatar" style="height:226px;width:226px;" 
+															src="<?php 
+																		$link = $row->image_url;
+																		$filename = './assets/avatars/$link';
+																		$path2 = base_url()."assets/images/profile-pic.jpg";
+																		$path = base_url()."assets/avatars/$link";
+																if ($link != "") {
+																	echo $path;
+																}
+																else{
+																	echo $path2;
+																}
+															 ?>">
 														</span>	
+													
 														<div class="width-80 label label-info label-large arrowed-in arrowed-in-right">
 															<div class="inline position-relative">
 																<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
@@ -237,6 +250,16 @@
 														</div>
 
 														<div class="space space-4"></div>
+														<?php echo $err;?>
+														<?php  
+														echo form_open_multipart(base_url().'profile/do_upload');?>
+
+															<input type="file" name="userfile" size="20" id="file" />
+															<input type="hidden" name="applicant_id" value="<?php echo $row->register_id;?>">
+															<br /><br />
+															<input type="submit" value="upload" />
+
+														</form>
 
 													</div><!--/span-->
 
@@ -582,10 +605,10 @@
 								$.gritter.removeAll();
 							}
 						},
+					/****************************  UPLOAD PICTURE  ****************************************/
 					    url: function(params) {
 							// ***UPDATE AVATAR HERE*** //
 							//You can replace the contents of this function with examples/profile-avatar-update.js for actual upload
-			
 			
 							var deferred = new $.Deferred
 			

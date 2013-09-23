@@ -64,65 +64,16 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success"></span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope"></i>
-									5 Messages
+									Messages
 								</li>
 
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
+								
 
 								<li>
 									<a href="messenger">
@@ -148,8 +99,8 @@
 
 								<li>
 									<a href="#">
-										<i class="icon-user"></i>
-										Profile
+										<i class="icon-key"></i>
+										Change Password
 									</a>
 								</li>
 
@@ -243,7 +194,7 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Manpower <?php echo $this->session->userdata('user_id');?>
+							Manpower <small>( <?php echo $this->session->userdata('user_id');?> )</small>
 							<small>
 								<i class="icon-double-angle-right"></i>
 								Dashboard
@@ -276,7 +227,7 @@
 				          			
 							<?php endforeach;?>
 							<?php endif; ?>
-
+							
 							<div class="widget-box">
 								<div class="widget-header">
 									<h5 class="smaller"> </h5>
@@ -312,20 +263,24 @@
 												              if ($message == null){}
 												              else{echo $message;}
 												              ?>         
+												              <br>
+														</div>
+														<div class="alert alert-info">
+															(<span class="required">*</span>) Required Field
 														</div>
 														<form action="client/send_request" method="get" id="send_request">
 															<div class="control-group">
-																<label class="control-label" for=""><h3>Manpower Information:</h3></label>
+																<label class="control-label" for=""><h3>Manpower Information</h3> </label>
 															<!-- Quoted Number of Manpower -->
-																<label class="control-label" for="no_of_manpower">Quoted Number of Manpower:</label>
+																<label class="control-label" for="no_of_manpower">Quoted Number of Manpower (<span class="required">*</span>):</label>
 
 																<div class="controls">
-																	<input required class="input-mini" type="text" id="no_of_manpower" name="no_of_manpower" placeholder="#">
+																	<input required type="number" min="1" class="input-mini input-numeric" type="text" id="no_of_manpower" name="no_of_manpower" placeholder="#">
 																</div>
 															<!-- Quoted Number of Manpower -->
 
 															<!-- Date Range -->
-																<label class="control-label" for="date_range">Date Requested:</label>
+																<label class="control-label" for="date_range">Date Requested (<span class="required">*</span>):</label>
 																
 																<!--<div class="row-fluid input-append">
 
@@ -340,14 +295,14 @@
 																			<i class="icon-calendar"></i>
 																		</span>
 
-																		<input required class="span3" type="text" name="date-range-picker" id="date_range" />
+																		<input required class="span3 input-date-range" type="text" name="date-range-picker" id="date_range" />
 																	</div>
 																</div>
 
 															<!-- Date Range -->										
 																
 															<!-- Employment Type -->
-																<label class="control-label" for="emp_type">Type of Employemt:</label>
+																<label class="control-label" for="emp_type">Type of Employemt (<span class="required">*</span>):</label>
 																	
 																<div class="controls">
 																	<select required name="emp_type" id="emp_type">
@@ -367,9 +322,9 @@
 																</div>
 
 															<!-- Designated Department -->
-																<label class="control-label" for=""><h3>Applicant Requirements:</h3></label>
+																<label class="control-label" for=""><h3>Applicant Requirements</h3></label>
 															<!-- Employee Gender -->
-																<label class="control-label" for="emp_gender">Employee Gender:</label>
+																<label class="control-label" for="emp_gender">Employee Gender (<span class="required">*</span>):</label>
 																	
 																<div class="controls">
 																	<div class="radio">
@@ -394,17 +349,23 @@
 															<!-- Employee Gender -->
 														
 															<!-- Remarks -->
-																<label class="control-label" for="remarks">Remarks <small class="muted">Enter for another input</small></label>
+																<label class="control-label" for="remarks">Remarks: <small class="muted"></small></label>
 
 																<div class="controls">
-																	<input required class="" id="remarks" name="remarks">
+																	<input placeholder="Press Enter for next input" class="" id="remarks" name="remarks">
 																</div>
 															<!-- Remarks -->
+																<br>
 															<!-- Requirements -->
-																<label class="control-label" for="documents_req">Documents <small class="muted">Enter for another input</small></label>
+																<label class="control-label" for="documents_req">Additional Documents: 
+																<small class="muted"></small>
+																<span class="help-button ace-popover" data-trigger="hover" data-placement="right" data-content="Registraton slip, Resume, Diploma, Medical Result, Form - 137 OR 
+																Transcript of Record" title="" data-original-title="AMI requirements by default">?</span>
+																</label>
 
 																<div class="controls">
-																	<input required class="" id="documents_req" name="documents_req">
+																	<input placeholder="Press Enter for next input" class="" id="documents_req" name="documents_req">
+																	
 																</div>
 															<!-- Requirements -->	
 
@@ -415,6 +376,7 @@
 																	<label>
 																		<input required name="agree" name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox">
 																		<span class="lbl"> We have agreed upon the <a href="#TAC">Terms and Condition</a> upon requesting.</span>
+																		(<span class="required">*</span>)
 																	</label>
 																</div>
 																<p></p>
@@ -606,6 +568,8 @@
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
+
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">	
@@ -623,6 +587,14 @@
 					$("#browser").attr("src", response);
 
 			    });
+
+			    $.mask.definitions['~']='[+-]';
+				
+				$('.input-date-range').mask('99/99/9999 - 99/99/9999');
+
+				$('.ace-tooltip').tooltip();
+				$('.ace-popover').popover();
+
 				
 		        var tag_input = $('#remarks');	
 				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 

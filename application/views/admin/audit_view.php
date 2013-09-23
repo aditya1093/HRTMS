@@ -194,13 +194,13 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success"></span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope"></i>
-									5 Messages
+									Messages
 								</li>
 
 								<li>
@@ -520,22 +520,13 @@
 						<div class="span12">
 
 							<div class="box">
-									<div class="box-header well" data-original-title>
 									
-										<div class="box-icon">
-											<!--
-											<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-											<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-											<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-										-->
-										</div>
-									</div>
 									<div class="box-content"> 
 
 										<div class="row-fluid">
 											
 											<div class="table-header">
-												 Results for "Accounts"
+												 Log Details
 											</div>
 											<table id="audit_list" class="table table-striped table-bordered table-hover">
 											<thead>

@@ -39,6 +39,7 @@ class Manage extends CI_Controller {
 		$this->form_validation->set_rules('last_name', 'Last Name', 'required|trim|alpha|xss_clean');
 		$this->form_validation->set_rules('middle_nme', 'Middle Name', 'trim|alpha|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('phone', 'Phone', 'required');
 
 
         //$this->session->unset_userdata('error_hr');
@@ -73,6 +74,7 @@ class Manage extends CI_Controller {
         			'first_name' => $this->input->post('first_name'),
         			'last_name' => $this->input->post('last_name'),
         			'middle_name' => $this->input->post('middle_name'),
+        			'phone' => $this->input->post('phone'),
         			'email' => $this->input->post('email'),
         			'permission' => 'HR',
         			'date_created' => date('Y-m-d H:i:s')
@@ -95,7 +97,8 @@ class Manage extends CI_Controller {
         			'first_name' => $this->input->post('first_name'),
         			'last_name' => $this->input->post('last_name'),
         			'middle_name' => $this->input->post('middle_name'),
-        			'email' => $this->input->post('email')
+        			'email' => $this->input->post('email'),
+        			'phone' => $this->input->post('phone')
 
 				);	
 			//$this->session->set_userdata($data);
@@ -171,6 +174,7 @@ class Manage extends CI_Controller {
         			'first_name' => $this->input->post('first_name'),
         			'last_name' => $this->input->post('last_name'),
         			'middle_name' => $this->input->post('middle_name'),
+        			'phone' => $this->input->post('phone'),
         			'email' => $this->input->post('email'),
         			'permission' => 'Trainer',
         			'date_created' => date('Y-m-d H:i:s')
@@ -194,7 +198,8 @@ class Manage extends CI_Controller {
         			'first_name' => $this->input->post('first_name'),
         			'last_name' => $this->input->post('last_name'),
         			'middle_name' => $this->input->post('middle_name'),
-        			'email' => $this->input->post('email')
+        			'email' => $this->input->post('email'),
+        			'phone' => $this->input->post('phone')
 
 				);	
 			//$this->session->set_userdata($data);
@@ -204,6 +209,110 @@ class Manage extends CI_Controller {
 
 		redirect(base_url().'manage/training', 'refresh');	
 	}
+
+
+
+	/******************* View USEr ******************************/
+	function view_user(){
+		//check kung naka-login
+		if($this->session->userdata('is_logged_in')) {
+			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+		   
+				$id = $this->input->post('id');
+				$this->load->model('manage_model');
+				$data = $this->manage_model->user_info($id);
+				foreach ($data as $row) {
+					$user_id = $row->user_id;
+					$username = $row->username;
+					$position = $row->permission;
+					$first_name = $row->first_name;
+					$last_name = $row->last_name;
+					$contact = $row->phone;
+					$email = $row->email;
+					$status = $row->is_active;
+					$date_created = $row->date_created;
+
+					//$status ="";
+					if($status == 1){
+						$status = "<span class=\"label label-lg label-success arrowed-right\">Active</span>";
+
+					}
+					else if($status == 0){
+						$status = "<span class=\"label label-lg label-warning arrowed-right\">In-Active</span>";
+					}
+					else{
+						$status = "<span class=\"label label-lg label-danger arrowed-right\">No Records</span>";
+					}
+
+					
+				}
+				//echo json_encode($id);
+			/********************* Ouput ******************************/
+				$output_string = "<div><table class=\"table table-striped\" style=\"width: 100%; word-wrap:break-word; table-layout: fixed;\">";
+				$output_string .= "<colgroup>";
+				$output_string .= "<col span=\"1\" style=\"width: 40%;\">";
+				$output_string .= "<col span=\"1\" style=\"width: 60%;\">";
+				$output_string .= "</colgroup>";
+
+				$output_string .= "<tr>";
+				$output_string .= "<td>Status</td>";
+				$output_string .= "<td>".$status."</td>";
+				$output_string .= "</tr>";
+				$output_string .= "<tr>";
+				$output_string .= "<td>ID</td>";
+				$output_string .= "<td>".$user_id."</td>";
+				$output_string .= "</tr>";
+				$output_string .= "<tr>";
+				$output_string .= "<td>Name</td>";
+				$output_string .= "<td>".$first_name." ".$last_name."</td>";
+				$output_string .= "</tr>";
+				$output_string .= "<tr>";
+				$output_string .= "<td>Position</td>";
+				$output_string .= "<td>".$position."</td>";
+				$output_string .= "</tr>";
+				$output_string .= "<tr>";
+				$output_string .= "<td>Contact</td>";
+				$output_string .= "<td>".$contact."</td>";
+				$output_string .= "</tr>";
+				$output_string .= "<tr>";
+				$output_string .= "<td>Username</td>";
+				$output_string .= "<td>".$username."</td>";
+				$output_string .= "</tr>";
+				$output_string .= "<tr>";
+				$output_string .= "<td>Email</td>";
+				$output_string .= "<td>".$email."</td>";
+				$output_string .= "</tr>";
+				$output_string .= "<tr>";
+				$output_string .= "<td>Date Created</td>";
+				$output_string .= "<td>".$date_created."</td>";
+				$output_string .= "</tr>";
+				//$output_string .= "<tr>";
+				//$output_string .= "<td>&nbsp;</td>";
+				//$output_string .= "<td><span class=\"pull-right\"><a href=\"".base_url()."applicant/batch_list_view/".$batch_no."\"><i class=\"icon-long-arrow-right\"></i> View List</a></span></td>";
+				//$output_string .= "</tr>";
+
+
+		       	$output_string .= "</table><div>";
+
+
+
+			/********************* Ouput ******************************/   	
+
+				echo json_encode($output_string);
+			}
+			else {
+			    header( 'Location: ../dashboard' ) ;
+			}
+
+		}
+		else {
+
+    		$this->load->view('login_view');
+		}
+
+	}
+
+
 
 
 	/******************* Delete User ******************************/

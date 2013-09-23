@@ -86,12 +86,12 @@ define ('K_BLANK_IMAGE', '_blank.png');
 /**
  * Page format.
  */
-define ('PDF_PAGE_FORMAT', 'A4');
+define ('PDF_PAGE_FORMAT', 'Letter');
 
 /**
  * Page orientation (P=portrait, L=landscape).
  */
-define ('PDF_PAGE_ORIENTATION', 'P');
+define ('PDF_PAGE_ORIENTATION', 'L');
 
 /**
  * Document creator.
@@ -116,7 +116,7 @@ define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
 /**
  * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].
  */
-define ('PDF_UNIT', 'mm');
+define ('PDF_UNIT', 'in');
 
 /**
  * Header margin.
@@ -176,7 +176,7 @@ define ('PDF_FONT_MONOSPACED', 'courier');
 /**
  * Ratio used to adjust the conversion of pixels to user units.
  */
-define ('PDF_IMAGE_SCALE_RATIO', 1.25);
+define ('PDF_IMAGE_SCALE_RATIO', 1.30);
 
 /**
  * Magnification factor for titles.

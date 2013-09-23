@@ -25,6 +25,14 @@ class Manage_model extends CI_Model{
        
     } 
     
+
+    function user_info($id){
+        $this->db->select('*');
+        $this->db->where('id',$id);
+        $this->db->from('user_table');
+        $query = $this->db->get();
+        return $query->result();
+    }
     
     function delete_user($id) {
 

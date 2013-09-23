@@ -193,7 +193,7 @@ class Profile extends CI_Controller {
 				
 				$this->data['country'] = buildCountryDropdown('country', $this->input->post('country'));
 
-				
+				$this->data['err'] = '';
 				$this->load->view('User/applicant/edit_profile_view',$this->data);
 				//$this->load->view('registration/registration_view', $this->data);
 				
@@ -285,6 +285,72 @@ class Profile extends CI_Controller {
 			$data = 0 ;
     		$this->load->view('login_view', $data);
 		}
+	}
+
+	function do_upload()
+	{
+		$config['upload_path'] = './assets/avatars/';	
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '';
+		$config['overwrite'] = true;
+		$config['file_name'] = $this->input->post('applicant_id');
+		//$config['max_width']  = '1024';
+		//$config['max_height']  = '768';
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config); 
+
+		$id = $this->session->userdata('user_id');
+
+		if ( ! $this->upload->do_upload())
+		{
+			$this->load->helper('registration_helper');
+			
+			//$this->load->model('profile_model');
+			$query = $this->profile_model->profile_applicant($id);
+			$this->data['records'] = $query;
+			//display the create user form
+			//set the flash data error message if there is one
+			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->session->flashdata('message')));
+			
+			foreach($this->data['records'] as $row){
+			
+			$birthdate = $row->birth_date;
+			
+			}
+			//$birthdate = $this->data['records']['full_name'];
+
+			list($y,$m,$d) = explode('-', $birthdate);
+			/**/
+			$this->data['birth_date_year'] = buildYearDropdown('birth_date_year', $y);
+			
+			$this->data['birth_date_month'] = buildMonthDropdown('birth_date_month', $m );
+			
+			$this->data['birth_date_day'] = buildDayDropdown('birth_date_day', $d );
+			
+			$this->data['country'] = buildCountryDropdown('country', $this->input->post('country'));
+
+			$this->data['err'] = $this->upload->display_errors();
+			$this->load->view('user/applicant/edit_profile_view', $this->data);
+		}
+		else
+		{	
+
+			$file_name = $config['file_name'].".jpg";
+			$data = array(
+				'image_url' => $file_name
+				);
+			$id = $this->session->userdata('user_id');
+  			$this->profile_model->change_info($id,$data);
+  			$success_message = "Changes Successfully";
+  		 	//$this->session->set_flashdata('message2',"Changes Successfully"); 
+	       
+	       	$this->session->set_flashdata('success',$success_message); 
+
+
+			
+			//var_dump($data);
+		}
+		redirect(base_url().'profile/edit_profile','refresh');
 	}
 
 }

@@ -191,13 +191,13 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success"></span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope"></i>
-									5 Messages
+									Messages
 								</li>
 
 								<li>
@@ -476,7 +476,7 @@
 										<table class="table">
 											<tr>
 												<td>
-													<label>Company: </label>
+													<label>Company (<span class="required">*</span>): </label>
 													<select required name="company_name" id="company_name">
 														<option value="" selected="selected" style="color:#ddd;">Select Company...</option>
 														<?php if(isset($client_record)) : foreach($client_record as $item) : ?>	
@@ -488,7 +488,7 @@
 											</tr>
 											<tr>
 												<td>
-													<label>Module Name: </label>
+													<label>Module Name (<span class="required">*</span>): </label>
 													<select required name="module_name" id="module_name">
 														<option value="" selected="selected" style="color:#ddd;">Select Module...</option>
 														

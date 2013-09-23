@@ -207,13 +207,13 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success"></span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope"></i>
-									5 Messages
+									Messages
 								</li>
 
 								<li>
@@ -457,7 +457,7 @@
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 
-						<div class="span8">
+						<div class="span<?php if($this->session->userdata("editable") == '1') { echo 8; } else { echo 12;}?>">
 							<div class="widget-box">
 								<div class="widget-header">
 									<h4 class="smaller">
@@ -494,11 +494,13 @@
 								</div>
 							</div>
 						</div>
+						<?php if($this->session->userdata("editable") == '1') {?>
 						<div class="span4">
+
 							<div class="widget-box">
 								<div class="widget-header widget-hea1der-small header-color-dark">
 									<h4 class="smaller">
-										Add Items
+										<span class="item_control">Add Items</span>
 										<small>Test Modules</small>
 									</h4>
 								</div>
@@ -525,16 +527,16 @@
 											<br>
 
 											<select class="no_of_choices">
-												<option valuee="0">--</option>
-												<option valuee="2">2</option>
-												<option valuee="3">3</option>
-												<option valuee="4">4</option>
-												<option valuee="5">5</option>
-												<option valuee="6">6</option>
-												<option valuee="7">7</option>
-												<option valuee="8">8</option>
-												<option valuee="9">9</option>
-												<option valuee="10">10</option>
+												<option value="0">--</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+												<option value="9">9</option>
+												<option value="10">10</option>
 											</select>
 											<br>
 											</p>
@@ -556,12 +558,19 @@
 										</p>
 										
 										<hr>
-										<button class="btn btn-purple add_item"><i class="icon-arrow-left"></i> Add Item</button>
-
+										<span class="add-mode">
+											<button class="btn btn-purple add_item"><i class="icon-arrow-left"></i> Add Item</button>
+										</span>
+										<span class="edit-mode">
+											<button class="btn btn-pink edit_item"><i class="icon-save"></i> Save</button>
+											<button class="btn" onclick="location.reload()"><i class=""></i> Cancel</button>
+										</span>
+										
 									</div>
 								</div>
 							</div>
 						</div>
+						<?php }?>
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
 
@@ -646,10 +655,21 @@
 					"aoColumns": [
 						null,
 						{ "bSortable": false }
-					]
+					],
+					'iDisplayLength': -1
 				});
 
+				$("#item_table_wrapper").find(".row-fluid").remove();
+
 				$(".item-list").sortable();
+				$(".edit-mode").hide();
+				$(".item_type").trigger("change");
+
+				<?php 
+					if($this->session->userdata("editable") == '0') { 
+						echo 'alert("Examination is currently active. Items cannot be modified.")'; 
+				}?>
+
 	
 			});
 
@@ -813,7 +833,7 @@
 
 			/************************* CLEAR FIELDS *******************************/
 
-			var reset_field  = function() {
+			var reset_field  = function(param) {
 
 				$("textarea").val("");
 				$("input:radio").removeAttr("checked");
@@ -821,6 +841,12 @@
 				
 				$(".loader").show();
 				$("#item_data").html("");
+				if(param) {
+
+					alert("You successfully edited an item!");
+					return;
+				}
+
 				alert("You successfully added an item!");
 
 			}
@@ -876,7 +902,7 @@
 
 			var strip_data = function(data) {
 
-				console.log(data);
+				//console.log(data);
 
 				obj = jQuery.parseJSON(data);
 
@@ -893,11 +919,22 @@
 
 					//obj[i].module_name
 
-					str += '<div class="pull-right">'
-					str += '<!--<button id="'+obj[i].question_id+'" class="btn-edit btn btn-minier btn-mini btn-info"><i class="icon-pencil"></i></button>--> '
-		   			str += '<button id="'+obj[i].question_id+'" class="close" onclick="delete_item('+obj[i].question_id+')"><i class="icon-remove"></i></button>'
-					str += '</div>'
-					str += '<p id="q'+obj[i].question_id+'">'+obj[i].question+'</p>'
+					str += '<div class="pull-right">';
+					
+					<?php if($this->session->userdata("editable") == '1') {?>
+
+						str += '<button id="'+obj[i].question_id+'" class="close" onclick="delete_item('+obj[i].question_id+')"><i class="icon-remove"></i></button> ';
+						str += '<button id="'+obj[i].question_id+'" class="btn-edit close"><i class="icon-pencil"></i></button> ';
+					
+					<?php } else {?>
+
+						str += '';
+
+					<?php }?>
+					
+		   			
+					str += '</div>';
+					str += '<p id="q'+obj[i].question_id+'">'+obj[i].question+'</p>';
 
 					if(obj[i].question_type==1) {
 
@@ -974,7 +1011,7 @@
 
 				/******************** ADD ITEM TO EXAM ***********************/
 
-				$(".add_item").click(function(){
+				var strip_item = function () {
 
 					items = "";
 
@@ -1102,7 +1139,11 @@
 						alert("Please enter a question!");
 						return;
 					}
+				}
 
+				$(".add_item").click(function(){
+
+					strip_item();
 					//send data
 					var request = $.ajax({
 			        	url: "<?php echo base_url();?>examination/add_item",
@@ -1119,7 +1160,7 @@
 
 			        request.done(function (response, textStatus, jqXHR) {
 
-			        	console.log(items);
+			        	//console.log(items);
 						reset_field();	
 
 						
@@ -1132,13 +1173,61 @@
 				});
 
 				/************************* EDIT ITEM ********************************/
+				var q = "";
+				var qi = "";
 
 				$(".btn-edit").click(function(){
 
 					var id = $(this).attr("id");
-					var q = $("#q"+id).text();
-					alert(q);
-					$('#q'+id).replaceWith("<p><textarea style='width:85%;'>"+q+"</textarea></p>");
+					qi=id;
+					q = $("#q"+id).text();
+					//alert(q);
+					//$('#q'+id).replaceWith("<p><textarea style='width:85%;'>"+q+"</textarea></p>");
+					$("#question").val(q);
+					$(".add-mode").hide();
+					$(".edit-mode").show();
+					$(".btn-edit").hide();
+					$(".close").hide();
+					$(".item_control").text("Edit Item");
+					$(".item_type").val(0).trigger("change");
+
+					
+
+				});
+
+				/************************* SAVE ITEM ********************************/
+
+				$(".edit_item").click(function() {
+					
+
+					strip_item();
+					//send data
+					var request = $.ajax({
+			        	url: "<?php echo base_url();?>examination/edit_item",
+			        	type: 'POST',
+			        	data: { 
+			        		ajax: '1',
+			        		id: qi,
+			        		question: question,
+							answers: answers,
+							key_answer: key_answer,
+							question_type: question_type,
+							no_of_choices: no_of_choices
+			        	}
+			        });
+
+			        request.done(function (response, textStatus, jqXHR) {
+
+			        	//console.log(items);
+			        	console.log(response);
+						reset_field(1);	
+
+						
+				    });
+
+				    setTimeout(function() {
+					    location.reload();
+					}, 800);
 				});
 
 
@@ -1160,7 +1249,7 @@
 								id: id
 							},
 							success: function(e) {
-								console.log(e);
+								//console.log(e);
 								location.reload();
 							}
 						});

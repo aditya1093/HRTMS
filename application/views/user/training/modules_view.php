@@ -27,6 +27,8 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css" />
+
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
@@ -191,13 +193,13 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success"></span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope"></i>
-									5 Messages
+									Messages
 								</li>
 
 								<li>
@@ -518,14 +520,14 @@
 											<tbody>
 												<tr>
 													<td>
-														<label>Module Name: </label>
+														<label>Module Name (<span class="required">*</span>): </label>
 														<input placeholder="Type module name.." required autofocus="" type="text" id="module_name" name="module_name">
 													</td>
 													
 												</tr>
 												<tr>
 													<td>
-														<label>Company: </label>
+														<label>Company (<span class="required">*</span>): </label>
 														<select required name="company_name" id="company_name">
 															<option value="" selected="selected" style="color:#ddd;">Select Company...</option>
 															<?php if(isset($client_record)) : foreach($client_record as $item) : ?>	
@@ -537,7 +539,7 @@
 												</tr>
 												<tr>
 													<td>
-														<label>File Name: </label>
+														<label>File Name (<span class="required">*</span>): </label>
 														<select required name="file_name" id="file_name">
 														</select>
 
@@ -599,6 +601,7 @@
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 		<!--ace scripts-->
@@ -629,7 +632,7 @@
 							"fnRender": function (o) {
 
 		                    return '<!--<button class="btn-edit btn btn-small btn-info" id=' + o.aData['module_id'] + '>' + 'Edit' + '</button>--> '+
-		                    '<button onclick="remove_list(' + o.aData['module_id'] + ')" class="btn-delete btn btn-small btn-danger" id=' + o.aData['module_id'] + '>' + 'Remove From List' + '</button>';
+		                    '<button onclick="remove_list(' + o.aData['module_id'] + ')" class="btn-delete btn btn-small btn-danger" id=' + o.aData['module_id'] + '><i class="icon-trash"></i> ' + 'Remove From List' + '</button>';
 
 		                	}
 						}
@@ -655,6 +658,32 @@
 			    $("#loading_file").hide();
 			    init_datatable();
 			});
+
+			/************************** CUSTOM ALERT() *****************************/
+
+			var alert = function(alert_str) {
+
+				$.extend($.gritter.options, { 
+				    position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+					fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+					fade_out_speed: 2000, // how fast the notices fade out
+					time: 4000 // hang on the screen for...
+				});
+
+				$.gritter.add({
+					//title: '',
+					text: alert_str,
+					//image: $path_assets+'/avatars/avatar3.png',
+					sticky: false,
+					before_open: function() {
+
+						if($('.gritter-item-wrapper').length >= 6)
+						{
+							return false;
+						}
+					}
+				});
+			}
 
 			$("#company_name").change(function() {
 

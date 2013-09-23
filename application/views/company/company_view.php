@@ -27,7 +27,7 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
@@ -196,65 +196,16 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success"></span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope"></i>
-									5 Messages
+									Messages
 								</li>
 
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
+								
 
 								<li>
 									<a href="messenger">
@@ -526,11 +477,11 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-					<div class="span12">
+						<div class="span<?php if ($this->session->userdata('permission') == 'Administrator') { echo 7; } else {echo 12;} ?>">
 							<div class="alert alert-success">
 									<b>Note:</b>
 									<ul>
-										<li>Here you can view the Client records</li>
+										<li>Here you can view the Client account details</li>
 										<li>Use the Search bar to filter the information you need</li>
 										<li>Click the column name to toggle order by column</li>
 									</ul>						
@@ -543,7 +494,8 @@
 							</div>
 							<div class="box-content">
 								<div class="row-fluid">
-									<table id="table_report" class="table table-striped table-bordered table-hover">
+									<table id="table_report" class="table table-striped table-bordered table-hover" >
+									   
 									    <thead>
 									        <tr>
 									            <th>Client Name </th>
@@ -559,14 +511,14 @@
 						  				<tr>
 							  				<td><?php echo $row->client_name;?></td>
 											<td ><?php echo $row->client_location;?></td>	
-											<td class="td-actions">
+											<td>
 												
 												<div class="hidden-phone visible-desktop btn-group">
 													<button class="view_client btn btn-mini btn-success" value="<?php echo $row->client_id?>">
 														<i class="icon-ok bigger-120"></i>
 													</button>
 
-													<button class="btn btn-mini btn-info">
+													<button class="edit_client btn btn-mini btn-info" value="<?php echo $row->user_id?>">
 														<i class="icon-edit bigger-120"></i>
 													</button>
 												<!--
@@ -574,6 +526,31 @@
 														<i class="icon-trash bigger-120"></i>
 													</button>
 												-->
+												</div>
+												<div class="hidden-desktop visible-phone">
+													<div class="inline position-relative">
+														<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+															<i class="icon-cog icon-only bigger-110"></i>
+														</button>
+
+														<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+															<li>
+																<a href="#" class="view_client tooltip-info" data-rel="tooltip" title="View" value="<?php echo $row->client_id?>">
+																	<span class="blue">
+																		<i class="icon-zoom-in bigger-120"></i>
+																	</span>
+																</a>
+															</li>
+
+															<li>
+																<a href="#" class="edit_client tooltip-success" data-rel="tooltip" title="Edit" value="<?php echo $row->client_id?>">
+																	<span class="green">
+																		<i class="icon-edit bigger-120"></i>
+																	</span>
+																</a>
+															</li>
+														</ul>
+													</div>
 												</div>
 
 											</td>	
@@ -590,12 +567,7 @@
 							</div>
 
 						</div>
-
-					
-						</div>
 						<?php if ($this->session->userdata('permission') == 'Administrator') {?>
-
-						<div class="row-fluid">
 						<div class="span5">
 
 							<!-- ADD HR START -->
@@ -632,29 +604,39 @@
 											</div>
 											<form method="post" action="<?php echo base_url();?>client/add_client">
  
-												<label for="client_name" ><i class="light-red icon-asterisk"></i> Client Name:  </label>
-												<input  id="client_name" required autofocus  style="width: 94%" placeholder="Enter Name" type="text" name="client_name" value="<?php echo $this->session->flashdata('client_name');?>">
+												<label for="client_name" >Company Name (<span class="required">*</span>):  </label>
+												<input id="client_name" required autofocus  style="width: 94%" placeholder="Enter Name" type="text" name="client_name" value="<?php echo $this->session->flashdata('client_name');?>">
 
-												<label for="client_location" ><i class="light-red icon-asterisk"></i> Location: </label>
-												<input  id="client_location" required style="width: 94%" type="text" name="client_location" value="<?php echo $this->session->flashdata('client_location');?>">
+												
+										    	<b>Contact Person</b>
+										    	<label>First Name (<span class="required">*</span>): </label>
+												<input required style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $this->session->flashdata('first_name');?>">
 
-												<label for="clien_phone" ><i class="light-red icon-asterisk"></i> Phone # : </label>
-												<input  id="clien_phone" class="input-mask-phone" required style="width: 94%" type="text"name="clien_phone" value="<?php echo $this->session->flashdata('clien_phone');?>">
+												<label>Last Name (<span class="required">*</span>): </label>
+												<input required style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $this->session->flashdata('last_name');?>">
 
-												<label for="client_tel" ><i class="light-red icon-asterisk"></i> Telephone #: </label>
-												<input  id="client_tel" class="input-mask-tel" required style="width: 94%" type="text"name="client_tel" value="<?php echo $this->session->flashdata('client_tel');?>">
+											  
+												
+												<label for="client_location" >Location (<span class="required">*</span>): </label>
+												<input id="client_location" required style="width: 94%" type="text" name="client_location" value="<?php echo $this->session->flashdata('client_location');?>">
 
-												<label for="client_username" ><i class="light-red icon-asterisk"></i> Username: </label>
-												<input  id="client_username" required style="width: 94%" type="text"name="client_username" value="<?php echo $this->session->flashdata('client_username');?>">
+												<label for="clien_phone" >Phone # (<span class="required">*</span>): </label>
+												<input id="clien_phone" class="input-mask-phone" required style="width: 94%" type="text" name="client_phone" value="<?php echo $this->session->flashdata('client_phone');?>">
 
-												<label for="client_password" ><i class="light-red icon-asterisk"></i> Password: </label>
-												<input  id="client_password" required style="width: 94%" type="password" name="client_password">
+												<label for="client_tel" >Telephone # (<span class="required">*</span>): </label>
+												<input id="client_tel" class="input-mask-tel" required style="width: 94%" type="text" name="client_tel" value="<?php echo $this->session->flashdata('client_tel');?>">
 
-												<label for="client_password_confirm" ><i class="light-red icon-asterisk"></i>Confirm Password: </label>
-												<input  id="client_password_confirm" required style="width: 94%" type="password" name="client_password_confirm">
+												<label for="client_username" >Username (<span class="required">*</span>): </label>
+												<input title="Minimum of 6 characters is required" pattern=".{6,}" id="client_username" required style="width: 94%" type="text"name="client_username" value="<?php echo $this->session->flashdata('client_username');?>">
 
-												<label for="client_email" ><i class="light-red icon-asterisk"></i> Email: </label>
-												<input  id="client_email" required style="width: 94%" type="text" name="client_email" value="<?php echo $this->session->flashdata('client_email');?>">
+												<label for="client_password" >Password (<span class="required">*</span>): </label>
+												<input title="Minimum of 6 characters is required" pattern=".{6,}" id="client_password" required style="width: 94%" type="password" name="client_password">
+
+												<label for="client_password_confirm" >Confirm Password (<span class="required">*</span>): </label>
+												<input title="Minimum of 6 characters is required" pattern=".{6,}" id="client_password_confirm" required style="width: 94%" type="password" name="client_password_confirm">
+
+												<label for="client_email" >Email (<span class="required">*</span>): </label>
+												<input id="client_email" required style="width: 94%" type="email" name="client_email" value="<?php echo $this->session->flashdata('client_email');?>">
 
 
 												<hr>
@@ -674,7 +656,13 @@
 							<!-- ADD HR END -->
 
 						</div>
-						</div><?php }?>
+						<?php }?>
+					</div>
+						
+
+						<div class="row-fluid">
+						
+						</div>
 
 
 						<!--PAGE CONTENT ENDS HERE-->
@@ -709,7 +697,6 @@
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.full.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
 
@@ -733,11 +720,6 @@
 				$('.input-mask-phone').mask('(999) 999-9999');
 				$('.input-mask-tel').mask('999-99-99');
 
-
-				$('.dialogs,.comments').slimScroll({
-			        height: '300px'
-			    });
-				
 				
 
 				//datatable initialization
@@ -747,13 +729,32 @@
 				  { "bSortable": false }
 				] } );
 
+
+
+
+				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+				function tooltip_placement(context, source) {
+					var $source = $(source);
+					var $parent = $source.closest('table')
+					var off1 = $parent.offset();
+					var w1 = $parent.width();
+			
+					var off2 = $source.offset();
+					var w2 = $source.width();
+			
+					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+					return 'left';
+				}
+
 				
 				
+
+
 				$( ".view_client" ).on(ace.click_event,function() {
 					var id = $(this).attr("value");
 					//alert(id);
 				 	$.ajax({
-					url: "client/view_client",
+					url: "<?php base_url();?>client/view_client",
 					type: "post",
 					data: {
 						id: id
@@ -769,6 +770,37 @@
 					});
 				});
 
+				$( ".edit_client" ).on(ace.click_event,function() {
+					var id = $(this).attr("value");
+					$( "#edit_dialog" ).removeClass('hide').dialog({
+					//dialogClass: "no-close",
+					resizable: false,
+					modal: true,
+					closeOnEscape: true,
+					title: "<div class='widget-header'><h4 class='smaller'><i class='icon-edit'></i> "+id+". Edit Client.</h4></div>",
+					title_html: true,
+					width: 400,
+					//maxHeight: 800,
+					buttons: [
+							{
+						      html: "<i class=\"icon-edit\"></i> Edit",
+						      "class" : "btn btn-success btn-mini",
+						      click: function() {
+						        //$(this).dialog( "close" );
+						        document.location.href='<?php echo base_url();?>client/edit_info/' + id;
+						      }
+						    },
+						    {
+						      html: "Cancel",
+						      "class" : "btn btn-mini",
+						      click: function() {
+						        $(this).dialog( "close" );
+						      }
+						    }
+						  ]
+					
+					});
+				});
 				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
 					_title: function(title) {
 						var $title = this.options.title || '&nbsp;'
@@ -777,9 +809,11 @@
 						else title.text($title);
 					}
 				}));
+				
+			
 
 
-			});
+			})
 			var delete_user = function(id,client_name,user_id) {
 				var str = "<h3>Confirm</h3>" + client_name + " will be deleted";
 				str += ". Do you really want to delete this client?";
@@ -831,7 +865,7 @@
 						      text: "OK",
 						      "class" : "btn btn-info btn-mini",
 						      click: function() {
-						        $( this ).dialog( "close" );
+						        $(this).dialog( "close" );
 						      }
 						    }
 						  ]
@@ -848,18 +882,17 @@
 				  { "bSortable": false }
 				] } );
 			}
-
-			
-
-			var a = function  (a) {
-					bootbox.alert(a);
-				}
 	
 		</script>
 		
 	</body>
 	<div id="dialog">
-	   <div id="client_view"></div>
-	  <div id="request_view"></div>
+	   	<div id="client_view"></div>
+	  	<div id="request_view"></div>
+	</div>
+	<div id="edit_dialog" style="display:none">
+		<div class="center">
+		<div class="alert alert-info">Edit Client Information or deactive/activate its account.</div>
+		</div>
 	</div>
 </html>

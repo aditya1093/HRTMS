@@ -35,7 +35,6 @@ class Client extends CI_Controller {
 
 		
 		
- 
         //$this->session->unset_userdata('error_client');
         $query = $this->db->query("select * from user_count where count_id = 1");
 		if ($query->num_rows() > 0)
@@ -67,7 +66,11 @@ class Client extends CI_Controller {
         			'client_name' => $client_name,
         			'client_location' => $this->input->post('client_location'),
         			'client_username' => $username,
-        			'client_email' => $this->input->post('client_email')
+        			'client_email' => $this->input->post('client_email'),
+        			'client_tel' => $this->input->post('client_tel'),
+        			'client_mobile' => $this->input->post('client_phone'),
+        			'contact_first_name' => $this->input->post('first_name'),
+        			'contact_last_name' => $this->input->post('last_name')
         		);
         	$userTable = array(
         			'user_id' => $user_id,
@@ -75,7 +78,9 @@ class Client extends CI_Controller {
         			'password' => md5($this->input->post('client_password')),
         			'email' => $this->input->post('client_email'),
         			'permission' => 'Client',
-        			'company' => $client_name
+        			'company' => $client_name,
+        			'first_name' => $this->input->post('first_name'),
+        			'last_name' => $this->input->post('last_name')
         		);
         	$count = array('client_count' => $client_count);
     		
@@ -86,7 +91,7 @@ class Client extends CI_Controller {
 
 			$config['hostname'] = 'ftp.jemnuine.com';
 	        $config['username'] = 'jemnuin2@jemnuine.com';
-	        $config['password'] = 'sinigang123';
+	        $config['password'] = 'bakerking123';
 	        $config['debug']    = TRUE;
 
 
@@ -96,8 +101,8 @@ class Client extends CI_Controller {
  			
 	        $this->ftp->connect($config);
 
-	        $this->ftp->mirror('/', '/public_html/elfinder/files/');
-	        $list = $this->ftp->list_files('/public_html/elfinder/files/Modules/'.$path);
+	        /*$this->ftp->mirror('/', '/public_html/elfinder/files/');
+	        $list = $this->ftp->list_files('/public_html/elfinder/files/Modules/'.$path);*/ //remove slow as fuck
 	        if(!$this->ftp->mkdir('/public_html/elfinder/files/AMI-Training/'.strtoupper($this->input->post('client_name')).'/', DIR_WRITE_MODE))
 	        {
 	        	redirect(base_url().'client', 'refresh');
@@ -116,7 +121,11 @@ class Client extends CI_Controller {
 					'client_name' => $this->input->post('client_name'),
         			'client_location' => $this->input->post('client_location'),
         			'client_username' => $this->input->post('client_username'),
-        			'client_email' => $this->input->post('client_email')
+        			'client_email' => $this->input->post('client_email'),
+        			'first_name' => $this->input->post('first_name'),
+        			'last_name' => $this->input->post('last_name'),
+        			'client_tel' => $this->input->post('client_tel'),
+        			'client_phone' => $this->input->post('client_phone')
 
 				);	
 			//$this->session->set_userdata($data);
@@ -174,7 +183,7 @@ class Client extends CI_Controller {
 
 
 	}
-
+	
 
 	function view_client(){
 		$id = $this->input->post('id');
@@ -212,17 +221,29 @@ class Client extends CI_Controller {
 				$output_string .= "<td>Telephone #</td>";	
 				$output_string .= "<td>".$row->client_tel."</td>";
 			$output_string .= "</tr>";
-			$output_string .= "<tr>";
+        	$output_string .= "<tr>";
+				$output_string .= "<td>Email</td>";	
+				$output_string .= "<td>".$row->client_email."</td>";
+			$output_string .= "</tr>";
+
+        	$output_string .= "</table>";
+        	$output_string .= "</div>";
+
+        	$output_string .= "<div class=\"span6\">";
+        	$output_string .=  "<table class=\"table table-striped\" style=\"width: 100%; word-wrap:break-word; table-layout: fixed;\">";
+        	$output_string .= "<colgroup>";
+			$output_string .= "<col span=\"1\" style=\"width: 30%;\">";
+			$output_string .= "<col span=\"1\" style=\"width: 70%;\">";
+			$output_string .= "</colgroup>";
+        	$output_string .= "<tr>";
 				$output_string .= "<td>Username</td>";	
 				$output_string .= "<td>".$row->client_username."</td>";
 			$output_string .= "</tr>";
 			$output_string .= "<tr>";
-				$output_string .= "<td>Email</td>";	
-				$output_string .= "<td>".$row->client_email."</td>";
+				$output_string .= "<td>Contact Person</td>";	
+				$output_string .= "<td>".$row->contact_first_name." ".$row->contact_last_name."</td>";
 			$output_string .= "</tr>";
-        	
-
-        	$output_string .= "</table>";
+			$output_string .= "</table>";
         	$output_string .= "</div></div>";
 
         	//$output_string['result'] .= "<button class=\"btn btn-mini btn-success\" onclick=\"a('"."')\"><i class=\"icon-ok bigger-120\"></i></button>";
@@ -287,6 +308,90 @@ class Client extends CI_Controller {
 
 
 	}
+
+	function edit_info($param="") {
+    	//check kung naka-login
+	    if($this->session->userdata('is_logged_in')) {
+
+			if($param){
+				
+				$this->form_validation->set_rules('client_name', 'client Name', 'required|xss_clean|is_unique[client.client_name]');
+				$this->form_validation->set_rules('client_location', 'Location', 'required|xss_clean');
+				$this->form_validation->set_rules('client_username', 'Username', 'trim|required|xss_clean|min_length[6]|is_unique[user_table.username]|alpha_dash');
+				$this->form_validation->set_rules('client_password', 'Password', 'trim|required|matches[client_password_confirm]|min_length[6]');
+				$this->form_validation->set_rules('client_password_confirm', 'Password Confirmation', '');
+				$this->form_validation->set_rules('client_email', 'Email', 'required|valid_email');
+				$this->form_validation->set_rules('client_phone', 'Phone Number', 'required');
+				$this->form_validation->set_rules('client_tel', 'Telephone Number', 'required');
+
+				$this->form_validation->set_rules('agree', '...', 'callback_terms_check');
+				
+				
+				if ($this->form_validation->run() == true)
+				{
+					$data = array(
+						'first_name' 	=> $this->input->post('first_name'),
+						'last_name'  	=> $this->input->post('last_name'),
+						'middle_name'	=> $this->input->post('middle_name'),
+						'birth_date'  	=> $this->input->post('birth_date') ,
+						'address'    	=> $this->input->post('address'),
+						'city'    		=> $this->input->post('city'),
+						'province'    	=> $this->input->post('province'),
+						'phone'      	=> $this->input->post('phone'),
+						'height'      	=> $this->input->post('height'),
+						'civil_status'  => $this->input->post('civil_status'),
+						'date_change'	=> date('Y-m-d H:i:s'),
+					);
+				}
+				if ($this->form_validation->run() == true )
+				{ 
+					//check to see if we are creating the user
+					//redirect them to checkout page
+	      			//$this->load->model('profile_model');
+	      			//$this->profile_model->change_info($param,$data);
+	      			$success_message = "Changes Successfully";
+	      		 	//$this->session->set_flashdata('message2',"Changes Successfully"); 
+			       
+			       	$this->session->set_flashdata('success',$success_message); 
+			        redirect(base_url().'client/edit_info/'.$param, 'refresh');
+			        
+				}
+				else
+				{ 
+					$this->load->model('client_model');
+					$query =  $this->client_model->info($param);
+					$this->data['records'] = $query;
+					//display the create user form
+					//set the flash data error message if there is one
+					$this->data['message'] = (validation_errors() ? validation_errors() : ($this->session->flashdata('message')));
+					
+
+					if(empty($query)){
+						echo "No Records";
+					}
+					else
+					{	
+						$this->load->view('company/edit_client',$this->data);
+					}
+				}
+				//
+
+			}
+			else
+			{
+				echo "Errrr";
+			}
+			
+	
+	    	
+	    }
+	    else {
+
+	     	$this->load->view('login_view');
+	     
+	    }
+    
+  	}
 
 
 	public function view_request()

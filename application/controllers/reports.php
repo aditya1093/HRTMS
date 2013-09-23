@@ -4,6 +4,7 @@ class Reports extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
+		
 	}
 
 	function list_trainee() {
@@ -200,6 +201,7 @@ class Reports extends CI_Controller {
 		$pdf->SetTitle('Title');
 		$pdf->SetSubject('TCPDF Tutorial');
 		$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+
 
 		// set default header data
 		$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "Gradesheet ".$batch_control_no, $this->session->userdata("first_name"). " ". $this->session->userdata("last_name") , array(0,64,255), array(0,64,128));
@@ -736,6 +738,117 @@ class Reports extends CI_Controller {
          
         echo json_encode($output_string);
     }
+    //Page header
+	public function Header() {
+		// get the current page break margin
+		//$bMargin = $this->getBreakMargin();
+		// get current auto-page-break mode
+		
+	}
+    function certificate(){
+
+			//check kung naka-login
+		if($this->session->userdata('is_logged_in')) {
+
+			/*$this->load->model('report_model');
+			$query = $this->report_model->gradesheet();
+			$data['records'] = $query;
+			*/
+			
+
+			//$this->load->view('reports/certificate_view', $data);
+		
+			$this->load->library('Pdf');
+
+		
+
+			// create new PDF document
+			$pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+			// set document information
+			$pdf->SetCreator(PDF_CREATOR);
+			$pdf->SetAuthor('Nicola Asuni');
+			$pdf->SetTitle('TCPDF Example 051');
+			$pdf->SetSubject('TCPDF Tutorial');
+			$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+
+			// set header and footer fonts
+			$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+
+			// set default monospaced font
+			$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+			// set margins
+			$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+			$pdf->SetHeaderMargin(0);
+			$pdf->SetFooterMargin(0);
+
+			// remove default footer
+			$pdf->setPrintFooter(false);
+
+			// set auto page breaks
+			$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+			// set image scale factor
+			$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+			// set some language-dependent strings (optional)
+			if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+			    require_once(dirname(__FILE__).'/lang/eng.php');
+			    $pdf->setLanguageArray($l);
+			}
+
+			// ---------------------------------------------------------
+
+			// set font
+			$pdf->SetFont('times', '', 48);
+
+			
+
+			// add a page
+			$pdf->AddPage("L", "Letter");
+
+
+			// -- set new background ---
+
+			// get the current page break margin
+			$bMargin = $pdf->getBreakMargin();
+			// get current auto-page-break mode
+			$auto_page_break = $pdf->getAutoPageBreak();
+			// disable auto-page-break
+			$pdf->SetAutoPageBreak(false, 0);
+			// set bacground image
+			$img_file = K_PATH_IMAGES.'cert2.jpg';
+			$pdf->Image($img_file, 0, 0, 0, 0);
+			// restore auto-page-break status
+			$pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+			// set the starting point for the page content
+			$pdf->setPageMark();
+
+
+			// Print a text
+			$html = '<span style="color:white;text-align:center;font-weight:bold;font-size:80pt;">Enter Name Here</span>';
+			$pdf->writeHTML($html, true, false, true, false, '');
+
+			
+
+			// ---------------------------------------------------------
+
+			//Close and output PDF document
+			$pdf->Output('example_051.pdf', 'I');
+		}
+		else {
+
+    		$this->load->view('login_view');
+		}	
+	  
+
+
+
+     }
+
+
+
 
      public function traineeAttendanceByBatch(){
      	$batch=$this->input->post('batch');

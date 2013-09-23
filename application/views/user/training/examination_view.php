@@ -14,6 +14,9 @@
 		<link href="<?php echo base_url();?>assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css" />
 
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
+
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
@@ -32,6 +35,18 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 
+		<style type="text/css">
+			input[type=checkbox],
+			input[type=radio] {
+				opacity: 100;
+				position: relative;
+				z-index: 12;
+				width: 18px;
+				height: 18px;
+				display:inline; margin:0px; padding:0px;
+			}
+
+		</style>
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
 		<![endif]-->
@@ -191,13 +206,13 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success"></span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope"></i>
-									5 Messages
+									Messages
 								</li>
 
 								<li>
@@ -441,38 +456,7 @@
 
 
 					<div class="row-fluid">
-						<div class="span6">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										Create Examination
-										<small>New</small>
-									</h4>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">
-
-										<table class="table">
-											<tbody>
-												<tr>
-													<td>
-														<label>Examination Name: </label>
-														<input autofocus type="text" id="examination_name" name="examination_name">
-													</td>	
-												</tr>
-												<tr>
-													<td>
-														<button id="create_exam" class="btn btn-purple"><i class="icon-pencil icon-white"></i> Create Examination</button>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-
-									</div>
-								</div>
-							</div>
-						</div>
+						
 						<!--<div class="span6">
 							<div class="widget-box">
 								<div class="widget-header">
@@ -535,14 +519,16 @@
 									<div class="widget-toolbar no-border">
 										<ul class="nav nav-tabs" id="myTab">
 											<li class="active">
-												<a data-toggle="tab" href="#home">Modules</a>
+												<a data-toggle="tab" href="#home"><span class="badge badge-success">1</span> Modules</a>
 											</li>
 
 											<li class="">
-												<a data-toggle="tab" href="#profile">Examination Sets</a>
+												<a data-toggle="tab" href="#profile"><span class="badge badge-warning">2</span> Examination Sets</a>
 											</li>
 
-											
+											<li class="">
+												<a data-toggle="tab" href="#batch"><span class="badge badge-important">3</span> Batch Examination</a>
+											</li>
 										</ul>
 									</div>
 								</div>
@@ -551,37 +537,218 @@
 									<div class="widget-main padding-6">
 										<div class="tab-content">
 											<div id="home" class="tab-pane active">
-												<table id="exam_table" class="table table-striped table-bordered">
-													<thead>
-														<tr>
-															<th class="center">
-																Examination Name
-															</th>
-															<th width="70px" class="center">
-																Items
-															</th>
-															<!--<th width="130px" class="center">
-																Date Modified
-															</th>-->
-															<th class="center" width="70px">
-																Status
-															</th>
-															<th class="center" width="300px">
+												
+														<div class="well well-small"> 
+															<fieldset>
+																<label>Examination Name (<span class="required">*</span>): </label>
+
 																
-															</th>
-														</tr> 
-													</thead>
-													<tbody>
+																	<input required autofocus type="text" id="examination_name" name="examination_name">
+																	<br><button id="create_exam" class="btn btn-purple btn-mini"><i class="icon-pencil icon-white"></i> Create Examination</button>
+																			
+																<span class="help-block"></span>
+
+																
+															</fieldset>
+														</div>
+											
+														<table id="exam_table" class="table table-striped table-bordered">
+															<thead>
+																<tr>
+																	<th class="center">
+																		Module Exam
+																	</th>
+																	<th width="70px" class="center">
+																		Items
+																	</th>
+																	<!--<th width="130px" class="center">
+																		Date Modified
+																	</th>-->
+																	<th class="center" width="70px">
+																		Status
+																	</th>
+																	<th class="center" width="300px">
+																		
+																	</th>
+																</tr> 
+															</thead>
+															<tbody>
+																
+															</tbody>
+														</table> 
 														
-													</tbody>
-												</table> 
 											</div>
 
 											<div id="profile" class="tab-pane">
 
-												</div>
+												<div class="row-fluid">
+													<div class="span5">
+														<div class="widget-box transparent">
+															<div class="widget-header">
+																<h4 class="lighter">Create New Set</h4>
+																<div class="widget-toolbar no-border">
+																	
 
-											
+																	<a href="#" data-action="collapse">
+																		
+																	<i class="icon-chevron-up"></i>
+																	</a>
+
+																	
+																</div>
+																
+															</div>
+
+															<div class="widget-body">
+																<div class="widget-body-inner">
+																<div class="widget-main padding-6">
+																	
+																	
+																		<div class="well well-small"> 
+																			
+																			<label>Set Name (<span class="required">*</span>): </label>
+																			<input required type="text" id="examination_name2" name="examination_name">
+
+																			<label>Assign to Batch (<span class="required">*</span>): </label>
+
+																			<select id="batch_id">
+																				<option value="0">Please select a batch</option>
+																				<?php if(isset($batches)) { 
+																					foreach($batches as $row) {?>
+																					<option value="<?php echo $row->batch_control_no;?>"><?php echo $row->batch_control_no;?></option>
+																				<?php }} 
+																				?>
+																			</select>
+
+																			<label>Select Active Examinations (<span class="required">*</span>): </label>
+																			<div class="slimScrollDiv">
+																				<div id="chat_div" class="dialogs">
+
+																					<table id="set_table1" class="table table-striped table-bordered">
+																						<thead>
+																							<tr>
+																								<th class="center">
+																									
+																								</th>
+																								<th class="center">
+																									Module Exam
+																								</th>
+																								<th class="center">
+																									No. of Items
+																								</th>
+																								
+																							</tr> 
+																						</thead>
+																						<tbody>
+																							
+																							<?php if(isset($exams)) { 
+																								foreach($exams as $row) {?>
+																								<div class="exam_check">
+																								<?php if($row->is_active==1){?>
+																								<tr>
+																									<td><input class="cexam" type="checkbox" id="<?php echo $row->examination_id;?>" value="<?php echo $row->examination_id;?>" name="module"></td>
+																									<td><?php echo $row->examination_name;?></td>
+																									
+																									<td class="e<?php echo $row->examination_id;?>"><?php echo $row->items;?></td>
+																								</tr>
+																								<?php }?>
+																								</div>
+																							<?php }} else { ?>
+																								
+
+																							<?php } ?>
+
+																						</tbody>
+																					</table>
+																					
+																					
+																				</div>
+
+																				<div class="slimScrollBar ui-draggable">
+																				</div>
+																				<div class="slimScrollRail">
+																				</div>
+																			</div>
+																			<hr>
+																			<label>
+																				Total Modules: 
+																				<span class="tot2">0</span>
+																			</label>
+																			<label>
+																				Total Items: 
+																				<span class="tot">0</span>
+																			</label>
+																			
+
+
+																		</div>
+
+																		</div>
+																		<hr>	
+																		<button class="btn btn-success btn-set"><i class="icon-plus"></i> Add to List</button>
+
+																</div>
+															</div>
+														</div>
+														
+													</div>
+
+													<div class="span7">
+														<div class="widget-box transparent">
+															<div class="widget-header">
+																<h4 class="lighter">List of Examination Set</h4>
+
+																
+															</div>
+
+															<div class="widget-body"><div class="widget-body-inner">
+																<div class="widget-main padding-6">
+																	<table id="set_table2" class="table table-striped table-bordered">
+																		<thead>
+																			<tr>
+																				<th>
+																					Set Name
+																				</th>
+																				<th>
+																					Batch Control No
+																				</th>
+																				<th class="center">
+																					Total Items
+																				</th>
+																				<!--<th width="130px" class="center">
+																					Date Modified
+																				</th>-->
+																				
+																				<th class="center">
+																					
+																				</th>
+																			</tr> 
+																		</thead>
+																		<tbody>
+																			
+																			<?php if(isset($sets)) { 
+																				foreach($sets as $row) {?>
+																				<tr>
+																					<td><?php echo $row->set_name;?></td>
+																					<td><?php echo $row->batch_id;?></td>
+																					<td><?php echo $row->items;?></td>
+																					<td><button id="<?php echo $row->batch_id;?>" class="btn btn-mini btn-danger btn-del-set"><i class="icon-remove"></i> Remove From List</button></td>
+																				</tr>
+																			<?php }}?>	
+																		</tbody>
+																	</table> 
+																</div>
+															</div></div>
+														</div>
+
+													</div>
+												</div>
+											</div>
+
+											<div id="batch" class="tab-pane">
+												s
+											</div>
+
 										</div>
 									</div>
 								</div>
@@ -626,11 +793,10 @@
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+		
 
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 
@@ -641,11 +807,155 @@
 
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
 
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
+
+			/*$("#setbatch").validate({ 
+
+			});*/
+			
+			$(".btn-set").click(function() {
+				var i = 0;
+				$('input[type="checkbox"]').each(function() {
+				    if ($(this).is(":checked")) {
+
+				        var id = $(this).val();
+				       	if(id && $.trim($("#examination_name2").val())!="" && $("#batch_id").val()!=0) {
+						    $.ajax({
+								url: "<?php echo base_url();?>/examination/set_exam",
+								type: "post",
+								data: {
+									id: id,
+									batchid: $("#batch_id").val(),
+									examination_name: $("#examination_name2").val(),
+									items: $(".e"+id).text()
+								},
+								success: function(e) {
+									
+									alert(e);
+									$("#examination_name2").val("");
+									clearcheck();
+									$("#batch_id").val(0);
+									if(e != "The batch examination is already existing.") {
+
+										setTimeout(function() {
+										    location.reload();
+										}, 800);
+									}
+									
+								}
+							});
+							i++;
+				       	}
+				    }	    
+				});
+				if(i == 0) {
+
+					alert("Please check atleast one module.");
+				}
+				if($.trim($("#examination_name2").val())=="") {
+
+					alert("Please enter name of the set.");
+				}
+
+			});
+
+			var clearcheck = function() {
+
+				$('input[type="checkbox"]').each(function() {
+
+					$(this).prop('checked', false);
+				});
+			}
+
+			var n = 0, o = 0;
+
+			$('input[type="checkbox"]').click(function () {
+				
+				if($(this).is(':checked')) {
+					
+					n += parseInt($(".e"+$(this).val()).text());
+	           		o++;
+				}
+				else {
+
+					n -= parseInt($(".e"+$(this).val()).text());
+					o--;
+					
+				}
+
+	            $(".tot").text(n)
+	            $(".tot2").text(o)
+	        });
+
+	        $(".btn-del-set").click(function() {
+
+	        	delete_set($(this).attr("id"));
+	        });
+
+	        var delete_set = function(id) {
+
+				var str = "<h3>Confirm</h3>Examination set will be deleted";
+				str += ". Do you want to proceed?";
+
+				bootbox.dialog(str, [{
+						"label" : "<i class=\'icon-trash\'></i> Delete",
+						"class" : "btn-small btn-danger",
+						"callback": function() {
+							//Example.show("great success");
+
+							$.ajax({
+								url: "examination/remove_set",
+								type: "post",
+								data: {
+									id: id
+								},
+								success: function(e) {
+									
+									location.reload();
+								}
+							});
+							
+						}
+						}, {
+							"label" : "Cancel",
+							"class" : "btn-small"
+						}]
+					);
+
+			} 
+
+
+
+			/************************** CUSTOM ALERT() *****************************/
+
+			var alert = function(alert_str) {
+
+				$.extend($.gritter.options, { 
+				    position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+					fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+					fade_out_speed: 2000, // how fast the notices fade out
+					time: 4000 // hang on the screen for...
+				});
+
+				$.gritter.add({
+					//title: '',
+					text: alert_str,
+					//image: $path_assets+'/avatars/avatar3.png',
+					sticky: false,
+					before_open: function() {
+
+						if($('.gritter-item-wrapper').length >= 6)
+						{
+							return false;
+						}
+					}
+				});
+			}
 
 			var init_datatable = function() {
 				var oTable1 = $('#exam_table').dataTable( {
@@ -761,13 +1071,13 @@
 				//var id = $(this).attr("id");
 
 				var str = '<h3>Toggle Examination</h3><div class="alert alert-info">';
-				str += 'When you <strong>Start the Exam</strong>';
-				str += ', trainee accounts will be able to take the exam.';
+				str += 'When you <strong>Activate</strong> the Examination';
+				str += ', the items cannot be modified.';
 				str += '<br>';
 				str += '</div>';
 
 				bootbox.dialog(str, [{
-						"label" : "<i class=\'icon-play\'></i> Start",
+						"label" : "<i class=\'icon-play\'></i> Activate",
 						"class" : "btn-small btn-success",
 						"callback": function() {
 							//Example.show("great success");
@@ -785,7 +1095,7 @@
 							});
 						}
 						}, {
-						"label" : "<i class=\'icon-stop\'></i> End",
+						"label" : "<i class=\'icon-stop\'></i> Deactivate",
 						"class" : "btn-small btn-danger",
 						"callback": function() {
 							//Example.show("uh oh, look out!");
@@ -813,6 +1123,19 @@
 			$(document).ready(function() {
 
 				init_datatable();
+				 //Initialize Scroll 
+			    $('.slimScrollDiv').slimScroll({
+			        height: '200px',
+			        size: '10px',
+			        alwaysVisible: true,
+			        start: 'top'
+			    });
+
+			    var now = new Date();
+				//now.format("dd/MM/yy h:mm tt");
+			    $("#examination_name2").val("AMI Exam "+now.getFullYear()+now.getDate()+(now.getMonth()+1));
+				
+
 			});
 
 			$("#create_exam").click(function() {

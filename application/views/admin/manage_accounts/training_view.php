@@ -25,6 +25,8 @@
 		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
 
 		<!--ace styles-->
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
@@ -193,66 +195,16 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success"></span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope"></i>
-									5 Messages
+									Messages
 								</li>
 
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
+								
 								<li>
 									<a href="messenger">
 										See all messages
@@ -516,19 +468,10 @@
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 
-						<div class="span12">
+						<div class="span7">
 
 							<div class="box">
-									<div class="box-header well" data-original-title>
-										<h2><i class="icon-key"></i> Login Accounts for Trainer</h2>
-										<div class="box-icon">
-											<!--
-											<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-											<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-											<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-										-->
-										</div>
-									</div>
+									
 									<div id="infoMessage" align=""><?php
 						              $message = $this->session->flashdata('delete_message');
 						              if ($message == null){}
@@ -540,9 +483,10 @@
 										<div class="row-fluid">
 											
 											<div class="table-header">
-												 Results for "Accounts"
+												 Trainer Account Details
 											</div>
 											<table id="trainee_list" class="table table-striped table-bordered table-hover">
+											
 											<thead>
 											<tr>
 												
@@ -577,18 +521,18 @@
 																		<a id="<?php echo $row->id;?>" style="cursor:pointer;" class="deletebutton btn btn-danger"><i class="icon-trash icon-white"></i> </a>	
 																		!-->
 														 <div class="hidden-phone visible-desktop btn-group">
-															<button class="btn btn-mini btn-success">
+															<button class="view_user btn btn-mini btn-success" value="<?php echo $row->id;?>">
 																<i class="icon-ok bigger-120"></i>
 															</button>
 
 															<button class="btn btn-mini btn-info">
 																<i class="icon-edit bigger-120"></i>
 															</button>
-
+															<!--
 															<button class="btn btn-mini btn-danger" onClick="delete_user('<?php echo $row->id;?>','<?php echo $row->username;?>')">
 																<i class="icon-trash bigger-120"></i>
 															</button>
-
+															-->
 														</div>
 									
 														</td>
@@ -607,8 +551,6 @@
 								
 							</div> 
 
-							<div class="row-fluid">
-								
 							<div class="span5">
 
 							<!-- ADD Trainer START -->
@@ -643,26 +585,29 @@
 													</div>
 													<form method="post" action="<?php echo base_url();?>manage/add_trainer">
 
-														<label><i class="light-red icon-asterisk"></i> Username:  </label>
-														<input autofocus  style="width: 94%" placeholder="Enter Username" type="text" id="username" name="username" value="<?php echo $this->session->flashdata('username');?>">
+														<label>Username (<span class="required">*</span>):  </label>
+														<input title="Minimum of 6 characters is required" pattern=".{6,}" autofocus required  style="width: 94%" placeholder="Enter Username" type="text" id="username" name="username" value="<?php echo $this->session->flashdata('username');?>">
 
-														<label><i class="light-red icon-asterisk"></i> Password: </label>
-														<input style="width: 94%" type="password" id="password" name="password">
+														<label>Password (<span class="required">*</span>): </label>
+														<input title="Minimum of 6 characters is required" pattern=".{6,}" required style="width: 94%" type="password" id="password" name="password" value="">
 
-														<label><i class="light-red icon-asterisk"></i> Confirm Password: </label>
-														<input style="width: 94%" type="password" id="password_confirm" name="password_confirm">
+														<label>Confirm Password (<span class="required">*</span>): </label>
+														<input title="Minimum of 6 characters is required" pattern=".{6,}" required style="width: 94%" type="password" id="password_confirm" name="password_confirm" value="">
 
-														<label><i class="light-red icon-asterisk"></i> First Name: </label>
-														<input style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $this->session->flashdata('first_name');?>">
+														<label>First Name (<span class="required">*</span>): </label>
+														<input required style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $this->session->flashdata('first_name');?>">
 
-														<label><i class="light-red icon-asterisk"></i> Last Name: </label>
-														<input style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $this->session->flashdata('last_name');?>">
+														<label>Last Name (<span class="required">*</span>): </label>
+														<input required style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $this->session->flashdata('last_name');?>">
 
 														<label>Middle Name: </label>
-														<input style="width: 94%" type="text" id="middle_name" name="middle_name" value="<?php echo $this->session->flashdata('middle_name');?>">
+														<input required style="width: 94%" type="text" id="middle_name" name="middle_name" value="<?php echo $this->session->flashdata('middle_name');?>">
 
-														<label><i class="light-red icon-asterisk"></i> Email address: </label>
-														<input  style="width: 94%" type="email" id="email" name="email"  value="<?php echo $this->session->flashdata('email');?>">
+														<label for="phone" >Phone # (<span class="required">*</span>): </label>
+														<input id="phone" class="input-mask-phone" required style="width: 94%" type="text" name="phone" value="<?php echo $this->session->flashdata('phone');?>">
+
+														<label>Email address (<span class="required">*</span>): </label>
+														<input required style="width: 94%" type="email" id="email" name="email"  value="<?php echo $this->session->flashdata('email');?>">
 
 														<hr>
 
@@ -674,10 +619,15 @@
 
 												
 											</div>
-										</div></div>
+										</div>
+										</div>
 									</div>
 
 							</div>
+
+							<div class="row-fluid">
+								
+
 							</div>
 
 					
@@ -712,15 +662,11 @@
 		<![endif]-->
 
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.full.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
-
+		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
 
 		<!--ace scripts-->
 
@@ -730,46 +676,54 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
 
-
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
-			$(function() {
-			
-				$('.dialogs,.comments').slimScroll({
-			        height: '300px'
-			    });
+		$(function() {
 				
-				$('#tasks').sortable();
-				$('#tasks').disableSelection();
-				$('#tasks input:checkbox').removeAttr('checked').on('click', function(){
-					if(this.checked) $(this).closest('li').addClass('selected');
-					else $(this).closest('li').removeClass('selected');
-				});
 
-				//datatable initializatino
-				var oTable1 = $('#trainee_list').dataTable( {
-				"aoColumns": [			     
-			      null, null,null, null, 
-				  { "bSortable": false }
-				] } );
-				
-				
-				$('table th input:checkbox').on('click' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
-					});
-						
-				});
-			
-				$('[data-rel=tooltip]').tooltip();
+			$.mask.definitions['~']='[+-]';
+			$('.input-mask-phone').mask('(999) 999-9999');
+			$('.input-mask-tel').mask('999-99-99');
 
+
+			//datatable initializatino
+			var oTable1 = $('#trainee_list').dataTable( {
+			"aoColumns": [			     
+		      null, null,null, null, 
+			  { "bSortable": false }
+			] } );
+			
+			$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+				_title: function(title) {
+					var $title = this.options.title || '&nbsp;'
+					if( ("title_html" in this.options) && this.options.title_html == true )
+						title.html($title);
+					else title.text($title);
+				}
+			}));
+
+			$( ".view_user" ).on(ace.click_event,function() {
+				var id = $(this).attr("value");
+			 	$.ajax({
+				url: "<?php echo base_url();?>/manage/view_user",
+				type: "post",
+				data: {
+					id: id
+				},
+				dataType: 'json',
+				success: function(e) {
+					console.log(e);
+					$('#user_view').html(e);
+					showDialog(id);
+				}
+				});
 			});
+		
 
-			var delete_user = function(id,username) {
+		});
+
+		var delete_user = function(id,username) {
 			var str = "<h3>Confirm</h3>" + username + " will be deleted";
 			str += ". Do you really want to delete this user?";
 
@@ -799,7 +753,34 @@
 					}]
 				);
 
+		}
+		var showDialog = function(id){
+			$( "#dialog" ).removeClass('hide').dialog({
+				//dialogClass: "no-close",
+				resizable: false,
+				modal: true,
+				closeOnEscape: true,
+				title: "<div class='widget-header'><h4 class='smaller'><i class='icon-exchange'></i> "+id+". Client Details.</h4></div>",
+				title_html: true,
+				width: 500,
+				//maxWidth: 800,
+				maxHeight: 800,
+				buttons: [
+					    {
+					      text: "OK",
+					      "class" : "btn btn-info btn-mini",
+					      click: function() {
+					        $( this ).dialog( "close" );
+					      }
+					    }
+					  ]
+				
+			});
+
 		}	
 		</script>
 	</body>
+	<div id="dialog">
+	   <div id="user_view"></div>
+	</div>
 </html>

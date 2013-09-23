@@ -30,36 +30,35 @@ class Login_model extends CI_Model{
                 'last_name' => $row->last_name,
                 'middle_name' => $row->middle_name,
                 'first_name' => $row->first_name,
-                'birth_date' => $row->birth_date,
-                'address' => $row->address,
-                'city' => $row->city,
-                'province' => $row->province,
-                'country' => $row->country,
-                'zip_code' => $row->zip_code,
                 'phone' => $row->phone,
                 'security_question' => $row->security_question,
                 'security_answer' => $row->security_answer,
                 'email' => $row->email,
                 'permission' => $row->permission,
                 'is_logged_in' => true,
-                'company' => $row->company
+                'company' => $row->company,
+                'is_active' =>$row->is_active
+
             );
 
             //filter login
             //deny login if user exists but used wrong login page
             $permission = $row->permission;
-
-            if($permission == "HR" || $permission == "Administrator" || $permission == "Trainer") {
+            $is_active = $row->is_active;
+            if(($permission == "HR" || $permission == "Administrator" || $permission == "Trainer") && $is_active != 0){
 
                 $user_group = "employee";
             }
-            else if($permission == "Applicant" || $permission == "Trainee") {
+            else if(($permission == "Applicant" || $permission == "Trainee") && $is_active != 0) {
 
                 $user_group = "candidate";
             }
-            else {
+            else if($permission == "Client" && $is_active != 0){
 
                 $user_group = "client";
+            }
+            else{
+                echo "NO RECORDS";
             }
             
             if($user_group != $login_type) {

@@ -271,7 +271,13 @@ class Applicant extends CI_Controller {
 		       	$id = $this->input->post('id');
 		       	$query= $this->applicant_model->batchInfoView($id);
 		       	foreach ($query as $row) {
-		       		
+		       		$req_id = $row->request_id;
+		       		$batch_no = $row->batch_control_no;
+		       		$client = $row->client;
+		       		$date_start = $row->date_start;
+		       		$training_days = $row->training_days;
+		       		$current = $row->current;
+		       		$limit_no = $row->limit_no;
 		       		
 		       	}
 		    /***************************************************/   	
@@ -284,16 +290,33 @@ class Applicant extends CI_Controller {
 
 				$output_string .= "<tr>";
 				$output_string .= "<td>Request ID</td>";
-				$output_string .= "<td></td>";
+				$output_string .= "<td>".$req_id."</td>";
 				$output_string .= "</tr>";
 				$output_string .= "<tr>";
 				$output_string .= "<td>Batch Control No.</td>";
-				$output_string .= "<td></td>";
+				$output_string .= "<td>".$batch_no."</td>";
 				$output_string .= "</tr>";
 				$output_string .= "<tr>";
 				$output_string .= "<td>Client</td>";
-				$output_string .= "<td></td>";
+				$output_string .= "<td>".$client."</td>";
 				$output_string .= "</tr>";
+				$output_string .= "<tr>";
+				$output_string .= "<td>Date Start</td>";
+				$output_string .= "<td>".$date_start."</td>";
+				$output_string .= "</tr>";
+				$output_string .= "<tr>";
+				$output_string .= "<td>Training Day/s</td>";
+				$output_string .= "<td>".$training_days."</td>";
+				$output_string .= "</tr>";
+				$output_string .= "<tr>";
+				$output_string .= "<td>Trainee (Current/Limit)</td>";
+				$output_string .= "<td>".$current." / ".$limit_no."</td>";
+				$output_string .= "</tr>";
+				$output_string .= "<tr>";
+				$output_string .= "<td>&nbsp;</td>";
+				$output_string .= "<td><span class=\"pull-right\"><a href=\"".base_url()."applicant/batch_list_view/".$batch_no."\"><i class=\"icon-long-arrow-right\"></i> View List</a></span></td>";
+				$output_string .= "</tr>";
+
 
 		       	$output_string .= "</table><div>";
 
@@ -315,6 +338,41 @@ class Applicant extends CI_Controller {
 	
 	}
 
+
+	function batch_list_view($param = "") {
+    	//check kung naka-login
+	    if($this->session->userdata('is_logged_in')) {
+
+	    	if ($param) {
+	    		$query =  $this->applicant_model->batch_list_view($param);
+	    		$data['batch_no'] = $param;
+				$data['records'] = $query;
+				
+				if(empty($query)){
+					echo "No Records";
+				}
+				else
+				{
+					
+					$this->load->view('applicant/batch_list_view', $data);
+				}
+			
+	    	}
+	    	else{
+	    		echo "Errrr";
+
+	    	}
+			
+			
+
+	    }
+	    else {
+
+	     	$this->load->view('login_view');
+	     
+	    }
+    
+  	}
 /************************** Batch Control  *********************************/
 
 

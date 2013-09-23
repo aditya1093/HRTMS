@@ -207,13 +207,13 @@
 					<li class="green">
 						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 							<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-							<span class="badge badge-success">5</span>
+							<span class="badge badge-success"></span>
 						</a>
 
 						<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 							<li class="nav-header">
 								<i class="icon-envelope"></i>
-								5 Messages
+								Messages
 							</li>
 
 							<li>

@@ -193,13 +193,13 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success"></span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope"></i>
-									5 Messages
+									Messages
 								</li>
 
 								<li>
@@ -471,9 +471,9 @@
 											your students' detailed performance and see how effective teacher you are!
 										</p>
 										<p align="center">
-											<a class="btn btn-success btn-small tooltip-success" data-rel="tooltip" data-placement="right" title="" data-original-title="Right Success" href="javascript:void(0);" onclick="javascript:introJs().start();">Start A Tour</a>
-											<span class="btn btn-primary btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Read Help</span>
-											<span class="btn btn-warning btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Download Manual</span>
+											<a class="btn btn-success btn-small tooltip-success" data-rel="tooltip" data-placement="right" title="" data-original-title="Right Success" href="javascript:void(0);" onclick="javascript:introJs().start();"><i class="icon-star"></i> Start A Tour</a>
+											<span class="btn btn-primary btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger"><i class="icon-book"></i> See Documentation</span>
+											
 											
 										</p>
 									</div>
@@ -488,112 +488,7 @@
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
 					<br>
-					<div class="row-fluid">
-						<!--PAGE CONTENT STARTS HERE-->
-						<div class="span8">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										AMI Board
-										<small>Announcements</small>
-									</h4>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">
-										<p>
-											<div class="tabbable">
-												<ul class="nav nav-tabs" id="myTab">
-													<li class="active">
-														<a data-toggle="tab" href="#home">
-															<i class="green icon-home bigger-110"></i>
-															News
-														</a>
-													</li>
-
-													<li>
-														<a data-toggle="tab" href="#profile">
-															Events
-															<span class="badge badge-important"></span>
-														</a>
-													</li>
-
-													<!--<li class="dropdown">
-														<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-															Notices
-															<b class="caret"></b>
-														</a>
-
-														<ul class="dropdown-menu dropdown-info">
-															<li>
-																<a data-toggle="tab" href="#dropdown1">@fat</a>
-															</li>
-
-															<li>
-																<a data-toggle="tab" href="#dropdown2">@mdo</a>
-															</li>
-														</ul>
-													</li>-->
-												</ul>
-
-												<div class="tab-content">
-													<div id="home" class="tab-pane in active">
-														<h4>Toyota: An Example Of “Good” Corporate Governance</h4>
-														<p>We provide excellent skilled workforce through
-														adherence to best practive and core values,
-														continous improvement, and personalized
-														service that respond to our customer's 
-														expectations. <a href="">Read more</a></p>
-														<hr>
-														<h4>Phoenix profit rises 39.8% to P372.3M</h4>
-														<p>Independent oil company Phoenix Petroleum Philippines, 
-															Inc. reported that its net income increased 39.75 percent 
-															to P372.27 million in the first half of 2013. 
-															<a href="">Read more</a></p>
-														
-													</div>
-
-													<div id="profile" class="tab-pane">
-														<p align="center"><i class="icon-spinner green icon-2x icon-spin"></i> Loading Events..</p>
-													</div>
-													<!--
-													<div id="dropdown1" class="tab-pane">
-														<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
-													</div>
-
-													<div id="dropdown2" class="tab-pane">
-														<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin.</p>
-													</div>
-													-->
-												</div>
-											</div>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="span4">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										Batch Activity
-										<small>Training Status</small>
-									</h4>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">
-										
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-
-						<!--PAGE CONTENT ENDS HERE-->
-					</div><!--/row-->
+					
 
 				</div><!--/#page-content-->
 

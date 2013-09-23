@@ -200,65 +200,16 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success"></span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope"></i>
-									5 Messages
+									Messages
 								</li>
 
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
+								
 
 								<li>
 									<a href="messenger">
@@ -523,6 +474,7 @@
 						<!--PAGE CONTENT STARTS HERE-->
 
 						<div class="span12">
+
 							<div class="widget-box">
 								<div class="widget-header">
 									<h4 class="smaller">
@@ -533,9 +485,10 @@
 
 								<div class="widget-body">
 								<div class="widget-main">
+									
 					
 									<form class="form-inline" id="applicant">
-										<input autofocus type="text" class="span11" name="id" id="id" />
+										<input autofocus placeholder="Type the Registration ID of an Applicant to accept. Eg.: AMI0000-REG-0000" type="text" class="span11 input-id" name="id" id="id" />
 										<button id="getinfo" class="btn btn-purple btn-small">
 											Get Data
 										</button>												
@@ -607,6 +560,8 @@
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
+
 		<script src="<?php echo base_url();?>assets/js/jquery-templ.js" type="text/javascript"></script>
 		<!--inline scripts related to this page-->
 		
@@ -614,6 +569,10 @@
 	
 		<script type="text/javascript">	
 		$(function() {
+
+			$('.input-id').mask('aaa9999-aaa-9999');
+
+
 		   //set the css3 blur to an element
         	function blurElement(element, size){
 	            var filterVal = 'blur//('+size+'px)';
@@ -1080,7 +1039,7 @@
         <div class="span6">
         	<table class="table table-striped" id="">
 				<tr>
-	            	<td width="165px"><h3>Batch Details</h3></td>
+	            	<td width="165px"><h3>Assign to Batch: </h3></td>
 	            	<td class="center">&nbsp;<br><select class="chzn-select" id="batch_no"  name="batch_no"><option value="" selected disabled></option></select></td>
 	            </tr>
 	 
