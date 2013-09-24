@@ -106,6 +106,7 @@
 			</a>
 
 			<div id="sidebar">
+			<!--
 				<div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
 						<button class="btn btn-small btn-success">
@@ -135,7 +136,7 @@
 						<span class="btn btn-danger"></span>
 					</div>
 				</div>
-
+			-->
 				<!--#sidebar-shortcuts-->
 
 				<ul class="nav nav-list">
@@ -233,7 +234,7 @@
 															 ?>">
 														</span>	
 													
-														<div class="width-80 label label-info label-large arrowed-in arrowed-in-right">
+														<div class="label label-info label-large arrowed-in arrowed-in-right">
 															<div class="inline position-relative">
 																<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
 																	<i class="icon-circle light-green middle"></i>
@@ -253,12 +254,10 @@
 														<?php echo $err;?>
 														<?php  
 														echo form_open_multipart(base_url().'profile/do_upload');?>
-
-															<input type="file" name="userfile" size="20" id="file" />
+															<input type="file" id="id-input-file-2" name="userfile" size="20" id="file"/>
 															<input type="hidden" name="applicant_id" value="<?php echo $row->register_id;?>">
-															<br /><br />
-															<input type="submit" value="upload" />
-
+															<input type="submit" class="btn btn-purple btn-mini" value="upload" />
+															
 														</form>
 
 													</div><!--/span-->
@@ -543,9 +542,10 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
-    	
-    	$.mask.definitions['~']='[+-]';
-      	$('.input-mask-phone').mask('(999) 999-9999');
+    		$(function() {
+
+    				$.mask.definitions['~']='[+-]';
+      				$('.input-mask-phone').mask('(999) 999-9999');
 
 
     	
@@ -609,7 +609,7 @@
 					    url: function(params) {
 							// ***UPDATE AVATAR HERE*** //
 							//You can replace the contents of this function with examples/profile-avatar-update.js for actual upload
-			
+							
 							var deferred = new $.Deferred
 			
 							//if value is empty, means no valid files were selected
@@ -649,6 +649,22 @@
 					})
 				}catch(e) {}
 				
+		    	$('#id-input-file-1 , #id-input-file-2').ace_file_input({
+							no_file:'No File ...',
+							btn_choose:'Choose',
+							btn_change:'Change',
+							droppable:false,
+							onchange:null,
+							thumbnail:false, //| true | large
+							//whitelist:'gif|png|jpg|jpeg',
+							//blacklist:'exe|php'
+							//onchange:''
+							//
+						});
+
+			});
+
+    
 		
 	
 

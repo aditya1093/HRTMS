@@ -46,18 +46,53 @@ class Examination extends CI_Controller {
 
 		$this->load->model("examination_model");
 
-		$this->examination_model->add_exam_set($data);
+		$this->examination_model->add_exam_set($data);		
+	}
 
-		/*if($this->examination_model->if_exist_set($this->input->post("batchid"))) {
+	function set_info() {
 
-			$this->examination_model->add_exam_set($data);
+		
+		$this->load->model("examination_model");
+
+		$q = $this->examination_model->exam_set_info($this->input->post("id"));
+
+		$i = 0;
+
+		//var_dump($q);
+
+		$str = "<table class='table table-striped'>";
+		$str .= "<thead><tr><td>Module Exams Included</td><td align='right'>No. of Items</td></tr></thead>";
+		//<tr><td>asdfasd</td></tr>
+		foreach ($q as $row) {
+			
+			$str .= "<tr>";
+			$str .= "<td>";
+			$str .= $row->examination_name;
+			$str .= "<td>";
+			$str .= "".$row->items." items</td>";
+			$str .= "</tr>";
+			$i += $row->items;
+		}
+		$str .= "<tfoot><tr><td><b>TOTAL ITEMS</b></td><td align='right'><b>".$i." items</b></td></tr></tfoot>";
+		$str .= "</table>";
+		$str .= "<b>Date Created: </b>".$row->date_created;
+		echo $str;
+
+	}
+
+
+	function toggle_activate_set() {
+
+		$this->load->model("examination_model");
+		
+		if($this->input->post("action") == "activate") {
+
+			$this->examination_model->toggle_activate_set($this->input->post("id"), array("is_active" => "1"));
 		}
 		else {
 
-			echo "The batch examination is already existing.";
-		}*/
-
-		
+			$this->examination_model->toggle_activate_set($this->input->post("id"), array("is_active" => "0"));
+		}
 	}
 
 	function remove_set() {
@@ -172,6 +207,17 @@ class Examination extends CI_Controller {
 		echo $str;
 	}
 
+	function take_exam() {
+
+		$this->load->model("examination_model");
+		$id = decrypt($this->session->userdata("take_exam_id"));
+		$data = $this->examination_model->take_items($id);
+
+		$str = json_encode($data);
+		echo $str;
+
+	}
+
 	function save_adding_state() {
 
 		$data = array(
@@ -246,7 +292,7 @@ class Examination extends CI_Controller {
 	function submit_answers() {
 		
 		$this->load->model("examination_model");
-		$data = $this->examination_model->load_items();
+		$data = $this->examination_model->check_items();
 
 		$this->validate_answers($data);
 	}
@@ -332,6 +378,15 @@ class Examination extends CI_Controller {
 			echo "true";
 		}
 		
+	}
+
+	function _cheat() {
+
+		$this->load->model("examination_model");
+		$data = $this->examination_model->_cheat();
+
+		var_dump($data);
+
 	}
 
 }

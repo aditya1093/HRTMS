@@ -19,17 +19,22 @@
 
     <!--page specific plugin styles-->
 
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/select2.css" />
     <!--fonts-->
 
-    <!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
+   <!--  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" /> -->
 
     <!--ace styles-->
+
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
+
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-responsive.min.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
     <style type="text/css">
 	  
 	  .mandatory_star{
@@ -78,70 +83,70 @@
             </a>
           </li>
           <!--
-          <li >
-            <a href="<?php echo base_url();?>Registration/Site_map">
-                  <i class="icon-map-marker"></i>
-                 Site Map
+            <li >
+              <a href="<?php echo base_url();?>Registration/Site_map">
+                    <i class="icon-map-marker"></i>
+                   Site Map
+                  </a>
+            </li>
+              <li >
+                <a href="#" class="dropdown-toggle">
+                  <i class="icon-shield"></i>
+                  <span>Requirements</span>
+
+                  <b class="arrow icon-angle-down"></b>
                 </a>
-          </li>
-            <li >
-              <a href="#" class="dropdown-toggle">
-                <i class="icon-shield"></i>
-                <span>Requirements</span>
 
-                <b class="arrow icon-angle-down"></b>
-              </a>
+                <ul class="submenu">
+                  <li  >
+                    <a href="<?php echo base_url();?>Registration/photo_requirement">
+                      <i class="icon-user"></i>
+                      Photograph
+                    </a>
+                  </li>
+                  <li  >
+                    <a href="<?php echo base_url();?>Registration/required_documents">
+                      <i class="icon-user"></i>
+                     Documents
+                    </a>
+                  </li>
+                  <li>
+                    <a href="<?php echo base_url();?>Registration/expenses">
+                      <i class="icon-user"></i>
+                     Expenses
+                    </a>
+                 </li>
+                </ul>
+              </li>
+              <li >
+                <a href="#" class="dropdown-toggle">
+                  <i class="icon-shield"></i>
+                  <span>Screening</span>
 
-              <ul class="submenu">
-                <li  >
-                  <a href="<?php echo base_url();?>Registration/photo_requirement">
-                    <i class="icon-user"></i>
-                    Photograph
-                  </a>
-                </li>
-                <li  >
-                  <a href="<?php echo base_url();?>Registration/required_documents">
-                    <i class="icon-user"></i>
-                   Documents
-                  </a>
-                </li>
-                <li>
-                  <a href="<?php echo base_url();?>Registration/expenses">
-                    <i class="icon-user"></i>
-                   Expenses
-                  </a>
-               </li>
-              </ul>
-            </li>
-            <li >
-              <a href="#" class="dropdown-toggle">
-                <i class="icon-shield"></i>
-                <span>Screening</span>
+                  <b class="arrow icon-angle-down"></b>
+                </a>
 
-                <b class="arrow icon-angle-down"></b>
-              </a>
-
-              <ul class="submenu">
-                <li  >
-                  <a href="<?php echo base_url();?>Registration/prelim_exam">
-                    <i class="icon-user"></i>
-                    Preliminary Examination
-                  </a>
-                </li>
-                <li  >
-                  <a href="<?php echo base_url();?>Registration/interview_screen">
-                    <i class="icon-user"></i>
-                   Interview Screening
-                  </a>
-                </li>
-                <li  >
-                  <a href="<?php echo base_url();?>Registration/medical_referral">
-                    <i class="icon-user"></i>
-                   Medical Referral 
-                  </a>
-                </li>
-              </ul>
-            </li>
+                <ul class="submenu">
+                  <li  >
+                    <a href="<?php echo base_url();?>Registration/prelim_exam">
+                      <i class="icon-user"></i>
+                      Preliminary Examination
+                    </a>
+                  </li>
+                  <li  >
+                    <a href="<?php echo base_url();?>Registration/interview_screen">
+                      <i class="icon-user"></i>
+                     Interview Screening
+                    </a>
+                  </li>
+                  <li  >
+                    <a href="<?php echo base_url();?>Registration/medical_referral">
+                      <i class="icon-user"></i>
+                     Medical Referral 
+                    </a>
+                  </li>
+                </ul>
+              </li>
           -->
           <li >
             <a href="<?php echo base_url();?>Registration/Site_map">
@@ -185,149 +190,224 @@
           <i class="icon-double-angle-left"></i>
         </div>
       </div>
-
-
-    <div id="main-content" class="clearfix">
-        <!--
-        <div id="breadcrumbs">
-          <ul class="breadcrumb">
-            <li>
-              <i class="icon-home"></i>
-              <a href="#">Home</a>
-
-              <span class="divider">
-                <i class="icon-angle-right"></i>
-              </span>
-            </li>
-            <li class="active">Control Panel</li>
-          </ul><!--.breadcrumb
-
-          <div id="nav-search">
-            <form class="form-search">
-              <span class="input-icon">
-                <input type="text" placeholder="Search ..." class="input-small search-query" id="nav-search-input" autocomplete="off" />
-                <i class="icon-search" id="nav-search-icon"></i>
-              </span>
-            </form>
-          </div><!--#nav-search
-        </div>
-        -->
-
+      <div id="main-content" class="clearfix">
         <div id="page-content" class="clearfix">
-          
-
           <div class="row-fluid">
             <!--PAGE CONTENT STARTS HERE-->
-              <div class="span12">
-              	 
-              <div class="box-content">
-                <div class="row-fluid">
-                <div class="well" >
-                  <h1>Registration</h1>
-		        	<br>
-		              <div class="alert alert-info">
-		                  <p>Items marked with an asterisk (<span class="mandatory_star">*</span>) are required.</p>  
-		              </div>
-		               
-		              <div id="infoMessage" align="center"><?php 
-		              if ($message == null){
-
-		              }
-		              else{
-		              echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
-		              echo '<div class="alert alert-error">';
-		              echo $message;
-		              echo '</div>';
-		              }
-		              ?>
-		              </div>
-
-			        <form method="post" action="<?php echo base_url();?>index.php/registration/register">
-			          <h2>Personal Information</h2>
-			          <label>First Name<span class="mandatory_star">*</span>  &nbsp; &nbsp;
-			          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Last Name<span class="mandatory_star">*</span> &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-			          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Middle Name</label>
-			          <input type="text" id="first_name" class="input-medium" name="first_name" value="<?php echo $this->form_validation->set_value('first_name')?>">
-			          <input type="text" id="last_name" class="input-medium" name="last_name" value="<?php echo $this->form_validation->set_value('last_name')?>">
-			          <input type="text" id="middle_name" class="input-medium" name="middle_name" value="<?php echo $this->form_validation->set_value('middle_name')?>">
-			          <label>Date of Birth<span class="mandatory_star">*</span></label>
-			          <div nowrap="nowrap"><?php
-			                        echo $birth_date_day;
-			                        echo $birth_date_month;
-			                        echo $birth_date_year;
-			                        ?>
-			          </div>
-                <div class="control-group">
-                  <label class="control-label" for="civil_status" >Civil Status<span class="mandatory_star">*</span></label>
-
-                  <div class="controls">
-                     <select id="civil_status" name = "civil_status">
-                        <option disabled = "disabled" selected = "selected" value="">Select Status..</option>
-                        <option value = "Single" <?php if($this->form_validation->set_value('civil_status')=='Single') echo 'selected';?>>Single</option>
-                        <option value = "Married" <?php if($this->form_validation->set_value('civil_status')=='Married') echo 'selected';?>>Married</option>
-                        <option value = "Separated" <?php if($this->form_validation->set_value('civil_status')=='Separated') echo 'selected';?>>Separated</option>
-                        <option value = "Widowed" <?php if($this->form_validation->set_value('civil_status')=='Widowed') echo 'selected';?>>Widowed</option>
-                        <option value = "Divorced" <?php if($this->form_validation->set_value('civil_status')=='Divorced') echo 'selected';?>>Divorced</option>
-                      </select>
+            <div class="span12">	 
+              <div class="row-fluid">
+                <div class="widget-box">
+                  <div class="widget-header widget-header-blue widget-header-flat">
+                        <h4 class="lighter">Registration</h4>
                   </div>
-                </div>
-                  <div class="control-group">
-                  <label class="control-label" for="height" >Height<i>(cm)</i><span class="mandatory_star">*</span></label>
+                  <div class="widget-body">
+                    <div class="alert alert-info">
+                        <p>Items marked with an asterisk (<span class="mandatory_star">*</span>) are required.</p>  
+                    </div>
+                      <div id="infoMessage" align="center"><?php 
+                      if ($message == null){
 
-                  <div class="controls">
-                   <input type="text" id="height" name="height" class="controls span2" value="<?php  echo $this->form_validation->set_value('height')?>">
+                      }
+                      else{
+                      echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+                      echo '<div class="alert alert-error">';
+                      echo $message;
+                      echo '</div>';
+                      }
+                      ?>
                   </div>
-                </div>
-			          <label>Gender<span class="mandatory_star">*</span></label>
-			          <label class="radio inline">
-			            <input type="radio" value="Male"  name="gender" <?php if($this->form_validation->set_value('gender')=='Male') echo 'checked';?>>
-			            <span class = "lbl">Male</span> 
-			          </label>
-			          <label class="radio inline">
-			            <input type="radio" value="Female"  name="gender"  <?php if($this->form_validation->set_value('gender')=='Female') echo 'checked';?>>
-			            <span class = "lbl">Female</span>
-			          </label>
+                    <h3 class="lighter block green">&nbsp;&nbsp;&nbsp;&nbsp;Personal Information</h3>
+                    <div id="summary" class="center"></div><br>
+                    <form class="form-horizontal" id="registration-form" method="POST" action="<?php echo base_url();?>registration/register" />
+                      <div class="control-group">
+                        <label class="control-label" for="first_name">First Name:</label>
 
-			        <br><br>
-			          <label>Address<span class="mandatory_star">*</span></label>
-			          <input type="text" id="address" class="input-xlarge" name="address" value="<?php echo $this->form_validation->set_value('address')?>">
-			          <label>City<span class="mandatory_star">*</span>  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-			          &nbsp; &nbsp;&nbsp; State/Province<span class="mandatory_star">*</span> 
-			          &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;Country<span class="mandatory_star">*</span> </label>
-			          <input type="text" id="city" class="input-medium" name="city" value="<?php echo $this->form_validation->set_value('city')?>">
-			          <input type="text" id="state" class="input-medium" name="state" value="<?php echo $this->form_validation->set_value('state')?>">
-			          <span nowrap="nowrap"><?php echo $country; ?></span>
-			          <label>Contact No.<span class="mandatory_star">*</span><span class="muted">10-digit</span></label>
-                <input class="form-control input-mask-phone" type="text" id="form-field-mask-2" name="phone" value="<?php echo $this->form_validation->set_value('phone')?>" />
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="text" name="first_name" id="first_name" class="span6" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="last_name">Last Name:</label>
+
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="text" name="last_name" id="last_name" class="span6" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="middle_name">Middle Name:</label>
+
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="text" name="middle_name" id="middle_name" class="span6" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="hr hr-dotted"></div>
+                    
+                      <div class="control-group">
+                        <label class="control-label" for="civil_status">Civil Status:</label>
+
+                        <div class="controls">
+                          <select id="civil_status" name = "civil_status" class="span2">
+                            <option disabled = "disabled" selected = "selected" value="">Select Status..</option>
+                            <option value = "Single" <?php if($this->form_validation->set_value('civil_status')=='Single') echo 'selected';?>>Single</option>
+                            <option value = "Married" <?php if($this->form_validation->set_value('civil_status')=='Married') echo 'selected';?>>Married</option>
+                            <option value = "Separated" <?php if($this->form_validation->set_value('civil_status')=='Separated') echo 'selected';?>>Separated</option>
+                            <option value = "Widowed" <?php if($this->form_validation->set_value('civil_status')=='Widowed') echo 'selected';?>>Widowed</option>
+                            <option value = "Divorced" <?php if($this->form_validation->set_value('civil_status')=='Divorced') echo 'selected';?>>Divorced</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <label class="control-label" for="height">Height <i>(cm)</i>:</label>
+
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="text" name="height" id="height" class="span1" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">Gender:</label>
+
+                        <div class="controls">
+                          <span class="span12">
+                            <label class="blue">
+                              <input name="gender" value="Male" type="radio" />
+                              <span class="lbl"> Male</span>
+                            </label>
+
+                            <label class="blue">
+                              <input name="gender" value="Female" type="radio" />
+                              <span class="lbl"> Female</span>
+                            </label>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="date_of_birth">Date of Birth:</label>
+
+                        <div class="controls">
+                          <div class="row-fluid input-append">
+                            <span class="add-on">
+                              <i class="icon-calendar"></i>
+                            </span>
+                            <input class="span2 date-picker" name="date_of_birth" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" />
+                              
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="hr hr-dotted"></div>
+
+                      <div class="control-group">
+                        <label class="control-label" for="address">Address:</label>
+
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="text" name="address" id="address" class="span6" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="city">City/Municipality:</label>
+
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="text" name="city" id="city" class="span6" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="province">Province:</label>
+
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="text" name="province" id="province" class="span6" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="phone">Phone Number:</label>
+
+                        <div class="controls">
+                          <div class="span3 input-prepend">
+                            <span class="add-on">
+                              <i class="icon-phone"></i>
+                            </span>
+                            <input class="span8" type="tel" id="phone" name="phone" />
+                          </div>
+                        </div>
+                      </div>
 
 
+                      <h3 class="lighter block green">&nbsp;&nbsp;&nbsp;&nbsp;Account Details</h3>
+                      <div class="control-group">
+                        <label class="control-label" for="email">Email:</label>
 
-			        <h2>Account Details</h2>
-			          <label>E-mail Address<span class="mandatory_star">*</span></label>
-			          <input type="text" class="input-large" name="email" value="<?php echo $this->form_validation->set_value('email')?>">
-			          <label>Username<span class="mandatory_star">*</span></label>
-			          <input type="text" class="input-large" name="username" value="<?php echo $this->form_validation->set_value('username')?>">
-			          <label>Password<span class="mandatory_star">*</span></label>
-			          <input type="password" class="input-large" name="password">
-			          <label>Confirm Password<span class="mandatory_star">*</span></label>
-			          <input type="password" class="input-large" name="password_confirm">
-			         
-			        <div class="form-actions">
-			        <button type="submit" class="btn btn-inverse">Submit</button>
-			        <input type="reset" class="btn" value="Clear"> 
-			        </div>
-			        </form>
-			      </div>
-			      </div>
-                </div>                
-              </div> 
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="text" name="email" id="email" class="span6" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="username">Username:</label>
 
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="text" name="username" id="username" class="span6" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="password">Password:</label>
+
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="password" name="password" id="password" class="span6" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="password2">Confirm Password:</label>
+
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="password" name="password2" id="password2" class="span6" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <div class="controls">
+                          <span class="span6">
+                            <label>
+                              <input name="agree" id="agree" type="checkbox" />
+                              <span class="lbl"> I accept the policy</span>
+                            </label>
+                          </span>
+                        </div>
+                     </div>
+                      <div class="form-actions">
+                        <button type="submit" class="btn btn-success btn-small">Submit</button>
+                        <button type="reset" class="btn btn-danger btn-small">Reset</button>
+                      </div>
+                    </form>
+                    
+
+                  </div><!--/widget-body--> 
+			         </div><!--/widget-box--> 
+			       </div><!--/row-fluid-->         
+            </div><!--/span12--> 
             <!--PAGE CONTENT ENDS HERE-->
-          </div><!--/row-->
-
-        
+          </div><!--/row-->      
         </div><!--/#page-content-->
-
       </div><!--/#main-content-->
     </div><!--/.fluid-container#main-container-->
 
@@ -356,13 +436,12 @@
     <script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>>
+    <script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/select2.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/additional-methods.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
 
 
     <!--ace scripts-->
@@ -373,28 +452,170 @@
     <!--inline scripts related to this page-->
 
     <script type="text/javascript"> 
+      $(function() {
+      
+        $('[data-rel=tooltip]').tooltip();
+      
+        $(".select2").css('width','150px').select2({allowClear:true})
+        .on('change', function(){
+          $(this).closest('form').validate().element($(this));
+        }); 
+      
+        $('.date-picker').datepicker().next().on(ace.click_event, function() {
+          $(this).prev().focus();
+        });
 
-      $.mask.definitions['~']='[+-]';
-      $('.input-mask-phone').mask('(999) 999-9999');
+      
+        //documentation : http://docs.jquery.com/Plugins/Validation/validate
+      
+      
+        $.mask.definitions['~']='[+-]';
+        $('#phone').mask('(999) 999-9999');
+        //$('#id-date-picker-1').mask('99-99-9999');
+      
+        jQuery.validator.addMethod("phone", function (value, element) {
+          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+        }, "Enter a valid phone number.");
+        
+        jQuery.validator.setDefaults({
+          debug: true,
+          //success: "valid"
+        });
+        $('#registration-form').validate({
+          
+          errorElement: 'span',
+          errorClass: 'help-inline',
+          focusInvalid: false,
+          rules: {
+            first_name: {
+              required: true,
+              minlength:2,
+            },
+            last_name: {
+              required: true,
+               minlength:2,
+            },
+            middle_name: {
+               minlength:2,   
+            },
+            date_of_birth: {
+               required: true,
+              
+            },
+            civil_status:'required',
+            height: {
+              required: true ,
+              number: true,
+              min: 50
+            },
+            address: {
+              required: true 
+            },
+            gender: 'required',
+            city: {
+              required: true 
+            },
+            province: {
+              required: true 
+            },
+            phone: {
+              required: true,
+              phone: 'required'
+            },
+            email: {
+              required: true,
+              email:true
+            },
+            username: {
+              required: true,
+              minlength:6
+            },
+            password: {
+              required: true,
+              minlength: 6
+            },
+            password2: {
+              required: true,
+              minlength: 6,
+              equalTo: "#password"
+            },
+            agree: 'required'
+          },
+      
+          messages: {
+            first_name: {
+              minlength: jQuery.format("At least {0} characters required."),
 
-      $("#student").submit(function(){
-               var dataString = $("#student").serialize();
-               $.ajax({ 
-                 url: "<?php echo base_url(); ?>ajax/user",
-               async: false,
-                 type: "POST",                
-                 data: dataString, 
-                 dataType: 'json',
-       
-                 success: function(output_string){
-                     //alert(dataString);
-                      $('#result_table').html(output_string);
-                 }
-       
-               });
-       
-               return false;  //stop the actual form post !important!
-      });
+            },
+            last_name: {
+              minlength: jQuery.format("At least {0} characters required."),
+            },
+            middle_name: {
+              minlength: jQuery.format("At least {0} characters required."),
+            },
+            email: {
+              required: "Please provide a valid email.",
+              email: "Please provide a valid email."
+            },
+            password: {
+              required: "Please specify a password.",
+              minlength: jQuery.format("Please specify a secure password. At least {0} characters required.")
+            },
+            password2: {
+              minlength: jQuery.format("At least {0} characters required.")
+            },
+            gender: "Please choose gender",
+            agree: "Please accept our policy"
+          },
+      
+          invalidHandler: function (event, validator) { //display error alert on form submit   
+            $('.alert-error', $('.login-form')).show();
+          },
+      
+          highlight: function (e) {
+            $(e).closest('.control-group').removeClass('info').addClass('error');
+          },
+      
+          success: function (e) {
+            $(e).closest('.control-group').removeClass('error').addClass('success');
+            $(e).remove();
+          },
+      
+          errorPlacement: function (error, element) {
+
+            if(element.is(':checkbox') || element.is(':radio')) {
+              var controls = element.closest('.controls');
+              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+            }
+            else if(element.is('.select2')) {
+              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+            }
+            else if(element.is('.chzn-select')) {
+              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+            }
+            else error.insertAfter(element);
+          },
+          showErrors: function(errorMap, errorList) {
+            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+              + this.numberOfInvalids()
+              + " errors, see details below.</div>");
+              this.defaultShowErrors();
+          },
+          submitHandler: function (form) {
+            alert('SUBMIT FORM');
+            form.submit();
+
+          },
+          invalidHandler: function (form) {
+            
+          },
+
+        });
+      
+        
+      })
+
  
                      
     </script>

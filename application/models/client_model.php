@@ -35,23 +35,49 @@ class Client_model extends CI_Model{
     }
 
     function view($id) {
-        $this->db->select('*');
-        $this->db->from('client');
-        $this->db->where('client_id',$id);
-
-        $query = $this->db->get();
+        $query =  $this->db->query("SELECT * 
+        FROM client
+        INNER JOIN user_table ON user_table.user_id = client.user_id
+        WHERE client.client_id ={$id}");
+        //$query = $this->db->query("SELECT * from client where client_id = {$id}");
+        //$query = $this->db->get();
         return $query->result();
 
     }
+
     function info($id) {
+
         $this->db->select('*');
         $this->db->from('client');
-        $this->db->where('user_id',$id);
+        $this->db->join('user_table', 'user_table.user_id=client.user_id');
+        $this->db->where('client.user_id',$id);
 
         $query = $this->db->get();
         return $query->result();
 
     }
+
+    function update_info($id,$data){
+
+        $this->db->where('user_id',$id);
+        $this->db->update('client',$data);
+
+
+    }
+    function update_userTable($id,$data){
+        $this->db->where('user_id',$id);
+        $this->db->update('user_table',$data);
+    }
+
+    function updateAccountStatus($id,$stat){
+        
+        $this->db->where('user_id',$id);
+        $this->db->update('user_table',array('is_active'=>$stat));
+
+        return $stat;
+
+    }
+
     function view_request($id) {
         $this->db->select('*');
         $this->db->from('request');

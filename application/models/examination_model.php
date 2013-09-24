@@ -47,6 +47,28 @@ class Examination_model extends CI_Model{
         return $query->result();
     }
 
+    function take_items() {
+        $id = decrypt($this->session->userdata("take_exam_id"));
+
+        $str = "SELECT examination_name FROM examination WHERE examination_id=$id";
+        $query = $this->db->query($str);
+        $this->session->set_userdata("exam_name",$query->row()->examination_name);
+
+        $str = "SELECT * FROM questions WHERE exam_id=$id";
+        $query = $this->db->query($str);
+        return $query->result();
+    }
+
+    function check_items() {
+        $id = decrypt($this->session->userdata("take_exam_id"));
+        $str = "SELECT * FROM questions WHERE exam_id=$id";
+        $query = $this->db->query($str);
+        return $query->result();
+    }
+
+    
+
+
     function name_exam() {
 
         $str = "SELECT examination_name FROM examination WHERE examination_id=".$this->session->userdata("eid");
@@ -100,9 +122,9 @@ class Examination_model extends CI_Model{
         $this->session->set_userdata($data);
     }
 
-    function check_gradesheet($id, $b_id) {
+    function check_gradesheet($id, $b_id, $e_id) {
 
-        $q = "SELECT * FROM gradesheet WHERE trainee_id='".$id."' AND batch_id='".$b_id."'";
+        $q = "SELECT * FROM gradesheet WHERE trainee_id='".$id."' AND batch_id='".$b_id."'"." AND exam_id='".$e_id."'";
 
         $query = $this->db->query($q);
         $count = $query->num_rows();
@@ -132,11 +154,14 @@ class Examination_model extends CI_Model{
 
         $b_id = $this->session->userdata("b_id");
 
-        $count = $this->check_gradesheet($id, $b_id);
+        $e_id = decrypt($this->session->userdata("take_exam_id"));
+
+        $count = $this->check_gradesheet($id, $b_id, $e_id);
 
         $data = array(
 
             "trainee_id" => $id,
+            "exam_id" => $e_id,
             "batch_id" => $b_id,
             "score" => $score,
             "over" => $over,
@@ -148,6 +173,7 @@ class Examination_model extends CI_Model{
 
             $this->db->where('trainee_id', $id);
             $this->db->where('batch_id', $b_id);
+            $this->db->where('exam_id', $e_id);
             $this->db->update('gradesheet', $data); 
 
             return true;
@@ -206,7 +232,19 @@ class Examination_model extends CI_Model{
 
     function list_exam_set() {
 
-        $str = "SELECT id, batch_id, set_name, exam_id, SUM(items) as items, date_created FROM exam_set GROUP BY batch_id ORDER BY id DESC";
+        $str = "SELECT id, batch_id, set_name, exam_id, SUM(items) as items, date_created, IF(is_active=0,'<span class=\"label label-warning\">Inactive</span>','<span class=\"label label-success\">Active</span>') AS is_active  FROM exam_set GROUP BY batch_id ORDER BY id DESC";
+        $q = $this->db->query($str);
+
+        return $q->result();
+    }
+
+    function exam_set_info($id) {
+
+        $str = 
+        "SELECT id, exam_id, batch_id, set_name, examination_name, items, date_created FROM exam_set 
+        LEFT JOIN examination
+        ON examination.examination_id=exam_set.exam_id
+        WHERE batch_id='".$id."'";
         $q = $this->db->query($str);
 
         return $q->result();
@@ -222,5 +260,11 @@ class Examination_model extends CI_Model{
         $str = "SELECT * FROM exam_set WHERE batch_id=".$id;
         $query = $this->db->query($str);
         return $query->num_rows();
+    }
+
+    function toggle_activate_set($id, $data) {
+
+        $this->db->where('batch_id', $id);
+        $this->db->update('exam_set', $data); 
     }
 }

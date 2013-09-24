@@ -140,6 +140,7 @@ class Manage extends CI_Controller {
 		$this->form_validation->set_rules('last_name', 'Last Name', 'required|trim|alpha|xss_clean');
 		$this->form_validation->set_rules('middle_nme', 'Middle Name', 'trim|alpha|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('phone', 'Phone', 'required');
 
 
         //$this->session->unset_userdata('error_trainer');
@@ -234,11 +235,11 @@ class Manage extends CI_Controller {
 
 					//$status ="";
 					if($status == 1){
-						$status = "<span class=\"label label-lg label-success arrowed-right\">Active</span>";
+						$status = "<span class=\"label label-lg label-success arrowed-right\">Actived</span>";
 
 					}
 					else if($status == 0){
-						$status = "<span class=\"label label-lg label-warning arrowed-right\">In-Active</span>";
+						$status = "<span class=\"label label-lg label-important arrowed-right\">Deactivated</span>";
 					}
 					else{
 						$status = "<span class=\"label label-lg label-danger arrowed-right\">No Records</span>";
@@ -255,7 +256,7 @@ class Manage extends CI_Controller {
 				$output_string .= "</colgroup>";
 
 				$output_string .= "<tr>";
-				$output_string .= "<td>Status</td>";
+				$output_string .= "<td>Account Status</td>";
 				$output_string .= "<td>".$status."</td>";
 				$output_string .= "</tr>";
 				$output_string .= "<tr>";
@@ -354,6 +355,105 @@ class Manage extends CI_Controller {
     		$this->load->view('login_view');
 		}	
 	}
+
+	/******************* Edit User ******************************/
+	function edit_user($param="") {
+
+		if($this->session->userdata('is_logged_in')) {
+
+			if($param){
+				
+				$this->form_validation->set_rules('first_name', 'First Name', 'required');
+				$this->form_validation->set_rules('last_name', 'Last Name', 'required');
+				$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+				$this->form_validation->set_rules('phone', 'Phone Number', 'required');
+			
+				if ($this->form_validation->run() == true)
+				{
+					$data = array(
+						'first_name' => $this->input->post('first_name'),
+	        			'last_name' => $this->input->post('last_name'),
+	        			'middle_name' => $this->input->post('middle_name'),
+	        			'email' => $this->input->post('email'),
+	        			'phone' => $this->input->post('phone'),
+						'date_change'	=> date('Y-m-d H:i:s'),
+					);
+				}
+				if ($this->form_validation->run() == true )
+				{ 
+					//check to see if we are creating the user
+					//redirect them to checkout page
+	      			$this->load->model('manage_model');
+	      			$this->manage_model->update_info($param,$data);
+	      			$success_message = "Changes Successfully";
+	      		 	//$this->session->set_flashdata('message2',"Changes Successfully"); 
+			       
+			       	$this->session->set_flashdata('success',$success_message); 
+			        redirect(base_url().'manage/edit_user/'.$param, 'refresh');
+			        
+				}
+				else
+				{ 
+					$this->load->model('manage_model');
+					$query =  $this->manage_model->userTable_info($param);
+					$this->data['records'] = $query;
+					//display the create user form
+					//set the flash data error message if there is one
+					$error_string =  validation_errors();
+					$err = array(
+						'user_message' => $error_string
+						);
+				
+					if(empty($query)){
+						echo "No Records";
+					}
+					else
+					{	
+						$this->session->set_flashdata($err);
+						$this->load->view('admin/manage_accounts/edit_user',$this->data);
+					}
+					
+				}
+				//redirect(base_url().'client/edit_info/'.$param, 'refresh');
+			}
+			else
+			{
+				echo "Errrr";
+			}
+			
+	
+	    	
+	    }
+	    else {
+
+	     	$this->load->view('login_view');
+	     
+	    }
+
+	}
+
+  	function updateAccountStatus() {
+  			//check kung naka-login
+		if($this->session->userdata('is_logged_in')) {
+			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+				$id = $this->input->post('id');
+				$user_id = $this->input->post('user_id');
+
+				$this->load->model('client_model');
+				$this->client_model->updateAccountStatus($user_id,$id);
+				echo $id;
+
+		   }
+		   else {
+			    header( 'Location: ../Client' );
+			}
+
+		 }
+
+
+  	}
+
+
 
 
 }

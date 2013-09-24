@@ -746,13 +746,11 @@
 					return 'left';
 				}
 
-				
-				
+			
 
 
 				$( ".view_client" ).on(ace.click_event,function() {
 					var id = $(this).attr("value");
-					//alert(id);
 				 	$.ajax({
 					url: "<?php base_url();?>client/view_client",
 					type: "post",

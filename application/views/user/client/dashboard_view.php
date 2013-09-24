@@ -217,7 +217,7 @@
 											<i class="icon-ok"></i>
 											Thank You!
 										</strong>
-										Your Request (<?php echo "AMI-REQ-".substr(date("Y"),-2)."".sprintf("%04d", $row->request_id);?>) has been successfully confirmed!
+										Your Request (<?php echo $row->request_id;//echo "AMI-REQ-".substr(date("Y"),-2)."".sprintf("%04d", $row->request_id);?>) has been successfully confirmed!
 									</p>
 									<p>
 										<button id="<?php echo $row->request_id;?>" class="btn-k btn btn-small btn-success">OK, never show this again</button>
@@ -268,68 +268,67 @@
 														<div class="alert alert-info">
 															(<span class="required">*</span>) Required Field
 														</div>
-														<form action="client/send_request" method="get" id="send_request">
-															<div class="control-group">
+														<form action="client/send_request" method="get" id="request-form">
 																<label class="control-label" for=""><h3>Manpower Information</h3> </label>
 															<!-- Quoted Number of Manpower -->
+															<div class="control-group">
 																<label class="control-label" for="no_of_manpower">Quoted Number of Manpower (<span class="required">*</span>):</label>
 
 																<div class="controls">
-																	<input required type="number" min="1" class="input-mini input-numeric" type="text" id="no_of_manpower" name="no_of_manpower" placeholder="#">
+																	<input  type="text" min="1" class="input-mini spinner-input" id="no_of_manpower" name="no_of_manpower" placeholder="#">
 																</div>
 															<!-- Quoted Number of Manpower -->
-
+															</div>
 															<!-- Date Range -->
+															<div class="control-group">
 																<label class="control-label" for="date_range">Date Requested (<span class="required">*</span>):</label>
-																
-																<!--<div class="row-fluid input-append">
-
-																	<input  placeholder="Click to add date" class="span2 date-picker" name="date_requested" id="date_requested" type="text" data-date-format="yyyy-mm-dd">
-																	<span class="add-on">
-																		<i class="icon-calendar"></i>
-																	</span>
-																</div>-->
-																<div class="control-group">
+																<div class="controls">					
 																	<div class="row-fluid input-prepend">
 																		<span class="add-on">
 																			<i class="icon-calendar"></i>
 																		</span>
 
-																		<input required class="span3 input-date-range" type="text" name="date-range-picker" id="date_range" />
+																		<input class="span3 input-date-range" type="text" name="date-range-picker" id="date_range" />
 																	</div>
 																</div>
+															</div>
 
 															<!-- Date Range -->										
 																
 															<!-- Employment Type -->
+															<div class="control-group">
 																<label class="control-label" for="emp_type">Type of Employemt (<span class="required">*</span>):</label>
 																	
 																<div class="controls">
-																	<select required name="emp_type" id="emp_type">
-																		<option selected disbaled value="">Select Type</option>
+																	<select name="emp_type" id="emp_type">
+																		<option selected disabled value="">Select Type</option>
 																		<option value="1">Contractual</option>
 																		<option value="2">Regular</option>
 																		<option value="3">Probation</option>
 																	</select>
 																</div>
+															</div>
 															<!-- Employment Type -->
 
 															<!-- Designated Department -->
+															<div class="control-group">
 																<label class="control-label" for="emp_department">Designate Department:</label>
 																	
 																<div class="controls">
-																	<input required name="emp_department" type="text" id="emp_department">
+																	<input name="emp_department" type="text" id="emp_department">
 																</div>
+															</div>
 
 															<!-- Designated Department -->
 																<label class="control-label" for=""><h3>Applicant Requirements</h3></label>
 															<!-- Employee Gender -->
+															<div class="control-group">
 																<label class="control-label" for="emp_gender">Employee Gender (<span class="required">*</span>):</label>
 																	
 																<div class="controls">
 																	<div class="radio">
 																		<label>
-																			<input required name="emp_gender" type="radio" class="ace" value="1">
+																			<input name="emp_gender" type="radio" class="ace" value="1">
 																			<span class="lbl"> Male</span>
 																		</label>
 																	</div>
@@ -346,6 +345,7 @@
 																		</label>
 																	</div>
 																</div>
+															</div>
 															<!-- Employee Gender -->
 														
 															<!-- Remarks -->
@@ -369,12 +369,9 @@
 																</div>
 															<!-- Requirements -->	
 
-														
-	
-
 																<div class="controls">
 																	<label>
-																		<input required name="agree" name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox">
+																		<input name="agree" name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox">
 																		<span class="lbl"> We have agreed upon the <a href="#TAC">Terms and Condition</a> upon requesting.</span>
 																		(<span class="required">*</span>)
 																	</label>
@@ -384,7 +381,7 @@
 																	
 																	<input id="submit" type="submit" value="Send Request" class="btn btn-success btn-small">
 																</div>
-															</div>
+															
 														</form>
 													</div>
 
@@ -555,12 +552,16 @@
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/fuelux/fuelux.spinner.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/date-time/moment.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/date-time/daterangepicker.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.autosize-min.js"></script>	
 		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootstrap-tag.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+	    <script src="<?php echo base_url();?>assets/js/additional-methods.min.js"></script>
+	    <script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/dropzone.min.js"></script>
@@ -568,7 +569,7 @@
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
-		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
+
 
 		<!--inline scripts related to this page-->
 
@@ -595,7 +596,11 @@
 				$('.ace-tooltip').tooltip();
 				$('.ace-popover').popover();
 
-				
+				$('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+				.on('change', function(){
+					//alert(this.value)
+				});
+
 		        var tag_input = $('#remarks');	
 				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
 				{
@@ -659,7 +664,153 @@
 							location.reload();
 						}
 					});
-				});					
+				});	
+				var selectedTab = localStorage['selectedTab'];
+				if (selectedTab) $('#myTab a[href="'+selectedTab+'"]').tab('show');
+
+				$('a[data-toggle="tab"]').on('shown', function (e) {
+				   localStorage['selectedTab']=$(e.target).attr('href');
+				});		
+
+				jQuery.validator.addMethod("phone", function (value, element) {
+		          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+		        }, "Enter a valid phone number.");
+		        
+		        jQuery.validator.setDefaults({
+		          debug: true,
+		          //success: "valid"
+		        });
+		        $('#request-form').validate({
+		          
+		          errorElement: 'span',
+		          errorClass: 'help-inline',
+		          focusInvalid: false,
+		          rules: {
+		            no_of_manpower: {
+		              required: true,
+		              //minlength:2,
+		            },
+		            last_name: {
+		              required: true,
+		               minlength:2,
+		            },
+		            middle_name: {
+		               minlength:2,   
+		            },
+		            date_of_birth: {
+		               required: true,
+		              
+		            },
+		            civil_status:'required',
+		            height: {
+		              required: true ,
+		              number: true,
+		              min: 50
+		            },
+		            address: {
+		              required: true 
+		            },
+		            gender: 'required',
+		            city: {
+		              required: true 
+		            },
+		            province: {
+		              required: true 
+		            },
+		            phone: {
+		              required: true,
+		              phone: 'required'
+		            },
+		            email: {
+		              required: true,
+		              email:true
+		            },
+		            username: {
+		              required: true,
+		              minlength:6
+		            },
+		            password: {
+		              required: true,
+		              minlength: 6
+		            },
+		            password2: {
+		              required: true,
+		              minlength: 6,
+		              equalTo: "#password"
+		            },
+		            agree: 'required'
+		          },
+		      
+		          messages: {
+		            no_of_manpower: {
+		              //minlength: jQuery.format("At least {0} characters required."),
+
+		            },
+		            last_name: {
+		              minlength: jQuery.format("At least {0} characters required."),
+		            },
+		            middle_name: {
+		              minlength: jQuery.format("At least {0} characters required."),
+		            },
+		            email: {
+		              required: "Please provide a valid email.",
+		              email: "Please provide a valid email."
+		            },
+		            password: {
+		              required: "Please specify a password.",
+		              minlength: jQuery.format("Please specify a secure password. At least {0} characters required.")
+		            },
+		            password2: {
+		              minlength: jQuery.format("At least {0} characters required.")
+		            },
+		            gender: "Please choose gender",
+		            agree: "Please accept our policy"
+		          },
+		      
+		          invalidHandler: function (event, validator) { //display error alert on form submit   
+		            $('.alert-error', $('.login-form')).show();
+		          },
+		      
+		          highlight: function (e) {
+		            $(e).closest('.control-group').removeClass('info').addClass('error');
+		          },
+		      
+		          success: function (e) {
+		            $(e).closest('.control-group').removeClass('error').addClass('success');
+		            $(e).remove();
+		          },
+		      
+		          errorPlacement: function (error, element) {
+
+		            if(element.is(':checkbox') || element.is(':radio')) {
+		              var controls = element.closest('.controls');
+		              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+		              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+		            }
+		            else if(element.is('.select2')) {
+		              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+		            }
+		            else if(element.is('.chzn-select')) {
+		              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+		            }
+		            else error.insertAfter(element);
+		          },
+		          showErrors: function(errorMap, errorList) {
+		            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+		              + this.numberOfInvalids()
+		              + " errors, see details below.</div>");
+		              this.defaultShowErrors();
+		          },
+		          submitHandler: function (form) {
+		            alert('SUBMIT FORM');
+		            form.submit();
+
+		          },
+		          invalidHandler: function (form) {
+		            
+		          },
+
+		        });			
 
 			});
 	 

@@ -657,6 +657,13 @@
 
 			    $("#loading_file").hide();
 			    init_datatable();
+
+			    var selectedTab = localStorage['selectedTab'];
+				if (selectedTab) $('#myTab a[href="'+selectedTab+'"]').tab('show');
+
+				$('a[data-toggle="tab"]').on('shown', function (e) {
+				   localStorage['selectedTab']=$(e.target).attr('href');
+				});	
 			});
 
 			/************************** CUSTOM ALERT() *****************************/

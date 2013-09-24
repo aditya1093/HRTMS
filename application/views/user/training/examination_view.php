@@ -10,12 +10,10 @@
 
 		<!--basic styles-->
 
+		
 		<link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="<?php echo base_url();?>assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css" />
-
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
 
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome-ie7.min.css" />
@@ -28,12 +26,15 @@
 		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
 
 		<!--ace styles-->
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
-
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
 
 		<style type="text/css">
 			input[type=checkbox],
@@ -526,9 +527,7 @@
 												<a data-toggle="tab" href="#profile"><span class="badge badge-warning">2</span> Examination Sets</a>
 											</li>
 
-											<li class="">
-												<a data-toggle="tab" href="#batch"><span class="badge badge-important">3</span> Batch Examination</a>
-											</li>
+											
 										</ul>
 									</div>
 								</div>
@@ -537,46 +536,38 @@
 									<div class="widget-main padding-6">
 										<div class="tab-content">
 											<div id="home" class="tab-pane active">
+
+												<div class="well well-small"> 
+													<fieldset>
+														<label>Examination Name (<span class="required">*</span>): </label>
+															<input required autofocus type="text" id="examination_name" name="examination_name">
+															<br><button id="create_exam" class="btn btn-purple btn-mini"><i class="icon-pencil icon-white"></i> Create Examination</button>		
+														<span class="help-block"></span>
+													</fieldset>
+												</div>
 												
-														<div class="well well-small"> 
-															<fieldset>
-																<label>Examination Name (<span class="required">*</span>): </label>
-
+												<table id="exam_table" class="table table-striped table-bordered">
+													<thead>
+														<tr>
+															<th class="center">
+																Module Exam
+															</th>
+															<th width="70px" class="center">
+																Items
+															</th>
+															<!--<th width="130px" class="center">
+																Date Modified
+															</th>-->
+															<th class="center" width="70px">
+																Status
+															</th>
+															<th class="center" width="300px">
 																
-																	<input required autofocus type="text" id="examination_name" name="examination_name">
-																	<br><button id="create_exam" class="btn btn-purple btn-mini"><i class="icon-pencil icon-white"></i> Create Examination</button>
-																			
-																<span class="help-block"></span>
-
-																
-															</fieldset>
-														</div>
-											
-														<table id="exam_table" class="table table-striped table-bordered">
-															<thead>
-																<tr>
-																	<th class="center">
-																		Module Exam
-																	</th>
-																	<th width="70px" class="center">
-																		Items
-																	</th>
-																	<!--<th width="130px" class="center">
-																		Date Modified
-																	</th>-->
-																	<th class="center" width="70px">
-																		Status
-																	</th>
-																	<th class="center" width="300px">
-																		
-																	</th>
-																</tr> 
-															</thead>
-															<tbody>
-																
-															</tbody>
-														</table> 
-														
+															</th>
+														</tr> 
+													</thead>
+													<tbody></tbody>
+												</table> 		
 											</div>
 
 											<div id="profile" class="tab-pane">
@@ -585,7 +576,7 @@
 													<div class="span5">
 														<div class="widget-box transparent">
 															<div class="widget-header">
-																<h4 class="lighter">Create New Set</h4>
+																<h4 class="lighter"><i class="icon-plus orange"></i> Create New Set</h4>
 																<div class="widget-toolbar no-border">
 																	
 
@@ -602,6 +593,9 @@
 															<div class="widget-body">
 																<div class="widget-body-inner">
 																<div class="widget-main padding-6">
+																	<div class="table-header">
+																		 Batch Exam Details
+																	</div>
 																	
 																	
 																		<div class="well well-small"> 
@@ -696,13 +690,16 @@
 													<div class="span7">
 														<div class="widget-box transparent">
 															<div class="widget-header">
-																<h4 class="lighter">List of Examination Set</h4>
+																<h4 class="lighter"><i class="icon-info orange"></i> List of Examination Set</h4>
 
 																
 															</div>
 
 															<div class="widget-body"><div class="widget-body-inner">
 																<div class="widget-main padding-6">
+																	<div class="table-header">
+																		 Batch Exam List
+																	</div>
 																	<table id="set_table2" class="table table-striped table-bordered">
 																		<thead>
 																			<tr>
@@ -714,6 +711,9 @@
 																				</th>
 																				<th class="center">
 																					Total Items
+																				</th>
+																				<th class="center">
+																					Status
 																				</th>
 																				<!--<th width="130px" class="center">
 																					Date Modified
@@ -730,11 +730,19 @@
 																				foreach($sets as $row) {?>
 																				<tr>
 																					<td><?php echo $row->set_name;?></td>
-																					<td><?php echo $row->batch_id;?></td>
+																					<td><div class="label label-success"><?php echo $row->batch_id;?></div></td>
 																					<td><?php echo $row->items;?></td>
-																					<td><button id="<?php echo $row->batch_id;?>" class="btn btn-mini btn-danger btn-del-set"><i class="icon-remove"></i> Remove From List</button></td>
+																					<td><?php echo $row->is_active;?></td>
+																					<td>
+																						<button id="<?php echo $row->batch_id;?>" class="btn btn-success btn-mini btn_activate"><i class="icon-power-off icon-white"></i></button>
+																						<button id="<?php echo $row->batch_id;?>" class="btn btn-warning btn-mini btn_info"><i class="icon-info-sign icon-white"></i></button>
+																						
+																						<button id="<?php echo $row->batch_id;?>" class="btn btn-mini btn-danger btn-del-set"><i class="icon-remove"></i></button>
+																					</td>
 																				</tr>
+
 																			<?php }}?>	
+
 																		</tbody>
 																	</table> 
 																</div>
@@ -745,9 +753,7 @@
 												</div>
 											</div>
 
-											<div id="batch" class="tab-pane">
-												s
-											</div>
+											
 
 										</div>
 									</div>
@@ -791,12 +797,11 @@
 		<![endif]-->
 
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.full.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
-		
 
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 
@@ -804,6 +809,8 @@
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
+
+		<script src="<?php echo base_url();?>assets/js/jquery-templ.js" type="text/javascript"></script>
 
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
@@ -836,16 +843,13 @@
 								},
 								success: function(e) {
 									
-									alert(e);
+									alert("Successfully created an exam set.");
 									$("#examination_name2").val("");
 									clearcheck();
 									$("#batch_id").val(0);
-									if(e != "The batch examination is already existing.") {
-
-										setTimeout(function() {
-										    location.reload();
-										}, 800);
-									}
+									setTimeout(function() {
+									    location.reload();
+									}, 800);
 									
 								}
 							});
@@ -855,11 +859,11 @@
 				});
 				if(i == 0) {
 
-					alert("Please check atleast one module.");
+					alert("Please fill the forms correctly.");
 				}
 				if($.trim($("#examination_name2").val())=="") {
 
-					alert("Please enter name of the set.");
+					alert("Please fill the forms correctly.");
 				}
 
 			});
@@ -953,7 +957,7 @@
 						{
 							return false;
 						}
-					}
+					}	
 				});
 			}
 
@@ -961,6 +965,8 @@
 				var oTable1 = $('#exam_table').dataTable( {
 
 					"bProcessing": true,
+					"aLengthMenu": [[5, 10, 15, 25, 50, 100 , -1], [5, 10, 15, 25, 50, 100, "All"]],
+					"iDisplayLength" : 5,
 					"sAjaxSource": "<?php echo base_url();?>examination/list_exam",
 					"aoColumns": [
 						{ "mDataProp": "examination_name" },
@@ -981,6 +987,20 @@
 		                	}
 						}
 					]
+				});
+
+				$('#set_table2').dataTable({
+
+					"aLengthMenu": [[5, 10, 15, 25, 50, 100 , -1], [5, 10, 15, 25, 50, 100, "All"]],
+					"iDisplayLength" : 10,
+					"aoColumns": [
+						null,
+						null,
+						null,
+						null,
+						{ 
+							"bSortable": false}
+						]
 				});
 				
 			}
@@ -1120,6 +1140,60 @@
 
 			}
 
+			$(".btn_activate").click(function() {
+
+				var id = $(this).attr("id");
+				alert(id);
+
+				var str = '<h3>Toggle Examination Set</h3><div class="alert alert-info">';
+				str += 'When you <strong>Activate</strong> the Set';
+				str += ', the trainees will be able to take the exams on their accounts.';
+				str += '<br>';
+				str += '</div>';
+
+				bootbox.dialog(str, [{
+						"label" : "<i class=\'icon-play\'></i> Activate",
+						"class" : "btn-small btn-success",
+						"callback": function() {
+							//Example.show("great success");
+							$.ajax({
+								url: "examination/toggle_activate_set",
+								type: "post",
+								data: {
+									action: "activate",
+									id: id
+								},
+								success: function(e) {
+									console.log(e);
+									location.reload();
+								}
+							});
+						}
+						}, {
+						"label" : "<i class=\'icon-stop\'></i> Deactivate",
+						"class" : "btn-small btn-danger",
+						"callback": function() {
+							//Example.show("uh oh, look out!");
+							$.ajax({
+								url: "examination/toggle_activate_set",
+								type: "post",
+								data: {
+									action: "deactivate",
+									id: id
+								},
+								success: function(e) {
+									console.log(e);
+									location.reload();
+								}
+							});
+						}
+						}, {
+						"label" : "Cancel",
+						"class" : "btn-small"
+						}]
+					);
+			});
+
 			$(document).ready(function() {
 
 				init_datatable();
@@ -1133,9 +1207,51 @@
 
 			    var now = new Date();
 				//now.format("dd/MM/yy h:mm tt");
-			    $("#examination_name2").val("AMI Exam "+now.getFullYear()+now.getDate()+(now.getMonth()+1));
-				
+			    $("#examination_name2").val("AMI Exam "+Math.random().toString(36).substr(2, 5).toUpperCase()+now.getFullYear()+now.getDate()+(now.getMonth()+1));
 
+			    /**********************************************************************************/
+
+				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+					_title: function(title) {
+						var $title = this.options.title || '&nbsp;'
+						if( ("title_html" in this.options) && this.options.title_html == true )
+							title.html($title);
+						else title.text($title);
+					}
+				}));
+				
+				$(".btn_info").on(ace.click_event, function(e) {
+					e.preventDefault();
+					var id = $(this).attr("id");
+					//console.log(id);
+					//showDialog(id);
+
+					$.ajax({
+						url: "<?php echo base_url();?>examination/set_info",
+						type: "post",
+						data: {
+							id: id
+						},
+						//dataType: 'json',
+						success: function(e) {
+							console.log(e);
+							$('#view').html(e);
+
+							//result(e);*/
+							showDialog(e);
+						}
+					});
+
+					showDialog("");
+					
+				});
+
+				var selectedTab = localStorage['selectedTab'];
+				if (selectedTab) $('#myTab a[href="'+selectedTab+'"]').tab('show');
+
+				$('a[data-toggle="tab"]').on('shown', function (e) {
+				   localStorage['selectedTab']=$(e.target).attr('href');
+				});	
 			});
 
 			$("#create_exam").click(function() {
@@ -1174,6 +1290,41 @@
 				window.location.href = "<?php echo base_url();?>examination/edit_exam/"+id;
 			}
 
+			
+		
+
+
+		//});
+		
+		var showDialog = function(id){
+
+			$( "#dialog" ).removeClass('hide').dialog({
+				dialogClass: "no-close",
+				resizable: false,
+				modal: true,
+				closeOnEscape: true,
+				title: "<div class='widget-header'><h4 class='smaller'><i class='icon-info'></i> Exam Set Details</h4></div>",
+				title_html: true,
+				width: 600,
+				//maxWidth: 800,
+				maxHeight: 500,
+				buttons: [
+					    {
+					      text: "OK",
+					      "class" : "btn btn-info btn-mini",
+					      click: function() {
+					        $( this ).dialog( "close" );
+					      }
+					    }
+					  ]
+				
+			});
+
+		}
+
 		</script>
 	</body>
+	<div id="dialog">
+	   <div id="view"></div>
+	</div>
 </html>

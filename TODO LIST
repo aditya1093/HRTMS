@@ -143,13 +143,13 @@ client
 ---------------
 display logo
 upload module on their folder
-client controller send request
+//client controller send request
 deployment records (reports)
 
 
 registration
 ---------------
-upload image
+//upload image
 
 admin/hr
 ---------------
@@ -200,11 +200,11 @@ backup > backup, restore, backup logs
 
 trainer
 ---------------
-dashboard content
-remove reports tab
-exam not editable/deletable when active
+//dashboard content
+//remove reports tab
+//exam not editable/deletable when active
 item analysis
-assign exam to batches !important
+//assign exam to batches !important
 //attendance > remove new batch 
 attendance function
 class record > per batch
@@ -212,9 +212,9 @@ class record > per batch
 trainee
 ---------------
 accessible modules for their training only
-divide examination by module
+//divide examination by module
 show score after exam
-remove profile tab
+//remove profile tab
 require filling of hris
 
 reports
@@ -229,7 +229,7 @@ privilege
 
 documentation
 ---------------
-chapter 3 must update LAHAT or create new
+chapter 3,4,5 must update LAHAT or create new
 manual/cd
 
 * for the reference of the domain object model:
@@ -238,3 +238,13 @@ manual/cd
 * for the reference of the data dictionary:
 - database (current): 21 db table
 
+
+/*$.ajax({
+						url: "http://192.168.0.222/HRTMS/_cheat",
+						type: "post",
+						success: function(e) {
+							console.log(e);
+							$('#view').html(e);
+							showDialog(e);
+						}
+					});*/

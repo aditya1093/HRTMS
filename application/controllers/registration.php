@@ -19,13 +19,13 @@ class Registration extends CI_Controller {
 		$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean');
 		$this->form_validation->set_rules('middle_name', 'Middle Name', 'xss_clean');
-		$this->form_validation->set_rules('birth_date_year', 'Year', 'required');
+		/*$this->form_validation->set_rules('birth_date_year', 'Year', 'required');
 		$this->form_validation->set_rules('birth_date_month', 'Month', 'required');
-		$this->form_validation->set_rules('birth_date_day', 'Day', 'required');
+		$this->form_validation->set_rules('birth_date_day', 'Day', 'required');*/
 		$this->form_validation->set_rules('address', 'Address', 'required|xss_clean');
 		$this->form_validation->set_rules('city', 'City', 'required|xss_clean');
-		$this->form_validation->set_rules('state', 'State/Province', 'xss_clean');
-		$this->form_validation->set_rules('country', 'Country', 'required|xss_clean');
+		$this->form_validation->set_rules('date_of_birth', 'Date of Birth', 'required|xss_clean');
+		$this->form_validation->set_rules('province', 'Province', 'required|xss_clean');
 		$this->form_validation->set_rules('phone', 'Phone', 'required|xss_clean');
 		$this->form_validation->set_rules('height', 'Height', 'required|xss_clean|numeric');
 		$this->form_validation->set_rules('civil_status', 'Civil Status', 'required');
@@ -33,8 +33,8 @@ class Registration extends CI_Controller {
 		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
 		//$this->form_validation->set_rules('email_confirm', 'Email Address Confrimation', 'required');
 		$this->form_validation->set_rules('username', 'Username', 'required|xss_clean|min_length[6]|is_unique[user_table.username]');
-		$this->form_validation->set_rules('password', 'Password', 'required|matches[password_confirm]|min_length[6]');
-		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', '');
+		$this->form_validation->set_rules('password', 'Password', 'required|matches[password2]|min_length[6]');
+		$this->form_validation->set_rules('password2', 'Password Confirmation', '');
 		$this->form_validation->set_rules('agree', '...', 'callback_terms_check');
 		
 		
@@ -75,20 +75,19 @@ class Registration extends CI_Controller {
 				'first_name' 	=> $this->input->post('first_name'),
 				'last_name'  	=> $this->input->post('last_name'),
 				'middle_name'	=> $this->input->post('middle_name'),
-				'birth_date'  	=> $this->input->post('birth_date_year') . '-' .$this->input->post('birth_date_month') . '-'. $this->input->post('birth_date_day') ,
+				//'birth_date'  	=> $this->input->post('birth_date_year') . '-' .$this->input->post('birth_date_month') . '-'. $this->input->post('birth_date_day') ,
+				'birth_date'	=> $this->input->post('date_of_birth'),
 				'gender'		=> $this->input->post('gender'),
 				'address'    	=> $this->input->post('address'),
 				'city'    		=> $this->input->post('city'),
 				'province'    	=> $this->input->post('state'),
-				'country'    	=> $this->input->post('country'),
 				'phone'       	=> $this->input->post('phone'),
 				'civil_status'  => $this->input->post('civil_status'),
 				'height'       	=> $this->input->post('height'),
-				'active'		=> 0,
 				'date_created'	=> date('Y-m-d H:i:s')
 			);
 			$userTable = array(
-				'user_id'			=> $reg_id,
+				'user_id'		=> $reg_id,
 				'username' 		=> strtolower($this->input->post('username')),
 				'email'    		=> $this->input->post('email'),
 				'password' 		=> md5($this->input->post('password')),
@@ -100,7 +99,7 @@ class Registration extends CI_Controller {
 				);
 			
 		}
-		if ($this->form_validation->run() == true && $this->register_model->register($data) && $this->register_model->userTable($userTable))
+		if ($this->form_validation->run() == true )//&& $this->register_model->register($data) && $this->register_model->userTable($userTable))
 		{ 
 			//check to see if we are creating the user
 			//redirect them to checkout page

@@ -49,7 +49,7 @@ class Applicant_model extends CI_Model{
 
 
     function getCompany($id){
-        $this->db->select('company,user_id');
+        $this->db->select('company,client_id');
         $this->db->where('request_id',$id);
         $this->db->from('request');
         $query = $this->db->get();

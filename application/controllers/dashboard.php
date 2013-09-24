@@ -42,17 +42,23 @@ class Dashboard extends CI_Controller {
 			
 			$id = $this->session->userdata("user_id");
 	        $b_id = $this->session->userdata("b_id");
-			$is_took = $this->examination_model->check_gradesheet($id, $b_id);
+
+	        if($this->input->get("take_exam")) {
+	        	$this->session->set_userdata("take_exam_id", $this->input->get("take_exam"));
+	        }
+	        else {
+	        	$this->session->unset_userdata("take_exam_id");
+
+	        }
+
+	        $data['sets'] = $this->examination_model->exam_set_info($b_id);
+			/*$is_took = $this->examination_model->check_gradesheet($id, $b_id);
 
 			if($is_took == 0) {
 
 				$data["score"] = $this->examination_model->get_gradesheet($id, $b_id);
-			}
+			}*/
 			
-			$id64 = $this->input->get("exam");
-			for ($i=0; $i < 7; $i++) { $id64 = base64_encode($id64); }
-
-			//echo $id64;
 			$this->load->view('User/trainee/dashboard_view',$data);
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Applicant') {
@@ -66,7 +72,6 @@ class Dashboard extends CI_Controller {
 		}
 		
 	}
-
 }
 
 /* End of file dashboard.php */

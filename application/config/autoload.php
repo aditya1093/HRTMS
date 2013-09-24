@@ -65,7 +65,7 @@ $autoload['libraries'] = array('database','session','form_validation','ftp','par
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url','form','security','file','path','directory');
+$autoload['helper'] = array('url','form','security','file','path','directory','LeiCrypt');
 
 
 /*

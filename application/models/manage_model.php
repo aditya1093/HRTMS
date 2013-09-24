@@ -26,20 +26,6 @@ class Manage_model extends CI_Model{
     } 
     
 
-    function user_info($id){
-        $this->db->select('*');
-        $this->db->where('id',$id);
-        $this->db->from('user_table');
-        $query = $this->db->get();
-        return $query->result();
-    }
-    
-    function delete_user($id) {
-
-        $this->db->where('id', $id);
-        $this->db->delete('user_table');
-
-    }
 
     function change_info($displayname, $email) {
 
@@ -87,6 +73,47 @@ class Manage_model extends CI_Model{
         return (isset($id)) ? $id : TRUE;   
        
     } 
+
+
+    /*******************************************************************/
+    function user_info($id){
+        $this->db->select('*');
+        $this->db->where('id',$id);
+        $this->db->from('user_table');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+
+    function userTable_info($id){
+        $this->db->select('*');
+        $this->db->where('user_id',$id);
+        $this->db->from('user_table');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function update_info($id,$data){
+        $this->db->where('user_id',$id);
+        $this->db->update('user_table',$data);
+
+    }
+    
+    function updateAccountStatus($id,$stat){
+        
+        $this->db->where('user_id',$id);
+        $this->db->update('user_table',array('is_active'=>$stat));
+
+        return $stat;
+
+    }
+
+    function delete_user($id) {
+
+        $this->db->where('id', $id);
+        $this->db->delete('user_table');
+
+    }
     
 
 }  

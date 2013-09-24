@@ -27,11 +27,13 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />		
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
+		
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -481,9 +483,8 @@
 							<div class="alert alert-success">
 									<b>Note:</b>
 									<ul>
-										<li>Here you can view the Client account details</li>
-										<li>Use the Search bar to filter the information you need</li>
-										<li>Click the column name to toggle order by column</li>
+										<li>Here you can edit the Client information and account details</li>
+										<li>Deactive or Activate client account</li>
 									</ul>						
 							</div>
 							<div id="infoMessage" align=""><?php
@@ -500,86 +501,154 @@
 						
 
 					<div class="row-fluid">
-					<div class="span7">
-							<!-- ADD HR START -->
-							
-				
-							<div class="widget-box">
+					<div class="span6">
+					<!-- ADD HR START -->
+						
+						<div class="widget-box">
 
-								<div class="widget-header">
-									<h4><i class="icon-user"></i> Edit Client</h4>
+							<div class="widget-header">
+								<h4><i class="icon-user"></i> Edit Client</h4>
+								
+								<span class="widget-toolbar">
+									<a href="#" data-action="collapse">
+										<i class="icon-chevron-up"></i>
+									</a>
+
+									<a href="#" data-action="reload">
+										<i class="icon-refresh"></i>
+									</a>
+
 									
-									<span class="widget-toolbar">
-										<a href="#" data-action="collapse">
-											<i class="icon-chevron-up"></i>
-										</a>
-
-										<a href="#" data-action="reload">
-											<i class="icon-refresh"></i>
-										</a>
-
-										
-									</span>
-								</div>
-
-							
-								<div class="widget-body"><div class="widget-body-inner">
-									<div class="widget-main">
-										<div class="row-fluid">
-
-											<div id="infoMessage" align="center"><?php
-										              $message = $this->session->flashdata('client_message');
-										              if ($message == null){}
-										              else{echo $message;}
-										              ?>         
-											</div>
-										<?php if(isset($records)) : foreach($records as $row) : ?>
-											<form method="post" action="<?php echo base_url();?>client/edit_info">
- 
-												
-										    	<b>Contact Person</b>
-										    	<label>First Name (<span class="required">*</span>): </label>
-												<input required style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $row->contact_first_name;?>">
-
-												<label>Last Name (<span class="required">*</span>): </label>
-												<input required style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $row->contact_last_name;?>">
-
-											  
-												
-												<label for="client_location" >Location (<span class="required">*</span>): </label>
-												<input id="client_location" required style="width: 94%" type="text" name="client_location" value="<?php echo $row->client_location;?>">
-
-												<label for="clien_phone" >Phone # (<span class="required">*</span>): </label>
-												<input id="clien_phone" class="input-mask-phone" required style="width: 94%" type="text" name="client_phone" value="<?php echo $row->client_mobile;?>">
-
-												<label for="client_tel" >Telephone # (<span class="required">*</span>): </label>
-												<input id="client_tel" class="input-mask-tel" required style="width: 94%" type="text" name="client_tel" value="<?php echo $row->client_tel;?>">
-
-												<label for="client_username" >Username (<span class="required">*</span>): </label>
-												<input title="Minimum of 6 characters is required" pattern=".{6,}" id="client_username" required style="width: 94%" type="text"name="client_username" value="<?php echo $row->client_username;?>">
-
-												<label for="client_email" >Email (<span class="required">*</span>): </label>
-												<input id="client_email" required style="width: 94%" type="email" name="client_email" value="<?php echo $row->client_email;?>">
-
-
-												<hr>
-
-												<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Edit HR</button>
-
-												
-											</form>
-											<?php endforeach;?>
-											<?php endif; ?>
-										</div>									
-									</div>
-								</div></div>
-							
+								</span>
 							</div>
 
-
-
-							<!-- ADD HR END -->
 						
+							<div class="widget-body"><div class="widget-body-inner">
+								<div class="widget-main">
+									<div class="row-fluid">
+										<div id="infoMessage" align="center"><?php 
+												$message = $this->session->flashdata('client_message');
+									            $success = $this->session->flashdata('success');
+									              if ($message == null){
+
+									              }
+									              else{
+									              	echo '<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>'.$message.'</div>';
+									              }
+
+									              if($success != null){
+										              echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+										              echo '<div class="alert alert-success">';
+										              echo $success;
+										              echo '</div>';
+
+									              }
+									              else
+									              {
+									              	//echo 'asdfasdfasdf';
+									              }
+									              ?>
+									    </div>
+									<?php if(isset($records)) : foreach($records as $row) : ?>
+										<?php $stat = $row->is_active;
+											  $user_id = $row->user_id;
+											  $username = $row->username;
+											if ($stat == 0){
+												$stat = "<button onclick=\"status_update('1')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-success\"><i class=\"icon-ok\"></i>Activate Account</button>";
+												$stat .= "<input type=\"hidden\" name=\"user_id\" value=\"$user_id\" id=\"user_id\">";
+											}
+											elseif ($stat == 1){
+												$stat = "<button onclick=\"status_update('0')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-danger\"><i class=\"icon-remove\"></i>Deactivate Account</button>";
+												$stat .= "<input type=\"hidden\" name=\"user_id\" value=\"$user_id\" id=\"user_id\">";
+											}
+											else{
+												$stat ="<button onclick=\"status_update('$stat')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-\">Invalid Status</button>";
+											}
+										?>
+										<form method="post" action="<?php echo base_url();?>client/edit_info/<?php echo $row->user_id;?>">
+											<label for="client_name" >Name : <?php echo $row->client_name?></label>
+											<input id="client_name" value="<?php echo $row->client_name;?>" type="hidden">
+											<label for="client_location" > </label>
+											<label for="client_location" >Location (<span class="required">*</span>): </label>
+											<input id="client_location" required style="width: 94%" type="text" name="client_location" value="<?php echo $row->client_location;?>">
+
+									    	<b>Contact Person</b>
+									    	<label for="first_name">First Name (<span class="required">*</span>): </label>
+											<input  required style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $row->contact_first_name;?>">
+
+											<label for="last_name">Last Name (<span class="required">*</span>): </label>
+											<input required style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $row->contact_last_name;?>">
+											
+											<label for="clien_phone" >Phone # (<span class="required">*</span>): </label>
+											<input id="clien_phone" class="input-mask-phone" required style="width: 94%" type="text" name="client_phone" value="<?php echo $row->client_mobile;?>">
+
+											<label for="client_tel" >Telephone # (<span class="required">*</span>): </label>
+											<input id="client_tel" class="input-mask-tel" required style="width: 94%" type="text" name="client_tel" value="<?php echo $row->client_tel;?>">
+
+
+											<label for="client_email" >Email (<span class="required">*</span>): </label>
+											<input id="client_email" required style="width: 94%" type="email" name="client_email" value="<?php echo $row->client_email;?>">
+
+
+											<hr>
+											<span class="pull-right">
+											<button type="submit" class="btn btn-success"><i class="icon-edit icon-white"></i> Edit Client</button>	
+											</span>
+										</form>
+									<?php endforeach;?>
+									<?php endif; ?>
+									</div>									
+								</div>
+							</div></div>
+						
+						</div>
+
+					<!-- ADD HR END -->
+						
+					</div>
+					<div class="span6">
+						<div class="widget-box">
+							<div class="widget-header header-color-dark">
+								<h4 class="smaller">
+									Account Details
+									<small></small>
+								</h4>
+								<div class="widget-toolbar" id="widget_stat">
+									<?php echo $stat;?>
+								</div>
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main">
+									<table class="table" style=\"width: 100%; word-wrap:break-word; table-layout: fixed;\">
+										<tr class="success">
+											<td style="width:30%">Username :</td>
+											<td><?php echo $username;?></td>
+										</tr>
+									</table>
+									
+									<button class="btn btn-info btn-mini"><i class="icon-user"></i> Change Username</button>
+									<button class="btn btn-info btn-mini"><i class="icon-user"></i> Change Password</button>
+									<form id=""> 
+									 	<div class="control-group">
+
+										</div>
+										<!--
+										<div class="form-actions" style="">
+											<button class="btn span6 btn-info btn-mini " type="submit">
+												<i class="icon-ok bigger-110"></i>
+												Submit
+											</button>
+											<button class="btn btn-mini span6" type="reset">
+												<i class="icon-undo bigger-110"></i>
+												Reset
+											</button>
+										</div>
+										-->
+									</form>
+								</div>
+							</div>
+						</div>
 					</div>
 					</div>
 
@@ -618,6 +687,7 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
 		<!--ace scripts-->
 
@@ -633,93 +703,16 @@
 
 		<script type="text/javascript">
 		
+			
 			$(function() {
 			
 				$.mask.definitions['~']='[+-]';
 				$('.input-mask-phone').mask('(999) 999-9999');
 				$('.input-mask-tel').mask('999-99-99');
 
-				
 
-				//datatable initialization
-				var oTable1 = $('#table_report').dataTable( {
-				"aoColumns": [
-			      null,{ "bSortable": false }, 
-				  { "bSortable": false }
-				] } );
-
-
-
-
-				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-				function tooltip_placement(context, source) {
-					var $source = $(source);
-					var $parent = $source.closest('table')
-					var off1 = $parent.offset();
-					var w1 = $parent.width();
 			
-					var off2 = $source.offset();
-					var w2 = $source.width();
-			
-					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
-					return 'left';
-				}
 
-				
-				
-
-
-				$( ".view_client" ).on(ace.click_event,function() {
-					var id = $(this).attr("value");
-					//alert(id);
-				 	$.ajax({
-					url: "<?php base_url();?>client/view_client",
-					type: "post",
-					data: {
-						id: id
-					},
-					dataType: 'json',
-					success: function(e) {
-						console.log(e);
-
-						$('#client_view').html(e);
-			            oTable2();
-						showDialog(id);
-					}
-					});
-				});
-
-				$( ".edit_client" ).on(ace.click_event,function() {
-					var id = $(this).attr("value");
-					$( "#edit_dialog" ).removeClass('hide').dialog({
-					//dialogClass: "no-close",
-					resizable: false,
-					modal: true,
-					closeOnEscape: true,
-					title: "<div class='widget-header'><h4 class='smaller'><i class='icon-edit'></i> "+id+". Edit Client.</h4></div>",
-					title_html: true,
-					width: 400,
-					//maxHeight: 800,
-					buttons: [
-							{
-						      html: "<i class=\"icon-edit\"></i> Edit",
-						      "class" : "btn btn-success btn-mini",
-						      click: function() {
-						        //$(this).dialog( "close" );
-						        document.location.href='<?php echo base_url();?>client/edit_info/' + id;
-						      }
-						    },
-						    {
-						      html: "Cancel",
-						      "class" : "btn btn-mini",
-						      click: function() {
-						        $(this).dialog( "close" );
-						      }
-						    }
-						  ]
-					
-					});
-				});
 				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
 					_title: function(title) {
 						var $title = this.options.title || '&nbsp;'
@@ -728,79 +721,82 @@
 						else title.text($title);
 					}
 				}));
+
+				$.extend($.gritter.options, { 
+			        position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+					fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+					fade_out_speed: 2000, // how fast the notices fade out
+					time: 2000 // hang on the screen for...
+				});
 				
 			
-
-
 			})
-			var delete_user = function(id,client_name,user_id) {
-				var str = "<h3>Confirm</h3>" + client_name + " will be deleted";
-				str += ". Do you really want to delete this client?";
+			
 
-				bootbox.dialog(str, [{
-						"label" : "<i class=\'icon-trash\'></i> Delete",
-						"class" : "btn-small btn-danger",
-						"callback": function() {
-							//Example.show("great success");
-							//bootbox.alert(id);
-							$.ajax({
-								url: "<?php echo base_url();?>client/delete_client",
-								type: "post",
-								data: {
-									id: id,
-									user_id: user_id,
-									client_name : client_name
+		var status_update = function(id) {
+					//id = $('#')
+			//$.gritter.removeAll();
+			console.log(id);
 
-								},
-								success: function(e) {
-									console.log(e);
-									location.reload();
-								}
+			user_id = $('#user_id').val();
+			client_name = $('#client_name').val();
+			if(id == 0){
+				console.log("Account will be Activated");
+				new_stat = "<button onclick=\"status_update('1')\" id=\"status_update\" value=\"1\" class=\"btn btn-mini btn-success\"><i class=\"icon-ok\"></i>Activate Account</button>";
+			}
+			else if(id == 1){
+				console.log("Account will be Deactivated");
+				new_stat = "<button onclick=\"status_update('0')\" id=\"status_update\" value=\"0\" class=\"btn btn-mini btn-danger\"><i class=\"icon-remove\"></i>Deactivate Account</button>";
+			}
+			else{
+				new_stat = "<button onclick=\"status_update()\" id=\"status_update\" value=\"\" class=\"btn btn-mini btn-\">Invalid Status</button>";
+			}
+			$.ajax({
+				url :"<?php echo base_url();?>client/updateAccountStatus",
+				type : "POST",
+				data :{ id:id,
+						user_id : user_id	
+						},
+
+				success: function(e) {
+                    //data is the html of the page where the request is made.
+                    //showBatchResult(e);
+                   
+                    console.log(e);
+
+            		$('#status_update').fadeToggle();
+            		$('#status_update').remove();
+            		$('#widget_stat').append(new_stat);
+            		$('#status_update').css('display:block');
+            		
+            		if(e==1){
+
+                	var active_grit = $.gritter.add({
+								title: 'Account Status!',
+								text: client_name + ' account has been activated.',
+								class_name: 'gritter-success'
 							});
-							
-						}
-						}, {
-							"label" : "Cancel",
-							"class" : "btn-small"
-						}]
-					);
+					}
+					else if(e==0){
+					var deactive_grit =	$.gritter.add({
+							title: 'Account Status!',
+							text: client_name + ' account has been deactivated.',
+							class_name: 'gritter-error'
+						});
+					}
+					else{
+						$.gritter.add({
+							title: 'Account Status!',
+							text: 'No Records',
+							class_name: 'gritter-regular'
+						});
 
-			}
+					}
 
+               	}
+			});
+		}
 
-			var showDialog = function(id){
-				$( "#dialog" ).removeClass('hide').dialog({
-					//dialogClass: "no-close",
-					resizable: false,
-					modal: true,
-					closeOnEscape: true,
-					title: "<div class='widget-header'><h4 class='smaller'><i class='icon-exchange'></i> "+id+". Client Details.</h4></div>",
-					title_html: true,
-					width: 1200,
-					//maxWidth: 800,
-					maxHeight: 800,
-					buttons: [
-						    {
-						      text: "OK",
-						      "class" : "btn btn-info btn-mini",
-						      click: function() {
-						        $(this).dialog( "close" );
-						      }
-						    }
-						  ]
-					
-				});
-
-			}
-
-			var oTable2 = function() {
-				
-			 $('#table_request').dataTable( {
-				"aoColumns": [
-			      null, null, null,null,
-				  { "bSortable": false }
-				] } );
-			}
 	
 		</script>
 		

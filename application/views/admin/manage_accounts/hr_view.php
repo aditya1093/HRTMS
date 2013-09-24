@@ -519,28 +519,45 @@
 														<td><?php echo $row->username;?></td>
 														<td><?php echo $row->email;?></td>														
 														<td><?php echo $row->date_created;?></td>
-														<td class="td-actions">
-
-																<!--
-																		<a id="<?php echo $row->id;?>" style="cursor:pointer;" class="editbutton btn btn-info"><i class="icon-edit icon-white"></i></a>
-																		<a id="<?php echo $row->id;?>" style="cursor:pointer;" class="deletebutton btn btn-danger"><i class="icon-trash icon-white"></i> </a>	
-																		!-->
-														 <div class="hidden-phone visible-desktop btn-group">
+														<td>
+														
+														<div class="hidden-phone visible-desktop btn-group">
 															<button class="view_user btn btn-mini btn-success" value="<?php echo $row->id;?>">
 																<i class="icon-ok bigger-120"></i>
 															</button>
 
-															<button class="btn btn-mini btn-info">
+															<button class="edit_user btn btn-mini btn-info" value="<?php echo $row->user_id?>">
 																<i class="icon-edit bigger-120"></i>
 															</button>
-															<!--<button class="btn btn-mini btn-danger" onClick="delete_user('<?php echo $row->id;?>','<?php echo $row->username;?>')" id="" value="<?php echo $row->id;?>">
-																<i class="icon-trash bigger-120"></i>
-															</button>-->
-															<input  id="username" type="hidden" value="<?php echo $row->username;?>">
-														
+													
 														</div>
-									
-														</td>
+														<div class="hidden-desktop visible-phone">
+															<div class="inline position-relative">
+																<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+																	<i class="icon-cog icon-only bigger-110"></i>
+																</button>
+
+																<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+																	<li>
+																		<a href="#" class="view_user tooltip-info" data-rel="tooltip" title="View" value="">
+																			<span class="blue">
+																				<i class="icon-zoom-in bigger-120"></i>
+																			</span>
+																		</a>
+																	</li>
+
+																	<li>
+																		<a href="#" class="edit_user tooltip-success" data-rel="tooltip" title="Edit" value="">
+																			<span class="green">
+																				<i class="icon-edit bigger-120"></i>
+																			</span>
+																		</a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+
+														</td>	
 													</tr>
 													<?php endforeach;?>
 												<?php endif; ?>
@@ -608,7 +625,7 @@
 												<input required style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $this->session->flashdata('last_name');?>">
 
 												<label>Middle Name: </label>
-												<input required style="width: 94%" type="text" id="middle_name" name="middle_name" value="<?php echo $this->session->flashdata('middle_name');?>">
+												<input style="width: 94%" type="text" id="middle_name" name="middle_name" value="<?php echo $this->session->flashdata('middle_name');?>">
 
 												<label for="phone" >Phone # (<span class="required">*</span>): </label>
 												<input id="phone" class="input-mask-phone" required style="width: 94%" type="text" name="phone" value="<?php echo $this->session->flashdata('phone');?>">
@@ -664,7 +681,6 @@
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.full.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
 
@@ -687,6 +703,19 @@
 			$('.input-mask-tel').mask('999-99-99');
 
 
+			$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+			function tooltip_placement(context, source) {
+				var $source = $(source);
+				var $parent = $source.closest('table')
+				var off1 = $parent.offset();
+				var w1 = $parent.width();
+		
+				var off2 = $source.offset();
+				var w2 = $source.width();
+		
+				if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+				return 'left';
+			}
 
 			//datatable initializatino
 			var oTable1 = $('#table_report').dataTable( {
@@ -703,6 +732,9 @@
 					else title.text($title);
 				}
 			}));
+
+
+			
 
 			
 			$( ".view_user" ).on(ace.click_event,function() {
@@ -721,6 +753,38 @@
 				}
 				});
 			});
+
+			$( ".edit_user" ).on(ace.click_event,function() {
+					var id = $(this).attr("value");
+					$( "#edit_dialog" ).removeClass('hide').dialog({
+					//dialogClass: "no-close",
+					resizable: false,
+					modal: true,
+					closeOnEscape: true,
+					title: "<div class='widget-header'><h4 class='smaller'><i class='icon-edit'></i> "+id+". Edit Client.</h4></div>",
+					title_html: true,
+					width: 400,
+					//maxHeight: 800,
+					buttons: [
+							{
+						      html: "<i class=\"icon-edit\"></i> Edit",
+						      "class" : "btn btn-success btn-mini",
+						      click: function() {
+						        //$(this).dialog( "close" );
+						        document.location.href='<?php echo base_url();?>manage/edit_user/' + id;
+						      }
+						    },
+						    {
+						      html: "Cancel",
+						      "class" : "btn btn-mini",
+						      click: function() {
+						        $(this).dialog( "close" );
+						      }
+						    }
+						  ]
+					
+					});
+				});
 				
 		});
 		/*var delete_user = function(id,username) {
@@ -760,7 +824,7 @@
 				resizable: false,
 				modal: true,
 				closeOnEscape: true,
-				title: "<div class='widget-header'><h4 class='smaller'><i class='icon-exchange'></i> "+id+". Client Details.</h4></div>",
+				title: "<div class='widget-header'><h4 class='smaller'><i class='icon-exchange'></i> "+id+". HR Details.</h4></div>",
 				title_html: true,
 				width: 500,
 				//maxWidth: 800,
@@ -783,4 +847,10 @@
 	<div id="dialog">
 	   <div id="user_view"></div>
 	</div>
+	<div id="edit_dialog" style="display:none">
+		<div class="center">
+		<div class="alert alert-info">Edit HR Information or deactive/activate its account.</div>
+		</div>
+	</div>
 </html>
+

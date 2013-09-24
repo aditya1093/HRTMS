@@ -116,9 +116,9 @@ class Profile extends CI_Controller {
 			$this->load->helper('registration_helper');
 
 			//validate form input
-			$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean|alpha');
-			$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean|alpha');
-			$this->form_validation->set_rules('middle_name', 'Middle Name', 'xss_clean|alpha');
+			$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean');
+			$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean');
+			$this->form_validation->set_rules('middle_name', 'Middle Name', 'xss_clean');
 			$this->form_validation->set_rules('birth_date_year', 'Year', 'required');
 			$this->form_validation->set_rules('birth_date_month', 'Month', 'required');
 			$this->form_validation->set_rules('birth_date_day', 'Day', 'required');
@@ -346,11 +346,11 @@ class Profile extends CI_Controller {
 	       
 	       	$this->session->set_flashdata('success',$success_message); 
 
-
+	       	redirect(base_url().'profile/edit_profile','refresh');
 			
 			//var_dump($data);
 		}
-		redirect(base_url().'profile/edit_profile','refresh');
+		
 	}
 
 }

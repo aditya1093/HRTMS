@@ -48,6 +48,7 @@ class Login_model extends CI_Model{
             if(($permission == "HR" || $permission == "Administrator" || $permission == "Trainer") && $is_active != 0){
 
                 $user_group = "employee";
+                
             }
             else if(($permission == "Applicant" || $permission == "Trainee") && $is_active != 0) {
 
@@ -68,10 +69,10 @@ class Login_model extends CI_Model{
             }
 
             //if remember checked
-            if($this->input->post('remember')) {
+            /*if($this->input->post('remember')) {
 
                 $this->config->load('no_expire', TRUE);
-            }
+            }*/
 
             $this->session->set_userdata($data);
             $this->is_active();
@@ -87,7 +88,9 @@ class Login_model extends CI_Model{
     /****************************** FOR TRAINEE VIEW *********************************/
     function is_active() {
 
-        $str = "SELECT SUM(is_active) AS is_active FROM examination";
+        //$str = "SELECT * FROM exam_set WHERE is_active=1 AND batch_id='".."'";
+        $query = $this->db->query("SELECT batch_control_no FROM hris WHERE trainee_id='".$this->session->userdata("user_id")."'");
+        $str = "SELECT SUM(is_active) AS is_active FROM exam_set WHERE batch_id='".$query->row()->batch_control_no."'";
         $query = $this->db->query($str);
         $this->session->set_userdata("is_active",$query->row()->is_active);
     }

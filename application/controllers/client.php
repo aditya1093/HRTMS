@@ -18,13 +18,15 @@ class Client extends CI_Controller {
 		}
 		else {
 
-    		$this->load->view('login_view', $data);
+			$this->session->set_userdata('login_type', 'employee');
+    		$this->load->view('login_view');
+
 		}	
 	
 	}
 	function add_client() {
 
-		$this->form_validation->set_rules('client_name', 'client Name', 'required|xss_clean|is_unique[client.client_name]');
+		$this->form_validation->set_rules('client_name', 'Client Name', 'required|xss_clean|is_unique[client.client_name]');
 		$this->form_validation->set_rules('client_location', 'Location', 'required|xss_clean');
 		$this->form_validation->set_rules('client_username', 'Username', 'trim|required|xss_clean|min_length[6]|is_unique[user_table.username]|alpha_dash');
 		$this->form_validation->set_rules('client_password', 'Password', 'trim|required|matches[client_password_confirm]|min_length[6]');
@@ -177,7 +179,7 @@ class Client extends CI_Controller {
 			}
 		else {
 
-    		$this->load->view('login_view', $data);
+    		$this->load->view('login_view');
 		}	
 
 
@@ -190,9 +192,25 @@ class Client extends CI_Controller {
 
 		$this->load->model('client_model');
 		$data = $this->client_model->view($id);
-
+		
+		//echo json_encode($data);
+		
 		foreach($data as $row) {
 			$user_id = $row->user_id;
+			$stat = $row->is_active;
+			if($stat == 1)
+			{
+				$stat = "Activated";
+				$stat = "<span class=\"label label-lg label-success arrowed-right\">Activated</span>";
+			}
+			elseif($stat ==0 ){
+				$stat = "Deactivated";
+				$stat = "<span class=\"label label-lg label-important arrowed-right\">Deactivated</span>";
+			}
+			else{
+				$stat = "No Records";
+			}
+
 			$output_string  = "<div class=\"row-fluid\">";
 			$output_string .= "<div class=\"span6\">";
 			$output_string .=  "<table class=\"table table-striped\" style=\"width: 100%; word-wrap:break-word; table-layout: fixed;\">";
@@ -242,6 +260,10 @@ class Client extends CI_Controller {
 			$output_string .= "<tr>";
 				$output_string .= "<td>Contact Person</td>";	
 				$output_string .= "<td>".$row->contact_first_name." ".$row->contact_last_name."</td>";
+			$output_string .= "</tr>";
+			$output_string .= "<tr>";
+				$output_string .= "<td>Account Status</td>";	
+				$output_string .= "<td>".$stat."</td>";
 			$output_string .= "</tr>";
 			$output_string .= "</table>";
         	$output_string .= "</div></div>";
@@ -314,12 +336,11 @@ class Client extends CI_Controller {
 	    if($this->session->userdata('is_logged_in')) {
 
 			if($param){
-				
-				$this->form_validation->set_rules('client_name', 'client Name', 'required|xss_clean|is_unique[client.client_name]');
+				//$this->form_validation->set_rules('client_name', 'Client Name', 'required|xss_clean|is_unique[client.client_name]');
 				$this->form_validation->set_rules('client_location', 'Location', 'required|xss_clean');
-				$this->form_validation->set_rules('client_username', 'Username', 'trim|required|xss_clean|min_length[6]|is_unique[user_table.username]|alpha_dash');
-				$this->form_validation->set_rules('client_password', 'Password', 'trim|required|matches[client_password_confirm]|min_length[6]');
-				$this->form_validation->set_rules('client_password_confirm', 'Password Confirmation', '');
+				//$this->form_validation->set_rules('client_username', 'Username', 'trim|required|xss_clean|min_length[6]|is_unique[user_table.username]|alpha_dash');
+				$this->form_validation->set_rules('first_name', 'Contact First Name', 'required');
+				$this->form_validation->set_rules('last_name', 'Contact Last Name', 'required');
 				$this->form_validation->set_rules('client_email', 'Email', 'required|valid_email');
 				$this->form_validation->set_rules('client_phone', 'Phone Number', 'required');
 				$this->form_validation->set_rules('client_tel', 'Telephone Number', 'required');
@@ -330,25 +351,28 @@ class Client extends CI_Controller {
 				if ($this->form_validation->run() == true)
 				{
 					$data = array(
-						'first_name' 	=> $this->input->post('first_name'),
-						'last_name'  	=> $this->input->post('last_name'),
-						'middle_name'	=> $this->input->post('middle_name'),
-						'birth_date'  	=> $this->input->post('birth_date') ,
-						'address'    	=> $this->input->post('address'),
-						'city'    		=> $this->input->post('city'),
-						'province'    	=> $this->input->post('province'),
-						'phone'      	=> $this->input->post('phone'),
-						'height'      	=> $this->input->post('height'),
-						'civil_status'  => $this->input->post('civil_status'),
+						'client_location' => $this->input->post('client_location'),
+	        			'client_email' => $this->input->post('client_email'),
+	        			'client_tel' => $this->input->post('client_tel'),
+	        			'client_mobile' => $this->input->post('client_phone'),
+	        			'contact_first_name' => $this->input->post('first_name'),
+	        			'contact_last_name' => $this->input->post('last_name'),
 						'date_change'	=> date('Y-m-d H:i:s'),
 					);
+					$userTable = array(
+	        			'email' => $this->input->post('client_email'),
+	        			'permission' => 'Client',
+	        			'first_name' => $this->input->post('first_name'),
+	        			'last_name' => $this->input->post('last_name')
+        		);
 				}
 				if ($this->form_validation->run() == true )
 				{ 
 					//check to see if we are creating the user
 					//redirect them to checkout page
-	      			//$this->load->model('profile_model');
-	      			//$this->profile_model->change_info($param,$data);
+	      			$this->load->model('client_model');
+	      			$this->client_model->update_info($param,$data);
+	      			$this->client_model->update_userTable($param,$userTable);
 	      			$success_message = "Changes Successfully";
 	      		 	//$this->session->set_flashdata('message2',"Changes Successfully"); 
 			       
@@ -363,19 +387,23 @@ class Client extends CI_Controller {
 					$this->data['records'] = $query;
 					//display the create user form
 					//set the flash data error message if there is one
-					$this->data['message'] = (validation_errors() ? validation_errors() : ($this->session->flashdata('message')));
+					$error_string =  validation_errors();
+					$err = array(
+						'client_message' => $error_string
+						);
 					
-
+				
 					if(empty($query)){
 						echo "No Records";
 					}
 					else
 					{	
+						$this->session->set_flashdata($err);
 						$this->load->view('company/edit_client',$this->data);
 					}
+					
 				}
-				//
-
+				//redirect(base_url().'client/edit_info/'.$param, 'refresh');
 			}
 			else
 			{
@@ -391,6 +419,27 @@ class Client extends CI_Controller {
 	     
 	    }
     
+  	}
+
+  	function updateAccountStatus() {
+  			//check kung naka-login
+		if($this->session->userdata('is_logged_in')) {
+			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+				$id = $this->input->post('id');
+				$user_id = $this->input->post('user_id');
+
+				$this->load->model('client_model');
+				$this->client_model->updateAccountStatus($user_id,$id);
+				echo $id;
+
+		   }
+		   else {
+			    header( 'Location: ../Client' );
+			}
+
+		 }
+
+
   	}
 
 
@@ -472,7 +521,7 @@ class Client extends CI_Controller {
 		);
 
 		$this->load->model('request_model');
-		$this->request_model->send_request($data);
+		//$this->request_model->send_request($data);
 
 		$success_string = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Your Manpower Request has been sent. Just wait for confirmation.</div>';
 		$this->session->set_flashdata('request_sent',$success_string); 

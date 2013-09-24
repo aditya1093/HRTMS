@@ -26,6 +26,7 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.custom.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
@@ -35,6 +36,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/select2.css" />
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -496,9 +498,9 @@
 														<label class="control-label" for="req_id">Request ID (<span class="required">*</span>):</label>
 														<div class="controls">
 															<select class="chzn-select" id="req_id"  name="req_id">
-																	<option selected disabled value=""></option>
+																	<option selected disabled value=""/>
 																<?php if(isset($records2)) : foreach($records2 as $row) : ?>
-																	<option value="<?php echo $row->request_id;?>"><?php echo $row->request_id;?></option>
+																	<option value="<?php echo $row->request_id;?>" /><?php echo $row->request_id;?>
 																<?php endforeach;?>
 																<?php endif; ?>
 															</select> 
@@ -592,7 +594,7 @@
 										<td class="td-actions">
 										
 											<div class="hidden-phone visible-desktop btn-group">
-												<button class="view_batch btn btn-mini btn-success" id="<?php echo $row->id;?>">
+												<button onclick="view_batch('<?php echo $row->id;?>')" class="btn btn-mini btn-success">
 													<i class="icon-ok bigger-120"></i>
 												</button>
 
@@ -651,11 +653,6 @@
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.full.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
@@ -692,6 +689,8 @@
 				$('.date-picker').datepicker().next().on(ace.click_event, function() {
 					$(this).prev().focus();
 				});
+
+
 				$(".chzn-select").chosen(); 
 				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
 				
@@ -739,9 +738,10 @@
 
 							var obj = $.parseJSON(result);
 			                $.each(obj, function(){
+			                id = this['id'];
 			                str =  	'<div class="hidden-phone visible-desktop btn-group">';			
-					   		str +=	'<button class="btn btn-mini btn-success"><i class="icon-ok bigger-120"></i></button>';
-							str +=	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
+					   		str +=	'<button onclick="view_batch(\''+id+'\')"  class="btn btn-mini btn-success"><i class="icon-ok bigger-120" value="'+id+'"></i></button>';
+							str +=	'<button  onclick="edit_batch(\''+id+'\')"  class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
 							str += 	'</div>';
 											
 							   $('#table_report').dataTable().fnAddData([
@@ -773,6 +773,7 @@
                         //This is the function which will be called if ajax call is successful.
                         success: function(e) {
                             //data is the html of the page where the request is made.
+                            console.log(e);
                             var obj = $.parseJSON(e);
                             var val ="";
 	                		$.each(obj, function(){
@@ -788,8 +789,15 @@
                     })
                 });
 
-				$('.view_batch').on(ace.click_event, function(){
-					id = $(this).attr('id');	
+			});
+
+			var edit_batch = function(id){
+				alert(id);
+			
+			}
+			var view_batch = function(id){
+
+				//id = $(this).attr('id');	
 					//console.log(id);
 					$.ajax({
 						url: "<?php echo base_url();?>applicant/batch_info",
@@ -805,13 +813,6 @@
 							
 						}//Success
 					});//End Ajax
-
-				});
-			});
-
-			var edit_batch = function(id){
-				alert(id);
-			
 			}
 
 			var showDialog = function(id){
