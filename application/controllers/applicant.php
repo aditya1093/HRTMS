@@ -13,11 +13,10 @@ class Applicant extends CI_Controller {
 		if($this->session->userdata('is_logged_in')) {
 
 		
-		$query = $this->applicant_model->applicant_list();
-		$data['records'] = $query;
+			$query = $this->applicant_model->applicant_list();
+			$data['records'] = $query;
 
-		
-		$this->load->view('applicant/registration_view',$data);
+			$this->load->view('applicant/registration_view',$data);
 		}
 		else {
 
@@ -245,9 +244,9 @@ class Applicant extends CI_Controller {
 				'is_training' => $is_training
 
 				);
-
+/*
 			$this->applicant_model->addBatchNo($data);
-			$this->applicant_model->updateRequest($req_id);
+			$this->applicant_model->updateRequest($req_id);*/
 			
 			$query = $this->applicant_model->getIdBatchControl($req_id);
 			echo json_encode ($query);		

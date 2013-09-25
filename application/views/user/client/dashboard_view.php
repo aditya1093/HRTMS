@@ -268,6 +268,7 @@
 														<div class="alert alert-info">
 															(<span class="required">*</span>) Required Field
 														</div>
+														<div id="summary" class="center"></div><br>
 														<form action="client/send_request" method="get" id="request-form">
 																<label class="control-label" for=""><h3>Manpower Information</h3> </label>
 															<!-- Quoted Number of Manpower -->
@@ -275,7 +276,7 @@
 																<label class="control-label" for="no_of_manpower">Quoted Number of Manpower (<span class="required">*</span>):</label>
 
 																<div class="controls">
-																	<input  type="text" min="1" class="input-mini spinner-input" id="no_of_manpower" name="no_of_manpower" placeholder="#">
+																	<input  type="text" class="input-mini spinner-input" id="no_of_manpower" name="no_of_manpower" placeholder="#">
 																</div>
 															<!-- Quoted Number of Manpower -->
 															</div>
@@ -288,7 +289,7 @@
 																			<i class="icon-calendar"></i>
 																		</span>
 
-																		<input class="span3 input-date-range" type="text" name="date-range-picker" id="date_range" />
+																		<input class="span3 input-date-range" type="text" name="date_range_picker" id="date_range" />
 																	</div>
 																</div>
 															</div>
@@ -349,14 +350,17 @@
 															<!-- Employee Gender -->
 														
 															<!-- Remarks -->
+															<div class="control-group">
 																<label class="control-label" for="remarks">Remarks: <small class="muted"></small></label>
 
 																<div class="controls">
-																	<input placeholder="Press Enter for next input" class="" id="remarks" name="remarks">
+																	<input  name="remarks" placeholder="Press Enter for next input" id="remarks">
 																</div>
+															</div>
 															<!-- Remarks -->
 																<br>
 															<!-- Requirements -->
+															<div class="control-group">
 																<label class="control-label" for="documents_req">Additional Documents: 
 																<small class="muted"></small>
 																<span class="help-button ace-popover" data-trigger="hover" data-placement="right" data-content="Registraton slip, Resume, Diploma, Medical Result, Form - 137 OR 
@@ -364,18 +368,19 @@
 																</label>
 
 																<div class="controls">
-																	<input placeholder="Press Enter for next input" class="" id="documents_req" name="documents_req">
-																	
+																	<input name="documents_req" placeholder="Press Enter for next input" id="documents_req">
 																</div>
+															</div>
 															<!-- Requirements -->	
-
+															<div class="control-group">
 																<div class="controls">
 																	<label>
 																		<input name="agree" name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox">
-																		<span class="lbl"> We have agreed upon the <a href="#TAC">Terms and Condition</a> upon requesting.</span>
-																		(<span class="required">*</span>)
+																		<span class="lbl"> We have agreed upon the <a href="#TAC">Terms and Condition</a> upon requesting.(<span class="required">*</span>)</span>
+																		
 																	</label>
 																</div>
+															</div>
 																<p></p>
 																<div class="controls">
 																	
@@ -596,10 +601,10 @@
 				$('.ace-tooltip').tooltip();
 				$('.ace-popover').popover();
 
-				$('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+				/*$('#no_of_manpower').ace_spinner({value:0,min:0,step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
 				.on('change', function(){
-					//alert(this.value)
-				});
+					alert(this.value)
+				});*/
 
 		        var tag_input = $('#remarks');	
 				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
@@ -680,6 +685,7 @@
 		          debug: true,
 		          //success: "valid"
 		        });
+
 		        $('#request-form').validate({
 		          
 		          errorElement: 'span',
@@ -688,83 +694,32 @@
 		          rules: {
 		            no_of_manpower: {
 		              required: true,
-		              //minlength:2,
+		              digits: true,
+		              min:1
 		            },
-		            last_name: {
-		              required: true,
-		               minlength:2,
-		            },
-		            middle_name: {
+		            emp_type: 'required',
+		            date_range_picker:'required',
+		            emp_department: {
+		               required:true,	
 		               minlength:2,   
 		            },
-		            date_of_birth: {
-		               required: true,
-		              
+		            remarks: {
+		            	required: true,
 		            },
-		            civil_status:'required',
-		            height: {
-		              required: true ,
-		              number: true,
-		              min: 50
-		            },
-		            address: {
-		              required: true 
-		            },
-		            gender: 'required',
-		            city: {
-		              required: true 
-		            },
-		            province: {
-		              required: true 
-		            },
-		            phone: {
-		              required: true,
-		              phone: 'required'
-		            },
-		            email: {
-		              required: true,
-		              email:true
-		            },
-		            username: {
-		              required: true,
-		              minlength:6
-		            },
-		            password: {
-		              required: true,
-		              minlength: 6
-		            },
-		            password2: {
-		              required: true,
-		              minlength: 6,
-		              equalTo: "#password"
-		            },
+		            emp_gender: 'required',
 		            agree: 'required'
 		          },
 		      
 		          messages: {
 		            no_of_manpower: {
-		              //minlength: jQuery.format("At least {0} characters required."),
-
+		              //numeric : jQuery.format("Invalid "),
 		            },
-		            last_name: {
+		            emp_department: {
 		              minlength: jQuery.format("At least {0} characters required."),
 		            },
-		            middle_name: {
-		              minlength: jQuery.format("At least {0} characters required."),
-		            },
-		            email: {
-		              required: "Please provide a valid email.",
-		              email: "Please provide a valid email."
-		            },
-		            password: {
-		              required: "Please specify a password.",
-		              minlength: jQuery.format("Please specify a secure password. At least {0} characters required.")
-		            },
-		            password2: {
-		              minlength: jQuery.format("At least {0} characters required.")
-		            },
-		            gender: "Please choose gender",
-		            agree: "Please accept our policy"
+		            emp_type: "Please choose Type of Employment",
+		            emp_gender: "Please choose Employee Gender",
+		            agree: "Please accept our Terms and Conditions"
 		          },
 		      
 		          invalidHandler: function (event, validator) { //display error alert on form submit   
@@ -810,7 +765,8 @@
 		            
 		          },
 
-		        });			
+		        });
+						
 
 			});
 	 

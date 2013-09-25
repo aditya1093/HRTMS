@@ -35,12 +35,8 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-responsive.min.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-    <style type="text/css">
-	  
-	  .mandatory_star{
-	  	color:red;
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/datepicker.css" />
 
-	  }
 	</style>
 
     <!--[if lte IE 8]>
@@ -202,7 +198,7 @@
                   </div>
                   <div class="widget-body">
                     <div class="alert alert-info">
-                        <p>Items marked with an asterisk (<span class="mandatory_star">*</span>) are required.</p>  
+                        <p>Items marked with an asterisk (<span class="required">*</span>) are required.</p>  
                     </div>
                       <div id="infoMessage" align="center"><?php 
                       if ($message == null){
@@ -220,7 +216,7 @@
                     <div id="summary" class="center"></div><br>
                     <form class="form-horizontal" id="registration-form" method="POST" action="<?php echo base_url();?>registration/register" />
                       <div class="control-group">
-                        <label class="control-label" for="first_name">First Name:</label>
+                        <label class="control-label" for="first_name">First Name(<span class="required">*</span>):</label>
 
                         <div class="controls">
                           <div class="span12">
@@ -229,7 +225,7 @@
                         </div>
                       </div>
                       <div class="control-group">
-                        <label class="control-label" for="last_name">Last Name:</label>
+                        <label class="control-label" for="last_name">Last Name(<span class="required">*</span>):</label>
 
                         <div class="controls">
                           <div class="span12">
@@ -248,33 +244,9 @@
                       </div>
 
                       <div class="hr hr-dotted"></div>
-                    
+                 
                       <div class="control-group">
-                        <label class="control-label" for="civil_status">Civil Status:</label>
-
-                        <div class="controls">
-                          <select id="civil_status" name = "civil_status" class="span2">
-                            <option disabled = "disabled" selected = "selected" value="">Select Status..</option>
-                            <option value = "Single" <?php if($this->form_validation->set_value('civil_status')=='Single') echo 'selected';?>>Single</option>
-                            <option value = "Married" <?php if($this->form_validation->set_value('civil_status')=='Married') echo 'selected';?>>Married</option>
-                            <option value = "Separated" <?php if($this->form_validation->set_value('civil_status')=='Separated') echo 'selected';?>>Separated</option>
-                            <option value = "Widowed" <?php if($this->form_validation->set_value('civil_status')=='Widowed') echo 'selected';?>>Widowed</option>
-                            <option value = "Divorced" <?php if($this->form_validation->set_value('civil_status')=='Divorced') echo 'selected';?>>Divorced</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="control-group">
-                        <label class="control-label" for="height">Height <i>(cm)</i>:</label>
-
-                        <div class="controls">
-                          <div class="span12">
-                            <input type="text" name="height" id="height" class="span1" />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="control-group">
-                        <label class="control-label">Gender:</label>
+                        <label class="control-label">Gender(<span class="required">*</span>):</label>
 
                         <div class="controls">
                           <span class="span12">
@@ -291,7 +263,7 @@
                         </div>
                       </div>
                       <div class="control-group">
-                        <label class="control-label" for="date_of_birth">Date of Birth:</label>
+                        <label class="control-label" for="date_of_birth">Date of Birth(<span class="required">*</span>):</label>
 
                         <div class="controls">
                           <div class="row-fluid input-append">
@@ -303,38 +275,23 @@
                           </div>
                         </div>
                       </div>
-                      
-                      <div class="hr hr-dotted"></div>
 
                       <div class="control-group">
-                        <label class="control-label" for="address">Address:</label>
+                        <label class="control-label" for="civil_status">Civil Status(<span class="required">*</span>):</label>
 
                         <div class="controls">
-                          <div class="span12">
-                            <input type="text" name="address" id="address" class="span6" />
-                          </div>
+                          <select id="civil_status" name = "civil_status" class="span2">
+                            <option disabled = "disabled" selected = "selected" value="">Select Status..</option>
+                            <option value = "Single" <?php if($this->form_validation->set_value('civil_status')=='Single') echo 'selected';?>>Single</option>
+                            <option value = "Married" <?php if($this->form_validation->set_value('civil_status')=='Married') echo 'selected';?>>Married</option>
+                            <option value = "Separated" <?php if($this->form_validation->set_value('civil_status')=='Separated') echo 'selected';?>>Separated</option>
+                            <option value = "Widowed" <?php if($this->form_validation->set_value('civil_status')=='Widowed') echo 'selected';?>>Widowed</option>
+                            <option value = "Divorced" <?php if($this->form_validation->set_value('civil_status')=='Divorced') echo 'selected';?>>Divorced</option>
+                          </select>
                         </div>
                       </div>
                       <div class="control-group">
-                        <label class="control-label" for="city">City/Municipality:</label>
-
-                        <div class="controls">
-                          <div class="span12">
-                            <input type="text" name="city" id="city" class="span6" />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="control-group">
-                        <label class="control-label" for="province">Province:</label>
-
-                        <div class="controls">
-                          <div class="span12">
-                            <input type="text" name="province" id="province" class="span6" />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="control-group">
-                        <label class="control-label" for="phone">Phone Number:</label>
+                        <label class="control-label" for="phone">Phone Number(<span class="required">*</span>):</label>
 
                         <div class="controls">
                           <div class="span3 input-prepend">
@@ -345,11 +302,62 @@
                           </div>
                         </div>
                       </div>
+                       <div class="control-group">
+                        <label class="control-label" for="height">Height <span class="muted">(cm)</span>(<span class="required">*</span>):</label>
+
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="text" name="height" id="height" class="span1" />
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="hr hr-dotted"></div>
+
+                      <div class="control-group">
+                        <label class="control-label" for="address">Address(<span class="required">*</span>):</label>
+
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="text" name="address" id="address" class="span6" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="city">City/Municipality(<span class="required">*</span>):</label>
+
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="text" name="city" id="city" class="span6" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="province">Province(<span class="required">*</span>):</label>
+
+                        <div class="controls">
+                          <div class="span12">
+                            <input type="text" name="province" id="province" class="span6" />
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <div class="control-group">
+                        <label class="control-label" for="phone">Phone Number(<span class="required">*</span>):</label>
+
+                        <div class="controls">
+                          <div class="span3 input-prepend">
+                            <span class="add-on">
+                              <i class="icon-phone"></i>
+                            </span>
+                            <input class="span8" type="tel" id="phone" name="phone" />
+                          </div>
+                        </div>
+                      </div> -->
 
 
                       <h3 class="lighter block green">&nbsp;&nbsp;&nbsp;&nbsp;Account Details</h3>
                       <div class="control-group">
-                        <label class="control-label" for="email">Email:</label>
+                        <label class="control-label" for="email">Email(<span class="required">*</span>):</label>
 
                         <div class="controls">
                           <div class="span12">
@@ -358,7 +366,7 @@
                         </div>
                       </div>
                       <div class="control-group">
-                        <label class="control-label" for="username">Username:</label>
+                        <label class="control-label" for="username">Username(<span class="required">*</span>):</label>
 
                         <div class="controls">
                           <div class="span12">
@@ -367,7 +375,7 @@
                         </div>
                       </div>
                       <div class="control-group">
-                        <label class="control-label" for="password">Password:</label>
+                        <label class="control-label" for="password">Password(<span class="required">*</span>):</label>
 
                         <div class="controls">
                           <div class="span12">
@@ -376,7 +384,7 @@
                         </div>
                       </div>
                       <div class="control-group">
-                        <label class="control-label" for="password2">Confirm Password:</label>
+                        <label class="control-label" for="password2">Confirm Password(<span class="required">*</span>):</label>
 
                         <div class="controls">
                           <div class="span12">
@@ -389,7 +397,7 @@
                           <span class="span6">
                             <label>
                               <input name="agree" id="agree" type="checkbox" />
-                              <span class="lbl"> I accept the policy</span>
+                              <span class="lbl"> I accept the policy(<span class="required">*</span>)</span>
                             </label>
                           </span>
                         </div>
@@ -603,7 +611,7 @@
               this.defaultShowErrors();
           },
           submitHandler: function (form) {
-            alert('SUBMIT FORM');
+            //alert('SUBMIT FORM');
             form.submit();
 
           },

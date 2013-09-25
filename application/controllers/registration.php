@@ -80,7 +80,7 @@ class Registration extends CI_Controller {
 				'gender'		=> $this->input->post('gender'),
 				'address'    	=> $this->input->post('address'),
 				'city'    		=> $this->input->post('city'),
-				'province'    	=> $this->input->post('state'),
+				'province'    	=> $this->input->post('province'),
 				'phone'       	=> $this->input->post('phone'),
 				'civil_status'  => $this->input->post('civil_status'),
 				'height'       	=> $this->input->post('height'),

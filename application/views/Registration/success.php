@@ -26,7 +26,7 @@
     <!--ace styles-->
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/admin/custom.css" />
+    
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
