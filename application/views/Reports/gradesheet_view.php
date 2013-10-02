@@ -25,12 +25,12 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
-
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
+
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -61,20 +61,24 @@
 	<a class="brand" href="#">
 	<img width="120px" src="<?php echo base_url();?>assets/images/logo.jpg" alt=""> AMI - Human Resource Training and Management System</a>	
 </div>
-<form class="form-inline" method="POST" action="">
+<form class="form" method="POST" action="">
 <fieldset>
-	<div id="byBatch">
-		<label for="byBatch">&nbsp;by Batch :</label>
-		<select class="chzn-select"  name="batch">
+	
+	<div class="control-group">
+		<label class="control-label" for="byBatch">&nbsp;by Batch :</label>
+		<div class="controls">
+			<select class="chzn-select" id="batch" name="batch">
 				<option selected></option>
 			<?php if(isset($records2)) : foreach($records2 as $row) : ?>
-				<option value="<?php echo $row->batch_control_no;?>"><?php echo $row->batch_control_no;?></option>
+				<option value="<?php echo $row->batch_id;?>"><?php echo $row->batch_id;?></option>
 			<?php endforeach;?>
 			<?php endif; ?>
- 
-		</select> 
-
+			</select> 
+			
+		</div>
 	</div>
+		
+	<div id="exam_set"></div>
 </fieldset>
 </form>
 <!--
@@ -169,26 +173,56 @@
 			 document.location.href='<?php echo base_url();?>reports/template/' + batch;
 			}
 
-            $(document).ready(function () {
-                $('#byBatch select').change(function () {
-                    var batch = $(this).attr('value');
-                    console.log(batch);
-                    $.ajax({    
-                        url: "<?php echo base_url();?>reports/gradesheetByBatch", //The url where the server req would we made.
-                        async: false, 
-                        type: "POST", //The type which you want to use: GET/POST
-                        data: "batch="+batch, //The variables which are going.
-                        dataType: 'json', //Return data type (what we expect).
-                         
-                        //This is the function which will be called if ajax call is successful.
-                        success: function(output_string) {
-                            //data is the html of the page where the request is made.
-                            //alert(selState); 
-                            $('#result_table').html(output_string);
-                        } 
-                    })
-                });
+       
+
+			$('#batch').change(function () {
+                var batch =  $(this).find("option:selected").attr('value');
+                console.log(batch);
+           		$.ajax({    
+                    url: "<?php echo base_url();?>reports/exam_id", //The url where the server req would we made.
+                    async: false, 
+                    type: "POST", //The type which you want to use: GET/POST
+                    data: "batch="+batch, //The variables which are going.
+                    dataType: 'json', //Return data type (what we expect).
+                     
+                    //This is the function which will be called if ajax call is successful.
+                    success: function(output_string) {
+                        //data is the html of the page where the request is made.
+                        //alert(selState); 
+
+                        $('#exam_set').html(output_string);
+                        $(".chzn-select").chosen(); 
+                        exam_id();
+                    } 
+                })
             });
+
+        var exam_id = function(){
+        	 $('#exam').change(function () {
+                var exam_id =  $(this).find("option:selected").attr('value');
+                var batch =  $('#batch').find("option:selected").attr('value');
+                var name =  $(this).find("option:selected").attr('exam_name');
+                console.log(exam_id+" : "+ name);
+                //console.log(batch);
+           		$.ajax({    
+                    url: "<?php echo base_url();?>reports/gradesheetByExamId", //The url where the server req would we made.
+                    async: false, 
+                    type: "POST", //The type which you want to use: GET/POST
+                    data: {id : exam_id, batch : batch, name : name}, //The variables which are going.
+                    dataType: 'json', //Return data type (what we expect).
+                     
+                    //This is the function which will be called if ajax call is successful.
+                    success: function(output_string) {
+                        //data is the html of the page where the request is made.
+                        //alert(selState); 
+                        console.log(output_string);
+                        $('#result_table').html(output_string);
+                        $(".chzn-select").chosen(); 
+                    } 
+                })
+            });
+
+        }  
 										 
 		</script>
 </body>		 

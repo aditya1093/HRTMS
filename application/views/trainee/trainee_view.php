@@ -46,7 +46,7 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
@@ -483,7 +483,7 @@
 							</div>
 							<div class="box-content">
 								<div class="row-fluid">
-									<table id="table_report" class="table table-striped table-bordered table-hover" style="width: 100%; word-wrap:break-word; table-layout: fixed;">
+									<table id="table_report" class="table table-striped table-bordered table-hover">
 									    <thead>
 									        <tr>
 									            <th>Trainee ID</th>

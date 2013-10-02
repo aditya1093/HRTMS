@@ -45,7 +45,7 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - Training Center Administration
 						</small>
 					</a><!--/.brand-->
@@ -443,27 +443,23 @@
 						<!--PAGE CONTENT STARTS HERE-->
 
 						<div class="span12">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="smaller">
-										Tooltips
-										<small>different directions and colors</small>
-									</h4>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">
-										<p class="muted">
-											<input autofocus type="text" class="span12">
-										</p>
-										<p align="center">
-											<span class="btn btn-success btn-small tooltip-success" data-rel="tooltip" data-placement="right" title="" data-original-title="Right Success">Present</span>
-											<span class="btn btn-danger btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Absent</span>
-
-										</p>
-									</div>
-								</div>
-							</div>
+							
+							<pre style="background-color: black; color:#00FF1E ;" class="">
+  ___   ___  __  ___         ______ _____ _   _ ______  _____ _______ _____  ________      __     _____ _____         ___  
+ |__ \ / _ \/_ |/ _ \       |  ____|_   _| \ | |  ____|/ ____|__   __|  __ \|  ____\ \    / /    / ____|  __ \       / _ \ 
+    ) | | | || | | | |______| |__    | | |  \| | |__  | (___    | |  | |  | | |__   \ \  / /____| (___ | |__) |_____| | | |
+   / /| | | || | | | |______|  __|   | | | . ` |  __|  \___ \   | |  | |  | |  __|   \ \/ /______\___ \|  _  /______| | | |
+  / /_| |_| || | |_| |      | |     _| |_| |\  | |____ ____) |  | |  | |__| | |____   \  /       ____) | | \ \      | |_| |
+ |____|\___/ |_|\___/       |_|    |_____|_| \_|______|_____/   |_|  |_____/|______|   \/       |_____/|_|  \_\      \___/ 
+ ----------------------------------------------------------------------------------------------------------------------------
+ <span style="color: red;">Leo Jeremiah Vicente
+ Niel Pio Lozano
+ <span class="icon-animated-bell" style="font-style: courier;">Paul John Marabe</span>
+ Dannah Patricia Abat
+ Jaylord Minay
+ Ruben Raymundo
+ </span>
+							</pre>
 						</div>
 
 						<!--PAGE CONTENT ENDS HERE-->

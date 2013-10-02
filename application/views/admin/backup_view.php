@@ -46,7 +46,7 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
@@ -513,23 +513,24 @@
 							</small>
 						</h1>
 					</div><!--/.page-header-->
+					<div class="row-fluid">
+						<div class="span12 center">
+							<h4 class="grey lighter smaller">
+								
+								[ This Section is Under Development Stage. But we are working
+								<i class="icon-wrench icon-animated-wrench bigger-125 red"></i>
+								on it! ]
+							</h4>
+						</div>
+					</div>
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
+						<div class="span7">
 
-						<div class="span12">
 
 							<div class="box">
-								<div class="box-header well" data-original-title>
 								
-									<div class="box-icon">
-										<!--
-										<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-										<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-										<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-									-->fasdfasdf
-									</div>
-								</div>
 								<div class="box-content"> 
 
 									<div class="row-fluid">
@@ -538,18 +539,66 @@
 											<div class="widget-header">
 												<h4 class="smaller">
 													Backup and Maintenance
-													<small>Training Center Admin</small>
+													<small>Logs</small>
+												</h4>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
+													<table class="table">
+														<thead>
+															<tr>
+																<td>Operation</td>
+																<td>Date Performed</td>
+																
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Backup Database</td>
+																<td>00-00-0000</td>
+															</tr>
+															<tr>
+																<td>Restore Database</td>
+																<td>00-00-0000</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									
+								</div>
+							</div>			
+						</div>
+						<div class="span5">
+
+
+							<div class="box">
+								
+								<div class="box-content"> 
+
+									<div class="row-fluid">
+										
+										<div class="widget-box">
+											<div class="widget-header">
+												<h4 class="smaller">
+													Backup and Maintenance
+													<small>Database Control</small>
 												</h4>
 											</div>
 
 											<div class="widget-body">
 												<div class="widget-main">
 													<p align="center">
-														aasdfasdfasdf
+														
 													</p>
 													<p align="center">
 														
-														<a href="<?php echo base_url();?>db_backup" class="btn btn-warning btn-small tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">Backup</a>
+														<a href="<?php echo base_url();?>db_backup" class="btn btn-inverse" ><i class="icon-wrench"></i> Restore Database</a>
+														<a href="<?php echo base_url();?>db_backup" class="btn btn-purple" ><i class="icon-download-alt"></i> Backup Database</a>
 														
 													</p>
 												</div>

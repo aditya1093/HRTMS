@@ -22,7 +22,7 @@ class Messenger extends CI_Controller {
 
 		$data['records'] = $query;
 
-		$q = "SELECT * FROM user_table";
+		$q = "SELECT * FROM user_table WHERE permission='Administrator' OR permission='Client' OR permission='Trainer' OR permission='HR'";
 		
 		$query = $this->Messenger_Model->messenger_query($q);
 
@@ -46,7 +46,7 @@ class Messenger extends CI_Controller {
 		ON receiver_id=id
 		AND ((receiver_id=". $this->session->userdata('sender_id')  . " AND sender_id=" . $this->session->userdata('id') . ") 
 		OR (receiver_id=" . $this->session->userdata('id') . " AND sender_id=". $this->session->userdata('sender_id')  . "))";
-
+	
 		$query = $this->Messenger_Model->messenger_query($q);
 
 		echo json_encode($query);
@@ -121,6 +121,11 @@ class Messenger extends CI_Controller {
 		$query = $this->Messenger_Model->latest_noti();
 
 		echo json_encode($query);
+	}
+
+	public function beta() {
+
+		$this->load->view("beta");
 	}
 }
 /* End of file messenger.php */

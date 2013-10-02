@@ -46,7 +46,7 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
@@ -538,7 +538,6 @@
 											<i class="icon-map-marker light-orange bigger-110"></i>
 											<span><?php echo $row->address.' '.$row->city;?></span>
 											<span><?php echo $row->province;?></span>
-											<span><?php echo $row->country;?></span>
 										</div>
 									</div>
 

@@ -52,7 +52,7 @@
         <div class="container-fluid">
           <a href="<?php echo base_url();?>" class="brand">
             <small>
-              <i class="icon-group"></i>
+              <img src="<?php echo base_url();?>assets/images/logo.png">
               AMI - Registration
             </small>
           </a><!--/.brand-->
@@ -166,12 +166,12 @@
                 </a>
           </li>
       
-          <li>
+          <!--<li>
             <a href="">
               <i class="icon-question-sign"></i>
               <span>Help</span>
             </a>
-          </li>
+          </li>-->
 
           <li>
             <a href="">

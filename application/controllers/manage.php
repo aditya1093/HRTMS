@@ -32,12 +32,12 @@ class Manage extends CI_Controller {
 
 	function add_hr() {
 
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean|min_length[6]|is_unique[user_table.username]|alpha_dash');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean|min_length[6]|is_unique[user_table.username]');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|matches[password_confirm]|min_length[6]');
 		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', '');
-		$this->form_validation->set_rules('first_name', 'First Name', 'required|trim|alpha|xss_clean');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'required|trim|alpha|xss_clean');
-		$this->form_validation->set_rules('middle_nme', 'Middle Name', 'trim|alpha|xss_clean');
+		$this->form_validation->set_rules('first_name', 'First Name', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('last_name', 'Last Name', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('middle_nme', 'Middle Name', 'trim|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
 
@@ -133,12 +133,12 @@ class Manage extends CI_Controller {
 
 	function add_trainer() {
 
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean|min_length[6]|is_unique[user_table.username]|alpha_dash');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean|min_length[6]|is_unique[user_table.username]');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|matches[password_confirm]|min_length[6]');
 		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
-		$this->form_validation->set_rules('first_name', 'First Name', 'required|trim|alpha|xss_clean');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'required|trim|alpha|xss_clean');
-		$this->form_validation->set_rules('middle_nme', 'Middle Name', 'trim|alpha|xss_clean');
+		$this->form_validation->set_rules('first_name', 'First Name', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('last_name', 'Last Name', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('middle_nme', 'Middle Name', 'trim|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
 

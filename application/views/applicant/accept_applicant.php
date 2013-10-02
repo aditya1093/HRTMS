@@ -52,7 +52,7 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
@@ -1006,10 +1006,6 @@
             <tr>
                 <td>Province: </td> 
                 <td>${province}</td>
-            </tr>
-            <tr>
-                <td>Country: </td>
-                <td>${country}</td>
             </tr>                              
             <tr>
                 <td>Phone: </td>

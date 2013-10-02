@@ -45,7 +45,7 @@
         <div class="container-fluid">
           <a href="#" class="brand">
             <small>
-              <i class="icon-group"></i>
+              <img src="<?php echo base_url();?>assets/images/logo.png">
               AMI - Registration
             </small>
           </a><!--/.brand-->
@@ -135,12 +135,12 @@
                 </li>
               </ul>
             </li>
-          <li>
+          <!--<li>
             <a href="">
               <i class="icon-question-sign"></i>
               <span>Help</span>
             </a>
-          </li>
+          </li>-->
 
           <li>
             <a href="">

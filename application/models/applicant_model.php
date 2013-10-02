@@ -47,7 +47,24 @@ class Applicant_model extends CI_Model{
         return $query->result();
     }
 
+    /********* EDIT BATCH ******/
+    function getBatchDetails($id){
 
+        $this->db->select('*');
+        $this->db->where('id',$id);
+        $this->db->from('batch_no');
+        $query = $this->db->get();
+        return $query->result();
+
+    }
+
+    function editBatchControl($id,$data){
+        $this->db->where('id',$id);
+        $this->db->update('batch_no', $data);
+        return true;
+    }
+
+    /********* EDIT BATCH ******/
     function getCompany($id){
         $this->db->select('company,client_id');
         $this->db->where('request_id',$id);

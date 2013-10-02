@@ -50,7 +50,7 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
@@ -471,76 +471,54 @@
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 							<div class="span4">
-
 							<div class="widget-box">
-										<div class="widget-header header-color-dark">
-											<h4 class="smaller">
-												Deployment
-												<small></small>
-											</h4>
-										</div>
-
-										<div class="widget-body">
-											<div class="widget-main">
-												 <form id="addBatchControl"> 
-												 	<div class="control-group">
-														<label class="control-label" for="company">Deployment Company</label>
-														<div class="controls">
-															<select class="chzn-select"  name="client_name">
-																	<option selected disabled value="">Select a company </option>
-																<?php if(isset($records2)) : foreach($records2 as $row) : ?>
-																	<option value="<?php echo $row->client_name;?>"><?php echo $row->client_name;?></option>
-																<?php endforeach;?>
-																<?php endif; ?>
-															</select> 
-														</div>
-													</div>
-													<!--<div class="control-group">
-														<label class="control-label" for="date_start">Date start</label>
-														<div class="controls" >
-															<span class="input-append">
-																<input class="span8 date-picker" name="date_start" id="date_start"  value ="" type="text" data-date-format="yyyy-mm-dd">
-																<span class="add-on">	
-																	<i class="icon-calendar"></i>
-
-																</span>
-																
-															</span>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label" for="training_days">Training Days</label>
-														<div class="controls">
-															<input type="text" id="training_days" name="training_days" placeholder="#" class="input-mini">
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label" for="limit">Limit</label>
-														<div class="controls">
-															<input type="text" id="limit" name="limit_no" placeholder="#" class="input-mini">
-														</div>
-													</div>
-													<div class="form-actions">
-														<button class="btn span6 btn-info" type="submit">
-															<i class="icon-ok bigger-110"></i>
-															Submit
-														</button>
-
-														
-														<button class="btn span6" type="reset">
-															<i class="icon-undo bigger-110"></i>
-															Reset
-														</button>-->
-													</div>
-												 </form>
-
+								<div class="widget-header header-color-dark">
+									<h4 class="smaller">
+										Deployment
+										<small></small>
+									</h4>
+								</div>
+								<div clas="widget-body">
+									<div class="widget-main">
+									<form id="addBatchControl"> 
+									 	<div class="control-group">
+											<label class="control-label" for="company">Request ID</label>
+											<div class="controls">
+												<select class="chzn-select"  name="client_name">
+														<option selected disabled value="">Select a company </option>
+													<?php if(isset($records2)) : foreach($records2 as $row) : ?>
+														<option value="<?php echo $row->request_id;?>"><?php echo $row->request_id;?></option>
+													<?php endforeach;?>
+													<?php endif; ?>
+												</select> 
 											</div>
 										</div>
+										<div id="request_info"></div>
+									</form>	
 									</div>
+								</div>
+
 						<!--PAGE CONTENT ENDS HERE-->
 							</div>
+							</div>
+							<div class="span8">
+								<div class="widget-box">
+									<div class="widget-header">
+										<h4 class="smaller">
+											List of Trainee
+											<!-- <small>Performance Assessment</small> -->
+										</h4>
+									</div>
 
-						<!--/row-->
+									<div class="widget-body">
+										<div class="widget-main">
+											<div id="result_table"></div>
+										</div>
+									</div>
+								</div>
+						</div>
+
+					</div>	<!--/row-->
 
 				</div>
 				<!--/#page-content-->
@@ -596,23 +574,31 @@
 				$(".chzn-select").chosen(); 
 				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
 				
-				 $('.chzn-select').change(function () {
-                    var batch =  $(this).find("option:selected").attr('value');
-                    console.log(batch);
-                    /*$.ajax({    
-                        url: "<?php echo base_url();?>reports/gradesheetByBatch", //The url where the server req would we made.
+				$('.chzn-select').change(function () {
+                    var id =  $(this).find("option:selected").attr('value');
+                    console.log(id);
+                    $.ajax({    
+                        url: "<?php echo base_url();?>deployment/list_deployment", //The url where the server req would we made.
                         async: false, 
                         type: "POST", //The type which you want to use: GET/POST
-                        data: "batch="+batch, //The variables which are going.
+                        data: "id="+id, //The variables which are going.
                         dataType: 'json', //Return data type (what we expect).
                          
                         //This is the function which will be called if ajax call is successful.
                         success: function(output_string) {
                             //data is the html of the page where the request is made.
                             //alert(selState); 
-                            $('#result_table').html(output_string);
-                        } 
-                    })*/
+                            console.log(output_string.info);
+                            $('#request_info').html(output_string.info);
+                            $('#result_table').html(output_string.hris);
+
+                            var oTable1 = $('#table_report').dataTable( {
+							"aoColumns": [
+						      null, null,null,
+							  { "bSortable": false }
+							] } );
+	                        } 
+                    })
                 });
 										 	
 		</script>

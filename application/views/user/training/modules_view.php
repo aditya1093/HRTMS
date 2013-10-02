@@ -47,7 +47,7 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - Training Center Administration
 						</small>
 					</a><!--/.brand-->
@@ -734,34 +734,6 @@
 			    });
 
 			});
-			
-			/*$(".btn-delete").on(ace.click_event, function() {
-				var id = $(this).attr("id");
-				alert(id);
-				bootbox.dialog("Remove From List?", [{
-					"label" : "Confirm Request",
-					"class" : "btn-small btn-success",
-					"callback": function() {
-						//Example.show("great success");
-						$.ajax({
-							url: "",
-							type: "post",
-							data: {
-								action: "confirm",
-								id: id
-							},
-							success: function(e) {
-								console.log(e);
-								location.reload();
-							}
-						});
-					}
-					}, {
-					"label" : "Cancel",
-					"class" : "btn-small"
-					}]
-				);
-			});*/
 
 			var remove_list = function(id) {
 

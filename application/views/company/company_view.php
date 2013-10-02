@@ -49,7 +49,7 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
@@ -514,11 +514,11 @@
 											<td>
 												
 												<div class="hidden-phone visible-desktop btn-group">
-													<button class="view_client btn btn-mini btn-success" value="<?php echo $row->client_id?>">
+													<button onclick="view_client('<?php echo $row->client_id;?>')" class="view_client btn btn-mini btn-success" value="<?php echo $row->client_id?>">
 														<i class="icon-ok bigger-120"></i>
 													</button>
 
-													<button class="edit_client btn btn-mini btn-info" value="<?php echo $row->user_id?>">
+													<button onclick="edit_client('<?php echo $row->user_id;?>')" class="edit_client btn btn-mini btn-info" value="<?php echo $row->user_id?>">
 														<i class="icon-edit bigger-120"></i>
 													</button>
 												<!--
@@ -535,7 +535,7 @@
 
 														<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
 															<li>
-																<a href="#" class="view_client tooltip-info" data-rel="tooltip" title="View" value="<?php echo $row->client_id?>">
+																<a href="#" onclick="view_client('<?php echo $row->client_id;?>')" class="view_client tooltip-info" data-rel="tooltip" title="View" value="<?php echo $row->client_id?>">
 																	<span class="blue">
 																		<i class="icon-zoom-in bigger-120"></i>
 																	</span>
@@ -543,7 +543,7 @@
 															</li>
 
 															<li>
-																<a href="#" class="edit_client tooltip-success" data-rel="tooltip" title="Edit" value="<?php echo $row->client_id?>">
+																<a href="#" onclick="edit_client('<?php echo $row->user_id;?>')" class="edit_client tooltip-success" data-rel="tooltip" title="Edit" value="<?php echo $row->client_id?>">
 																	<span class="green">
 																		<i class="icon-edit bigger-120"></i>
 																	</span>
@@ -595,54 +595,86 @@
 								<div class="widget-body"><div class="widget-body-inner">
 									<div class="widget-main">
 										<div class="row-fluid">
-
+											<div class="alert alert-info center">
+						                        <p>Items marked with an asterisk (<span class="required">*</span>) are required.</p>  
+						                    </div>
 											<div id="infoMessage" align="center"><?php
 										              $message = $this->session->flashdata('client_message');
 										              if ($message == null){}
 										              else{echo $message;}
 										              ?>         
 											</div>
-											<form method="post" action="<?php echo base_url();?>client/add_client">
- 
-												<label for="client_name" >Company Name (<span class="required">*</span>):  </label>
-												<input id="client_name" required autofocus  style="width: 94%" placeholder="Enter Name" type="text" name="client_name" value="<?php echo $this->session->flashdata('client_name');?>">
+											<form method="post" action="<?php echo base_url();?>client/add_client" id="client_form">
+ 										
+												<div class="control-group">			
+													<label for="client_name" class="control-label" >Company Name (<span class="required">*</span>):  </label>
+													<div class="controls">	
+														<input id="client_name" autofocus style="width: 94%" placeholder="Enter Name" type="text" name="client_name" value="<?php echo $this->session->flashdata('client_name');?>">
+													</div>
+												</div>	
+												<div class="control-group">	
+													<label class="control-label" for="client_location" >Location (<span class="required">*</span>): </label>
+													<div class="controls">
+														<input id="client_location" style="width: 94%" type="text" name="client_location" value="<?php echo $this->session->flashdata('client_location');?>">
+													</div>
+												</div>
+												<b>Contact Person</b>
+												<div class="control-group">
+													<label for="first_name" class="control-label">First Name (<span class="required">*</span>): </label>
+													<div class="controls">
+														<input style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $this->session->flashdata('first_name');?>">
+													</div>
+												</div>
+												<div class="control-group">
+													<label for="last_name"  class="control-label">Last Name (<span class="required">*</span>): </label>
+													<div class="controls">
+														<input style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $this->session->flashdata('last_name');?>">
+													</div>
+												</div>	
+												  
+												<div class="control-group">	
+													<label class="control-label" for="client_phone" >Phone # (<span class="required">*</span>): </label>
+													<div class="controls">	
+														<input id="client_phone" class="input-mask-phone" style="width: 94%" type="text" name="client_phone" value="<?php echo $this->session->flashdata('client_phone');?>">
+													</div>
+												</div>
+												<div class="control-group">
+													<label class="control-label" for="client_tel" >Telephone # (<span class="required">*</span>): </label>
+													<div class="controls">
+														<input id="client_tel" class="input-mask-tel" style="width: 94%" type="text" name="client_tel" value="<?php echo $this->session->flashdata('client_tel');?>">
+													</div>
+												</div>
+												<div class="control-group">
+													<label class="control-label" for="client_username" >Username (<span class="required">*</span>): </label>
+													<div class="controls">	
+														<input  id="client_username"  style="width: 94%" type="text" name="client_username" value="<?php echo $this->session->flashdata('client_username');?>">
+													</div>
+												</div>
+												<div class="control-group">
+													<label class="control-label" for="client_password" >Password (<span class="required">*</span>): </label>
+													<div class="controls">
+														<input  id="client_password"  style="width: 94%" type="password" name="client_password">
+													</div>
+												</div>
+												<div class="control-group">
+													<label class="control-label" for="client_password_confirm" >Confirm Password (<span class="required">*</span>): </label>
+													<div class="controls">
+														<input  id="client_password_confirm"  style="width: 94%" type="password" name="client_password_confirm">
+													</div>
+												</div>
+												<div class="control-group">
+													<label class="control-label" for="client_email" >Email (<span class="required">*</span>): </label>
+													<div class="controls">
+														<input id="client_email"  style="width: 94%" type="email" name="client_email" value="<?php echo $this->session->flashdata('client_email');?>">
+													</div>
+												</div>
 
-												
-										    	<b>Contact Person</b>
-										    	<label>First Name (<span class="required">*</span>): </label>
-												<input required style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $this->session->flashdata('first_name');?>">
+												<div class="hr hr-dotted"></div>
 
-												<label>Last Name (<span class="required">*</span>): </label>
-												<input required style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $this->session->flashdata('last_name');?>">
-
-											  
-												
-												<label for="client_location" >Location (<span class="required">*</span>): </label>
-												<input id="client_location" required style="width: 94%" type="text" name="client_location" value="<?php echo $this->session->flashdata('client_location');?>">
-
-												<label for="clien_phone" >Phone # (<span class="required">*</span>): </label>
-												<input id="clien_phone" class="input-mask-phone" required style="width: 94%" type="text" name="client_phone" value="<?php echo $this->session->flashdata('client_phone');?>">
-
-												<label for="client_tel" >Telephone # (<span class="required">*</span>): </label>
-												<input id="client_tel" class="input-mask-tel" required style="width: 94%" type="text" name="client_tel" value="<?php echo $this->session->flashdata('client_tel');?>">
-
-												<label for="client_username" >Username (<span class="required">*</span>): </label>
-												<input title="Minimum of 6 characters is required" pattern=".{6,}" id="client_username" required style="width: 94%" type="text"name="client_username" value="<?php echo $this->session->flashdata('client_username');?>">
-
-												<label for="client_password" >Password (<span class="required">*</span>): </label>
-												<input title="Minimum of 6 characters is required" pattern=".{6,}" id="client_password" required style="width: 94%" type="password" name="client_password">
-
-												<label for="client_password_confirm" >Confirm Password (<span class="required">*</span>): </label>
-												<input title="Minimum of 6 characters is required" pattern=".{6,}" id="client_password_confirm" required style="width: 94%" type="password" name="client_password_confirm">
-
-												<label for="client_email" >Email (<span class="required">*</span>): </label>
-												<input id="client_email" required style="width: 94%" type="email" name="client_email" value="<?php echo $this->session->flashdata('client_email');?>">
-
-
-												<hr>
-
-												<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Add HR</button>
-
+												<div class="">
+							                        <button type="submit" class="btn btn-success btn-small"><i class="icon-plus icon-white"></i>Add Client</button>
+							                        <button type="reset" class="btn btn-danger btn-small"><i class="icon-undo icon-white"></i>Reset</button>
+							                    </div>
 												
 											</form>	
 										</div>									
@@ -708,6 +740,9 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+	    <script src="<?php echo base_url();?>assets/js/additional-methods.min.js"></script>
+
 
 
 		<!--inline scripts related to this page-->
@@ -746,10 +781,141 @@
 					return 'left';
 				}
 
-			
+				
+				jQuery.validator.addMethod("phone", function (value, element) {
+		          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+		        }, "Enter a valid phone number.");
+		        
+		        jQuery.validator.setDefaults({
+		          debug: true,
+		          //success: "valid"
+		        });
+		        $('#client_form').validate({
+		          
+		          errorElement: 'span',
+		          errorClass: 'help-inline',
+		          focusInvalid: false,
+		          rules: {
+		          	 client_name: {
+		              required: true,
+		              minlength:2,
+		            },
+		            first_name: {
+		              required: true,
+		              minlength:2,
+		            },
+		            last_name: {
+		              required: true,
+		               minlength:2,
+		            },
+		           	client_location:{
+		          		required: true,
+		          		minlength:2
+		          	},
+		          	client_phone:{
+		          		required: true,
+		          	},
+		          	client_tel:{
+		          		required: true,
+		          	},
+		          	client_username:{
+		          		required: true,
+		          		minlength:6
+		          	},
+		          	client_password: {
+		              required: true,
+		              minlength: 6
+		            },
+		            client_password_confirm: {
+		              required: true,
+		              minlength: 6,
+		              equalTo: "#client_password"
+		            },
+		            client_email: {
+		               required: true,
+		               email : true	
+		            }
+		          },
+		      
+		          messages: {
+		            first_name: {
+		              minlength: jQuery.format("At least {0} characters required."),
+
+		            },
+		            last_name: {
+		              minlength: jQuery.format("At least {0} characters required."),
+		            },
+		            middle_name: {
+		              minlength: jQuery.format("At least {0} characters required."),
+		            },
+		            client_location: {
+		              minlength: jQuery.format("At least {0} characters required."),
+		            },
+
+		            email: {
+		              required: "Please provide a valid email.",
+		              email: "Please provide a valid email."
+		            },
+		            client_username: {
+		           	  minlength: jQuery.format("At least {0} characters required.")
+		            },
+		            client_password: {
+		              required: "Please specify a password.",
+		              minlength: jQuery.format("Please specify a secure password. At least {0} characters required.")
+		            }, 
+		            client_password_confirm: {
+		              minlength: jQuery.format("At least {0} characters required.")
+		            }
+		          },
+		      
+		          invalidHandler: function (event, validator) { //display error alert on form submit   
+		            $('.alert-error', $('.login-form')).show();
+		          },
+		      
+		          highlight: function (e) {
+		            $(e).closest('.control-group').removeClass('success').addClass('error');
+		          },
+		      
+		          success: function (e) {
+		            $(e).closest('.control-group').removeClass('error').addClass('success');
+		            $(e).remove();
+		          },
+		      
+		          errorPlacement: function (error, element) {
+
+		            if(element.is(':checkbox') || element.is(':radio')) {
+		              var controls = element.closest('.controls');
+		              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+		              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+		            }
+		            else if(element.is('.select2')) {
+		              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+		            }
+		            else if(element.is('.chzn-select')) {
+		              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+		            }
+		            else error.insertAfter(element);
+		          },
+		          showErrors: function(errorMap, errorList) {
+		            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+		              + this.numberOfInvalids()
+		              + " errors, see details below.</div>");
+		              this.defaultShowErrors();
+		          },
+		          submitHandler: function (form) {
+		            //alert('SUBMIT FORM');
+		            form.submit();
+
+		          },
+		          invalidHandler: function (form) {
+		            $("html, body").animate({ scrollTop: 0 }, "slow");
+		          },
+
+		        });
+						
 
 
-				$( ".view_client" ).on(ace.click_event,function() {
+				/*$( ".view_client" ).on(ace.click_event,function() {
 					var id = $(this).attr("value");
 				 	$.ajax({
 					url: "<?php base_url();?>client/view_client",
@@ -766,9 +932,9 @@
 						showDialog(id);
 					}
 					});
-				});
+				});*/
 
-				$( ".edit_client" ).on(ace.click_event,function() {
+			/*	$( ".edit_client" ).on(ace.click_event,function() {
 					var id = $(this).attr("value");
 					$( "#edit_dialog" ).removeClass('hide').dialog({
 					//dialogClass: "no-close",
@@ -798,7 +964,7 @@
 						  ]
 					
 					});
-				});
+				});*/
 				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
 					_title: function(title) {
 						var $title = this.options.title || '&nbsp;'
@@ -812,41 +978,59 @@
 
 
 			})
-			var delete_user = function(id,client_name,user_id) {
-				var str = "<h3>Confirm</h3>" + client_name + " will be deleted";
-				str += ". Do you really want to delete this client?";
+			
 
-				bootbox.dialog(str, [{
-						"label" : "<i class=\'icon-trash\'></i> Delete",
-						"class" : "btn-small btn-danger",
-						"callback": function() {
-							//Example.show("great success");
-							//bootbox.alert(id);
-							$.ajax({
-								url: "<?php echo base_url();?>client/delete_client",
-								type: "post",
-								data: {
-									id: id,
-									user_id: user_id,
-									client_name : client_name
+			var view_client = function(id){
+				console.log(id);
+				$.ajax({
+					url: "<?php base_url();?>client/view_client",
+					type: "post",
+					data: {
+						id: id
+					},
+					dataType: 'json',
+					success: function(e) {
+						console.log(e);
 
-								},
-								success: function(e) {
-									console.log(e);
-									location.reload();
-								}
-							});
-							
-						}
-						}, {
-							"label" : "Cancel",
-							"class" : "btn-small"
-						}]
-					);
+						$('#client_view').html(e);
+			            oTable2();
+						showDialog(id);
+					}
+					});
 
 			}
+			var edit_client = function(id){
+				console.log(id);
+				$("#edit_dialog").removeClass('hide').dialog({
+					//dialogClass: "no-close",
+					resizable: false,
+					modal: true,
+					closeOnEscape: true,
+					title: "<div class='widget-header'><h4 class='smaller'><i class='icon-edit'></i> "+id+". Edit Client.</h4></div>",
+					title_html: true,
+					width: 400,
+					//maxHeight: 800,
+					buttons: [
+							{
+						      html: "<i class=\"icon-edit\"></i> Edit",
+						      "class" : "btn btn-success btn-mini",
+						      click: function() {
+						        $(this).dialog( "close" );
+						        document.location.href='<?php echo base_url();?>client/edit_info/' + id;
+						      }
+						    },
+						    {
+						      html: "Cancel",
+						      "class" : "btn btn-mini",
+						      click: function() {
+						        $(this).dialog( "close" );
+						      }
+						    }
+						  ]
+					
+					});
 
-
+			}
 			var showDialog = function(id){
 				$( "#dialog" ).removeClass('hide').dialog({
 					//dialogClass: "no-close",
@@ -880,6 +1064,40 @@
 				  { "bSortable": false }
 				] } );
 			}
+
+			/*var delete_user = function(id,client_name,user_id) {
+				var str = "<h3>Confirm</h3>" + client_name + " will be deleted";
+				str += ". Do you really want to delete this client?";
+
+				bootbox.dialog(str, [{
+						"label" : "<i class=\'icon-trash\'></i> Delete",
+						"class" : "btn-small btn-danger",
+						"callback": function() {
+							//Example.show("great success");
+							//bootbox.alert(id);
+							$.ajax({
+								url: "<?php echo base_url();?>client/delete_client",
+								type: "post",
+								data: {
+									id: id,
+									user_id: user_id,
+									client_name : client_name
+
+								},
+								success: function(e) {
+									console.log(e);
+									location.reload();
+								}
+							});
+							
+						}
+						}, {
+							"label" : "Cancel",
+							"class" : "btn-small"
+						}]
+					);
+
+			}*/	
 	
 		</script>
 		

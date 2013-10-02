@@ -321,7 +321,7 @@ class Reports extends CI_Controller {
 		$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
 		// set default header data
-		$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "Trainee Information ".$batch_control_no, $this->session->userdata("first_name"). " ". $this->session->userdata("last_name") , array(0,64,255), array(0,64,128));
+		$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "Trainee Information ", $this->session->userdata("first_name"). " ". $this->session->userdata("last_name") , array(0,64,255), array(0,64,128));
 		$pdf->setFooterData(array(0,64,0), array(0,64,128));
 
 		// set header and footer fonts
@@ -378,42 +378,43 @@ class Reports extends CI_Controller {
 
 		 	$output_string = "<h1 class=''>List of Trainee: $batch_control_no</h1>";
             $output_string .= "  <table border=\"1\" cellpadding=\"2\" cellspacing=\"2\" align=\"center\">  
-                                <thead>
-								<tr>
+                    
+                               
+								<tr nobr=\"true\">
 									
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										Training ID
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										 Name
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										Birthdate
 									</th>
-									<th class=\"center\">													
+									<th class=\"center\" style=\"background-color:#E2FF00\">													
 										Address 
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										City
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										Province
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										Gender
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										Phone
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										Email
 									</th>
 									
 								</tr>
-								</thead>
+								
                                 
                              ";
-            $output_string .= "<tbody>";
+            $output_string .= "";
 
 		$this->load->model('report_model');
 		$query = $this->report_model->list_trainee($batch_control_no);
@@ -421,25 +422,27 @@ class Reports extends CI_Controller {
 
 	    foreach ($data['records'] as $row){ 
 	     //   if(isset($records)) : foreach($records as $row) :
-	  	$output_string .="<tr> 
-                        <td> $row->trainee_id</td>
-						<td> $row->last_name, $row->first_name $row->middle_name</td>
-						<td> $row->birthdate</td>
-						<td> $row->present_address</td>
-						<td> $row->present_city</td>		
-						<td> $row->present_province</td>												
-						<td> $row->gender</td>
-						<td> $row->mobile_no</td>
-						<td> $row->email</td>	
-                        </tr>  
+	  	$output_string .="<tr nobr=\"true\"> 
+	                        <td> $row->trainee_id</td>
+							<td> $row->last_name, $row->first_name $row->middle_name</td>
+							<td> $row->birthdate</td>
+							<td> $row->present_address</td>
+							<td> $row->present_city</td>		
+							<td> $row->present_province</td>												
+							<td> $row->gender</td>
+							<td> $row->mobile_no</td>
+							<td> $row->email</td>	
+	                       </tr>  
                        ";
 	           
 	            		}
-        $output_string .= " </tbody></table>";    
+        $output_string .= " </table>";   
+
+
 		$pdf->writeHTML( $output_string, true, false, false, false, '');
 		// Close and output PDF document
 		// This method has several options, check the source code documentation for more information.
-		$pdf->Output('example_001.pdf', 'I');
+		$pdf->Output($batch_control_no.'-TRAINEE-LIST.pdf', 'I');
 
 		//============================================================+
 		// END OF FILE
@@ -516,25 +519,26 @@ class Reports extends CI_Controller {
 		// ---------------------------------------------------------
 		// NON-BREAKING ROWS (nobr="true")
 		$this->load->model('report_model');
-		$query = $this->report_model->training_days($batch_control_no);
+		$query = $this->report_model->training_info($batch_control_no);
 		$data['records'] = $query;
 
 
 	
 		foreach ($data['records'] as $row){
-		$output_string = "<h1 class=''>Attendance : $batch_control_no</h1>";
-		$output_string .= "<p align=\"\">Training Days : $row->training_days</p>";
+		$output_string = "<h1 style=\"\" class=''>Attendance : $batch_control_no</h1>";
+		$output_string .= "<p align=\"\">Training Days : $row->training_days<br>";
+		$output_string .= "Date Started : $row->date_start</p>";
 		}
-        $output_string .= "  <table border=\"1\" cellpadding=\"2\" cellspacing=\"2\" align=\"center\">  
+        $output_string .= "<table border=\"1\" cellpadding=\"2\" cellspacing=\"2\" align=\"center\">  
                             <thead>
 								<tr>							
-									<th>
+									<th style=\"background-color:#E2FF00\">
 										Training ID
 									</th>
-									<th >
+									<th style=\"background-color:#E2FF00\">
 										Name
 									</th>
-									<th >
+									<th style=\"background-color:#E2FF00\">
 										No. of days attended
 									</th>	
 								</tr>
@@ -571,94 +575,31 @@ class Reports extends CI_Controller {
 		}
 
 
-		function gradesheet() {
+	function gradesheet() {
 
-			//check kung naka-login
-			if($this->session->userdata('is_logged_in')) {
+		//check kung naka-login
+		if($this->session->userdata('is_logged_in')) {
 
-				$this->load->model('report_model');
-				/*$query = $this->report_model->gradesheet();
-				$data['records'] = $query;
-				*/
-				$query2 = $this->report_model->byBatch();
-				$data['records2'] = $query2;
+			$this->load->model('report_model');
+			/*$query = $this->report_model->gradesheet();
+			$data['records'] = $query;
+			*/
+			$query2 = $this->report_model->exam_set_batch();
+			$data['records2'] = $query2;
 
-				$this->load->view('reports/gradesheet_view', $data);
+			$this->load->view('reports/gradesheet_view', $data);
 
 
 
-			}
-			else {
-	  
-	    		$this->load->view('login_view');
-			}
-	
+		}
+		else {
+  
+    		$this->load->view('login_view');
+		}
+
 	}
-	public function gradesheetByBatch(){
 
-        $batch=$this->input->post('batch');
-
-       // $batch = "TS13-ASB-001";
-        $this->db->select('*');
-        $this->db->from('hris');
-        $this->db->join('gradesheet', 'hris.trainee_id = gradesheet.training_id','left');
-        $this->db->where('batch_control_no',$batch);
-        $this->db->where('status','PASSED');
-        $this->db->order_by("trainee_id", "asc"); 
-        $query = $this->db->get();
-        if($query->num_rows > 0){
-            $header = false;    
-            //$output_string = "<div class=\"box-content\">";
-              
-          
-                $output_string = "<h1 class=''>Gradesheet : $batch</h1><div class=\"pull-right\" style=\"cursor:pointer\"><i class=\"middle icon-print bigger-150 light-blue\"></i><a onclick=\"print('$batch')\">Print</a></div>";
-                $output_string .= "  <table class='table table-striped table-bordered'> 
-                                    <thead>
-                                    <tr>
-                                        <th class='center'>
-                                            Training ID
-                                        </th>
-                                        <th class='center'> Name
-                                        </th>
-                                        <th class='center'>
-                                            Scores
-                                        </th>
-                                        <th  class='center'>
-                                            Status
-                                        </th>
-                                    </tr> 
-                                    </thead>
-                                    
-                                 ";
-                $output_string .= " 
-                                    <tbody>";
-                 foreach ($query->result() as $row){ 
-                      
-                 $output_string .=  "<tr> 
-                                        <td> $row->trainee_id</td>
-                                        <td> $row->last_name, $row->first_name $row->middle_name</td>
-                                        <td class='center'> $row->scores/$row->over</td>
-                                        <td class='center'> $row->status</td>
-                                    </tr>";
-                                  
-                //$output_string .= "Record $row->last_name";
-           		 }   
-                $output_string .= "</tbody></table>";                 
-
-       
-          
-        }
-        else{
-            $output_string = '"There are no results"';
-            if($batch == null)
-            {
-                $output_string .="<br>NULL  BATCH";
-            }
-        } 
-         
-        echo json_encode($output_string);
-    }
-
+	
     public function traineeByBatch(){
 
         $batch=$this->input->post('batch');
@@ -672,35 +613,34 @@ class Reports extends CI_Controller {
               
         	
             $output_string = "<h1 class=''>List of Trainee: $batch</h1><div class=\"pull-right\" style=\"cursor:pointer\"><i class=\"middle icon-print bigger-150 light-blue\"></i><a onclick=\"print('$batch')\">Print</a></div>";
-            $output_string .= "  <table class='table table-striped table-bordered'> 
+            $output_string .= "  <table class='table table-striped table-bordered'  style=\"width: 100%; word-wrap:break-word; table-layout: fixed;font-size:15px;\"> 
                                 <thead>
 								<tr>
-									
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										Training ID
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										 Name
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										Birthdate
 									</th>
-									<th class=\"center\">													
+									<th class=\"center\" style=\"background-color:#E2FF00\">													
 										Address 
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										City
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										Province
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										Gender
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										Phone
 									</th>
-									<th class=\"center\">
+									<th class=\"center\" style=\"background-color:#E2FF00\">
 										Email
 									</th>
 									
@@ -729,10 +669,10 @@ class Reports extends CI_Controller {
      
         }
         else{
-            $output_string = '"There are no results"';
+            $output_string = '"There are no results"'. $batch;
             if($batch == null)
             {
-                $output_string .="<br>NULL  BATCH";
+                $output_string .="<br>NULL  BATCH " ;
             }
         } 
          
@@ -747,7 +687,7 @@ class Reports extends CI_Controller {
 	}
     function certificate(){
 
-			//check kung naka-login
+		//check kung naka-login
 		if($this->session->userdata('is_logged_in')) {
 
 			/*$this->load->model('report_model');
@@ -845,12 +785,103 @@ class Reports extends CI_Controller {
 
 
 
-     }
+    }
+
+    function exam_id(){
+    	$batch=$this->input->post('batch');
+
+       	$this->db->select('*');
+        $this->db->from('exam_set');
+        $this->db->join('examination','exam_set.exam_id = examination.examination_id');
+       // $this->db->where('batch_id',$batch);
+        $query = $this->db->get();
+        $str = "";
+	    if ($query->num_rows() > 0)
+		{	
+			//$str .= "Examination name: ";
+			$str .= "<select class=\"chzn-select\" id=\"exam\">";
+			$str .= "<option value=\"\"></option>";
+		   foreach ($query->result() as $row)
+		   {
+		      
+		      $str .= "<option value=".$row->exam_id." exam_name="."'".$row->examination_name."'".">";
+		      $str .= $row->examination_name;
+		      $str .= "</option>";
+		   
+		  
+			}
+			$str .= "</select>";
+		}
+		//echo $str;
+        echo json_encode($str);
+        //echo json_encode($batch);
+
+    }
+
+    function gradesheetByExamId(){
+    	$exam_id = $this->input->post('id');
+    	$batch = $this->input->post('batch');
+    	$exam_name = $this->input->post('name');
+    	//echo json_encode($exam_id);
 
 
+    	$this->db->select('hris.trainee_id ,hris.first_name, hris.last_name, hris.middle_name, gradesheet.score, gradesheet.over, gradesheet.status');
+    	$this->db->from('hris');
+    	$this->db->join('gradesheet', 'hris.trainee_id = gradesheet.trainee_id');
+        $this->db->where('gradesheet.exam_id',$exam_id);
+        $this->db->where('gradesheet.status','PASSED');
+        $query = $this->db->get();
 
+      	/*  $query = $this->db->query('select hris.trainee_id ,hris.first_name, hris.last_name, hris.middle_name, gradesheet.score, gradesheet.over, gradesheet.status 
+        	from hris inner join gradesheet on hris.trainee_id = gradesheet.trainee_id where exam_id = '.$exam_id .'where status = "PASSED"');
+        *///$this->db->order_by("hris.trainee_id", "asc"); 
+        //
+        $str = "";
+        if ($query->num_rows() > 0)
+		{	
+			//$str .= "Examination name: ";
+			$str .= "<h1>Gradesheet : $batch $exam_name</h1><div class=\"pull-right\" style=\"cursor:pointer\"><i class=\"middle icon-print bigger-150 light-blue\"></i><a onclick=\"print('$exam_id')\">Print</a></div>";
+			$str .= "  <table class='table table-striped table-bordered'> 
+                            <thead>
+                            <tr>
+                                <th class='center'>
+                                    Training ID
+                                </th>
+                                <th class='center'> Name
+                                </th>
+                                <th class='center'>
+                                    Scores
+                                </th>
+                                <th  class='center'>
+                                    Status
+                                </th>
+                            </tr> 
+                            </thead>        
+                    ";  
+            $str .= "<tbody>"; 
+			   foreach ($query->result() as $row)
+			   {
+			     	
+			   		$str .= "<tr> 
+	                            <td> $row->trainee_id</td>
+	                            <td> $row->last_name, $row->first_name $row->middle_name</td>
+	                            <td class='center'> $row->score/$row->over</td>
+	                            <td class='center'> ". strtoupper($row->status)."</td>
+	                        </tr>";
+			   
+			  
+			}
+			$str .= "</tbody></table>";
+			
+		}
+		else
+		{
+			$str .= "NO RESULT";
+		}
+		echo json_encode($str);
+    }
 
-     public function traineeAttendanceByBatch(){
+    public function traineeAttendanceByBatch(){
      	$batch=$this->input->post('batch');
 
        	$this->db->select('*');
@@ -862,15 +893,12 @@ class Reports extends CI_Controller {
 
         if($query->num_rows > 0){
 
-            $output_string = "<h1 class=''>List of Trainee: $batch</h1><div class=\"pull-right\" style=\"cursor:pointer\"><i class=\"middle icon-print bigger-150 light-blue\"></i><a onclick=\"print('$batch')\">Print</a></div>";
+            $output_string = "<h1 class=''>Batch: $batch</h1><div class=\"pull-right\" style=\"cursor:pointer\"><i class=\"middle icon-print bigger-150 light-blue\"></i><a onclick=\"print('$batch')\">Print</a></div>";
             $output_string .= "  <table class='table table-striped table-bordered'> 
                                 <thead>
 								<tr>							
 									<th>
 										Training ID
-									</th>
-									<th>
-										Batch ID
 									</th>
 									<th >
 										Name
@@ -889,9 +917,7 @@ class Reports extends CI_Controller {
                   
              $output_string .=  "<tr>
 								<td>$row->trainee_id</td>
-							 
-								<td>$row->batch_control_no</td>
-									<td>$row->last_name, $row->first_name $row->middle_name</td>
+								<td>$row->last_name, $row->first_name $row->middle_name</td>
 								<td class=\"center\">$row->training_days</td>
 								<td class=\"center\">$row->present_days</td>
 

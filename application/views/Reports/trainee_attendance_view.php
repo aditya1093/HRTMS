@@ -25,13 +25,12 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" media="screen,print"/>
-
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" media="screen,print" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" media="screen,print" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" media="screen,print" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" media="screen,print" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" media="screen,print" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" media="screen,print" />
- 
+		
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
 		<![endif]-->
@@ -188,7 +187,7 @@
 				$(".chzn-select").chosen(); 
 				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
 
-	            $(document).ready(function () {
+	         /*   $(document).ready(function () {
 	                $('#byBatch select').change(function () {
 	                    var batch = $(this).attr('value');
 	                    console.log(batch);
@@ -205,7 +204,23 @@
 	                        } 
 	                    })
 	                });
-	            });
+	            });*/
+				$('.chzn-select').change(function () {
+                    var batch =  $(this).find("option:selected").attr('value');
+                    console.log(batch);
+                     $.ajax({    
+                        url: "<?php echo base_url();?>reports/traineeAttendanceByBatch", //The url where the server req would we made.
+                        async: false, 
+                        type: "POST", //The type which you want to use: GET/POST
+                        data: "batch="+batch, //The variables which are going.
+                        dataType: 'json', //Return data type (what we expect).
+                         
+                        //This is the function which will be called if ajax call is successful.
+                        success: function(output_string) {
+                            $('#result_table').html(output_string);
+                        } 
+                    })
+                });
 											 
 	
 			});

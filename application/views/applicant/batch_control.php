@@ -45,6 +45,9 @@
 		<![endif]-->
 
 		<!--inline styles if any-->
+		<style type="text/css">
+			.no-close .ui-dialog-titlebar-close {display: none }
+		</style>
 	</head>
 
 	<body>
@@ -54,7 +57,7 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
@@ -482,83 +485,87 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-							<div class="span4">
-							
-								<div class="span12">
-									<div class="widget-box">
-										<div class="widget-header header-color-dark">
-											<h4 class="smaller">
-												New Batch of Trainees
-												<small></small>
-											</h4>
-										</div>
+						<div class="span4">
+						
+							<div class="span12">
+								<div class="widget-box" id="addBatch">
+									<div class="widget-header header-color-dark">
+										<h4 class="smaller">
+											New Batch of Trainees
+											<small></small>
+										</h4>
+									</div>
 
-										<div class="widget-body">
-											<div class="widget-main">
-												 <form id="addBatchControl"> 
-												 	<div class="control-group">
-														<label class="control-label" for="req_id">Request ID (<span class="required">*</span>):</label>
+									<div class="widget-body">
+											<div class="alert alert-info center">
+						                        <p>Items marked with an asterisk (<span class="required">*</span>) are required.</p>  
+						                    </div>	
+										<div class="widget-main">		
+											 <form id="addBatchControl"> 
+											 	<div class="control-group">
+													<label class="control-label" for="req_id">Request ID (<span class="required">*</span>):</label>
+													<div class="controls">
+														<select class="chzn-select" id="req_id"  name="req_id">
+																<option selected disabled value=""/>
+															<?php if(isset($records2)) : foreach($records2 as $row) : ?>
+																<option value="<?php echo $row->request_id;?>" /><?php echo $row->request_id;?>
+															<?php endforeach;?>
+															<?php endif; ?>
+														</select> 
+													</div>
+												</div>
+													<div id="company" style="display:none">
+														<label class="control-label" for="company_name">Company:</label>
 														<div class="controls">
-															<select class="chzn-select" id="req_id"  name="req_id">
-																	<option selected disabled value=""/>
-																<?php if(isset($records2)) : foreach($records2 as $row) : ?>
-																	<option value="<?php echo $row->request_id;?>" /><?php echo $row->request_id;?>
-																<?php endforeach;?>
-																<?php endif; ?>
-															</select> 
+															<input type="text" id="company_name" disabled=""  name="">
+															<input type="hidden" id="company_name2" name="client_name">
+															<input type="hidden" id="client_id" name="client_id">
 														</div>
-													
-														<div id="company" style="display:none">
-															<label class="control-label" for="company_name">Company (<span class="required">*</span>):</label>
-															<div class="controls">
-																<input type="text" id="company_name" disabled=""  name="">
-																<input type="hidden" id="company_name2" name="client_name">
-																<input type="hidden" id="client_id" name="client_id">
-															</div>
-													
-														</div>
-													
-														<label class="control-label" for="date_start">Date start (<span class="required">*</span>):</label>
-														<div class="controls" >
-															<span class="input-append">
-																<input required class="span8 date-picker input-date" name="date_start" id="date_start"  value ="" type="text" data-date-format="yyyy-mm-dd">
-																<span class="add-on">	
-																	<i class="icon-calendar"></i>
-																</span>
-																<!--<button class="btn btn-purple">Now</button>-->
+												
+													</div>
+
+												<div class="control-group">
+													<label class="control-label" for="date_start">Date start (<span class="required">*</span>):</label>
+													<div class="controls" >
+														<span class="input-append">
+															<span class="add-on">	
+																<i class="icon-calendar"></i>
 															</span>
-														</div>
-													
-														<label class="control-label" for="training_days">Training Days (<span class="required">*</span>):</label>
-														<div class="controls">
-															<input required type="number" min="1" id="training_days" name="training_days" placeholder="#" class="input-mini">
-														</div>
-													
-														<label class="control-label" for="limit">Limit (<span class="required">*</span>):</label>
-														<div class="controls">
-															<input required type="number" min="1" id="limit" name="limit_no" placeholder="#" class="input-mini">
-														</div>
+															<input  class="date_start span6 input-date" name="date_start" id="date_start" type="text" data-date-format="yyyy-mm-dd">
+														</span>
 													</div>
-													<div class="form-actions">
-														<button class="btn span6 btn-info" type="submit">
-															<i class="icon-ok bigger-110"></i>
-															Submit
-														</button>
-
-														
-														<button class="btn span6" type="reset">
-															<i class="icon-undo bigger-110"></i>
-															Reset
-														</button>
+												</div>
+												<div class="control-group">
+													<label class="control-label" for="training_days">Training Days (<span class="required">*</span>):</label>
+													<div class="controls">
+														<input  type="text" id="training_days" name="training_days" placeholder="#" class="input-mini">
 													</div>
-												 </form>
+												</div>
+												<div class="control-group">
+													<label class="control-label" for="limit">Limit (<span class="required">*</span>):</label>
+													<div class="controls">
+														<input  type="text" id="limit" name="limit_no" placeholder="#" class="input-mini">
+													</div>
+												</div>
+												<div class="form-actions">
+													<button class="btn span6 btn-info btn-small" type="submit">
+														<i class="icon-ok bigger-110"></i>
+														Submit
+													</button>
+													<a class="btn span6 btn-small" onclick="resetForm()">
+														<i class="icon-undo bigger-110"></i>
+														Reset
+													</a>
+												</div>
+											 </form>
 
-											</div>
 										</div>
 									</div>
 								</div>
-						
+							</div>
+
 						</div> 	
+						
 						<div class="span8">
 							<div class="alert alert-success">
 									<b>Note:</b>
@@ -654,7 +661,6 @@
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.full.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
@@ -669,57 +675,27 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
 
 		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
-
+		<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+	    <script src="<?php echo base_url();?>assets/js/additional-methods.min.js"></script>
 
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
-			$(function() {
-
-				$('.input-date').mask('9999-99-99');
-				
-				//datatable initialization
-				var oTable1 = $('#table_report').dataTable( {
-				"aoColumns": [
-			      null,null, null, null,
-				  { "bSortable": false }] ,
-				   "aLengthMenu": [[5, 10,-1], [5, 10, "All"]],
-					"iDisplayLength" : 5
-				} );
-				
-				
-				$('.date-picker').datepicker().next().on(ace.click_event, function() {
-					$(this).prev().focus();
+			var a ; 
+		
+			var resetForm = function(){
+				$('#addBatchControl').each(function(){
+				    this.reset();
 				});
+				$(".chzn-select").val('').trigger("liszt:updated");
+				$('#company').hide();
 
+			}
+			var submitForm = function(){
 
-				$(".chzn-select").chosen(); 
-				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
-				
+				  //event.preventDefault();
 
-				$.extend($.gritter.options, { 
-		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
-				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
-				fade_out_speed: 1000, // how fast the notices fade out
-				time: 1000 // hang on the screen for...
-				});
-
-				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
-				_title: function(title) {
-					var $title = this.options.title || '&nbsp;'
-					if( ("title_html" in this.options) && this.options.title_html == true )
-						title.html($title);
-					else title.text($title);
-				}
-				}));
-
-
-				$( "#addBatchControl" ).on( "submit", function( event ) {
-				  event.preventDefault();
-
-				  
-
-				  var sData = $(this).serialize();
+				  var sData = $('#addBatchControl').serialize();
 				  console.log(sData);
 				  $.ajax({
 		               	url:"<?php echo base_url();?>applicant/addBatchControl",
@@ -731,11 +707,12 @@
 			                $.gritter.add({
 								title: 'Batch Control',
 								text: '<i class="icon-spinner icon-spin green icon-2x"></i> Successfully added batch training .',
-								class_name: 'gritter-success gritter-center gritter-light'
+								class_name: 'gritter-success'
 							});
-							$( '#addBatchControl' ).each(function(){
+							$('#addBatchControl').each(function(){
 							    this.reset();
 							});
+							$(".chzn-select").val('').trigger("liszt:updated");
 							$('#company').hide();
 
 							var obj = $.parseJSON(result);
@@ -758,44 +735,63 @@
 
 		            	});
 						//return false;
-					});//End #addBatchControl Submit
+					//});//End #addBatchControl Submit
+			}
+			var editForm = function(){
 
-				
-				$('#req_id').change(function () {
-                    //var batch = $(this).attr('value');
-                    $('#company').hide();
-                    var req_id = $(this).find("option:selected").attr('value')
-                    console.log(req_id);
-                    $.ajax({    
-                        url: "<?php echo base_url();?>applicant/getCompany", //The url where the server req would we made.
-                        async: false, 
-                        type: "POST", //The type which you want to use: GET/POST
-                        data: "req_id="+req_id, //The variables which are going.
-                         
-                        //This is the function which will be called if ajax call is successful.
-                        success: function(e) {
-                            //data is the html of the page where the request is made.
-                            console.log(e);
-                            var obj = $.parseJSON(e);
-                            var val ="";
-	                		$.each(obj, function(){
-	                			val = this['company'];
-	                		});
-	                		//alert(val);
-                      		$('#company').slideToggle('fast');
-                        	$("#company_name").val(val);
-                        	$("#company_name2").val(val);
-                        	$("#client_id").val(val);
+				  //event.preventDefault();
 
-                        } 
-                    })
-                });
+				  var sData = $('#editBatchControl').serialize();
+				  console.log(sData);
+				  $.ajax({
+		               	url:"<?php echo base_url();?>applicant/editBatchControl",
+		                type:'POST',
+		                data:sData,
+		                //dataType: "json",
+		                success:function(result){
+			    		 
+							
+							
+		                }//End Success
 
-			});
-
+		            	});
+						//return false;
+					//});//End #addBatchControl Submit
+			}
 			var edit_batch = function(id){
-				alert(id);
-			
+				console.log(id);
+				$("#edit_dialog").removeClass('hide').dialog({
+					//dialogClass: "no-close",
+					resizable: false,
+					modal: true,
+					closeOnEscape: true,
+					title: "<div class='widget-header'><h4 class='smaller'><i class='icon-edit'></i> "+id+". Edit Batch.</h4></div>",
+					title_html: true,
+					width: 400,
+					//maxHeight: 800,
+					buttons: [
+							{
+						      html: "<i class=\"icon-edit\"></i> Edit",
+						      "class" : "btn btn-success btn-mini",
+						      click: function() {
+						       
+						        //document.location.href='<?php echo base_url();?>client/edit_info/' + id;
+						        $(this).dialog("close");
+						        view_edit(id);
+
+						        
+						      }
+						    },
+						    {
+						      html: "Cancel",
+						      "class" : "btn btn-mini",
+						      click: function() {
+						        $(this).dialog( "close" );
+						      }
+						    }
+						  ]
+					
+					});
 			}
 			var view_batch = function(id){
 
@@ -816,7 +812,6 @@
 						}//Success
 					});//End Ajax
 			}
-
 			var showDialog = function(id){
 				$( "#dialog" ).removeClass('hide').dialog({
 					dialogClass: "no-close",
@@ -839,12 +834,401 @@
 						  ]
 					
 				});
+			}
+
+			var view_edit = function(id){
+				$.ajax({
+					 url: "<?php echo base_url();?>applicant/editDetails", //The url where the server req would we made.
+                        async: false, 
+                        type: "POST", //The type which you want to use: GET/POST
+                        data: "id="+id, //The variables which are going.
+                         
+                        //This is the function which will be called if ajax call is successful.
+                        success: function(e) {
+                            //data is the html of the page where the request is made.
+                            console.log(e);
+                            var obj = $.parseJSON(e);
+                            var val ="";
+	                		$.each(obj, function(){
+	                			id = this['id'];
+	                			batch_no = this['batch_control_no'];
+	                			client_name = this['client'];
+	                			request_id = this['request_id'];
+	                			date_start = this['date_start'];
+	                			training_days = this['training_days'];
+	                			limit = this['limit_no'];
+	                			current = this['current'];
+	                		});
+	                		//$newDate = date("d-m-Y", strtotime($date_start));
+	                		//$('#edit_batch_no').val(batch_no);
+	                		//dArr = date_start.split("-");
+	                		//newDate = dArr[1] + "/" + dArr[2] + "/" + dArr[0];
+	                		
+	                		$('#edit_id').val(id);
+	                		$('#edit_req_id').val(request_id);
+	                		$('#label_req_id').html(request_id);
+	                		$('#label_client_name').html(client_name);
+	                		$('#edit_client_name').val(client_name);
+	                		$('#edit_date_start').val(date_start);
+	                		$('#edit_training_days').val(training_days);
+	                		$('#edit_limit').val(limit);
+	                		$('#edit_current').val(current);
+
+	                		
+                      		
+                        } 
+				});
+				
+				$("#edit_view").removeClass('hide').dialog({
+					dialogClass: "no-close",
+					resizable: false,
+					modal: true,
+					closeOnEscape: false,
+					title: "<div class='widget-header'><h4 class='smaller'><i class='icon-edit'></i>"+batch_no+". Batch</h4></div>",
+					title_html: true,
+					width: 400,
+					//maxHeight: 800,
+					/*buttons: [
+							{
+						      html: "<i class=\"icon-edit\"></i> Edit",
+						      "class" : "btn btn-success btn-mini",
+						      click: function() {
+
+						      }
+						    },
+						    {
+						      html: "Cancel",
+						      "class" : "btn btn-mini",
+						      click: function() {
+						        $(this).dialog( "close" );
+						      }
+						    }
+						  ]*/
+					
+					});
 
 			}
+			var closeDialog = function(){
+				$('#edit_view').dialog("close");
+				location.reload();
+			}
+			
+			$(function() {
+
+				//$('.input-date').mask('9999-99-99');
 				
+				//datatable initialization
+				var oTable1 = $('#table_report').dataTable( {
+				"aoColumns": [
+			      null,null, null, null,
+				  { "bSortable": false }] ,
+				   "aLengthMenu": [[5, 10,-1], [5, 10, "All"]],
+					"iDisplayLength" : 5
+				} );
+				
+				
+				$(".date_start").datepicker().next().on(ace.click_event, function() {
+					$(this).prev().focus();
+				});
+				
+				$(".chzn-select").chosen(); 
+				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+				
+
+				$.extend($.gritter.options, { 
+		        position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+				fade_out_speed: 1000, // how fast the notices fade out
+				time: 1000 // hang on the screen for...
+				});
+
+				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+				_title: function(title) {
+					var $title = this.options.title || '&nbsp;'
+					if( ("title_html" in this.options) && this.options.title_html == true )
+						title.html($title);
+					else title.text($title);
+				}
+				}));
+
+			
+		        jQuery.validator.setDefaults({
+		          debug: true,
+		          //success: "valid"
+		        });
+
+		        $('#addBatchControl').validate({
+		          
+		          errorElement: 'span',
+		          errorClass: 'help-inline',
+		          focusInvalid: false,
+		          rules: {
+		            req_id: {
+		              required: true,
+		       
+		            },
+		            date_start: 'required',
+		          	training_days: {
+		              required: true,
+		              number: true,
+		              min: 1
+		       
+		            },
+		            limit_no: {
+		              required: true,
+		              number: true,
+		              min: 1
+		       
+		            }
+		          },
+		      
+		          messages: {
+		 			
+		  
+		          },
+		      
+		          invalidHandler: function (event, validator) { //display error alert on form submit   
+		            $('.alert-error', $('.login-form')).show();
+		          },
+		      
+		          highlight: function (e) {
+		            $(e).closest('.control-group').removeClass('info').addClass('error');
+		          },
+		      
+		          success: function (e) {
+		            $(e).closest('.control-group').removeClass('error').addClass('success');
+		            $(e).remove();
+		          },
+		      
+		          errorPlacement: function (error, element) {
+
+		            if(element.is(':checkbox') || element.is(':radio')) {
+		              var controls = element.closest('.controls');
+		              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+		              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+		            }
+		            else if(element.is('.select2')) {
+		              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+		            }
+		            else if(element.is('.chzn-select')) {
+		              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+		            }
+		            else error.insertAfter(element);
+		          },
+		          showErrors: function(errorMap, errorList) {
+		            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+		              + this.numberOfInvalids()
+		              + " errors, see details below.</div>");
+		              this.defaultShowErrors();
+		          },
+		          submitHandler: function (form) {
+		            console.log('SUBMIT FORM');
+		            submitForm();
+
+		          },
+		          invalidHandler: function (form) {
+		            
+		          },
+
+		        });
+				
+				// /var current;
+				
+				
+ 				$('#editBatchControl').validate({
+		         
+		          errorElement: 'span',
+		          errorClass: 'help-inline',
+		          focusInvalid: false,
+		          rules: {
+		            
+		            edit_date_start: 'required',
+		          	edit_training_days: {
+		              required: true,
+		              number: true,
+		              min: 1 ,
+		       
+		            },
+		            edit_limit: {
+		              required: true,
+		              number: true,
+		              min: a
+		       
+		            }
+		          },
+		      
+		      
+		          invalidHandler: function (event, validator) { //display error alert on form submit   
+		            $('.alert-error', $('.login-form')).show();
+		          },
+		      
+		          highlight: function (e) {
+		            $(e).closest('.control-group').removeClass('info').addClass('error');
+		          },
+		      
+		          success: function (e) {
+		            $(e).closest('.control-group').removeClass('error').addClass('success');
+		            $(e).remove();
+		          },
+		      
+		          errorPlacement: function (error, element) {
+
+		            if(element.is(':checkbox') || element.is(':radio')) {
+		              var controls = element.closest('.controls');
+		              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+		              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+		            }
+		            else if(element.is('.select2')) {
+		              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+		            }
+		            else if(element.is('.chzn-select')) {
+		              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+		            }
+		            else error.insertAfter(element);
+		          },
+		          showErrors: function(errorMap, errorList) {
+		            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+		              + this.numberOfInvalids()
+		              + " errors, see details below.</div>");
+		              this.defaultShowErrors();
+		          },
+		          submitHandler: function (form) {
+		            console.log('SUBMIT FORM');
+		            editForm();
+		            $('#alertRequired').hide();
+		            $('#alertSuccess').show();
+		            alert(a);
+		      
+
+		          },
+		          invalidHandler: function (form) {
+		            console.log('ERROR FORM');
+		            $('#alertSuccess').hide();
+		            $('#alertRequired').show();
+
+		          },
+
+		        });
+
+				
+				$('#req_id').change(function () {
+                    //var batch = $(this).attr('value');
+                    $('#company').hide();
+                    var req_id = $(this).find("option:selected").attr('value')
+                    console.log(req_id);
+                    $.ajax({    
+                        url: "<?php echo base_url();?>applicant/getCompany", //The url where the server req would we made.
+                        async: false, 
+                        type: "POST", //The type which you want to use: GET/POST
+                        data: "req_id="+req_id, //The variables which are going.
+                         
+                        //This is the function which will be called if ajax call is successful.
+                        success: function(e) {
+                            //data is the html of the page where the request is made.
+                            console.log(e);
+                            var obj = $.parseJSON(e);
+                            var val ="";
+	                		$.each(obj, function(){
+	                			val = this['company'];
+	                			val2 = this['client_id'];
+	                		});
+	                		//alert(val);
+                      		$('#company').slideToggle('fast');
+                        	$("#company_name").val(val);
+                        	$("#company_name2").val(val);
+                        	$('#client_id').val(val2);
+                        	
+                        } 
+                    })
+                });
+
+			});
 		</script>
+			
+			
 	</body>
 	<div id="dialog">
 	   <div id="view"></div>
+	</div>
+	<div id="edit_dialog" style="display:none">
+		<div class="center">
+		<div class="alert alert-info">Do you want to edit this batch ?</div>
+		</div>
+	</div>
+	<div id="edit_view" style="display:none">
+
+	<div class="widget-box" id="addBatch">
+		<div class="widget-header header-color-dark">
+			<h4 class="smaller">
+				Edit Batch
+				<small></small>
+			</h4>
+		</div>
+
+		<div class="widget-body">
+			<div class="alert alert-info center" id="alertRequired">
+                <p>Items marked with an asterisk (<span class="required">*</span>) are required.</p>  
+            </div>	
+			<div class="widget-main">	
+				<div class="alert alert-success center" style="display:none" id="alertSuccess">
+	                <p>Changes Successfully</p>  
+	            </div>
+				 <form id="editBatchControl">
+				 	<input type="hidden" autofocus id="edit_id" name="edit_id">
+				 	<input type="hidden" id="edit_current" name="edit_current">
+				 	<div class="control-group">
+						<label class="control-label" for="req_id">Request ID : <span id="label_req_id"></span></label>
+						<div class="controls">
+							<!-- <input type="text" id="edit_req_id" disabled> -->
+							<input type="hidden" id="edit_req_id" name="edit_req_id">
+						</div>
+					</div>
+					<div id="company" style="">
+						<label class="control-label" for="edit_client_name">Company:  <span id="label_client_name"></span></label>
+						<div class="controls">
+							<!-- <input type="text" id="edit_client_name" disabled=""  name=""> -->
+							<input type="hidden" id="edit_client_name" name="edit_client_name">
+						</div>
+				
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="edit_date_start">Date start (<span class="required">*</span>):</label>
+						<div class="controls" >
+							<span class="input-append">
+								<span class="add-on">
+									<i class="icon-calendar"></i>
+								</span>
+								<input  class="span2 input-date date_start" name="edit_date_start" id="edit_date_start" type="text" data-date-format="yyyy-mm-dd">
+							</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="edit_training_days">Training Days (<span class="required">*</span>):</label>
+						<div class="controls">
+							<input  type="text" id="edit_training_days" name="edit_training_days" placeholder="#" class="input-mini">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="edit_limit">Limit (<span class="required">*</span>):</label>
+						<div class="controls">
+							<input  type="text" id="edit_limit" name="edit_limit" placeholder="#" class="input-mini">
+						</div>
+					</div>
+					<div class="form-actions">
+						<button class="btn btn-info btn-small" type="submit">
+							<i class="icon-edit bigger-110"></i>
+							Edit
+						</button>
+						<a class="btn btn-small" onclick="closeDialog()">
+							Close
+						</a>
+					
+					</div>
+				 </form>
+
+			</div>
+		</div>
+	</div>
 	</div>
 </html>

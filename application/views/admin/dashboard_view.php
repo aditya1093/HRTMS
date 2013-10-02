@@ -27,14 +27,13 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
-
+	
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -49,7 +48,7 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->

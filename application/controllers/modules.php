@@ -114,6 +114,8 @@ class Modules extends CI_Controller {
 			echo ":)";
 		}
 	}
+
+	
 }
 
 /* End of file modules.php */

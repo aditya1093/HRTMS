@@ -610,7 +610,7 @@ blockquote, blockquote.pull-right {
     padding-right: 0;
     min-height: 45px;
     position: relative;
-    background: #37A7CA; /*#438eb9;*/
+    background: #2B4E72; /*#438eb9;*/
 }
 .navbar .navbar-text, .navbar .navbar-link {
     color: #fff;
@@ -997,7 +997,7 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
 }
 .nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active {
     background-color: #fff;
-    color: #0b6cbc;
+    color: #2B4E72;
     font-weight: bold;
     font-size: 13px;
 }
@@ -1015,7 +1015,7 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
     top: 4px;
     border: 8px solid transparent;
     border-width: 14px 10px;
-    border-right-color: #0b6cbc;
+    border-right-color: #2B4E72;
 }
 .nav-list>li.active>a.dropdown-toggle:after {
     border-width: 12px 7px;
@@ -1034,7 +1034,7 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
     right: -2px;
     top: -1px;
     bottom: 0;
-    border-right: 2px solid #0b6cbc;
+    border-right: 2px solid #2B4E72;
 }
 .nav-list>li.open {
     border-bottom-color: #e5e5e5;
@@ -1047,7 +1047,7 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
     top: 4px;
     border: 8px solid transparent;
     border-width: 14px 10px;
-    border-right-color: #0b6cbc;
+    border-right-color: #2B4E72;
     top: 2px;
 }
 .nav-list>li.active .submenu {

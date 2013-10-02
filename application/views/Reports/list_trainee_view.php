@@ -25,12 +25,13 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" media="screen,print"/>
-
+			<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" media="screen,print" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" media="screen,print" />
+		
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" media="screen,print" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" media="screen,print" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" media="screen,print" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" media="screen,print" />
+	
  
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
@@ -63,7 +64,7 @@
 <fieldset>
 	<div id="byBatch">
 		<label for="byBatch">&nbsp;by Batch :</label>
-		<select class="chzn-select"  name="batch">
+		<select class="chzn-select"  name="batch" id="batch">
 				<option selected value=""></option>
 			<?php if(isset($records2)) : foreach($records2 as $row) : ?>
 				<option value="<?php echo $row->batch_control_no;?>"><?php echo $row->batch_control_no;?></option>
@@ -203,25 +204,25 @@
 				$(".chzn-select").chosen(); 
 				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
 
-	            $('#byBatch select').change(function () {
-	                    var batch = $(this).attr('value');
-	                    console.log(batch);
-	                    $.ajax({    
-	                        url: "<?php echo base_url();?>reports/traineeByBatch", //The url where the server req would we made.
-	                        async: false, 
-	                        type: "POST", //The type which you want to use: GET/POST
-	                        data: "batch="+batch, //The variables which are going.
-	                        dataType: 'json', //Return data type (what we expect).
-	                         
-	                        //This is the function which will be called if ajax call is successful.
-	                        success: function(output_string) {
-	                            //data is the html of the page where the request is made.
-	                            //alert(selState); 
-	                            $('#result_table').html(output_string);
-	                            //console.log(output_string);
-	                        } 
-	                    })
-	                });
+				$('.chzn-select').change(function () {
+                    var batch =  $(this).find("option:selected").attr('value');
+                    console.log(batch);
+                     $.ajax({    
+                        url: "<?php echo base_url();?>reports/traineeByBatch", //The url where the server req would we made.
+                        async: false, 
+                        type: "POST", //The type which you want to use: GET/POST
+                        data: {batch : batch}, //The variables which are going.
+                        dataType: 'json', //Return data type (what we expect).
+                         
+                        //This is the function which will be called if ajax call is successful.
+                        success: function(output_string) {
+                            //data is the html of the page where the request is made.
+                            //alert(selState); 
+                            $('#result_table').html(output_string);
+                            //console.log(output_string);
+                        } 
+                    })
+                });
 											 
 	
 			});

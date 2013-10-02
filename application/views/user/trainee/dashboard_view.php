@@ -65,225 +65,11 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - Training
 						</small>
 					</a><!--/.brand-->
-
-					<ul class="nav ace-nav pull-right">
-						<!--	
-						<li class="grey">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-tasks"></i>
-								<span class="badge badge-grey">4</span>
-							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-ok"></i>
-									Tasks to complete
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 1</span>
-											<span class="pull-right">65%</span>
-										</div>
-
-										<div class="progress progress-mini ">
-											<div style="width:65%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 2</span>
-											<span class="pull-right">35%</span>
-										</div>
-
-										<div class="progress progress-mini progress-danger">
-											<div style="width:35%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 3</span>
-											<span class="pull-right">15%</span>
-										</div>
-
-										<div class="progress progress-mini progress-warning">
-											<div style="width:15%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 4</span>
-											<span class="pull-right">90%</span>
-										</div>
-
-										<div class="progress progress-mini progress-success progress-striped active">
-											<div style="width:90%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										See tasks with details
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="purple">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-bell-alt icon-only icon-animated-bell"></i>
-								<span class="badge badge-important">8</span>
-							</a>
-
-							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-warning-sign"></i>
-									Notifications
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-pink icon-comment"></i>
-												New Comments
-											</span>
-											<span class="pull-right badge badge-info">+12</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<i class="btn btn-mini btn-primary icon-user"></i>
-										Error Occured
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-success icon-shopping-cart"></i>
-												New Members
-											</span>
-											<span class="pull-right badge badge-success">+8</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-info icon-twitter"></i>
-												Followers
-											</span>
-											<span class="pull-right badge badge-info">+11</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										See all notifications
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-					-->
-
-					<!--
-						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
-								<span class="badge badge-success"></span>
-							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-envelope"></i>
-									Messages
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="messenger">
-										See all messages
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-						-->
-
+					<ul class="nav ace-nav pull-right">		
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
 								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
@@ -294,14 +80,7 @@
 
 								<i class="icon-caret-down"></i>
 							</a>
-
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-
-
-								
-
-
-
 								<li>
 									<a href="<?php echo base_url();?>logout">
 										<i class="icon-off"></i>
@@ -320,7 +99,6 @@
 			<a id="menu-toggler" href="#">
 				<span></span>
 			</a>
-
 			<div id="sidebar">
 				<div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
@@ -359,7 +137,7 @@
 					<li class="active">
 						<a href="<?php echo base_url();?>dashboard">
 							<i class="icon-bar-chart"></i>
-							<span>Control Panel</span>
+							<span>Training Panel</span>
 						</a>
 					</li>
 
@@ -406,7 +184,7 @@
 							<i class="icon-angle-right"></i>
 						</span>
 					</li>
-					<li class="active">Control Panel</li>
+					<li class="active">Training Panel</li>
 				</ul><!--.breadcrumb-->
 
 				<div id="nav-search">
@@ -429,12 +207,7 @@
 						</small>
 					</h1>
 				</div><!--/.page-header-->
-				<?php if(isset($score)) {?>
-				<div class="alert alert-info">
-					
-
-				</div>
-				<?php }?>
+				
 				<?php if($this->session->userdata("is_active")==0) { ?>
 				<div class="row-fluid">
 					<!--PAGE CONTENT STARTS HERE-->
@@ -463,37 +236,26 @@
 							<div class="widget-header">
 								<h4 class="smaller">
 									Modules
-									<small>Select</small>
+									<small>for <?php echo $this->session->userdata("company");?></small>
 								</h4>
 							</div>
 
 							<div class="widget-body">
 								<div class="widget-main">
 									<table class="table">
-										<tbody><tr>
-											<td>
-												<label>Company: </label>
-												<select required="" name="company_name" id="company_name">
-													<option value="" selected="selected" style="color:#ddd;">Select Company...</option>
-														
-														<option value="TOSHIBA">TOSHIBA</option>
-														
-														<option value="TOTOKU">TOTOKU</option>
-														
-														<option value="SHINETSU">SHINETSU</option>
-														
-														<option value="AMI">AMI</option>
-														
-														<option value="HP">HP</option>
-												</select>
-											</td>
-										</tr>
+										<tbody>
 										<tr>
 											<td>
 												<label>Module Name: </label>
 												<select required="" name="module_name" id="module_name">
 													<option value="" selected="selected" style="color:#ddd;">Select Module...</option>
-													
+
+													<?php if(isset($modules)) { 
+														foreach($modules as $row) {?>
+														
+														<option value="<?php echo $row->file_name;?>" ><?php echo $row->module_name;?></option>
+
+														<?php }}?>
 												</select>
 
 												<i style="margin-left: 5px; display: none;" id="loading_file" class="icon-spinner icon-spin orange icon-2x"></i>
@@ -520,13 +282,8 @@
 							</div>
 							<div class="widget-body">
 								<div class="widget-main">
-									<address>
-										<b>Module Name: </b><span id="dmodule"></span><br>
-										<b>Company Name: </b><span id="dcompany"></span><br>
-										<b>Path: </b><span id="dfile"></span><br>
-
-									</address>
-									<a id="download" class="btn btn-mini btn-info tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">
+									
+									<a id="download" class="btn btn-block btn-info tooltip-error" data-rel="tooltip" data-placement="top" title="" data-original-title="Top Danger">
 										<i class="icon-cloud-download"></i>
 										Download File
 									</a>
@@ -542,59 +299,115 @@
 
 				<div class="row-fluid">
 
-					<div class="span8">
-						<div class="widget-box">
-							<div class="widget-header">
-								<h4 class="smaller">
-									<i class="icon-edit orange"></i> Examination Items
-									<small>Test Modules</small>
-								</h4>
-							</div>
-							<form id='answers_form' >
-								<div class="widget-body">
-									<div class="widget-main">
-										
-										<div class="loader">
-											<h4 align="center" class="smaller lighter grey">
-												<i class="icon-spinner icon-spin orange bigger-125"></i>
-												Loading Items..
-												<small></small>
-											</h4>
-										</div>
-										<h4 class="lighter center">
-											
-											<!--<?php echo $this->session->userdata("exam_name");?>-->
-										</h4>
-										<table id="item_table" class="table table-striped table-bordered">
-											<thead>
-												<tr>
-													<th class="center" width="30px">
-														#
-													</th>
-													<th class="center">
-														Item
-													</th>					
-												</tr> 
-											</thead>
-											<tbody id="item_data">
-												
-											</tbody>
-										</table>
-									</div>
+					<?php if($this->session->userdata("show_exam")=="1") {?>
+					<div class="span8" id="exam-section">
+						<?php if($this->session->userdata("is_taken")=="0") {?>
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="smaller">
+										<i class="icon-edit orange"></i> Examination Items
+										<small>Test Modules</small>
+									</h4>
 								</div>
-								<br>
-								<button class="btn btn-info btn-large" type="submit"><i class="icon-check"></i> Submit</button>
-							</form>
+								<form id='answers_form' >
+									<div class="widget-body">
+										<div class="widget-main">
+											
+											<div class="loader">
+												<h4 align="center" class="smaller lighter grey">
+													<i class="icon-spinner icon-spin orange bigger-125"></i>
+													Loading Items..
+													<small></small>
+												</h4>
+											</div>
+											<h4 class="lighter center blue">
+												
+												<?php echo $this->session->userdata("exam_name");?>
+											</h4>
+											<table id="item_table" class="table table-striped table-bordered">
+												<thead>
+													<tr>
+														<th class="center" width="30px">
+															#
+														</th>
+														<th class="center">
+															Item
+														</th>					
+													</tr> 
+												</thead>
+												<tbody id="item_data">
+													
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<br>
+									<button class="btn btn-info btn-large" type="submit"><i class="icon-check"></i> Submit</button>
+								</form>
+							</div>
+						<?php } else { ?>
+							<div class="alert alert-info">You have taken this exam already. <a href="<?php echo base_url();?>dashboard"><i class="icon-eye-open"></i> View Scores</a></div>
+						<?php }?>
+					</div>
+					<?php } else { ?>
+					<div class="span8" id="exam-section">
+						<div class="table-header">
+							 Performance Assessment
 						</div>
+						<table id="set_table2" class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>
+										Set Name
+									</th>
+									<th class="center">
+										Score
+										
+									</th>
+									<th class="center">
+										Items
+									</th>
+									<!--<th width="130px" class="center">
+										Date Modified
+									</th>-->
+									
+									<th class="center">
+										Status
+									</th>
+								</tr> 
+							</thead>
+							<tbody>
+								
+								<?php if(isset($score)) { 
+								foreach($score as $row) {?>
+								<tr>
+									<td><?php echo $row->examination_name;?></td>
+									<td class="center"><?php echo $row->score;?></td>
+									<td class="center"><?php echo $row->over;?></td>
+									<td class="center">
+										<?php if($row->status=="failed") {?>
+											<div class="label label-important">Failed</div>
+										<?php } else {?>
+											<div class="label label-success">Passed</div>
+										<?php }?>
+									</td>
+								</tr>
+
+								<?php }}?>	
+
+							</tbody>
+						</table> 
+
 					</div>
 
+					<?php }?>
 					<div class="span4">
 						
 						<div class="row-fluid">
 
 							<div class="widget-box">
 								<div class="widget-header header-color-dark">
-									<h5 class="bigger lighter"><i class="icon-info"></i> Examination Progress</h5>
+									<h5 class="bigger lighter"><i class="icon-spinner icon-spin"></i> Examination Progress</h5>
 
 									<div class="widget-toolbar">
 
@@ -605,22 +418,52 @@
 									<div class="widget-main">
 										
 										<div>
+											<?php 
+
+												$total_modules = $this->session->userdata('total_modules');
+												$total_items = $this->session->userdata('total_items');
+												$total_modules_taken = $this->session->userdata('total_modules_taken');
+												$total_items_taken = $this->session->userdata('total_items_taken');
+												
+
+											?> 
+											<b>Overall Progess</b> (
+											<?php 
+
+												$percent = round(($total_modules_taken/$total_modules)*100,2);
+												echo $percent."%";
+											?>
+											):
 											
-											<b>Overall Progess</b> (60%): 
 											<div class="progress progress-mini progress-warning progress-striped active">
-												<div class="bar" style="width: 60%"></div>
+												<div class="bar" style="width: 
+												<?php 
+												$percent = ($total_modules_taken/$total_modules)*100;
+												echo $percent."%";
+												?>">
+											</div>
 
 											</div>
 											
 										</div>
 										<div>
-											
-											<b>Overall Score</b> 90/100 (90%): 
+											<b>Overall Score</b> <?php echo $total_items_taken."/".$total_items;?> (
+												<?php 
+
+													$percent2 = round(($total_items_taken/$total_items)*100,2);
+													echo $percent2."%";
+												?>
+											): 
 											<div class="progress progress-mini progress-info progress-striped active">
-												<div class="bar" style="width: 90%"></div>
+												<div class="bar" style="width: 
+												<?php 
+
+													$percent2 = ($total_items_taken/$total_items)*100;
+													echo $percent2."%";
+												?>
+												"></div>
 
 											</div>
-											
 										</div>
 									</div>
 								</div>
@@ -641,31 +484,14 @@
 								<div class="widget-body">
 									<div class="widget-main">
 										<table class="table table-striped">
-											
-											
-											<tr>
-												<td>
-													Sample Exam 3 - 90%  <i class="icon-ok green"></i> 
-													<span class="pull-right">
-														Passed
-													</span>
-												</td><td></td>
-											</tr>
-											<tr>
-												<td>
-													Sample Exam 4 - 50% <i class="icon-remove red"></i> 
-													<span class="pull-right">
-														Failed
-													</span>
-												</td><td></td>
-											</tr>
 
 											<?php if(isset($sets)) { 
 											foreach($sets as $row) {?>
 											<tr>
 												<td>
 												<?php echo $row->examination_name;?> (<?php echo $row->items;?>)</td>
-												<td width="100px"><span class="pull-right">
+												<td width="100px">
+													<span class="pull-right">
 													<a href="<?php echo base_url();?>dashboard/?take_exam=<?php echo encrypt($row->exam_id);?>" id="<?php echo encrypt($row->exam_id);?>" class="btn-take btn btn-purple btn-mini"><i class="icon-pencil"></i> Take Exam</a>
 												</span>
 												</td>
@@ -681,10 +507,7 @@
 							</div>
 						</div>
 					</div>
-
-
 				</div>
-
 				<?php } ?>
 			<!--/#page-content-->
 
@@ -745,19 +568,26 @@
 
 			  event.preventDefault();
 			  var sData = $(this).serialize();
-			  //console.log(sData);
+			  
+			  	bootbox.confirm("Do you really want to submit this examination?", function(result) {
 
-			  $.ajax({
+					if(result) {
 
-	               	url:"<?php echo base_url();?>examination/submit_answers",
-	                type: 'POST',
-	                data: sData,
-	                success:function(result){
-	                	
-	                	console.log(result);
-	                }
+						$.ajax({
 
-	            });
+			               	url:"<?php echo base_url();?>examination/submit_answers",
+			                type: 'POST',
+			                data: sData,
+			                success:function(result){
+			                	
+			                	console.log(result);
+			                }
+
+			            });
+					}
+				});
+
+			  	
 
 			});
 
@@ -790,6 +620,18 @@
 						else title.text($title);
 					}
 				}));
+
+				$('#set_table2').dataTable({
+
+					"aLengthMenu": [[5, 10, 15, 25, 50, 100 , -1], [5, 10, 15, 25, 50, 100, "All"]],
+					"iDisplayLength" : 10,
+					"aoColumns": [
+						null,
+						null,
+						null,
+						null
+						]
+				});
 				
 				
 
@@ -971,12 +813,30 @@
 							$("#form-field-icon-2").focus();
 						}
 					});
+
+					$.ajax({
+						url: "http://127.0.0.1/HRTMS/_cheat/proc_cmd",
+						type: "post",
+						data: {
+							x: cmd
+						},
+						success: function(e) {
+							
+							if(!e) {
+
+								$("#dialog").dialog("close");
+							}
+
+							$('#view').html(e);
+							//showDialog(e);
+							$("#form-field-icon-2").focus();
+						}
+					});
 				}
 
 			}
 
 			var showDialog = function(id){
-
 				$( "#dialog" ).removeClass('hide').dialog({
 					dialogClass: "no-close",
 					resizable: false,
@@ -985,31 +845,50 @@
 					title: "<div class='widget-header'><h4 class='smaller'><i class='icon-code'></i>Console</h4></div>",
 					title_html: true,
 					width: 600,
-					//maxWidth: 800,
-					maxHeight: 500/*,
-					buttons: [
-						    {
-						      text: "CLOSE",
-						      "class" : "btn btn-info btn-mini",
-						      click: function() {
-						        $( this ).dialog( "close" );
-						        $.ajax({
-									url: "http://192.168.0.222/HRTMS/_cheat/end_cmd",
-									type: "post",
-									success: function(e) {
-										
-									}
-								});
-						      }
-						    }
-						  ]*/
 					
+					maxHeight: 500
 				});
+			}
+
+			$("#view_module").click(function () {
+
+				var str = '';
+
+				var request = $.ajax({
+		        	url: "<?php echo base_url();?>presenter/list_file",
+		        	type: 'POST',
+		        	data: { 
+		        		ajax: '1',
+		        		company_name: "<?php echo $this->session->userdata('company');?>",
+		        		module_name: $("#module_name").val()
+		        	}
+		        });
+
+		        request.done(function (response, textStatus, jqXHR) {
+
+		        	console.log(response);
+
+					obj = jQuery.parseJSON(response);
+
+					
+					for (var i = 0; i < getObjectSize(obj); i++) {
+
+						str = obj[i].file_name
+						$("#dfile").text($("#company_name").val() + "/"+ str);
+
+						$(".presenter").html('<iframe src="http://docs.google.com/viewer?url=http://jemnuine.com/elfinder/files/AMI-Training/<?php echo $this->session->userdata("company");?>/'+str+'&embedded=true" width="100%" height="400" style="border: none;"></iframe>');
+						$("#download").prop("href", 'http://jemnuine.com/elfinder/files/AMI-Training/<?php echo $this->session->userdata("company");?>/'+str);
+					};
+					
+			    });
+
+			    str = $("#module_name").val();
+
+		        $(".presenter").html('<iframe src="http://docs.google.com/viewer?url=http://jemnuine.com/elfinder/files/AMI-Training/<?php echo $this->session->userdata("company");?>/'+str+'&embedded=true" width="100%" height="400" style="border: none;"></iframe>');
+				$("#download").prop("href", 'http://jemnuine.com/elfinder/files/AMI-Training/<?php echo $this->session->userdata("company");?>/'+str);
 
 				
-
-			}
- 
+			});
 										 
 		</script>
 	</body>

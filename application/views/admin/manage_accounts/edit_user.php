@@ -51,7 +51,7 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
@@ -565,23 +565,37 @@
 												$stat ="<button onclick=\"status_update('$stat')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-\">Invalid Status</button>";
 											}
 										?>
-										<form method="post" action="<?php echo base_url();?>manage/edit_user/<?php echo $user_id?>">
-											
-												<label>First Name (<span class="required">*</span>): </label>
-												<input required style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $row->first_name;?>">
-
-												<label>Last Name (<span class="required">*</span>): </label>
-												<input required style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $row->last_name;?>">
-
-												<label>Middle Name: </label>
-												<input style="width: 94%" type="text" id="middle_name" name="middle_name" value="<?php echo $row->middle_name;?>">
-
-												<label for="phone" >Phone # (<span class="required">*</span>): </label>
-												<input id="phone" class="input-mask-phone" required style="width: 94%" type="text" name="phone" value="<?php echo $row->phone;?>">
-
-												<label>Email address (<span class="required">*</span>): </label>
-												<input required style="width: 94%" type="email" id="email" name="email"  value="<?php echo $row->email;?>">
-
+										<form id="edit_user" method="post" action="<?php echo base_url();?>manage/edit_user/<?php echo $user_id?>">
+											<div class="control-group">
+												<label for="first_name" class="control-label">First Name (<span class="required">*</span>): </label>
+												<div class="controls">
+													<input style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $row->first_name;?>">
+												</div>
+											</div>
+											<div class="control-group">
+												<label for="last_name" class="control-label">Last Name (<span class="required">*</span>): </label>
+												<div>	
+													<input style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $row->last_name;?>">
+												</div>
+											</div>
+											<div class="control-group">
+												<label for="middle_name" class="control-label">Middle Name: </label>
+												<div class="controls">
+													<input style="width: 94%" type="text" id="middle_name" name="middle_name" value="<?php echo $row->middle_name;?>">
+												</div>
+											</div>
+											<div class="control-group">
+												<label for="phone" class="control-label">Phone # (<span class="required">*</span>): </label>
+												<div class="controls">
+													<input id="phone" class="input-mask-phone" style="width: 94%" type="text" name="phone" value="<?php echo $row->phone;?>">
+												</div>
+											</div>
+											<div class="control-group">
+												<label for="email" class="control-label">Email address (<span class="required">*</span>): </label>
+												<div class="controls">
+													<input style="width: 94%" type="email" id="email" name="email"  value="<?php echo $row->email;?>">
+												</div>
+											</div>
 												<hr>
 												<span class="pull-right">
 												<button type="submit" class="btn btn-success btn-small"><i class="icon-edit icon-white"></i> Edit User</button>
@@ -690,6 +704,9 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+	    <script src="<?php echo base_url();?>assets/js/additional-methods.min.js"></script>
+
 
 
 		<!--inline scripts related to this page-->
@@ -714,7 +731,123 @@
 						else title.text($title);
 					}
 				}));
+				jQuery.validator.addMethod("phone", function (value, element) {
+		          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+		        }, "Enter a valid phone number.");
+		        
+		        jQuery.validator.setDefaults({
+		          debug: true,
+		          //success: "valid"
+		        });
+		    $('#edit_user').validate({
+		          
+		          errorElement: 'span',
+		          errorClass: 'help-inline',
+		          focusInvalid: false,
+		          rules: {
+	
+		            first_name: {
+		              required: true,
+		              minlength:2,
+		              letterswithbasicpunc:true,
+		            },
+		            last_name: {
+		              required: true,
+		               minlength:2,
+		               letterswithbasicpunc:true,
+		            },
+		            middle_name: {
+		            	minlength:2,
+		            	letterswithbasicpunc:true,
+		            },
+		          	phone:{
+		          		required: true,
+		          	},
+		    
+		            email: {
+		               required: true,
+		               email : true	
+		            }
+		          },
+		      
+		          messages: {
+		            first_name: {
+		              minlength: jQuery.format("At least {0} characters required."),
 
+		            },
+		            last_name: {
+		              minlength: jQuery.format("At least {0} characters required."),
+		            },
+		            middle_name: {
+		              minlength: jQuery.format("At least {0} characters required."),
+		            },
+		            client_location: {
+		              minlength: jQuery.format("At least {0} characters required."),
+		            },
+
+		            email: {
+		              required: "Please provide a valid email.",
+		              email: "Please provide a valid email."
+		            },
+		            client_username: {
+		           	  minlength: jQuery.format("At least {0} characters required.")
+		            },
+		            client_password: {
+		              required: "Please specify a password.",
+		              minlength: jQuery.format("Please specify a secure password. At least {0} characters required.")
+		            }, 
+		            client_password_confirm: {
+		              minlength: jQuery.format("At least {0} characters required.")
+		            }
+		          },
+		      
+		          invalidHandler: function (event, validator) { //display error alert on form submit   
+		            $('.alert-error', $('.login-form')).show();
+		          },
+		      
+		          highlight: function (e) {
+		            $(e).closest('.control-group').removeClass('success').addClass('error');
+		          },
+		      
+		          success: function (e) {
+		            $(e).closest('.control-group').removeClass('error').addClass('success');
+		            $(e).remove();
+		          },
+		      
+		          errorPlacement: function (error, element) {
+
+		            if(element.is(':checkbox') || element.is(':radio')) {
+		              var controls = element.closest('.controls');
+		              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+		              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+		            }
+		            else if(element.is('.select2')) {
+		              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+		            }
+		            else if(element.is('.chzn-select')) {
+		              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+		            }
+		            else error.insertAfter(element);
+		          },
+		          showErrors: function(errorMap, errorList) {
+		            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+		              + this.numberOfInvalids()
+		              + " errors, see details below.</div>");
+		              this.defaultShowErrors();
+		          },
+		          submitHandler: function (form) {
+		            //alert('SUBMIT FORM');
+		            form.submit();
+
+		          },
+		          invalidHandler: function (form) {
+		            $("html, body").animate({ scrollTop: 0 }, "slow");
+		          },
+
+		        });
+						
+
+				
 				$.extend($.gritter.options, { 
 			        position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
 					fade_in_speed: 'medium', // how fast notifications fade in (string or int)

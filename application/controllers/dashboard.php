@@ -42,23 +42,39 @@ class Dashboard extends CI_Controller {
 			
 			$id = $this->session->userdata("user_id");
 	        $b_id = $this->session->userdata("b_id");
+	        $this->session->set_userdata("show_exam","0");
+	        $this->examination_model->exam_progress();
 
 	        if($this->input->get("take_exam")) {
+
 	        	$this->session->set_userdata("take_exam_id", $this->input->get("take_exam"));
+	        	$this->session->set_userdata("show_exam","1");
+
 	        }
 	        else {
+
 	        	$this->session->unset_userdata("take_exam_id");
+	        	$this->session->set_userdata("show_exam","0");
 
 	        }
 
-	        $data['sets'] = $this->examination_model->exam_set_info($b_id);
-			/*$is_took = $this->examination_model->check_gradesheet($id, $b_id);
+	        $is_took = $this->examination_model->check_gradesheet($id, $b_id, $this->input->get("take_exam"));
+	        
+	        if($is_took==0) {
 
-			if($is_took == 0) {
+	        	$this->session->set_userdata("is_taken","0");
+	        }
+	        else {
 
-				$data["score"] = $this->examination_model->get_gradesheet($id, $b_id);
-			}*/
+	        	$this->session->set_userdata("is_taken","1");
+	        }
+
+	        $data["sets"] = $this->examination_model->exam_set_info($b_id);
+	        $data["score"] = $this->examination_model->get_gradesheet($id, $b_id);
 			
+			$this->load->model("module_model");
+	        $data["modules"] = $this->module_model->list_company_module();
+
 			$this->load->view('User/trainee/dashboard_view',$data);
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Applicant') {

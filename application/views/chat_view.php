@@ -5,29 +5,51 @@
 <title>Messages - AMI</title>
 <meta name="description" content="overview &amp; stats"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<!--basic styles-->
-<link href="<?php echo base_url();?>
-assets/css/bootstrap.min.css" rel="stylesheet" />
-<link href="<?php echo base_url();?>
-assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="<?php echo base_url();?>
-assets/css/font-awesome.min.css" /> 
-<!--[if IE 7]>
+
+		<link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="<?php echo base_url();?>assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css" />
+
+		<!--[if IE 7]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
-<!--page specific plugin styles-->
-<!--fonts-->
-<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
-<!--ace styles-->
-<link rel="stylesheet" href="<?php echo base_url();?>
-assets/css/font.css" />
-<link rel="stylesheet" href="<?php echo base_url();?>
-assets/css/style.min.css" />
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
-<link rel="stylesheet" href="<?php echo base_url();?>
-assets/css/style-responsive.min.css" />
-<link rel="stylesheet" href="<?php echo base_url();?>
-assets/css/style-skins.min.css" /> 
+
+		<!--page specific plugin styles-->
+
+		<!--fonts-->
+
+		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
+
+		<!--ace styles-->
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
+
+<style type="text/css">
+	input[type=checkbox],
+	input[type=radio] {
+		opacity: 100;
+		position: relative;
+		z-index: 12;
+		width: 18px;
+		height: 18px;
+		display:inline; margin:0px; padding:0px;
+	}
+	.ui-dialog .ui-dialog-content {
+position: relative;
+border: 0;
+padding: .5em 1em;
+background: 0;
+overflow: visible;
+}
+
+</style>
 <!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
 		<![endif]-->
@@ -39,7 +61,7 @@ assets/css/style-skins.min.css" />
 		<div class="container-fluid">
 			<a href="#" class="brand">
 			<small>
-			<i class="icon-group"></i>
+			<img src="<?php echo base_url();?>assets/images/logo.png">
 			AMI - Training Center Administration </small>
 			</a>
 			<!--/.brand-->
@@ -170,111 +192,132 @@ assets/css/style-skins.min.css" />
 		</div>
 		<div id="page-content" class="clearfix">
 			
-			<!--/.page-header-->
+			
 			<div class="row-fluid">
-				<!--PAGE CONTENT STARTS HERE-->
-				<div class="span8">
-					<div class="widget-box" style="height: 520px">
-						<div class="widget-header widget-header-small header-color-blue">
-							<h4 class="smaller">
-							<i class="icon-comment blue"></i>
-							Conversation <span id="thewho"></span> <small>AMI Messenger</small>
-							</h4>
+				<div class="span12">
+					<h3 class="header smaller lighter blue">AMI Mailer </h3>
+					<div class="btn-toolbar pull-right">
+						<div class="btn-group">
+							<button class="btn btn-small btn-purple" id="btn-compose"><i class="icon-edit"></i> Compose</button> 
 						</div>
-						<div class="widget-body">
-							<div class="widget-main no-padding">
-								
-								<!-- LOAD MESSAGES HERE -->
-								<div class="slimScrollDiv">
-									<div id="chat_div" class="dialogs">
-										<!--<?php if(isset($records)) : foreach($records as $row) : ?>
-								
-										
-										<div class="itemdiv dialogdiv">
-											<div class="user">
-												<img alt="" src="assets/avatars/user.jpg">
-											</div>
-											<div class="body">
-												<div class="time">
-													<i class="icon-time"></i>
-													<span class="orange"><?php echo $row->time_sent?></span>
-												</div>
-												<div class="name">
-													<a href="#"><?php echo $row->full_name?></a>
-													<span class="label label-info arrowed arrowed-in-right">
-														<?php echo $row->permission?>
-													</span>
-												</div>
-												<div class="text">
-													<?php echo $row->message?>
-												</div>
-												
-											</div>
-										</div>
-										<?php endforeach;?>
-										<?php endif; ?>-->
-									</div>
+						<div class="btn-group">
+							<button class="btn btn-small btn-primary"><i class="icon-refresh"></i> Refresh</button>
+						</div>
+						
+					</div>
 
-									<div class="slimScrollBar ui-draggable">
-									</div>
-									<div class="slimScrollRail">
-									</div>
-									
-								</div>
 
-								<!-- MESSAGES ENDS HERE -->
+					<br>
+					<div class="tabbable">
+						<ul class="nav nav-tabs" id="myTab">
+							<li class="active">
+								<a data-toggle="tab" href="#inbox">
+									<i class="blue icon-envelope"></i>
+									Inbox
+									<span class="badge badge-important">4</span>
+								</a>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#sent">
+									<i class="green icon-ok"></i>
+									Sent
+								</a>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#draft">
+									<i class="purple icon-pencil"></i>
+									Draft
+								</a>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#trash">
+									<i class="red icon-trash"></i>
+									Trash
+								</a>
+							</li>
+
+
+						</ul>
+
+						<div class="tab-content">
+							<div id="inbox" class="tab-pane in active">
+
 								
-									<div class="form-actions input-append">
-										<input placeholder="Type your message here..." type="text" style="width:85%" name="message" id="message">
-
-										<button class="btn btn-small btn-info no-radius" id="send_button">
-										<i class="icon-share-alt"></i>
-										<span class="hidden-phone">Send</span>
+								<!--<div class="center table-header">Inbox (# Unread Messages)</div>-->
+								<div class="table-header">
+									<div class="btn-group">
+										<button class="btn btn-small btn-purple"><i class="icon-reply"></i> Reply</button>
+									</div>
+									<div class="btn-group">
+										<button class="btn btn-small btn-success"><i class="icon-mail-forward"></i> Forward</button>
+									</div>
+									<div class="btn-group">
+										<button data-toggle="dropdown" class="btn btn-info btn-small dropdown-toggle">
+											Actions
+											<span class="caret"></span>
 										</button>
-									</div>
-								
-							</div>
-							<!--/widget-main-->
-						</div>
-						<!--/widget-body-->
-					</div>
-				</div>
-				<div class="span4">
-					<div class="widget-box" style="height: 520px">
-						<div class="widget-header widget-header-small">
-							<h4 class="smaller">
-							AMI Staffs <small></small>
-							</h4>
-						</div>
-						<div class="widget-body">
-							<div class="widget-main">
-								<div class="slimScrollDiv">
-									<table class="table">
 
-										<?php if(isset($user_records)) : foreach($user_records as $row) : ?>
-										<?php if ($row->id == $this->session->userdata('id')) continue;?>
-										<tr class="chat_user">
-											<td>
-												<a style="cursor: pointer;" class="userchat" id="<?php echo $row->id?>">
-													<img class="nav-user-photo" src="assets/avatars/user.jpg" style="width: 30px; margin-right: 10px;"><?php echo $row->first_name?> <?php echo $row->last_name?>
-													<i class="icon-circle pull-right" style="color:#387038;"></i>
-												</a>
-											</td>
-										</tr>
-										<?php endforeach;?>
-										<?php endif;?>
-										
-									</table>
+										<ul class="dropdown-menu dropdown-info pull-right">
+											<li>
+												<a href="#"><i class="icon-eye-open green"></i> Mark As Read</a>
+											</li>
+
+											<li>
+												<a href="#"><i class="icon-eye-close blue"></i> Mark As Unread</a>
+											</li>
+											<li class="divider"></li>
+											<li>
+												<a href="#"><i class="icon-flag red"></i> Flag</a>
+											</li>
 									
+										</ul>
+									</div>
+									<div class="btn-group">
+										<button class="btn btn-small btn-danger"><i class="icon-trash"></i> Delete</button>
+									</div>
 								</div>
-								
+								<table class="inbox-table table">
+									<thead>
+										<tr role="row">
+											<th style="width: 50px;" class="center sorting_disabled" role="columnheader" colspan="1" rowspan="1"><input type="checkbox"></th>
+											<th style="width: 200px;">From</th>
+											<th>Messages</th>
+											<th style="width: 200px;" >Date</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
+											<td><a><b>asdf</b></a></td>
+											<td><i class="icon-flag red"></i> <a><b>asdf</b></a></td>
+											<td><a><b>asdf</b></a></td>
+										</tr>
+										<tr>
+											<td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
+											<td>asdf</td>
+											<td>asdf</td>
+											<td>asdf</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div id="sent" class="tab-pane">
+								<p>[sent]</p>
+							</div>
+
+							<div id="draft" class="tab-pane">
+								<p>[draft]</p>
+							</div>
+
+							<div id="trash" class="tab-pane">
+								<p>[trash]</p>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!--PAGE CONTENT ENDS HERE-->
 			</div>
-			<!--/row-->
+						
 		</div>
 		<!--/#page-content-->
 	</div>
@@ -298,13 +341,23 @@ assets/css/style-skins.min.css" />
 		  <script src="<?php echo base_url();?>assets/js/excanvas.min.js"></script>
 		<![endif]-->
 <script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.full.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
 <!--ace scripts-->
+
+<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
+
+<script src="<?php echo base_url();?>assets/js/markdown/bootstrap-markdown.min.js"></script>
+<script src="<?php echo base_url();?>assets/js/bootstrap-wysiwyg.min.js"></script>
+
 <script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
-<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
+
+
 <!--inline scripts related to this page-->
 <script type="text/javascript">
 	
@@ -318,28 +371,18 @@ assets/css/style-skins.min.css" />
 	    return len;
 	};
 
-	$(document).ready(function() {
+	
 
-		var id = 0;
 
-		/* Initialize Scroll */
-	    $('.slimScrollDiv').slimScroll({
-	        height: '400px',
-	        size: '10px',
-	        alwaysVisible: true,
-	        start: 'bottom'
-	    });
-
-	    /* Update Per Second */
-	    var interval = setInterval(function() { 
-
-	    	load_messages();
-
-		}, 500);
-
-	    notify();
-
-	});
+	$('.inbox-table th input:checkbox').on('click' , function(){
+			var that = this;
+			$(this).closest('.inbox-table').find('tr > td:first-child input:checkbox')
+			.each(function(){
+				this.checked = that.checked;
+				$(this).closest('tr').toggleClass('selected');
+			});
+				
+		});
 
 	/* Load notification */
 	var notify = function() {
@@ -481,6 +524,83 @@ assets/css/style-skins.min.css" />
 	    });
 	});
 
+
+	$("#btn-compose").click(function(){
+
+		showDialog("asd");
+	});
+
+	var showDialog = function(id){
+		$( "#dialog" ).removeClass('hide').dialog({
+			dialogClass: "no-close",
+			resizable: false,
+			modal: true,
+			closeOnEscape: true,
+			title: "<div class='widget-header header-color-blue'><h4 class='smaller'><i class='icon-edit'></i>New Message</h4></div>",
+			title_html: true,
+			width: 800,
+			maxHeight: 500
+		});
+
+	}
+
+
+
+	$(document).ready(function() {
+
+		var id = 0;
+
+		/* Initialize Scroll */
+	    $('.slimScrollDiv').slimScroll({
+	        height: '400px',
+	        size: '10px',
+	        alwaysVisible: true,
+	        start: 'top'
+	    });
+
+	    /* Update Per Second 
+	    var interval = setInterval(function() { 
+
+	    	load_messages();
+
+		}, 500);*/
+
+	    notify();
+
+	    $(".inbox-table").dataTable({
+
+	    	"aoColumns": [
+				{ "bSortable": false },
+				{ "bSortable": false },
+				{ "bSortable": false },
+				{ "bSortable": false }
+			]
+	    });
+
+	    $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+			_title: function(title) {
+				var $title = this.options.title || '&nbsp;'
+				if( ("title_html" in this.options) && this.options.title_html == true )
+					title.html($title);
+				else title.text($title);
+			}
+		}));
+
+	    $("#dialog").hide();
+
+		//$('#editor1').ace_wysiwyg();
+		
+
+	});
+
+	
+
+
 </script>
 </body>
+<div id="dialog">
+   <div id="view">
+   		
+   </div>
+</div>
 </html>

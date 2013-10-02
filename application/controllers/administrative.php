@@ -147,8 +147,8 @@ class Administrative extends CI_Controller {
 			$output_string .= "<tr><td>From :</td><td>". $date_requested ."</td></tr>";
 			$output_string .= "<tr><td>To :</td><td>". $is_to ."</td></tr>";
 			$output_string .= "<tr><td>Type :</td>";
-			$output_string .= "<td>". $emp_type ."</td><td></tr>";
-			$output_string .= "</td></tr>";
+			$output_string .= "<td>". $emp_type ."</td></tr>";
+			//$output_string .= "</td></tr>";
 			$output_string .= "<tr><td>Department :</td><td>". $emp_department ."</td></tr>";
 			$output_string .= "<tr><td><h4>Applicant Requirements</h4></td><td></td></tr>";
 			$output_string .= "<tr><td>Gender :</td>";

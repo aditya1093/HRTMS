@@ -26,7 +26,7 @@
 
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
@@ -48,7 +48,7 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - HRTMS Administration
 						</small>
 					</a><!--/.brand-->
@@ -595,7 +595,11 @@
 											</span>
 										</div>
 
-										<div class="widget-body"><div class="widget-body-inner">
+										<div class="widget-body">
+											<div class="alert alert-info center">
+						                        <p>Items marked with an asterisk (<span class="required">*</span>) are required.</p>  
+						                    </div>
+											<div class="widget-body-inner">
 											<div class="widget-main">
 												<div class="row-fluid">
 
@@ -605,39 +609,63 @@
 										              else{echo $message;}
 										              ?>         
 													</div>
-													<form method="post" action="<?php echo base_url();?>manage/add_trainer">
+												<form method="post" action="<?php echo base_url();?>manage/add_trainer" id="add_trainer">
+		 											<div class="control-group">
+														<label class="control-label" for="first_name">First Name (<span class="required">*</span>): </label>
+														<div class="controls">
+															<input style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $this->session->flashdata('first_name');?>">
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="last_name">Last Name (<span class="required">*</span>): </label>
+														<div class="controls">	
+															<input style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $this->session->flashdata('last_name');?>">
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="middle_name">Middle Name: </label>
+														<div class="controls">
+															<input style="width: 94%" type="text" id="middle_name" name="middle_name" value="<?php echo $this->session->flashdata('middle_name');?>">
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="phone" >Phone # (<span class="required">*</span>): </label>
+														<div class="controls">
+															<input id="phone" class="input-mask-phone" style="width: 94%" type="text" name="phone" value="<?php echo $this->session->flashdata('phone');?>">
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="email">Email address (<span class="required">*</span>): </label>
+														<div class="controls">
+															<input style="width: 94%" type="email" id="email" name="email"  value="<?php echo $this->session->flashdata('email');?>">
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="username">Username (<span class="required">*</span>):  </label>
+														<div class="controls">
+															<input autofocus  style="width: 94%" placeholder="Enter Username" type="text" id="username" name="username" value="<?php echo $this->session->flashdata('username');?>">
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="password">Password (<span class="required">*</span>): </label>
+														<div class="controls">
+															<input style="width: 94%" type="password" id="password" name="password" value="">
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="password_confirm">Confirm Password (<span class="required">*</span>): </label>
+														<div class="controls">
+															<input style="width: 94%" type="password" id="password_confirm" name="password_confirm" value="">
+														</div>
+													</div>
+													<div class="form-controls">
 
-														<label>Username (<span class="required">*</span>):  </label>
-														<input title="Minimum of 6 characters is required" pattern=".{6,}" autofocus required  style="width: 94%" placeholder="Enter Username" type="text" id="username" name="username" value="<?php echo $this->session->flashdata('username');?>">
-
-														<label>Password (<span class="required">*</span>): </label>
-														<input title="Minimum of 6 characters is required" pattern=".{6,}" required style="width: 94%" type="password" id="password" name="password" value="">
-
-														<label>Confirm Password (<span class="required">*</span>): </label>
-														<input title="Minimum of 6 characters is required" pattern=".{6,}" required style="width: 94%" type="password" id="password_confirm" name="password_confirm" value="">
-
-														<label>First Name (<span class="required">*</span>): </label>
-														<input required style="width: 94%" type="text" id="first_name" name="first_name" value="<?php echo $this->session->flashdata('first_name');?>">
-
-														<label>Last Name (<span class="required">*</span>): </label>
-														<input required style="width: 94%" type="text" id="last_name" name="last_name" value="<?php echo $this->session->flashdata('last_name');?>">
-
-														<label>Middle Name: </label>
-														<input  style="width: 94%" type="text" id="middle_name" name="middle_name" value="<?php echo $this->session->flashdata('middle_name');?>">
-
-														<label for="phone" >Phone # (<span class="required">*</span>): </label>
-														<input id="phone" class="input-mask-phone" required style="width: 94%" type="text" name="phone" value="<?php echo $this->session->flashdata('phone');?>">
-
-														<label>Email address (<span class="required">*</span>): </label>
-														<input required style="width: 94%" type="email" id="email" name="email"  value="<?php echo $this->session->flashdata('email');?>">
-
-														<hr>
-
-														<button type="submit" class="btn btn-success"><i class="icon-plus icon-white"></i> Add HR</button>
-
-														
-													</form>	
-												</div>
+														<button type="submit" class="btn btn-success btn-small"><i class="icon-plus icon-white"></i> Add Trainer</button>
+														<button type="reset" class="btn btn-danger btn-small"><i class="icon-undo icon-white"></i> Reset</button>
+													</div>
+													
+												</form>	
+											</div>
 
 												
 											</div>
@@ -698,6 +726,10 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+	    <script src="<?php echo base_url();?>assets/js/additional-methods.min.js"></script>
+
+
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
@@ -740,6 +772,132 @@
 				}
 			}));
 
+			jQuery.validator.addMethod("phone", function (value, element) {
+		          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+		        }, "Enter a valid phone number.");
+		        
+		        jQuery.validator.setDefaults({
+		          debug: true,
+		          //success: "valid"
+		        });
+		    $('#add_trainer').validate({
+		          
+		          errorElement: 'span',
+		          errorClass: 'help-inline',
+		          focusInvalid: false,
+		          rules: {
+	
+		            first_name: {
+		              required: true,
+		              minlength:2,
+		            },
+		            last_name: {
+		              required: true,
+		               minlength:2,
+		            },
+		            middle_name: {
+		            	minlength:2,
+		            },
+		          	phone:{
+		          		required: true,
+		          	},
+		        	username:{
+		          		required: true,
+		          		minlength:6
+		          	},
+		          	password: {
+		              required: true,
+		              minlength: 6
+		            },
+		            password_confirm: {
+		              required: true,
+		              minlength: 6,
+		              equalTo: "#client_password"
+		            },
+		            email: {
+		               required: true,
+		               email : true	
+		            }
+		          },
+		      
+		          messages: {
+		            first_name: {
+		              minlength: jQuery.format("At least {0} characters required."),
+
+		            },
+		            last_name: {
+		              minlength: jQuery.format("At least {0} characters required."),
+		            },
+		            middle_name: {
+		              minlength: jQuery.format("At least {0} characters required."),
+		            },
+		            client_location: {
+		              minlength: jQuery.format("At least {0} characters required."),
+		            },
+
+		            email: {
+		              required: "Please provide a valid email.",
+		              email: "Please provide a valid email."
+		            },
+		            client_username: {
+		           	  minlength: jQuery.format("At least {0} characters required.")
+		            },
+		            client_password: {
+		              required: "Please specify a password.",
+		              minlength: jQuery.format("Please specify a secure password. At least {0} characters required.")
+		            }, 
+		            client_password_confirm: {
+		              minlength: jQuery.format("At least {0} characters required.")
+		            }
+		          },
+		      
+		          invalidHandler: function (event, validator) { //display error alert on form submit   
+		            $('.alert-error', $('.login-form')).show();
+		          },
+		      
+		          highlight: function (e) {
+		            $(e).closest('.control-group').removeClass('success').addClass('error');
+		          },
+		      
+		          success: function (e) {
+		            $(e).closest('.control-group').removeClass('error').addClass('success');
+		            $(e).remove();
+		          },
+		      
+		          errorPlacement: function (error, element) {
+
+		            if(element.is(':checkbox') || element.is(':radio')) {
+		              var controls = element.closest('.controls');
+		              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+		              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+		            }
+		            else if(element.is('.select2')) {
+		              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+		            }
+		            else if(element.is('.chzn-select')) {
+		              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+		            }
+		            else error.insertAfter(element);
+		          },
+		          showErrors: function(errorMap, errorList) {
+		            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+		              + this.numberOfInvalids()
+		              + " errors, see details below.</div>");
+		              this.defaultShowErrors();
+		          },
+		          submitHandler: function (form) {
+		            //alert('SUBMIT FORM');
+		            form.submit();
+
+		          },
+		          invalidHandler: function (form) {
+		            $("html, body").animate({ scrollTop: 0 }, "slow");
+		          },
+
+		        });
+						
+
+			
 			$( ".view_user" ).on(ace.click_event,function() {
 				var id = $(this).attr("value");
 			 	$.ajax({

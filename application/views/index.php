@@ -8,7 +8,7 @@
 <meta name="description" content="">
 <meta name="author" content="railscom">
 <!-- styles -->
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" type="text/css" />
+<!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" type="text/css" />-->
 <link href="<?php echo base_url();?>assets/_home/css/bootstrap.css" rel="stylesheet" />
 <link href="<?php echo base_url();?>assets/_home/css/bootstrap-responsive.css" rel="stylesheet" />
 <link rel="stylesheet" href="<?php echo base_url();?>assets/_home/css/flexslider.css" />

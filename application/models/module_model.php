@@ -62,6 +62,13 @@ class Module_model extends CI_Model{
         return $query->result();
     }
 
+    function list_company_module() {
+
+        $this->db->select('*');
+        $query = $this->db->get_where('modules', array('company_name' => $this->session->userdata("company")));
+        return $query->result();
+    }
+
     function remove_list($param) {
 
         $this->db->where('module_id', $param);

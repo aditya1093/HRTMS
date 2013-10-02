@@ -8,8 +8,9 @@ class Report_model extends CI_Model{
     }
 
 
-    function list_trainee() {
+    function list_trainee($batch) {
         $this->db->select('*');
+        $this->db->where('batch_control_no',$batch);
         $this->db->from('hris');
         $this->db->order_by("trainee_id", "asc"); 
         $query = $this->db->get();
@@ -17,19 +18,20 @@ class Report_model extends CI_Model{
     }
 
 
-    function trainee_attendance() {
+    function trainee_attendance($batch) {
         $this->db->select('*');
         $this->db->from('hris');
         $this->db->join('trainee_attendance', 'hris.trainee_id = trainee_attendance.training_id','left');
         $this->db->where('training_days !=','0');
         $this->db->where('present_days !=','0');
+        $this->db->where('batch_control_no',$batch);
         $this->db->order_by("trainee_id", "asc"); 
         $query = $this->db->get();
         return $query->result(); 
     }
     
-    function training_days($batch){
-        $this->db->select('training_days');
+    function training_info($batch){
+        $this->db->select('training_days,date_start');
         $this->db->from('batch_no');
         $this->db->where('batch_control_no', $batch);
         $query = $this->db->get();
@@ -81,5 +83,12 @@ class Report_model extends CI_Model{
         $query = $this->db->get();
         return $query->result();
     }
-   
+    
+    function exam_set_batch(){
+        $this->db->select('batch_id');
+        $this->db->distinct();
+        $this->db->from('exam_set');
+        $query = $this->db->get();
+        return $query->result();
+    }
 } 

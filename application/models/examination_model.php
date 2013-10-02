@@ -124,6 +124,8 @@ class Examination_model extends CI_Model{
 
     function check_gradesheet($id, $b_id, $e_id) {
 
+        $e_id = decrypt($e_id);
+
         $q = "SELECT * FROM gradesheet WHERE trainee_id='".$id."' AND batch_id='".$b_id."'"." AND exam_id='".$e_id."'";
 
         $query = $this->db->query($q);
@@ -135,7 +137,10 @@ class Examination_model extends CI_Model{
 
     function get_gradesheet($id, $b_id) {
 
-        $q = "SELECT * FROM gradesheet WHERE trainee_id='".$id."' AND batch_id='".$b_id."'";
+        $q = "SELECT * FROM gradesheet 
+        LEFT JOIN examination
+        ON gradesheet.exam_id=examination.examination_id 
+        WHERE trainee_id='".$id."' AND batch_id='".$b_id."'";
 
         $query = $this->db->query($q);
         $result = $query->result();
@@ -267,4 +272,32 @@ class Examination_model extends CI_Model{
         $this->db->where('batch_id', $id);
         $this->db->update('exam_set', $data); 
     }
+
+    function exam_progress() {
+
+        $q = "SELECT COUNT(batch_id) AS total_modules FROM exam_set WHERE batch_id='".$this->session->userdata('b_id')."'";
+        $result = $this->db->query($q);
+
+        $total_modules = $result->row()->total_modules;
+        $this->session->set_userdata("total_modules", $total_modules);
+
+        $q = "SELECT SUM(items) AS total_items FROM exam_set WHERE batch_id='".$this->session->userdata('b_id')."'";
+        $result = $this->db->query($q);
+
+        $total_items = $result->row()->total_items;
+        $this->session->set_userdata("total_items", $total_items);
+
+        $q = "SELECT COUNT(exam_id) AS total_modules_taken FROM gradesheet WHERE trainee_id='".$this->session->userdata('user_id')."'";
+        $result = $this->db->query($q);
+
+        $total_modules_taken = $result->row()->total_modules_taken;
+        $this->session->set_userdata("total_modules_taken", $total_modules_taken);
+
+        $q = "SELECT SUM(score) AS total_items_taken FROM gradesheet WHERE trainee_id='".$this->session->userdata('user_id')."'";
+        $result = $this->db->query($q);
+
+        $total_items_taken = $result->row()->total_items_taken;
+        $this->session->set_userdata("total_items_taken", $total_items_taken);
+    }
+
 }

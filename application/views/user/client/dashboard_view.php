@@ -53,7 +53,7 @@
 				<div class="container-fluid">
 					<a href="#" class="brand">
 						<small>
-							<i class="icon-group"></i>
+							<img src="<?php echo base_url();?>assets/images/logo.png">
 							AMI - HRTMS Client Portal
 						</small>
 					</a><!--/.brand-->
@@ -126,7 +126,7 @@
 			</a>
 
 			<div id="sidebar">
-				<div id="sidebar-shortcuts">
+				<!--<div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
 						<button class="btn btn-small btn-success">
 							<i class="icon-signal"></i>
@@ -156,7 +156,7 @@
 					</div>
 				</div>
 
-				<!--#sidebar-shortcuts-->
+				#sidebar-shortcuts-->
 
 				<ul class="nav nav-list">
 					
@@ -680,8 +680,11 @@
 				jQuery.validator.addMethod("phone", function (value, element) {
 		          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
 		        }, "Enter a valid phone number.");
-		        
-		        jQuery.validator.setDefaults({
+		       	
+		       	$.validator.addMethod("checkTags", function(value) {
+				        return ($("#tagsx_tagsinput").find(".tag").length > 0);
+				    });
+				jQuery.validator.setDefaults({
 		          debug: true,
 		          //success: "valid"
 		        });
