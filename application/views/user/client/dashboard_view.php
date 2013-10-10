@@ -730,7 +730,7 @@
 		          },
 		      
 		          highlight: function (e) {
-		            $(e).closest('.control-group').removeClass('info').addClass('error');
+		            $(e).closest('.control-group').removeClass('success').addClass('error');
 		          },
 		      
 		          success: function (e) {
