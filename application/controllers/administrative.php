@@ -22,7 +22,7 @@ class Administrative extends CI_Controller {
 			$this->load->view('admin/audit_view', $data);
 		}
 		else {
- 
+ 			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}	
 
@@ -35,25 +35,29 @@ class Administrative extends CI_Controller {
 			$this->load->view('admin/backup_view');
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}	
 	}
 	
 	function confirm_request() {
-
-		$this->load->model("request_model");
-		$id = $this->input->post("id");
-
-		
-		
-		if($this->input->post("action") == "confirm") {
+		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    	
+			$this->load->model("request_model");
+			$id = $this->input->post("id");
 			
-			$this->request_model->confirm_request($id, array("confirmed"=>"1","is_read"=>"0"));
+			if($this->input->post("action") == "confirm") {
+				
+				$this->request_model->confirm_request($id, array("confirmed"=>"1","is_read"=>"0"));
+			}
+			else {
+
+				$this->request_model->confirm_request($id, array("confirmed"=>"0","is_read"=>"0"));
+			}
 		}
 		else {
 
-			$this->request_model->confirm_request($id, array("confirmed"=>"0","is_read"=>"0"));
+		 	header( 'Location: ../dashboard' ) ;
 		}
 	}
 

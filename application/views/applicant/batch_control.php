@@ -532,6 +532,7 @@
 																<i class="icon-calendar"></i>
 															</span>
 															<input  class="date_start span6 input-date" name="date_start" id="date_start" type="text" data-date-format="yyyy-mm-dd">
+															
 														</span>
 													</div>
 												</div>
@@ -663,7 +664,7 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/bootstrap-datepicker.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
 		<!--ace scripts-->
@@ -681,7 +682,239 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
-			var a ; 
+				$(function() {
+
+				//$('.input-date').mask('9999-99-99');
+				
+				//datatable initialization
+				var oTable1 = $('#table_report').dataTable( {
+				"aoColumns": [
+			      null,null, null, null,
+				  { "bSortable": false }] ,
+				   "aLengthMenu": [[5, 10,-1], [5, 10, "All"]],
+					"iDisplayLength" : 5
+				} );
+				
+				
+				$(".date_start").datepicker().next().on(ace.click_event, function() {
+					$(this).prev().focus();
+				});
+				$("#edit_date_start").datepicker().next().on(ace.click_event, function() {
+					$(this).prev().focus();
+				});
+				
+				$(".chzn-select").chosen(); 
+				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+				
+
+				$.extend($.gritter.options, { 
+		        position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+				fade_out_speed: 1000, // how fast the notices fade out
+				time: 1000 // hang on the screen for...
+				});
+
+				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+				_title: function(title) {
+					var $title = this.options.title || '&nbsp;'
+					if( ("title_html" in this.options) && this.options.title_html == true )
+						title.html($title);
+					else title.text($title);
+				}
+				}));
+
+			
+		        jQuery.validator.setDefaults({
+		          debug: true,
+		          //success: "valid"
+		        });
+
+		        $('#addBatchControl').validate({
+		          
+		          errorElement: 'span',
+		          errorClass: 'help-inline',
+		          focusInvalid: false,
+		          rules: {
+		            req_id: {
+		              required: true,
+		       
+		            },
+		            date_start: 'required',
+		          	training_days: {
+		              required: true,
+		              number: true,
+		              min: 1
+		       
+		            },
+		            limit_no: {
+		              required: true,
+		              number: true,
+		              min: 1
+		       
+		            }
+		          },
+		      
+		          messages: {
+		 			
+		  
+		          },
+		      
+		          invalidHandler: function (event, validator) { //display error alert on form submit   
+		            $('.alert-error', $('.login-form')).show();
+		          },
+		      
+		          highlight: function (e) {
+		            $(e).closest('.control-group').removeClass('success').addClass('error');
+		          },
+		      
+		          success: function (e) {
+		            $(e).closest('.control-group').removeClass('error').addClass('success');
+		            $(e).remove();
+		          },
+		      
+		          errorPlacement: function (error, element) {
+
+		            if(element.is(':checkbox') || element.is(':radio')) {
+		              var controls = element.closest('.controls');
+		              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+		              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+		            }
+		            else if(element.is('.select2')) {
+		              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+		            }
+		            else if(element.is('.chzn-select')) {
+		              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+		            }
+		            else error.insertAfter(element);
+		          },
+		          showErrors: function(errorMap, errorList) {
+		            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+		              + this.numberOfInvalids()
+		              + " errors, see details below.</div>");
+		              this.defaultShowErrors();
+		          },
+		          submitHandler: function (form) {
+		            console.log('SUBMIT FORM');
+		            submitForm();
+
+		          },
+		          invalidHandler: function (form) {
+		            
+		          },
+
+		        });
+				
+				// /var current;
+				
+				
+ 				$('#editBatchControl').validate({
+		         
+		          errorElement: 'span',
+		          errorClass: 'help-inline',
+		          focusInvalid: false,
+		          rules: {
+		            
+		            edit_date_start: 'required',
+		          	edit_training_days: {
+		              required: true,
+		              number: true,
+		              min: 1 ,
+		       
+		            },
+		            edit_limit: {
+		              required: true,
+		              number: true,
+		              //min: a
+		       
+		            }
+		          },
+		      
+		      
+		          invalidHandler: function (event, validator) { //display error alert on form submit   
+		            $('.alert-error', $('.login-form')).show();
+		          },
+		      
+		          highlight: function (e) {
+		            $(e).closest('.control-group').removeClass('success').addClass('error');
+		          },
+		      
+		          success: function (e) {
+		            $(e).closest('.control-group').removeClass('error').addClass('success');
+		            $(e).remove();
+		          },
+		      
+		          errorPlacement: function (error, element) {
+
+		            if(element.is(':checkbox') || element.is(':radio')) {
+		              var controls = element.closest('.controls');
+		              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+		              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+		            }
+		            else if(element.is('.select2')) {
+		              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+		            }
+		            else if(element.is('.chzn-select')) {
+		              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+		            }
+		            else error.insertAfter(element);
+		          },
+		          showErrors: function(errorMap, errorList) {
+		            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+		              + this.numberOfInvalids()
+		              + " errors, see details below.</div>");
+		              this.defaultShowErrors();
+		          },
+		          submitHandler: function (form) {
+		            console.log('SUBMIT FORM');
+		            editForm();
+		            $('#alertRequired').hide();
+		            $('#alertSuccess').show();
+		            alert(a);
+		      
+
+		          },
+		          invalidHandler: function (form) {
+		            console.log('ERROR FORM');
+		            $('#alertSuccess').hide();
+		            $('#alertRequired').show();
+
+		          },
+
+		        });
+
+				
+				$('#req_id').change(function () {
+                    //var batch = $(this).attr('value');
+                    $('#company').hide();
+                    var req_id = $(this).find("option:selected").attr('value')
+                    console.log(req_id);
+                    $.ajax({    
+                        url: "<?php echo base_url();?>applicant/getCompany", //The url where the server req would we made.
+                        async: false, 
+                        type: "POST", //The type which you want to use: GET/POST
+                        data: "req_id="+req_id, //The variables which are going.
+                         
+                        //This is the function which will be called if ajax call is successful.
+                        success: function(e) {
+                            //data is the html of the page where the request is made.
+                            console.log(e);
+                            var obj = $.parseJSON(e);
+                            var val ="";
+	                		$.each(obj, function(){
+	                			val = this['company'];
+	                			val2 = this['client_id'];
+	                		});
+	                		//alert(val);
+                      		$('#company').slideToggle('fast');
+                        	$("#company_name").val(val);
+                        	$("#company_name2").val(val);
+                        	$('#client_id').val(val2);
+                        	
+                        } 
+                    })
+                });
+
+			});
 		
 			var resetForm = function(){
 				$('#addBatchControl').each(function(){
@@ -693,10 +926,10 @@
 			}
 			var submitForm = function(){
 
-				  //event.preventDefault();
 
-				  var sData = $('#addBatchControl').serialize();
-				  console.log(sData);
+
+				var sData = $('#addBatchControl').serialize();
+				console.log(sData);
 				  $.ajax({
 		               	url:"<?php echo base_url();?>applicant/addBatchControl",
 		                type:'POST',
@@ -913,236 +1146,7 @@
 				location.reload();
 			}
 			
-			$(function() {
-
-				//$('.input-date').mask('9999-99-99');
-				
-				//datatable initialization
-				var oTable1 = $('#table_report').dataTable( {
-				"aoColumns": [
-			      null,null, null, null,
-				  { "bSortable": false }] ,
-				   "aLengthMenu": [[5, 10,-1], [5, 10, "All"]],
-					"iDisplayLength" : 5
-				} );
-				
-				
-				$(".date_start").datepicker().next().on(ace.click_event, function() {
-					$(this).prev().focus();
-				});
-				
-				$(".chzn-select").chosen(); 
-				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
-				
-
-				$.extend($.gritter.options, { 
-		        position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
-				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
-				fade_out_speed: 1000, // how fast the notices fade out
-				time: 1000 // hang on the screen for...
-				});
-
-				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
-				_title: function(title) {
-					var $title = this.options.title || '&nbsp;'
-					if( ("title_html" in this.options) && this.options.title_html == true )
-						title.html($title);
-					else title.text($title);
-				}
-				}));
-
-			
-		        jQuery.validator.setDefaults({
-		          debug: true,
-		          //success: "valid"
-		        });
-
-		        $('#addBatchControl').validate({
-		          
-		          errorElement: 'span',
-		          errorClass: 'help-inline',
-		          focusInvalid: false,
-		          rules: {
-		            req_id: {
-		              required: true,
-		       
-		            },
-		            date_start: 'required',
-		          	training_days: {
-		              required: true,
-		              number: true,
-		              min: 1
-		       
-		            },
-		            limit_no: {
-		              required: true,
-		              number: true,
-		              min: 1
-		       
-		            }
-		          },
-		      
-		          messages: {
-		 			
-		  
-		          },
-		      
-		          invalidHandler: function (event, validator) { //display error alert on form submit   
-		            $('.alert-error', $('.login-form')).show();
-		          },
-		      
-		          highlight: function (e) {
-		            $(e).closest('.control-group').removeClass('success').addClass('error');
-		          },
-		      
-		          success: function (e) {
-		            $(e).closest('.control-group').removeClass('error').addClass('success');
-		            $(e).remove();
-		          },
-		      
-		          errorPlacement: function (error, element) {
-
-		            if(element.is(':checkbox') || element.is(':radio')) {
-		              var controls = element.closest('.controls');
-		              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
-		              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
-		            }
-		            else if(element.is('.select2')) {
-		              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
-		            }
-		            else if(element.is('.chzn-select')) {
-		              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
-		            }
-		            else error.insertAfter(element);
-		          },
-		          showErrors: function(errorMap, errorList) {
-		            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
-		              + this.numberOfInvalids()
-		              + " errors, see details below.</div>");
-		              this.defaultShowErrors();
-		          },
-		          submitHandler: function (form) {
-		            console.log('SUBMIT FORM');
-		            submitForm();
-
-		          },
-		          invalidHandler: function (form) {
-		            
-		          },
-
-		        });
-				
-				// /var current;
-				
-				
- 				$('#editBatchControl').validate({
-		         
-		          errorElement: 'span',
-		          errorClass: 'help-inline',
-		          focusInvalid: false,
-		          rules: {
-		            
-		            edit_date_start: 'required',
-		          	edit_training_days: {
-		              required: true,
-		              number: true,
-		              min: 1 ,
-		       
-		            },
-		            edit_limit: {
-		              required: true,
-		              number: true,
-		              min: a
-		       
-		            }
-		          },
-		      
-		      
-		          invalidHandler: function (event, validator) { //display error alert on form submit   
-		            $('.alert-error', $('.login-form')).show();
-		          },
-		      
-		          highlight: function (e) {
-		            $(e).closest('.control-group').removeClass('success').addClass('error');
-		          },
-		      
-		          success: function (e) {
-		            $(e).closest('.control-group').removeClass('error').addClass('success');
-		            $(e).remove();
-		          },
-		      
-		          errorPlacement: function (error, element) {
-
-		            if(element.is(':checkbox') || element.is(':radio')) {
-		              var controls = element.closest('.controls');
-		              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
-		              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
-		            }
-		            else if(element.is('.select2')) {
-		              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
-		            }
-		            else if(element.is('.chzn-select')) {
-		              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
-		            }
-		            else error.insertAfter(element);
-		          },
-		          showErrors: function(errorMap, errorList) {
-		            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
-		              + this.numberOfInvalids()
-		              + " errors, see details below.</div>");
-		              this.defaultShowErrors();
-		          },
-		          submitHandler: function (form) {
-		            console.log('SUBMIT FORM');
-		            editForm();
-		            $('#alertRequired').hide();
-		            $('#alertSuccess').show();
-		            alert(a);
-		      
-
-		          },
-		          invalidHandler: function (form) {
-		            console.log('ERROR FORM');
-		            $('#alertSuccess').hide();
-		            $('#alertRequired').show();
-
-		          },
-
-		        });
-
-				
-				$('#req_id').change(function () {
-                    //var batch = $(this).attr('value');
-                    $('#company').hide();
-                    var req_id = $(this).find("option:selected").attr('value')
-                    console.log(req_id);
-                    $.ajax({    
-                        url: "<?php echo base_url();?>applicant/getCompany", //The url where the server req would we made.
-                        async: false, 
-                        type: "POST", //The type which you want to use: GET/POST
-                        data: "req_id="+req_id, //The variables which are going.
-                         
-                        //This is the function which will be called if ajax call is successful.
-                        success: function(e) {
-                            //data is the html of the page where the request is made.
-                            console.log(e);
-                            var obj = $.parseJSON(e);
-                            var val ="";
-	                		$.each(obj, function(){
-	                			val = this['company'];
-	                			val2 = this['client_id'];
-	                		});
-	                		//alert(val);
-                      		$('#company').slideToggle('fast');
-                        	$("#company_name").val(val);
-                        	$("#company_name2").val(val);
-                        	$('#client_id').val(val2);
-                        	
-                        } 
-                    })
-                });
-
-			});
+		
 		</script>
 			
 			
@@ -1199,7 +1203,7 @@
 								<span class="add-on">
 									<i class="icon-calendar"></i>
 								</span>
-								<input  class="span2 input-date date_start" name="edit_date_start" id="edit_date_start" type="text" data-date-format="yyyy-mm-dd">
+								<input  class="span2 input-date" name="edit_date_start" id="edit_date_start" type="text" data-date-format="yyyy-mm-dd">
 							</span>
 						</div>
 					</div>

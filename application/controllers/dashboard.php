@@ -13,6 +13,7 @@ class Dashboard extends CI_Controller {
 			$this->load->model('request_model');
 			$data['record'] = $this->request_model->list_request();
 			$this->load->view('admin/dashboard_view', $data);
+			
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'HR') {
 			

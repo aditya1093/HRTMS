@@ -302,7 +302,7 @@
                           </div>
                         </div>
                       </div>
-                       <div class="control-group">
+                      <div class="control-group">
                         <label class="control-label" for="height">Height <span class="muted">(cm)</span>(<span class="required">*</span>):</label>
 
                         <div class="controls">
@@ -472,6 +472,7 @@
         $('.date-picker').datepicker().next().on(ace.click_event, function() {
           $(this).prev().focus();
         });
+        
 
       
         //documentation : http://docs.jquery.com/Plugins/Validation/validate
@@ -485,12 +486,16 @@
           return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
         }, "Enter a valid phone number.");
         
+
+        jQuery.validator.addMethod("nameValidation", function(value, element) {
+          return this.optional(element) || /^[a-z\-.,\s]+$/i.test(value);
+        }, "Name must not contain special characters except comma, dash and period.");
+
         jQuery.validator.setDefaults({
           debug: true,
           //success: "valid"
         });
         $('#registration-form').validate({
-          
           errorElement: 'span',
           errorClass: 'help-inline',
           focusInvalid: false,
@@ -498,17 +503,19 @@
             first_name: {
               required: true,
               minlength:2,
+              nameValidation:true,
             },
             last_name: {
               required: true,
-               minlength:2,
+              minlength:2,
+              nameValidation:true,
             },
             middle_name: {
-               minlength:2,   
+              minlength:2, 
+              nameValidation:true,
             },
             date_of_birth: {
                required: true,
-              
             },
             civil_status:'required',
             height: {
@@ -532,15 +539,33 @@
             },
             email: {
               required: true,
-              email:true
+              email:true,
+              remote: {
+                url: "<?php echo base_url();?>registration/register_email_exists",
+                type: "post",
+                data: {
+                  email: function(){ return $("#email").val(); }
+                }
+              }
             },
             username: {
               required: true,
-              minlength:6
+              minlength:6,
+              maxlength:20,
+              alphanumeric:true,
+              remote: {
+                url: "<?php echo base_url();?>registration/register_username_exists",
+                type: "post",
+                data: {
+                  username: function(){ return $("#username").val(); }
+                }
+              }
             },
             password: {
               required: true,
-              minlength: 6
+              minlength: 6,
+              maxlength:20,
+              alphanumeric:true,
             },
             password2: {
               required: true,
@@ -563,11 +588,19 @@
             },
             email: {
               required: "Please provide a valid email.",
-              email: "Please provide a valid email."
+              email: "Please provide a valid email.",
+              remote: "This email is not available.",
+            },
+            username: {
+              maxlength: jQuery.format("Must not contain more than {0} characters."),
+              remote: "This username is not available.",
+              
             },
             password: {
               required: "Please specify a password.",
-              minlength: jQuery.format("Please specify a secure password. At least {0} characters required.")
+              minlength: jQuery.format("Please specify a secure password. At least {0} characters required."),
+              maxlength: jQuery.format("Must not contain more than {0} characters."),
+
             },
             password2: {
               minlength: jQuery.format("At least {0} characters required.")

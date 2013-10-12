@@ -10,8 +10,7 @@ class Registration extends CI_Controller {
 	}
 
 
-	public function register()
-	{
+	public function register(){
 		//load the registration helper under helper folder
 		$this->load->helper('registration_helper');
 
@@ -146,9 +145,27 @@ class Registration extends CI_Controller {
 	
 	} 
 
+
+	public function register_email_exists(){ 
+		$email = $this->input->post('email');
+		//$email = "jdc@mail.com";
+		if ($this->register_model->email_exists($email) == TRUE ) {
+	      echo json_encode(FALSE);
+	    } else {
+	      echo json_encode(TRUE);
+	    }
+	}
+	public function register_username_exists(){ 
+		$username = $this->input->post('username');
+		if ( $this->register_model->username_exists($username) == TRUE ) {
+	      echo json_encode(FALSE);
+	    } else {
+	      echo json_encode(TRUE);
+   	 	}
+	}
+
 	//Location - SITE MAP
-	public function site_map()  
-	{
+	public function site_map(){
 		if($this->session->userdata('is_logged_in')) {
 
 			redirect(base_url() . 'dashboard');
@@ -162,8 +179,7 @@ class Registration extends CI_Controller {
 	/* Requirements */
 
 
-	public function requirements()
-	{
+	public function requirements(){
 		if($this->session->userdata('is_logged_in')) {
 			redirect(base_url() . 'dashboard');
 		}
@@ -172,8 +188,7 @@ class Registration extends CI_Controller {
 		}
 		
 	}
-	public function screening()
-	{
+	public function screening(){
 		if($this->session->userdata('is_logged_in')) {
 			redirect(base_url() . 'dashboard');
 		}
@@ -185,8 +200,7 @@ class Registration extends CI_Controller {
 
 
 	//Photo
-	public function photo_requirement()
-	{
+	public function photo_requirement(){
 		if($this->session->userdata('is_logged_in')) {
 			redirect(base_url() . 'dashboard');
 		}
@@ -196,8 +210,7 @@ class Registration extends CI_Controller {
 		
 	}
 	//Documents
-	public function required_documents()
-	{
+	public function required_documents(){
 		if($this->session->userdata('is_logged_in')) {
 			redirect(base_url() . 'dashboard');
 		}
@@ -207,8 +220,7 @@ class Registration extends CI_Controller {
 		
 	}
 	//Expenses
-	public function expenses()
-	{
+	public function expenses(){
 		if($this->session->userdata('is_logged_in')) {
 			redirect(base_url() . 'dashboard');
 		}
@@ -220,8 +232,7 @@ class Registration extends CI_Controller {
 
 	/* Screening */
 	//Preliminary Exam
-	public function prelim_exam()
-	{
+	public function prelim_exam(){
 		if($this->session->userdata('is_logged_in')) {
 			redirect(base_url() . 'dashboard');
 		}
@@ -231,8 +242,7 @@ class Registration extends CI_Controller {
 		
 	}
 	//Interview
-	public function interview_screen()
-	{
+	public function interview_screen(){
 		if($this->session->userdata('is_logged_in')) {
 			redirect(base_url() . 'dashboard');
 		}
@@ -242,8 +252,7 @@ class Registration extends CI_Controller {
 		
 	}
 	//Medical Referral
-	public function medical_referral()
-	{
+	public function medical_referral(){
 		if($this->session->userdata('is_logged_in')) {
 			redirect(base_url() . 'dashboard');
 		}

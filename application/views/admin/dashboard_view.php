@@ -671,7 +671,7 @@
 					"callback": function() {
 						//Example.show("great success");
 						$.ajax({
-							url: "administrative/confirm_request",
+							url: "<?php echo base_url();?>administrative/confirm_request",
 							type: "post",
 							data: {
 								action: "confirm",
@@ -688,7 +688,7 @@
 					"class" : "btn-small btn-danger",
 					"callback": function() {
 						$.ajax({
-							url: "administrative/confirm_request",
+							url: "<?php echo base_url();?>administrative/confirm_request",
 							type: "post",
 							data: {
 								action: "pogi",
@@ -721,7 +721,7 @@
 				var id = $(this).attr("id");
 
 				$.ajax({
-					url: "administrative/viewRequest",
+					url: "<?php echo base_url();?>administrative/viewRequest",
 					type: "post",
 					data: {
 						id: id

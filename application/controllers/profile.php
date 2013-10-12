@@ -119,22 +119,12 @@ class Profile extends CI_Controller {
 			$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean');
 			$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean');
 			$this->form_validation->set_rules('middle_name', 'Middle Name', 'xss_clean');
-			$this->form_validation->set_rules('birth_date_year', 'Year', 'required');
-			$this->form_validation->set_rules('birth_date_month', 'Month', 'required');
-			$this->form_validation->set_rules('birth_date_day', 'Day', 'required');
 			$this->form_validation->set_rules('address', 'Address', 'required|xss_clean');
 			$this->form_validation->set_rules('city', 'City', 'required|xss_clean');
 			$this->form_validation->set_rules('province', 'Province', 'required|xss_clean');
 			$this->form_validation->set_rules('phone', 'Phone', 'required|xss_clean');
 			$this->form_validation->set_rules('height', 'Height', 'required');
 			$this->form_validation->set_rules('civil_status', 'Civil Status', 'required');
-			
-			/*$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
-			//$this->form_validation->set_rules('email_confirm', 'Email Address Confrimation', 'required');
-			$this->form_validation->set_rules('username', 'Username', 'required|xss_clean|min_length[6]');
-			$this->form_validation->set_rules('password', 'Password', 'required|matches[password_confirm]|min_length[6]');
-			$this->form_validation->set_rules('password_confirm', 'Password Confirmation', '');*/
-			$this->form_validation->set_rules('agree', '...', 'callback_terms_check');
 			
 			
 			if ($this->form_validation->run() == true)
@@ -143,7 +133,8 @@ class Profile extends CI_Controller {
 					'first_name' 	=> $this->input->post('first_name'),
 					'last_name'  	=> $this->input->post('last_name'),
 					'middle_name'	=> $this->input->post('middle_name'),
-					'birth_date'  	=> $this->input->post('birth_date_year') . '-' .$this->input->post('birth_date_month') . '-'. $this->input->post('birth_date_day') ,
+					//'birth_date'  	=> $this->input->post('birth_date_year') . '-' .$this->input->post('birth_date_month') . '-'. $this->input->post('birth_date_day') ,
+					'birth_date'    => $this->input->post('date_of_birth'),
 					'address'    	=> $this->input->post('address'),
 					'city'    		=> $this->input->post('city'),
 					'province'    	=> $this->input->post('province'),
@@ -176,23 +167,7 @@ class Profile extends CI_Controller {
 				//set the flash data error message if there is one
 				$this->data['message'] = (validation_errors() ? validation_errors() : ($this->session->flashdata('message')));
 				
-				foreach($this->data['records'] as $row){
-				
-				$birthdate = $row->birth_date;
-				
-				}
-				//$birthdate = $this->data['records']['full_name'];
-
-				list($y,$m,$d) = explode('-', $birthdate);
-				/**/
-				$this->data['birth_date_year'] = buildYearDropdown('birth_date_year', $y);
-				
-				$this->data['birth_date_month'] = buildMonthDropdown('birth_date_month', $m );
-				
-				$this->data['birth_date_day'] = buildDayDropdown('birth_date_day', $d );
-				
-				$this->data['country'] = buildCountryDropdown('country', $this->input->post('country'));
-
+	
 				$this->data['err'] = '';
 				$this->load->view('User/applicant/edit_profile_view',$this->data);
 				//$this->load->view('registration/registration_view', $this->data);

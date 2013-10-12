@@ -590,16 +590,13 @@
 			});
 
 			$("#getinfo").click(function(){
-					$('#first_load').show();
-					blurElement("#first_load", 2);
-					blurElement("#result_table", 0);
-					$('#result_table').hide();
-			        setTimeout(submitFormAjax, 200);
-			   		return false;
+				$('#first_load').show();
+				blurElement("#first_load", 2);
+				blurElement("#result_table", 0);
+				$('#result_table').hide();
+		        setTimeout(submitFormAjax, 200);
+		   		return false;
 			});
-
-
-
         
 			function submitFormAjax() {
 				var dataString = $("#id").val();

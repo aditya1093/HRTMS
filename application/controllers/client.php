@@ -178,7 +178,7 @@ class Client extends CI_Controller {
 
 			}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}	
 
@@ -394,7 +394,7 @@ class Client extends CI_Controller {
 					
 				
 					if(empty($query)){
-						echo "No Records";
+						$this->load->view('error_404');
 					}
 					else
 					{	
@@ -407,14 +407,15 @@ class Client extends CI_Controller {
 			}
 			else
 			{
-				echo "Errrr";
+				
+				$this->load->view('error_404');
 			}
 			
 	
 	    	
 	    }
 	    else {
-
+	    	$this->session->set_userdata('login_type', 'employee');
 	     	$this->load->view('login_view');
 	     
 	    }
@@ -437,7 +438,7 @@ class Client extends CI_Controller {
 			    header( 'Location: ../Client' );
 			}
 
-		 }
+		}
 
 
   	}
@@ -449,8 +450,6 @@ class Client extends CI_Controller {
 		$this->load->model('client_model');
 		$data = $this->client_model->view_request($id);
 		$this->output->set_output(json_encode($data));
-
-
 
 	}
 

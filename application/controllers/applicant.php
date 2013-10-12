@@ -19,7 +19,7 @@ class Applicant extends CI_Controller {
 			$this->load->view('applicant/registration_view',$data);
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}	
 	
@@ -33,7 +33,8 @@ class Applicant extends CI_Controller {
 				$data['records'] = $query;
 				
 				if(empty($query)){
-					echo "No Records";
+					//echo "No Records";
+					$this->load->view('error_404');
 				}
 				else
 				{
@@ -43,7 +44,8 @@ class Applicant extends CI_Controller {
 			
 	    	}
 	    	else{
-	    		echo "Errrr";
+	    		//redirect('applicant','refresh');
+	    		$this->load->view('error_404');
 
 	    	}
 			
@@ -51,7 +53,7 @@ class Applicant extends CI_Controller {
 
 	    }
 	    else {
-
+	    	$this->session->set_userdata('login_type', 'employee');
 	     	$this->load->view('login_view');
 	     
 	    }
@@ -137,14 +139,14 @@ class Applicant extends CI_Controller {
 			}
 			else
 			{
-				echo "Errrr";
+				$this->load->view('error_404');
 			}
 			
 	
 	    	
 	    }
 	    else {
-
+	    	$this->session->set_userdata('login_type', 'employee');
 	     	$this->load->view('login_view');
 	     
 	    }
@@ -174,7 +176,7 @@ class Applicant extends CI_Controller {
 			$this->load->view('applicant/batch_control', $data);
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}
 
@@ -183,13 +185,20 @@ class Applicant extends CI_Controller {
 	function getCompany(){
 		//check kung naka-login
 		if($this->session->userdata('is_logged_in')) {
-			$id =  $this->input->post('req_id');
 
-			$query = $this->applicant_model->getCompany($id);
-			echo json_encode ($query);
+			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+	    
+		       	$id =  $this->input->post('req_id');
+
+				$query = $this->applicant_model->getCompany($id);
+				echo json_encode ($query);
+			}
+			else {
+			      header( 'Location: batch_control' ) ;
+			}
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}
 
@@ -212,45 +221,16 @@ class Applicant extends CI_Controller {
 
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}
 	   
 	}
 	function editBatchControl(){
 
-		/*if($this->session->userdata('is_logged_in')) {
+		if($this->session->userdata('is_logged_in')) {
 			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-	    		$id = $this->input->post('id');
-				$client_name = $this->input->post('edit_client_name');
-				$date_start = $this->input->post('edit_date_start');
-				$training_days = $this->input->post('edit_training_days');
-				$limit = $this->input->post('edit_limit');
-
-				$data = array(
-
-				'date_start' => $date_start , 
-				'training_days' => $training_days,
-				'limit_no' => $limit,
-				'date_changed' => date("Y-m-d H:i:s"),
-			
-				);
-
-				$this->load->model('applicant_model');
-				$this->applicant_model->editBatchControl($id,$data);
-
-			}
-			else {
-			      header( 'Location: batch_control' ) ;
-			}
-
-		}
-		else {
-
-    		$this->load->view('login_view');
-		}
-	   */
-				$id = $this->input->post('edit_id');
+	    		$id = $this->input->post('edit_id');
 				$client_name = $this->input->post('edit_client_name');
 				$date_start = $this->input->post('edit_date_start');
 				$training_days = $this->input->post('edit_training_days');
@@ -268,11 +248,25 @@ class Applicant extends CI_Controller {
 				$this->load->model('applicant_model');
 				$data = $this->applicant_model->editBatchControl($id,$data);
 				echo $data;
+
+			}
+			else {
+			      header( 'Location: batch_control' ) ;
+			}
+
+		}
+		else {
+			$this->session->set_userdata('login_type', 'employee');
+    		$this->load->view('login_view');
+		}
+	   
+				
 				//echo "$date_start - $training_days - $limit";
 	}
 	function addBatchControl(){
 		if($this->session->userdata('is_logged_in')) {
-			$query = $this->db->query("SELECT batch_control_no FROM batch_no WHERE YEAR( date_created ) = YEAR( NOW( ) ) ORDER BY date_created DESC LIMIT 1");
+			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+	    		$query = $this->db->query("SELECT batch_control_no FROM batch_no WHERE YEAR( date_created ) = YEAR( NOW( ) ) ORDER BY date_created DESC LIMIT 1");
 	        if ($query->num_rows() > 0)
 			{
 			   foreach ($query->result() as $row)
@@ -319,16 +313,23 @@ class Applicant extends CI_Controller {
 				'is_training' => $is_training
 
 				);
-		/*
+		
 			$this->applicant_model->addBatchNo($data);
-			$this->applicant_model->updateRequest($req_id);*/
+			$this->applicant_model->updateRequest($req_id);
 			
 			$query = $this->applicant_model->getIdBatchControl($req_id);
-			echo json_encode ($query);		
+			echo json_encode ($query);	
+
+			}
+			else {
+			      header( 'Location: batch_control' ) ;
+			}
+
+				
 		
 		}
 		else {
-   
+   			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}
 
@@ -404,7 +405,7 @@ class Applicant extends CI_Controller {
 
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}
 
@@ -422,7 +423,7 @@ class Applicant extends CI_Controller {
 				$data['records'] = $query;
 				
 				if(empty($query)){
-					echo "No Records";
+					$this->load->view('error_404');
 				}
 				else
 				{
@@ -432,15 +433,14 @@ class Applicant extends CI_Controller {
 			
 	    	}
 	    	else{
-	    		echo "Errrr";
+	    		$this->load->view('error_404');
 
 	    	}
-			
 			
 
 	    }
 	    else {
-
+	    	$this->session->set_userdata('login_type', 'employee');
 	     	$this->load->view('login_view');
 	     
 	    }
@@ -459,7 +459,7 @@ class Applicant extends CI_Controller {
 			$this->load->view('applicant/accept_applicant');
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}
 
@@ -475,6 +475,15 @@ class Applicant extends CI_Controller {
 		     
 		        $data = $this->applicant_model->getInfo($id);
 		        $this->output->set_output(json_encode($data));
+
+		       /* if($data){
+
+		        }
+		        else
+		        {
+		        	$this->output->set_output(json_encode($data));
+
+		        }*/
 			}
 			else {
 			      header( 'Location: Accept' ) ;
@@ -482,7 +491,7 @@ class Applicant extends CI_Controller {
 
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}
 	   
@@ -519,7 +528,7 @@ class Applicant extends CI_Controller {
 		
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}
 
@@ -589,7 +598,7 @@ class Applicant extends CI_Controller {
 			}
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}
 		
@@ -609,7 +618,7 @@ class Applicant extends CI_Controller {
 			 	
 		}  
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}     
 

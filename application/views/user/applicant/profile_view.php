@@ -338,7 +338,8 @@
 																    } elseif ($m == 0 && date('d') - $d < 0) {
 																        $y++;
 																    }
-																    
+																  
+															  
 																    echo date('Y') - $y;
 																    ?></span>
 																</div>
@@ -504,7 +505,6 @@
 									<i class="icon-map-marker light-orange bigger-110"></i>
 									<span><?php echo $row->address.' '.$row->city;?></span>
 									<span><?php echo $row->province;?></span>
-									<span><?php echo $row->country;?></span>
 								</div>
 							</div>
 
