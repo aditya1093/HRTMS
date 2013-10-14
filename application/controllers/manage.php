@@ -4,12 +4,40 @@ class Manage extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
+		$this->load->model('manage_model');
 	}
 
 	function index() {
 
 		redirect(base_url() . 'index.php/dashboard');
 	}
+
+	/******************* USERS UNIQUE VALUES ***************************************/
+	function email_exists(){ 
+		$email = $this->input->post('email');
+		//$email = "jdc@mail.com";
+		if ($this->manage_model->email_exists($email) == TRUE ) {
+	      echo json_encode(FALSE); 
+	    } else {
+	      echo json_encode(TRUE); 
+	    }
+	}
+	function username_exists(){ 
+		$username = $this->input->post('username');
+		if ( $this->manage_model->username_exists($username) == TRUE ) {
+	      echo json_encode(FALSE);
+	    } else {
+	      echo json_encode(TRUE);
+   	 	}
+	}
+	function clientname_exists(){ 
+		$client_name = $this->input->post('client_name');
+		if ( $this->manage_model->clientname_exists($client_name) == TRUE ) {
+	      echo json_encode(FALSE);
+	    } else { 
+	      echo json_encode(TRUE);
+   	 	}
+	} 
 
 	/******************* List HR USER ***************************************/
 

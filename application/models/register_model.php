@@ -21,22 +21,5 @@ class Register_model extends CI_Model {
 		return (isset($id)) ? $id : FALSE;		
 	}
 
-	public function email_exists($email){
-		$this->db->where('email',$email);
-		$this->db->from('user_table');
-		$query = $this->db->get();
-		if( $query->num_rows() > 0 ){ return TRUE; } else { return FALSE; }
-
-	}
-
-	public function username_exists($username){
-		$this->db->where('username',$username);
-		$this->db->from('user_table');
-		$query = $this->db->get();
-		if( $query->num_rows() > 0 ){ return TRUE; } else { return FALSE; }
-
-	}
-
-
 
 }

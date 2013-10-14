@@ -34,6 +34,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/datepicker.css" />
 		<!--<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
 		/*Barcode
@@ -41,14 +42,10 @@
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
-		<![endif]-->
+		<![endif]--> 
 
 		<!--inline styles if any-->
-		<!-- Dependencies -->
-		<script src="http://yui.yahooapis.com/2.9.0/build/yahoo/yahoo-min.js"></script>
-		 
-		<!-- Source file -->
-		<script src="http://yui.yahooapis.com/2.9.0/build/json/json-min.js"></script>
+		
 	
 		
 		
@@ -515,7 +512,7 @@
 							<div id="childDiv" style="display:none">
 							<h2>Child Information</h2>
 
-		               		<form id="children" class="form-horizontal">
+		               		<form id="children_form" class="form-horizontal">
 		               			<div class="control-group">
 									<label class="control-label" for="child_name">Full Name</label>
 
@@ -528,7 +525,9 @@
 									<label class="control-label" for="child_dob">Date of Birth</label>
 
 									<div class="controls">
-										 <input type ="date"  id="child_dob"  class="input-medium" name="child_dob">
+										<!--  <input type ="date"  id="child_dob"  class="input-medium" name="child_dob"> -->
+										 <input class="date_start input-date" id="child_dob"  class="input-medium" name="child_dob" type="text" data-date-format="yyyy-mm-dd">
+													 
 									</div>
 								</div>
 
@@ -596,13 +595,8 @@
 		  <script src="<?php echo base_url();?>assets/js/excanvas.min.js"></script>
 		<![endif]-->
 
+		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
@@ -617,9 +611,12 @@
 
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 
-		<!--inline scripts related to this page-->
+		<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+	    <script src="<?php echo base_url();?>assets/js/additional-methods.min.js"></script>
 
-		<script src="<?php echo base_url();?>assets/js/relCopy.js"></script>
+	    <script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
+
+		<!--inline scripts related to this page-->
 		
 		<script type="text/javascript">
 		$(document).ready(function(){
@@ -644,6 +641,9 @@
 			}
 			
 		*/
+			$(".date_start").datepicker().next().on(ace.click_event, function() {
+				$(this).prev().focus();
+			});
 
 			
 	      	$( "#add" ).click(function() {
@@ -661,13 +661,6 @@
 
 			});
 
-	
-			var removeLink = '<a class="remove btn btn-danger btn-mini" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">remove</a>';
-	        var removeLink2 = '<img class="remove" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">';
-	      	$('a.copy').relCopy({limit: 4 ,append: removeLink});
-	      	$('a.copy1').relCopy({append: removeLink});
-	      	$('a.copy2').relCopy({append: removeLink2});
-
 	      	
 
 		      	
@@ -681,25 +674,103 @@
 			});
 
 			
-			
-			$('table th input:checkbox').on('click' , function(){
-				var that = this;
-				$(this).closest('table').find('tr > td:first-child input:checkbox')
-				.each(function(){
-					this.checked = that.checked;
-					$(this).closest('tr').toggleClass('selected');
-				});
-					
-			});
-
-
 			$.extend($.gritter.options, { 
 		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
 				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
-				fade_out_speed: 2000, // how fast the notices fade out
+				fade_out_speed: 1000, // how fast the notices fade out
 				time: 1000 // hang on the screen for...
 			});
-		
+			
+
+			jQuery.validator.addMethod("nameValidation", function(value, element) {
+	          return this.optional(element) || /^[a-z\-.,\s]+$/i.test(value);
+	        }, "Name must not contain special characters except comma, dash and period.");
+
+			jQuery.validator.addMethod("phone", function (value, element) {
+	          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+	        }, "Enter a valid phone number.");
+
+			jQuery.validator.setDefaults({
+	          debug: true,
+	          //success: "valid"
+	        });
+
+	        $('#children_form').validate({
+	          errorElement: 'span', 
+	          errorClass: 'help-inline',
+	          focusInvalid: false,
+	          rules: {
+	            child_name: {
+	              required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	            },
+	            child_dob: {
+	              required:true,
+	              date:true,
+	          	},
+	          	child_school_work: {
+	              required: true,
+	              minlength:2,
+             	  //nameValidation:true,
+	            },
+
+	          },
+	      
+	          messages: {
+	          	child_name: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	},
+	          	child_school_work: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          		//nameValidation: "School/Work must not contain special characters except comma, dash and period.",
+	          	},
+	 			
+	  
+	          },
+	      
+	          invalidHandler: function (event, validator) { //display error alert on form submit   
+	            $('.alert-error', $('.login-form')).show();
+	          },
+	      
+	          highlight: function (e) {
+	            $(e).closest('.control-group').removeClass('success').addClass('error');
+	          },
+	      
+	          success: function (e) {
+	            $(e).closest('.control-group').removeClass('error').addClass('success');
+	            $(e).remove();
+	          },
+	      
+	          errorPlacement: function (error, element) {
+	            if(element.is(':checkbox') || element.is(':radio')) {
+	              var controls = element.closest('.controls');
+	              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+	              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+	            }
+	            else if(element.is('.select2')) {
+	              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+	            }
+	            else if(element.is('.chzn-select')) {
+	              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+	            }
+	            else error.insertAfter(element);
+	          },
+	          showErrors: function(errorMap, errorList) {
+	            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+	              + this.numberOfInvalids()
+	              + " errors, see details below.</div>");
+	              this.defaultShowErrors();
+	          },
+	          submitHandler: function (form) {
+	            console.log('SUBMIT CHILDREN FORM');
+	            children_submit();
+	          },
+	          invalidHandler: function (form) {
+	            
+	          },
+
+	        });
 
           	$( "#marital_info" ).on( "submit", function( event ) {
 			  event.preventDefault();
@@ -737,7 +808,14 @@
 
 			$( "#children" ).on( "submit", function( event ) {
 			  event.preventDefault();
-			  var sData = $(this).serialize();
+			  
+			});//End #children Submit
+
+				
+		});
+
+		var children_submit = function(){
+			var sData = $('#children_form').serialize();
 			  console.log(sData);
 			  $.ajax({
 	               url:"<?php echo base_url();?>hris/insertChildren",
@@ -778,10 +856,7 @@
 	                }//End Success
 
 	            	});
-				});//End #children Submit
-
-				
-		});
+		}
 			
 
 
@@ -796,4 +871,5 @@
 		
 		
 	</body>
+		
 </html>

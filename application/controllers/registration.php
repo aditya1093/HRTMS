@@ -34,10 +34,8 @@ class Registration extends CI_Controller {
 		$this->form_validation->set_rules('username', 'Username', 'required|xss_clean|min_length[6]|is_unique[user_table.username]');
 		$this->form_validation->set_rules('password', 'Password', 'required|matches[password2]|min_length[6]');
 		$this->form_validation->set_rules('password2', 'Password Confirmation', '');
-		$this->form_validation->set_rules('agree', '...', 'callback_terms_check');
 		
-		
-
+ 
 		$query =$this->db->query("select count(*) as count from registration where month(date_created) = month(now()) and year(date_created) = year(now()) group by month(date_created)");
 		//$query2 =$this->db->query("select  register_id from registration order by register_id desc");
 	
@@ -98,7 +96,7 @@ class Registration extends CI_Controller {
 				);
 			
 		}
-		if ($this->form_validation->run() == true )//&& $this->register_model->register($data) && $this->register_model->userTable($userTable))
+		if ($this->form_validation->run() == true && $this->register_model->register($data) && $this->register_model->userTable($userTable))
 		{ 
 			//check to see if we are creating the user
 			//redirect them to checkout page
@@ -112,23 +110,22 @@ class Registration extends CI_Controller {
 			//display the create user form
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->session->flashdata('message')));
-			
-
-			/**/
+			/*			
 			$this->data['birth_date_year'] = buildYearDropdown('birth_date_year', $this->input->post('birth_date_year'));
 			
 			$this->data['birth_date_month'] = buildMonthDropdown('birth_date_month', $this->input->post('birth_date_month'));
 			
 			$this->data['birth_date_day'] = buildDayDropdown('birth_date_day', $this->input->post('birth_date_day'));
 			
-			$this->data['country'] = buildCountryDropdown('country', $this->input->post('country'));
+			$this->data['country'] = buildCountryDropdown('country', $this->input->post('country'));*/
 
 			$this->load->view('registration/registration_view', $this->data);
 			
 		}
 		
 	}
-
+	
+	
 
 	//Registration
 	function index() {
@@ -146,23 +143,6 @@ class Registration extends CI_Controller {
 	} 
 
 
-	public function register_email_exists(){ 
-		$email = $this->input->post('email');
-		//$email = "jdc@mail.com";
-		if ($this->register_model->email_exists($email) == TRUE ) {
-	      echo json_encode(FALSE);
-	    } else {
-	      echo json_encode(TRUE);
-	    }
-	}
-	public function register_username_exists(){ 
-		$username = $this->input->post('username');
-		if ( $this->register_model->username_exists($username) == TRUE ) {
-	      echo json_encode(FALSE);
-	    } else {
-	      echo json_encode(TRUE);
-   	 	}
-	}
 
 	//Location - SITE MAP
 	public function site_map(){
@@ -261,7 +241,7 @@ class Registration extends CI_Controller {
 		}
 		
 	}
-
+ 
 	
 
 }

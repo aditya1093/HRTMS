@@ -553,6 +553,7 @@
 										<?php $stat = $row->is_active;
 											  $user_id = $row->user_id;
 											  $username = $row->username;
+											  $email = $row->client_email;
 											if ($stat == 0){
 												$stat = "<button onclick=\"status_update('1')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-success\"><i class=\"icon-ok\"></i>Activate Account</button>";
 												$stat .= "<input type=\"hidden\" name=\"user_id\" value=\"$user_id\" id=\"user_id\">";
@@ -590,7 +591,7 @@
 											</div>	
 											  
 											<div class="control-group">	
-												<label class="control-label" for="client_phone" >Phone # (<span class="required">*</span>): </label>
+									 			<label class="control-label" for="client_phone" >Phone # (<span class="required">*</span>): </label>
 												<div class="controls">	
 													<input id="client_phone" class="input-mask-phone" style="width: 94%" type="text" name="client_phone" value="<?php echo $row->client_mobile;?>">
 												</div>
@@ -601,13 +602,6 @@
 													<input id="client_tel" class="input-mask-tel" style="width: 94%" type="text" name="client_tel" value="<?php echo $row->client_tel;?>">
 												</div>
 											</div>
-											<div class="control-group">
-												<label class="control-label" for="client_email" >Email (<span class="required">*</span>): </label>
-												<div class="controls">
-													<input id="client_email"  style="width: 94%" type="email" name="client_email" value="<?php echo $row->client_email;?>">
-												</div>
-											</div>
-
 
 											<hr>
 											<span class="pull-right">
@@ -644,10 +638,12 @@
 											<td style="width:30%">Username :</td>
 											<td><?php echo $username;?></td>
 										</tr>
+										<tr class="info">
+											<td style="width:30%">Email :</td>
+											<td><?php echo $email;?></td>
+										</tr>
 									</table>
-									
-									<button class="btn btn-info btn-mini"><i class="icon-user"></i> Change Username</button>
-									<button class="btn btn-info btn-mini"><i class="icon-user"></i> Change Password</button>
+									<button class="btn btn-info btn-mini"><i class="icon-refresh"></i> Reset Password</button>
 									<form id=""> 
 									 	<div class="control-group">
 
@@ -753,6 +749,10 @@
 				});
 
 
+				jQuery.validator.addMethod("nameValidation", function(value, element) {
+		          return this.optional(element) || /^[a-z\-.,\s]+$/i.test(value);
+		        }, "Name must not contain special characters except comma, dash and period.");
+
 				jQuery.validator.addMethod("phone", function (value, element) {
 		          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
 		        }, "Enter a valid phone number.");
@@ -770,14 +770,23 @@
 		          	 client_name: {
 		              required: true,
 		              minlength:2,
-		            },
+		              remote: {
+		                url: "<?php echo base_url();?>manage/clientname_exists",
+		                type: "post",
+		                data: {
+		                  client_name: function(){ return $("#client_name").val(); }
+		                }
+		              }
+				    },
 		            first_name: {
 		              required: true,
 		              minlength:2,
+		              nameValidation:true,
 		            },
 		            last_name: {
 		              required: true,
 		               minlength:2,
+		               nameValidation:true,
 		            },
 		           	client_location:{
 		          		required: true,
@@ -791,7 +800,16 @@
 		          	},
 		          	client_username:{
 		          		required: true,
-		          		minlength:6
+		          		minlength:6,
+		          		maxlength:20,
+		              	alphanumeric:true,
+		              	remote: {
+		                	url: "<?php echo base_url();?>manage/username_exists",
+		                	type: "post", 
+		                	data: {
+		                  		username: function(){ return $("#client_username").val(); }
+		                	}
+		              	}
 		          	},
 		          	client_password: {
 		              required: true,
@@ -804,13 +822,25 @@
 		            },
 		            client_email: {
 		               required: true,
-		               email : true	
-		            }
+		               email : true,
+		               remote: {
+		                	url: "<?php echo base_url();?>manage/email_exists",
+		                	type: "post",
+		                	data: {
+		                  		email: function(){ return $("#client_email").val(); }
+		                	}
+			            }
+		            } 
 		          },
 		      
 		          messages: {
+		          	client_name: {
+		               minlength: jQuery.format("At least {0} characters required."),
+		               remote: "This client is already registered.",
+
+		            },
 		            first_name: {
-		              minlength: jQuery.format("At least {0} characters required."),
+		               minlength: jQuery.format("At least {0} characters required."),
 
 		            },
 		            last_name: {
@@ -823,17 +853,21 @@
 		              minlength: jQuery.format("At least {0} characters required."),
 		            },
 
-		            email: {
+		            client_email: {
 		              required: "Please provide a valid email.",
-		              email: "Please provide a valid email."
-		            },
+		              email: "Please provide a valid email.",
+		              remote: "This email is not available.",
+
+		            },          
 		            client_username: {
-		           	  minlength: jQuery.format("At least {0} characters required.")
+		           	  minlength: jQuery.format("At least {0} characters required."),
+		           	  maxlength: jQuery.format("Must not contain more than {0} characters."),
+              		  remote: "This username is not available.",
 		            },
 		            client_password: {
 		              required: "Please specify a password.",
 		              minlength: jQuery.format("Please specify a secure password. At least {0} characters required.")
-		            }, 
+		            },   
 		            client_password_confirm: {
 		              minlength: jQuery.format("At least {0} characters required.")
 		            }
@@ -884,6 +918,7 @@
 
 		        });
 						
+
 
 				
 			

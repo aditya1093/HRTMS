@@ -35,6 +35,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/datepicker.css" />
 		<!--<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
 		/*Barcode
@@ -203,7 +204,7 @@
 					-->
 					
 
-				<!--
+					<!--
 					<li class="green">
 						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 							<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
@@ -422,7 +423,7 @@
 					<div class="row-fluid">
 						  <!-- Tab 1 -->
 					  	<div class="tabbable tabs-left">
-							<ul class="nav nav-tabs" id="myTab3">
+							<ul class="nav nav-tabs" id="myTab">
 								<li class="active">
 									<a data-toggle="tab" href="#tab_dependent">
 										<i class="pink icon-dashboard bigger-110"></i>
@@ -486,7 +487,7 @@
 				                  	<div id="dependentDiv" style="display:none">
 										<h2>Dependent's Information</h2>
 
-					               		<form id="dependent" class="form-horizontal">
+					               		<form id="dependent_form" class="form-horizontal">
 					               			<div class="control-group">
 												<label class="control-label" for="dependent_name">Full Name</label>
 
@@ -499,8 +500,10 @@
 												<label class="control-label" for="dependent_dob">Date of Birth</label>
 
 												<div class="controls">
-													 <input type ="date"  id="dependent_dob"  class="input-medium" name="dependent_dob">
-												</div>
+													 <!-- <input type ="date"  id="dependent_dob"  class="input-medium" name="dependent_dob"> -->
+													 <input class="date_start input-date" id="dependent_dob"  class="input-medium" name="dependent_dob" type="text" data-date-format="yyyy-mm-dd">
+															
+												</div> 
 											</div>
 
 					               			<div class="control-group">
@@ -575,7 +578,7 @@
 					               <div id="beneficiaryDiv" style="display:none">
 										<h2>Beneficiary's Information</h2>
 
-					               		<form id="beneficiary" class="form-horizontal">
+					               		<form id="beneficiary_form" class="form-horizontal">
 					               			<div class="control-group">
 												<label class="control-label" for="beneficiary_name">Full Name</label>
 
@@ -588,7 +591,9 @@
 												<label class="control-label" for="beneficiary_dob">Date of Birth</label>
 
 												<div class="controls">
-													 <input type ="date"  id="beneficiary_dob"  class="input-medium" name="beneficiary_dob">
+													<!-- <input type ="date"  id="beneficiary_dob"  class="input-medium" name="beneficiary_dob"> -->
+													<input class="date_start input-date"  id="beneficiary_dob"  class="input-medium" name="beneficiary_dob" type="text" data-date-format="yyyy-mm-dd">
+													 
 												</div>
 											</div>
 
@@ -664,7 +669,7 @@
 		                    	    <div id="characterReferenceDiv" style="display:none">
 									<h2>Character Reference's Information</h2>
 
-				               		<form id="character_reference" class="form-horizontal">
+				               		<form id="character_reference_form" class="form-horizontal">
 				               			<div class="control-group">
 											<label class="control-label" for="CR_name">Full Name</label>
 
@@ -678,7 +683,7 @@
 
 											<div class="controls">
 												 <input type ="text"  id="CR_company_name"  class="" name="CR_company_name">
-											</div>
+											</div> 
 										</div>
 
 				               			<div class="control-group">
@@ -749,12 +754,6 @@
 
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootstrap-tag.min.js"></script>
@@ -764,18 +763,38 @@
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
-	
-		<script src="<?php echo base_url();?>assets/js/relCopy.js"></script>
-
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
+
+		<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+	    <script src="<?php echo base_url();?>assets/js/additional-methods.min.js"></script>
+
+	    <script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
 
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">
 		
 		$( document ).ready(function() {
-			$('.input-mask-phone').mask('(999) 999-9999');
+ 
+			var selectedTab = localStorage['selectedTab'];
+			if (selectedTab) $('#myTab a[href="'+selectedTab+'"]').tab('show');
 
+			$('a[data-toggle="tab"]').on('shown', function (e) {
+			   localStorage['selectedTab']=$(e.target).attr('href');
+			});		
+
+			$('.input-mask-phone').mask('(999) 999-9999');
+  
+			$(".date_start").datepicker().next().on(ace.click_event, function() {
+				$(this).prev().focus();
+			});
+
+			$.extend($.gritter.options, { 
+	        position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+			fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+			fade_out_speed: 1000, // how fast the notices fade out
+			time: 1000 // hang on the screen for...
+			});
 		/** Add Dependent **/	
 			$("#addDependent").click(function() {
 			  $("#dependentDiv").slideDown();
@@ -820,23 +839,8 @@
 				$("#addCharacterReferenceDiv").slideDown();
 
 			});
-		/** **/	
-//other
-			var removeLink = '<a class="remove btn btn-mini btn-danger" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">remove</a>';
-	        var removeLink2 = '<img class="remove" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">';
-	      	$('a.copy1').relCopy({append: removeLink});
-	      	$('a.copy2').relCopy({append: removeLink2});
-
-      		$('.dialogs,.comments').slimScroll({
-		        height: '300px'
-		    });
-			
-			$('#tasks').sortable();
-			$('#tasks').disableSelection();
-			$('#tasks input:checkbox').removeAttr('checked').on('click', function(){
-				if(this.checked) $(this).closest('li').addClass('selected');
-				else $(this).closest('li').removeClass('selected');
-			});
+			/** **/	
+			//other
 
 			//datatable initializatino
 			var oTable1 = $('#table_dependent').dataTable( {
@@ -846,18 +850,7 @@
 			  "aLengthMenu": [[5, 10, 15, 25, -1], [5, 10, 15, 25, "All"]],
 				"iDisplayLength" : 5
 			   } );
-			
-			
-			$('table th input:checkbox').on('click' , function(){
-				var that = this;
-				$(this).closest('table').find('tr > td:first-child input:checkbox')
-				.each(function(){
-					this.checked = that.checked;
-					$(this).closest('tr').toggleClass('selected');
-				});
-					
-			});
-
+		
 			//datatable initializatino
 			var oTable2 = $('#table_beneficiary').dataTable( {
 			"aoColumns": [
@@ -866,17 +859,6 @@
 			  "aLengthMenu": [[5, 10, 15, 25, -1], [5, 10, 15, 25, "All"]],
 				"iDisplayLength" : 5,
 				});
-			
-			
-			$('table th input:checkbox').on('click' , function(){
-				var that = this;
-				$(this).closest('table').find('tr > td:first-child input:checkbox')
-				.each(function(){
-					this.checked = that.checked;
-					$(this).closest('tr').toggleClass('selected');
-				});
-					
-			});
 
 			//datatable initializatino
 			var oTable3 = $('#table_character_reference').dataTable( {
@@ -886,18 +868,7 @@
 			  "aLengthMenu": [[5, 10, 15, 25, -1], [5, 10, 15, 25, "All"]],
 				"iDisplayLength" : 5,
 			 } );
-			
-			
-			$('table th input:checkbox').on('click' , function(){
-				var that = this;
-				$(this).closest('table').find('tr > td:first-child input:checkbox')
-				.each(function(){
-					this.checked = that.checked;
-					$(this).closest('tr').toggleClass('selected');
-				});
-					
-			});
-		
+				
 			$('[data-rel=tooltip]').tooltip();
 
 			$.extend($.gritter.options, { 
@@ -907,142 +878,290 @@
 				time: 1000 // hang on the screen for...
 			});
 		
-//other
 
-	      	$( "#dependent" ).on( "submit", function( event ) {
 			
-			  event.preventDefault();
-			  var sData = $(this).serialize();
-			  console.log(sData);
-			  $.ajax({
-	               url:"<?php echo base_url();?>hris/insertDependent",
-	                type:'POST',
-	                data:sData,
-	               	//dataType:"json",
-	                success:function(result){
-	    
-			                $.gritter.add({
-								title: 'Human Resource Information Update',
-								text: '<i class="icon-spinner icon-spin green icon-2x"></i> Dependent/Dependents has been updated.',
-								class_name: 'gritter-success gritter-center gritter-light'
-							});
+		/**************** Validations *******************/
+			jQuery.validator.addMethod("nameValidation", function(value, element) {
+	          return this.optional(element) || /^[a-z\-.,\s]+$/i.test(value);
+	        }, "Name must not contain special characters except comma, dash and period.");
 
-			                $( '#dependent' ).each(function(){
-							    this.reset();
-							});
-							$('#dependentDiv').slideUp();
-							$("#addDependentDiv").slideDown();
-							$('#cancelDependentDiv').hide();
+			jQuery.validator.addMethod("phone", function (value, element) {
+	          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+	        }, "Enter a valid phone number.");
 
-							console.log(result);
-							var str,str2="";
-							var obj = $.parseJSON(result);
-				                $.each(obj, function(){
-				                	str =	'<div class="hidden-phone visible-desktop btn-group">';
-			                		str +=	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
-									str +=	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
-									str += 	'</div>';
+			jQuery.validator.setDefaults({
+	          debug: true,
+	          //success: "valid"
+	        });
 
+	        $('#dependent_form').validate({
+	          errorElement: 'span',
+	          errorClass: 'help-inline',
+	          focusInvalid: false,
+	          rules: {
+	            dependent_name: {
+	              required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	            },
+	            dependent_dob: {
+	              required:true,
+	              date:true,
+	          	},
+	          	dependent_relationship: {
+	              required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	            },
 
-								   $('#table_dependent').dataTable().fnAddData([
-										this['dependent_name'],
-										this['dependent_birthdate'],
-									   	this['dependent_relationship'],
-									 	str ]
-									 	);
-				                });
-					}
-	                //$("html, body").animate({ scrollTop: 0 }, "slow");
+	          },
+	      
+	          messages: {
+	          	dependent_name: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	},
+	          	dependent_relationship: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          		nameValidation: "Relationship must not contain special characters except comma, dash and period.",
+	          	},
+	 			
+	  
+	          },
+	      
+	          invalidHandler: function (event, validator) { //display error alert on form submit   
+	            $('.alert-error', $('.login-form')).show();
+	          },
+	      
+	          highlight: function (e) {
+	            $(e).closest('.control-group').removeClass('success').addClass('error');
+	          },
+	      
+	          success: function (e) {
+	            $(e).closest('.control-group').removeClass('error').addClass('success');
+	            $(e).remove();
+	          },
+	      
+	          errorPlacement: function (error, element) {
+	            if(element.is(':checkbox') || element.is(':radio')) {
+	              var controls = element.closest('.controls');
+	              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+	              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+	            }
+	            else if(element.is('.select2')) {
+	              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+	            }
+	            else if(element.is('.chzn-select')) {
+	              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+	            }
+	            else error.insertAfter(element);
+	          },
+	          showErrors: function(errorMap, errorList) {
+	            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+	              + this.numberOfInvalids()
+	              + " errors, see details below.</div>");
+	              this.defaultShowErrors();
+	          },
+	          submitHandler: function (form) {
+	            console.log('SUBMIT DEPENDENT FORM');
+	            dependent_submit();
+	          },
+	          invalidHandler: function (form) {
+	            
+	          },
 
-	               
-
-	            });
-
-
-			});
-
-			$( "#beneficiary" ).on( "submit", function( event ) {
-			
-			  event.preventDefault();
-			  var sData = $(this).serialize();
-			  console.log(sData);
-			  $.ajax({
-	               url:"<?php echo base_url();?>hris/insertBeneficiary",
-	                type:'POST',
-	                data:sData,
-	               	//dataType:"json",
-	                success:function(result){
-	    
-	                $.gritter.add({
-						title: 'Human Resource Information Update',
-						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Beneficiary/Beneficiaries has been updated.',
-						class_name: 'gritter-success gritter-center gritter-light'
-					});
-	                $( '#beneficiary' ).each(function(){
-					    this.reset();
-					});
-					$('#beneficiaryDiv').slideUp();
-					$("#addBeneficiaryDiv").slideDown();
-					$('#cancelBeneficiaryDiv').hide();
-
-					console.log(result);
-					var str,str2="";
-					var obj = $.parseJSON(result);
-		                $.each(obj, function(){
-	                		str =	'<div class="hidden-phone visible-desktop btn-group">';
-	                		str +=	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
-							str +=	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
-							str += 	'</div>';
-										
-						$('#table_beneficiary').dataTable().fnAddData([
-								this['beneficiary_name'],
-								this['beneficiary_birthdate'],
-							   	this['beneficiary_relationship'],
-							 	str ]
-							 	);
-		                });
-			
-	                //$("html, body").animate({ scrollTop: 0 }, "slow");
-
-	                }
-
-	            });
+	        });
 
 
-			});
- 			
-			
-			$( "#character_reference" ).on( "submit", function( event ) {
-			  event.preventDefault();
-			  var sData = $(this).serialize();
-			  console.log(sData);
-			   $.ajax({
-	                url:"<?php echo base_url();?>hris/insertCharacterReference",
-	                type:'POST',
-	                data:sData,
-	                //dataType:"json",
-	               
-	                success:function(result){
-	                //$("#success").show();
-	                //$("#success").attr('class', 'alert alert-success');
-	                //var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
-	               // $("#success").html(output_string);
-	                //$("#result_table").hide();
-	                // location.reload();
-	                $.gritter.add({
-						title: 'Human Resource Information Update',
-						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Character Reference has been updated.',
-						class_name: 'gritter-success gritter-center gritter-light'
-					});
-					
-		           	$( '#character_reference' ).each(function(){
-					    this.reset();
-					});
-					$('#characterReferenceDiv').slideUp();
-					$("#addCharacterReferenceDiv").slideDown();
-					$('#cancelCharacterReferenceDiv').hide();
+			$('#beneficiary_form').validate({
+	          errorElement: 'span',
+	          errorClass: 'help-inline',
+	          focusInvalid: false,
+	          rules: {
+	            beneficiary_name: {
+	              required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	            },
+	            beneficiary_dob: {
+	              required:true,
+	              date:true,
+	          	},
+	          	beneficiary_relationship: {
+	              required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	            },
 
-					console.log(result);
+	          },
+	         
+	          messages: {
+	          	beneficiary_name: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	},
+	          	beneficiary_relationship: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          		nameValidation: "Relationship must not contain special characters except comma, dash and period.",
+	          	},
+	 			
+	  
+	          },
+	      
+	          invalidHandler: function (event, validator) { //display error alert on form submit   
+	            $('.alert-error', $('.login-form')).show();
+	          },
+	      
+	          highlight: function (e) {
+	            $(e).closest('.control-group').removeClass('success').addClass('error');
+	          },
+	      
+	          success: function (e) {
+	            $(e).closest('.control-group').removeClass('error').addClass('success');
+	            $(e).remove();
+	          },
+	       
+	          errorPlacement: function (error, element) {
+	            if(element.is(':checkbox') || element.is(':radio')) {
+	              var controls = element.closest('.controls');
+	              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+	              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+	            }
+	            else if(element.is('.select2')) {
+	              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+	            }
+	            else if(element.is('.chzn-select')) {
+	              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+	            }
+	            else error.insertAfter(element);
+	          },
+	          showErrors: function(errorMap, errorList) {
+	            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+	              + this.numberOfInvalids()
+	              + " errors, see details below.</div>");
+	              this.defaultShowErrors();
+	          },
+	          submitHandler: function (form) {
+	            console.log('SUBMIT BENEFICIARY FORM');
+	            beneficiary_submit();
+
+	          },
+	          invalidHandler: function (form) {
+	            
+	          },
+
+	        });
+
+
+
+			$('#character_reference_form').validate({
+	          errorElement: 'span',
+	          errorClass: 'help-inline',
+	          focusInvalid: false,
+	          rules: {
+	            CR_name: {
+	              required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	            },
+	            CR_company_name: {
+	              required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	          	},
+	          	CR_contact_no: {
+	              required: true,
+	              phone: true
+	            },
+
+	          },
+	      
+	          messages: {
+	          	CR_name: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	},
+	          	CR_company_name: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+
+	          	},
+	       
+	 			
+	  
+	          },
+	      
+	          invalidHandler: function (event, validator) { //display error alert on form submit   
+	            $('.alert-error', $('.login-form')).show();
+	          },
+	      
+	          highlight: function (e) {
+	            $(e).closest('.control-group').removeClass('success').addClass('error');
+	          },
+	      
+	          success: function (e) {
+	            $(e).closest('.control-group').removeClass('error').addClass('success');
+	            $(e).remove();
+	          },
+	      
+	          errorPlacement: function (error, element) {
+	            if(element.is(':checkbox') || element.is(':radio')) {
+	              var controls = element.closest('.controls');
+	              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+	              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+	            }
+	            else if(element.is('.select2')) {
+	              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+	            }
+	            else if(element.is('.chzn-select')) {
+	              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+	            }
+	            else error.insertAfter(element);
+	          },
+	          showErrors: function(errorMap, errorList) {
+	            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+	              + this.numberOfInvalids()
+	              + " errors, see details below.</div>");
+	              this.defaultShowErrors();
+	          },
+	          submitHandler: function (form) {
+	            console.log('SUBMIT CHARACTER REFERENCE FORM');
+	            character_reference_submit();
+	          },
+	          invalidHandler: function (form) {
+	            
+	          },
+
+	        });
+
+		/**************** Validations *******************/
+
+	      	
+
+		});
+		
+		var dependent_submit = function() {
+		
+		  //event.preventDefault();
+		  var sData = $('#dependent_form').serialize();
+		  console.log(sData);
+		  $.ajax({
+               url:"<?php echo base_url();?>hris/insertDependent",
+                type:'POST',
+                data:sData,
+               	//dataType:"json",
+                success:function(result){
+    
+		                $.gritter.add({
+							title: 'Human Resource Information Update',
+							text: '<i class="icon-spinner icon-spin green icon-2x"></i> Dependent/Dependents has been updated.',
+							class_name: 'gritter-success gritter-center gritter-light'
+						});
+
+		                $( '#dependent' ).each(function(){
+						    this.reset();
+						});
+						$('#dependentDiv').slideUp();
+						$("#addDependentDiv").slideDown();
+						$('#cancelDependentDiv').hide();
+
+						console.log(result);
 						var str,str2="";
 						var obj = $.parseJSON(result);
 			                $.each(obj, function(){
@@ -1050,21 +1169,127 @@
 		                		str +=	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
 								str +=	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
 								str += 	'</div>';
-											
-							   $('#table_character_reference').dataTable().fnAddData([
-									this['character_name'],
-									this['character_company'],
-								   	this['character_contact_no'],
+
+
+							   $('#table_dependent').dataTable().fnAddData([
+									this['dependent_name'],
+									this['dependent_birthdate'],
+								   	this['dependent_relationship'],
 								 	str ]
 								 	);
 			                });
-	                }
+				}
+                //$("html, body").animate({ scrollTop: 0 }, "slow");
 
-	            });
+               
 
-			});
+            });
 
-		});
+
+		};
+
+		var beneficiary_submit =  function(){
+		
+		  //event.preventDefault();
+		  var sData = $('#beneficiary_form').serialize();
+		  console.log(sData);
+		  $.ajax({
+               url:"<?php echo base_url();?>hris/insertBeneficiary",
+                type:'POST',
+                data:sData,
+               	//dataType:"json",
+                success:function(result){
+    
+                $.gritter.add({
+					title: 'Human Resource Information Update',
+					text: '<i class="icon-spinner icon-spin green icon-2x"></i> Beneficiary/Beneficiaries has been updated.',
+					class_name: 'gritter-success gritter-center gritter-light'
+				});
+                $( '#beneficiary' ).each(function(){
+				    this.reset();
+				});
+				$('#beneficiaryDiv').slideUp();
+				$("#addBeneficiaryDiv").slideDown();
+				$('#cancelBeneficiaryDiv').hide();
+
+				console.log(result);
+				var str,str2="";
+				var obj = $.parseJSON(result);
+	                $.each(obj, function(){
+                		str =	'<div class="hidden-phone visible-desktop btn-group">';
+                		str +=	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
+						str +=	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
+						str += 	'</div>';
+									
+					$('#table_beneficiary').dataTable().fnAddData([
+							this['beneficiary_name'],
+							this['beneficiary_birthdate'],
+						   	this['beneficiary_relationship'],
+						 	str ]
+						 	);
+	                });
+		
+                //$("html, body").animate({ scrollTop: 0 }, "slow");
+
+                }
+
+            });
+
+ 
+		};
+			
+		
+		var character_reference_submit = function() {
+		  //event.preventDefault();
+		  var sData = $('#character_reference_form').serialize();
+		  console.log(sData);
+		   $.ajax({
+                url:"<?php echo base_url();?>hris/insertCharacterReference",
+                type:'POST',
+                data:sData,
+                //dataType:"json",
+               
+                success:function(result){
+                //$("#success").show();
+                //$("#success").attr('class', 'alert alert-success');
+                //var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
+               // $("#success").html(output_string);
+                //$("#result_table").hide();
+                // location.reload();
+                $.gritter.add({
+					title: 'Human Resource Information Update',
+					text: '<i class="icon-spinner icon-spin green icon-2x"></i> Character Reference has been updated.',
+					class_name: 'gritter-success gritter-center gritter-light'
+				});
+				
+	           	$( '#character_reference' ).each(function(){
+				    this.reset();
+				});
+				$('#characterReferenceDiv').slideUp();
+				$("#addCharacterReferenceDiv").slideDown();
+				$('#cancelCharacterReferenceDiv').hide();
+
+				console.log(result);
+					var str,str2="";
+					var obj = $.parseJSON(result);
+		                $.each(obj, function(){
+		                	str =	'<div class="hidden-phone visible-desktop btn-group">';
+	                		str +=	'<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>';
+							str +=	'<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>';
+							str += 	'</div>';
+										
+						   $('#table_character_reference').dataTable().fnAddData([
+								this['character_name'],
+								this['character_company'],
+							   	this['character_contact_no'],
+							 	str ]
+							 	);
+		                });
+                }
+
+            });
+
+		};
 
 		</script>
 	</body>

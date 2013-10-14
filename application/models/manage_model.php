@@ -116,4 +116,32 @@ class Manage_model extends CI_Model{
     }
     
 
+
+    /*******************************************************************/
+
+
+    function email_exists($email){
+        $this->db->where('email',$email);
+        $this->db->from('user_table');
+        $query = $this->db->get();
+        if( $query->num_rows() > 0 ){ return TRUE; } else { return FALSE; }
+
+    }
+
+    function username_exists($username){
+        $this->db->where('username',$username);
+        $this->db->from('user_table');
+        $query = $this->db->get();
+        if( $query->num_rows() > 0 ){ return TRUE; } else { return FALSE; }
+
+    }
+
+    function clientname_exists($client_name){
+        $this->db->where('client_name',$client_name);
+        $this->db->from('client'); 
+        $query = $this->db->get();
+        if( $query->num_rows() > 0 ){ return TRUE; } else { return FALSE; }
+
+    }
+
 }  

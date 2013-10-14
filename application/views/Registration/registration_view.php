@@ -469,11 +469,17 @@
           $(this).closest('form').validate().element($(this));
         }); 
       
-        $('.date-picker').datepicker().next().on(ace.click_event, function() {
-          $(this).prev().focus();
-        });
+      
+        $('.date-picker').datepicker({
+            format: "yyyy/mm/dd",
+            //startDate: "now",
+            //todayBtn: true,
+            orientation: "top auto",
+            autoclose: true
+        }) 
+      
         
-
+        
       
         //documentation : http://docs.jquery.com/Plugins/Validation/validate
       
@@ -515,7 +521,7 @@
               nameValidation:true,
             },
             date_of_birth: {
-               required: true,
+              required: true,
             },
             civil_status:'required',
             height: {
@@ -523,11 +529,11 @@
               number: true,
               min: 50
             },
-            address: {
+            address: {  
               required: true 
             },
             gender: 'required',
-            city: {
+            city: { 
               required: true 
             },
             province: {
@@ -535,13 +541,13 @@
             },
             phone: {
               required: true,
-              phone: 'required'
+              phone: true
             },
             email: {
               required: true,
               email:true,
               remote: {
-                url: "<?php echo base_url();?>registration/register_email_exists",
+                url: "<?php echo base_url();?>manage/email_exists",
                 type: "post",
                 data: {
                   email: function(){ return $("#email").val(); }
@@ -554,7 +560,7 @@
               maxlength:20,
               alphanumeric:true,
               remote: {
-                url: "<?php echo base_url();?>registration/register_username_exists",
+                url: "<?php echo base_url();?>manage/username_exists",
                 type: "post",
                 data: {
                   username: function(){ return $("#username").val(); }

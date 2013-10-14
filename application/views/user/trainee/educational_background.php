@@ -506,9 +506,9 @@
 					<small>Page rendered in: {elapsed_time} seconds</small>
 					<div id="employmentDiv" style="display:none">
 						<h2>Employment Information</h2>
-                    <form id="employment" class="form-horizontal">
+                    <form id="employment_form" class="form-horizontal">
 		               			<div class="control-group">
-									<label class="control-label" for="comp_name">Name</label>
+									<label class="control-label" for="comp_name">Company Name</label>
 
 									<div class="controls">
 										<input type="text" id="comp_name" name="EH_company_name">
@@ -517,12 +517,12 @@
 
 		               			<div class="control-group">
 									<label class="control-label" for="comp_loc">Location</label>
-
+ 
 									<div class="controls">
 										<input type="text" id="comp_loc" name="EH_company_location">
 									</div>
 								</div>
-
+ 
 		               			<div class="control-group">
 									<label class="control-label" for="position_title">Position Title</label>
 
@@ -534,14 +534,14 @@
 									<label class="control-label" for="from">From</label>
 
 									<div class="controls">
-										<input type="number" id="from" min="1900" max="2025" name = "EH_company_date_s">
-									</div>
+										<input type="text" class="span2" id="from" name = "EH_company_date_s">
+									</div>  
 								</div>
 								<div class="control-group">
 									<label class="control-label" for="to">To</label>
 
 									<div class="controls">
-										<input type="number" id="to" min="1900" max="2025" name = "EH_company_date_e">
+										<input type="text" class="span2" id="to"  name = "EH_company_date_e">
 									</div>
 								</div>
 								<div class="control-group">
@@ -550,7 +550,7 @@
 									<div class="controls">
 										 <textarea  id="reason" name="reason"></textarea>
 									</div>
-								</div>
+								</div> 
 		                      	<div class="form-actions">
 									<button class="btn btn-info btn-small" type="submit">
 										<i class="icon-ok bigger-110"></i>
@@ -582,7 +582,7 @@
                         
                 </div>
                 
-				</form>
+				</form> 
                 <!-- End of Tab 1 -->
 			</div><!--/row-->
 
@@ -638,10 +638,11 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
 
+
+		<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+	    <script src="<?php echo base_url();?>assets/js/additional-methods.min.js"></script>
 		<!--inline scripts related to this page-->
 
-
-		<script src="<?php echo base_url();?>assets/js/relCopy.js"></script>
 		<script type="text/javascript">
 
 	   
@@ -662,11 +663,7 @@
 			});
 
 	
-	        var removeLink = '<a class="remove btn btn-mini btn-danger" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">remove</a>';
-	        var removeLink2 = '<img class="remove" src ="<?php echo base_url();?>assets/images/cross.png" href="#" onclick="$(this).parent().slideUp(function(){ $(this).remove() }); return false">';
-	      	$('a.copy1').relCopy({append: removeLink});
-	      	$('a.copy2').relCopy({append: removeLink2});
-		   	var tag_input = $('#honors');	
+	      	var tag_input = $('#honors');	
 				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
 				{
 					tag_input.tag(
@@ -686,7 +683,7 @@
 			$.extend($.gritter.options, { 
 		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
 				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
-				fade_out_speed: 2000, // how fast the notices fade out
+				fade_out_speed: 1000, // how fast the notices fade out
 				time: 1000 // hang on the screen for...
 			});
 		
@@ -707,7 +704,7 @@
 	               // $("#success").html(output_string);
 	                //$("#result_table").hide();
 	                // location.reload();
-	                $.gritter.add({
+	                $.gritter.add({ 
 						title: 'Human Resource Information Update',
 						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Background Education has been updated.',
 						class_name: 'gritter-success gritter-center gritter-light'
@@ -732,24 +729,153 @@
 			  { "bSortable": false },
 			  { "bSortable": false },
 			  { "bSortable": false }],
-			  "aLengthMenu": [[5, 10, 15, 25, 50, 100 , -1], [5, 10, 15, 25, 50, 100, "All"]],
+			  "aLengthMenu": [[5, 10, 15, 25, 50, 100], [5, 10, 15, 25, 50, 100]],
 			"iDisplayLength" : 5,
 			 } );
 			
+				
+			/* */
+			jQuery.validator.addMethod("nameValidation", function(value, element) {
+	          return this.optional(element) || /^[a-z\-.,\s]+$/i.test(value);
+	        }, "Name must not contain special characters except comma, dash and period.");
+
+			jQuery.validator.addMethod("phone", function (value, element) {
+	          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+	        }, "Enter a valid phone number.");
+
+			$.validator.addMethod('minStrict', function (value, el, param) {
+				//alert( $('#from').val());
+  
+			    return $('#to').val() >=  $('#from').val() ;
+ 
+			}); 	 
+  
+			jQuery.validator.setDefaults({
+	          debug: true,
+	          //success: "valid"
+	        }); 
+			var d = new Date();
+
+			var yearNow = d.getFullYear();
+			var yearValid = yearNow - 55;
+
+	        $('#employment_form').validate({
+	          errorElement: 'span',
+	          errorClass: 'help-inline',
+	          focusInvalid: false, 
+	          rules: {
+	            EH_company_name: {
+	              required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	            },
+	            EH_company_location: {
+	              required: true,
+	              minlength:2,
+	            },
+	            EH_company_position: {
+	              required: true,
+	              minlength:2,
+	            },
+	            EH_company_date_s: {
+	              required: true, 
+	              digits:true,
+	              range:[yearValid,yearNow],
+	            },
+	            EH_company_date_e: {
+	              required: true,
+	              digits:true,
+	              minStrict: true,
+	              //range: ['#from',2025]
+	              max : yearNow
+	            },
+	            reason: {
+	              required: true,   
+	              minlength:2,
+	            },
+	          
+
+	          },
+	      
+	          messages: {
+	          	EH_company_name: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	},
+	          	EH_company_location: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	}, 
+	          	EH_company_position: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	}, 
+	          	EH_company_date_s: { 
+	          		digits: "Please enter a valid year.",
+	          		range : "Please enter a valid year",
+	          	
+	          	},
+	          	EH_company_date_e: {
+	          		digits: "Please a valid year.",
+	          		minStrict: "Must be more than or equal the starting year.",
+	          		range : "Please enter a valid year",
+	          	},
+
+	          	reason: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	},
+	          	
+	 			
+	  
+	          },
+	      
+	          invalidHandler: function (event, validator) { //display error alert on form submit   
+	            $('.alert-error', $('.login-form')).show();
+	          },
+	      
+	          highlight: function (e) {
+	            $(e).closest('.control-group').removeClass('success').addClass('error');
+	          },
+	      
+	          success: function (e) {
+	            $(e).closest('.control-group').removeClass('error').addClass('success');
+	            $(e).remove();
+	          },
+	      
+	          errorPlacement: function (error, element) {
+	            if(element.is(':checkbox') || element.is(':radio')) {
+	              var controls = element.closest('.controls');
+	              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+	              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+	            }
+	            else if(element.is('.select2')) {
+	              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+	            }
+	            else if(element.is('.chzn-select')) {
+	              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+	            }
+	            else error.insertAfter(element);
+	          },
+	          showErrors: function(errorMap, errorList) {
+	            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+	              + this.numberOfInvalids()
+	              + " errors, see details below.</div>");
+	              this.defaultShowErrors();
+	          },
+	          submitHandler: function (form) {
+	            console.log('SUBMIT DEPENDENT FORM');
+	            employment_submit();
+	          },
+	          invalidHandler: function (form) {
+	            
+	          },
+
+	        });
 			
-			$('table th input:checkbox').on('click' , function(){
-				var that = this;
-				$(this).closest('table').find('tr > td:first-child input:checkbox')
-				.each(function(){
-					this.checked = that.checked;
-					$(this).closest('tr').toggleClass('selected');
-				});
-					
-			});
-			
-			$( "#employment" ).on( "submit", function( event ) {
-			  event.preventDefault();
-			  var sData = $(this).serialize();
+		
+
+
+		});//function End
+
+		var employment_submit = function(){
+			  var sData = $('#employment_form').serialize();
 			  console.log(sData);
 			   $.ajax({
 	                url:"<?php echo base_url();?>hris/insertEmploymentHistory",
@@ -802,14 +928,10 @@
 
 	            });//Ajax Request End
 		
-			});//Employment Submit End
-		
-
-
-		});//function End
+		}
 	    </script>
 		
-		
+
 	</body>
 </html>
 	

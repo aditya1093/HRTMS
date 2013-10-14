@@ -521,7 +521,7 @@
 															<input type="hidden" id="company_name2" name="client_name">
 															<input type="hidden" id="client_id" name="client_id">
 														</div>
-												
+												 
 													</div>
 
 												<div class="control-group">
@@ -531,7 +531,7 @@
 															<span class="add-on">	
 																<i class="icon-calendar"></i>
 															</span>
-															<input  class="date_start span6 input-date" name="date_start" id="date_start" type="text" data-date-format="yyyy-mm-dd">
+															<input  class="span6 input-date date_start" name="date_start" id="date_start" type="text">
 															
 														</span>
 													</div>
@@ -542,7 +542,7 @@
 														<input  type="text" id="training_days" name="training_days" placeholder="#" class="input-mini">
 													</div>
 												</div>
-												<div class="control-group">
+												<div class="control-group"> 
 													<label class="control-label" for="limit">Limit (<span class="required">*</span>):</label>
 													<div class="controls">
 														<input  type="text" id="limit" name="limit_no" placeholder="#" class="input-mini">
@@ -615,7 +615,7 @@
 
 										</td>
 
-										
+										 
 									</tr>
 									<?php endforeach;?>
  
@@ -664,7 +664,7 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootbox.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/bootstrap-datepicker.js"></script>
+		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 
 		<!--ace scripts-->
@@ -682,7 +682,7 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
-				$(function() {
+			$(function() {
 
 				//$('.input-date').mask('9999-99-99');
 				
@@ -695,13 +695,18 @@
 					"iDisplayLength" : 5
 				} );
 				
-				
-				$(".date_start").datepicker().next().on(ace.click_event, function() {
-					$(this).prev().focus();
-				});
-				$("#edit_date_start").datepicker().next().on(ace.click_event, function() {
-					$(this).prev().focus();
-				});
+
+				var nowTemp = new Date();
+				var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+				$('.date_start').datepicker({
+				  	format: "yyyy-mm-dd",
+				    startDate: "now",
+				    //todayBtn: true,
+				    orientation: "top auto",
+				    autoclose: true
+				}) 
+			
 				
 				$(".chzn-select").chosen(); 
 				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
@@ -721,7 +726,7 @@
 						title.html($title);
 					else title.text($title);
 				}
-				}));
+				})); 
 
 			
 		        jQuery.validator.setDefaults({
@@ -729,8 +734,8 @@
 		          //success: "valid"
 		        });
 
-		        $('#addBatchControl').validate({
-		          
+		        $('#addBatchControl').validate({ 
+		          ignore:[],
 		          errorElement: 'span',
 		          errorClass: 'help-inline',
 		          focusInvalid: false,
@@ -797,14 +802,12 @@
 		            console.log('SUBMIT FORM');
 		            submitForm();
 
-		          },
+		          }, 
 		          invalidHandler: function (form) {
 		            
 		          },
 
 		        });
-				
-				// /var current;
 				
 				
  				$('#editBatchControl').validate({
@@ -824,9 +827,15 @@
 		            edit_limit: {
 		              required: true,
 		              number: true,
-		              //min: a
+		              min: (function(){return Number($("#edit_current").val()); }),
+		              max: 500
 		       
-		            }
+		            }  
+		          },
+		          messages: {
+		          	edit_limit: {
+		          	  min: "There are currently {0} trainee in this batch.",
+		          	}
 		          },
 		      
 		      
@@ -869,7 +878,7 @@
 		            editForm();
 		            $('#alertRequired').hide();
 		            $('#alertSuccess').show();
-		            alert(a);
+		            //alert(a);
 		      
 
 		          },
@@ -1010,7 +1019,7 @@
 						       
 						        //document.location.href='<?php echo base_url();?>client/edit_info/' + id;
 						        $(this).dialog("close");
-						        view_edit(id);
+					 	        view_edit(id);
 
 						        
 						      }
@@ -1161,78 +1170,79 @@
 	</div>
 	<div id="edit_view" style="display:none">
 
-	<div class="widget-box" id="addBatch">
-		<div class="widget-header header-color-dark">
-			<h4 class="smaller">
-				Edit Batch
-				<small></small>
-			</h4>
-		</div>
+		<div class="widget-box" id="addBatch">
+			<div class="widget-header header-color-dark">
+				<h4 class="smaller">
+					Edit Batch
+					<small></small>
+				</h4>
+			</div>
 
-		<div class="widget-body">
-			<div class="alert alert-info center" id="alertRequired">
-                <p>Items marked with an asterisk (<span class="required">*</span>) are required.</p>  
-            </div>	
-			<div class="widget-main">	
-				<div class="alert alert-success center" style="display:none" id="alertSuccess">
-	                <p>Changes Successfully</p>  
-	            </div>
-				 <form id="editBatchControl">
-				 	<input type="hidden" autofocus id="edit_id" name="edit_id">
-				 	<input type="hidden" id="edit_current" name="edit_current">
-				 	<div class="control-group">
-						<label class="control-label" for="req_id">Request ID : <span id="label_req_id"></span></label>
-						<div class="controls">
-							<!-- <input type="text" id="edit_req_id" disabled> -->
-							<input type="hidden" id="edit_req_id" name="edit_req_id">
+			<div class="widget-body">
+				<div class="alert alert-info center" id="alertRequired">
+	                <p>Items marked with an asterisk (<span class="required">*</span>) are required.</p>  
+	            </div>	
+				<div class="widget-main">	
+					<div class="alert alert-success center" style="display:none" id="alertSuccess">
+		                <p>Changes Successfully</p>  
+		            </div>
+					 <form id="editBatchControl">
+					 	<input type="hidden" autofocus id="edit_id" name="edit_id">
+					 	<div class="control-group">
+							<label class="control-label" for="req_id">Request ID : <span id="label_req_id"></span></label>
+							<div class="controls">
+								<!-- <input type="text" id="edit_req_id" disabled> -->
+								<input type="hidden" id="edit_req_id" name="edit_req_id">
+							</div>
 						</div>
-					</div>
-					<div id="company" style="">
-						<label class="control-label" for="edit_client_name">Company:  <span id="label_client_name"></span></label>
-						<div class="controls">
-							<!-- <input type="text" id="edit_client_name" disabled=""  name=""> -->
-							<input type="hidden" id="edit_client_name" name="edit_client_name">
-						</div>
-				
-					</div>
-
-					<div class="control-group">
-						<label class="control-label" for="edit_date_start">Date start (<span class="required">*</span>):</label>
-						<div class="controls" >
-							<span class="input-append">
-								<span class="add-on">
-									<i class="icon-calendar"></i>
-								</span>
-								<input  class="span2 input-date" name="edit_date_start" id="edit_date_start" type="text" data-date-format="yyyy-mm-dd">
-							</span>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="edit_training_days">Training Days (<span class="required">*</span>):</label>
-						<div class="controls">
-							<input  type="text" id="edit_training_days" name="edit_training_days" placeholder="#" class="input-mini">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="edit_limit">Limit (<span class="required">*</span>):</label>
-						<div class="controls">
-							<input  type="text" id="edit_limit" name="edit_limit" placeholder="#" class="input-mini">
-						</div>
-					</div>
-					<div class="form-actions">
-						<button class="btn btn-info btn-small" type="submit">
-							<i class="icon-edit bigger-110"></i>
-							Edit
-						</button>
-						<a class="btn btn-small" onclick="closeDialog()">
-							Close
-						</a>
+						<div id="company" style="">
+							<label class="control-label" for="edit_client_name">Company:  <span id="label_client_name"></span></label>
+							<div class="controls">
+								<!-- <input type="text" id="edit_client_name" disabled=""  name=""> -->
+								<input type="hidden" id="edit_client_name" name="edit_client_name">
+							</div>
 					
-					</div>
-				 </form>
+						</div>
 
+						<div class="control-group">
+							<label class="control-label" for="edit_date_start">Date start (<span class="required">*</span>):</label>
+							<div class="controls" >
+								<span class="input-append">
+									<span class="add-on">
+										<i class="icon-calendar"></i>
+									</span>
+									<input  class="span2 input-date date_start" name="edit_date_start" id="edit_date_start" type="text">
+																
+								</span> 
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="edit_training_days">Training Days (<span class="required">*</span>):</label>
+							<div class="controls">
+								<input  type="text" id="edit_training_days" name="edit_training_days" placeholder="#" class="input-mini">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="edit_limit">Limit (<span class="required">*</span>):</label>
+							<div class="controls">
+								<input  type="text" id="edit_limit" name="edit_limit" placeholder="#" class="input-mini">
+								<input  type="hidden" id="edit_current" name="edit_current" placeholder="#" class="input-mini">
+							</div>
+						</div>
+						<div class="form-actions">
+							<button class="btn btn-info btn-small" type="submit">
+								<i class="icon-edit bigger-110"></i>
+								Edit
+							</button>
+							<a class="btn btn-small" onclick="closeDialog()">
+								Close
+							</a>
+						
+						</div>
+					 </form>
+
+				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 </html>

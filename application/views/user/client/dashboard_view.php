@@ -264,20 +264,20 @@
 												              else{echo $message;}
 												              ?>         
 												              <br>
-														</div>
+										 				</div>
 														<div class="alert alert-info">
 															(<span class="required">*</span>) Required Field
 														</div>
 														<div id="summary" class="center"></div><br>
-														<form action="client/send_request" method="get" id="request-form">
+														<form action="<?php echo base_url();?>client/send_request" method="POST" id="request_form">
 																<label class="control-label" for=""><h3>Manpower Information</h3> </label>
 															<!-- Quoted Number of Manpower -->
-															<div class="control-group">
+															<div class="control-group"> 
 																<label class="control-label" for="no_of_manpower">Quoted Number of Manpower (<span class="required">*</span>):</label>
 
 																<div class="controls">
 																	<input  type="text" class="input-mini spinner-input" id="no_of_manpower" name="no_of_manpower" placeholder="#">
-																</div>
+																</div>  
 															<!-- Quoted Number of Manpower -->
 															</div>
 															<!-- Date Range -->
@@ -286,16 +286,16 @@
 																<div class="controls">					
 																	<div class="row-fluid input-prepend">
 																		<span class="add-on">
-																			<i class="icon-calendar"></i>
+																			<i class="icon-calendar"></i> 
 																		</span>
 
-																		<input class="span3 input-date-range" type="text" name="date_range_picker" id="date_range" />
+																		<input class="span3 input-date-range" type="text" name="date_range_picker" id="date_range" readonly="" />
 																	</div>
 																</div>
 															</div>
 
 															<!-- Date Range -->										
-																
+														 		 
 															<!-- Employment Type -->
 															<div class="control-group">
 																<label class="control-label" for="emp_type">Type of Employemt (<span class="required">*</span>):</label>
@@ -308,7 +308,7 @@
 																		<option value="3">Probation</option>
 																	</select>
 																</div>
-															</div>
+															</div> 
 															<!-- Employment Type -->
 
 															<!-- Designated Department -->
@@ -382,10 +382,14 @@
 																</div>
 															</div>
 																<p></p>
-																<div class="controls">
+														<!-- 		<div class="controls">
 																	
 																	<input id="submit" type="submit" value="Send Request" class="btn btn-success btn-small">
-																</div>
+																</div> -->
+															<div class="form-actions">
+										                        <button type="submit" class="btn btn-success btn-small">Submit</button>
+										                        <button type="reset" class="btn btn-danger btn-small">Reset</button>
+										                    </div>
 															
 														</form>
 													</div>
@@ -641,9 +645,24 @@
 					//$('#skill').autosize({append: "\n"});
 				}
 
-				$('#date_range').daterangepicker().prev().on(ace.click_event, function(){
+			/*	$('#date_range').daterangepicker().prev().on(ace.click_event, function(){
 					$(this).next().focus();
-				});
+				});*/ 
+
+				var nowTemp = new Date();
+				var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+				$('input[name="date_range_picker"]').daterangepicker({ 
+				    //format: 'YYYY-MM-DD',
+				    //startDate: '2013-01-01',
+				    //endDate: '2013-12-31'
+				    minDate: now,
+				    showDropdowns:true 
+				  },
+				  function(start, end) {
+				   //alert('A date range was chosen: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+				  }
+				);
 			
 				$('.date-picker').datepicker().next().on(ace.click_event, function() {
 					$(this).prev().focus();
@@ -689,8 +708,8 @@
 		          //success: "valid"
 		        });
 
-		        $('#request-form').validate({
-		          
+		        $('#request_form').validate({
+		          ignore: [],
 		          errorElement: 'span',
 		          errorClass: 'help-inline',
 		          focusInvalid: false,
@@ -698,7 +717,8 @@
 		            no_of_manpower: {
 		              required: true,
 		              digits: true,
-		              min:1
+		              min:1,
+		              max: 500
 		            },
 		            emp_type: 'required',
 		            date_range_picker:'required',
@@ -708,11 +728,11 @@
 		            },
 		            remarks: {
 		            	required: true,
-		            },
+		            }, 
 		            emp_gender: 'required',
 		            agree: 'required'
 		          },
-		      
+		        
 		          messages: {
 		            no_of_manpower: {
 		              //numeric : jQuery.format("Invalid "),
@@ -760,7 +780,8 @@
 		              this.defaultShowErrors();
 		          },
 		          submitHandler: function (form) {
-		            alert('SUBMIT FORM');
+		            //alert('SUBMIT FORM');
+		            //alert($('input[name="date_range_picker"]').val());
 		            form.submit();
 
 		          },
@@ -771,7 +792,7 @@
 		        });
 						
 
-			});
+			}); 
 	 
 		</script>
 	</body>

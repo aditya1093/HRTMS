@@ -765,8 +765,6 @@
 				] } );
 
 
-
-
 				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
 				function tooltip_placement(context, source) {
 					var $source = $(source);
@@ -781,7 +779,10 @@
 					return 'left';
 				}
 
-				
+				jQuery.validator.addMethod("nameValidation", function(value, element) {
+		          return this.optional(element) || /^[a-z\-.,\s]+$/i.test(value);
+		        }, "Name must not contain special characters except comma, dash and period.");
+
 				jQuery.validator.addMethod("phone", function (value, element) {
 		          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
 		        }, "Enter a valid phone number.");
@@ -796,17 +797,15 @@
 		          errorClass: 'help-inline',
 		          focusInvalid: false,
 		          rules: {
-		          	 client_name: {
-		              required: true,
-		              minlength:2,
-		            },
 		            first_name: {
 		              required: true,
 		              minlength:2,
+		              nameValidation:true,
 		            },
 		            last_name: {
 		              required: true,
 		               minlength:2,
+		               nameValidation:true,
 		            },
 		           	client_location:{
 		          		required: true,
@@ -818,28 +817,16 @@
 		          	client_tel:{
 		          		required: true,
 		          	},
-		          	client_username:{
-		          		required: true,
-		          		minlength:6
-		          	},
-		          	client_password: {
-		              required: true,
-		              minlength: 6
-		            },
-		            client_password_confirm: {
-		              required: true,
-		              minlength: 6,
-		              equalTo: "#client_password"
-		            },
-		            client_email: {
-		               required: true,
-		               email : true	
-		            }
 		          },
 		      
 		          messages: {
+		          	client_name: {
+		               minlength: jQuery.format("At least {0} characters required."),
+		               remote: "This client is already registered.",
+
+		            },
 		            first_name: {
-		              minlength: jQuery.format("At least {0} characters required."),
+		               minlength: jQuery.format("At least {0} characters required."),
 
 		            },
 		            last_name: {
@@ -852,17 +839,21 @@
 		              minlength: jQuery.format("At least {0} characters required."),
 		            },
 
-		            email: {
+		            client_email: {
 		              required: "Please provide a valid email.",
-		              email: "Please provide a valid email."
-		            },
+		              email: "Please provide a valid email.",
+		              remote: "This email is not available.",
+
+		            },          
 		            client_username: {
-		           	  minlength: jQuery.format("At least {0} characters required.")
+		           	  minlength: jQuery.format("At least {0} characters required."),
+		           	  maxlength: jQuery.format("Must not contain more than {0} characters."),
+              		  remote: "This username is not available.",
 		            },
 		            client_password: {
 		              required: "Please specify a password.",
 		              minlength: jQuery.format("Please specify a secure password. At least {0} characters required.")
-		            }, 
+		            },   
 		            client_password_confirm: {
 		              minlength: jQuery.format("At least {0} characters required.")
 		            }
