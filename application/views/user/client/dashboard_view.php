@@ -62,26 +62,10 @@
 						
 
 						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+							<a href="messenger">
+								<i class="icon-envelope-alt icon-only"></i> Inbox
 								<span class="badge badge-success"></span>
 							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-envelope"></i>
-									Messages
-								</li>
-
-								
-
-								<li>
-									<a href="messenger">
-										See all messages
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
 						</li>
 
 						<li class="light-blue user-profile">

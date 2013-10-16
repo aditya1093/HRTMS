@@ -196,26 +196,10 @@
 						</li>
 					-->
 						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+							<a href="messenger">
+								<i class="icon-envelope-alt icon-only"></i> Inbox
 								<span class="badge badge-success"></span>
 							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-envelope"></i>
-									Messages
-								</li>
-
-								
-
-								<li>
-									<a href="messenger">
-										See all messages
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
 						</li>
 
 						<li class="light-blue user-profile">
@@ -451,7 +435,7 @@
 								<i class="icon-angle-right"></i>
 							</span>
 						</li>
-						<li class="active">Client</li>
+						<li class="active">User</li>
 					</ul><!--.breadcrumb-->
 
 					<div id="nav-search">
@@ -545,7 +529,7 @@
 								              }
 								              else
 								              {
-								              	//echo 'asdfasdfasdf';
+								              	//echo 'asdfasdfasdf'; 
 								              }
 								              ?>
 									    </div>
@@ -553,16 +537,17 @@
 										<?php $stat = $row->is_active;
 											  $user_id = $row->user_id;
 											  $username = $row->username;
+											  $email = $row->email;
 											if ($stat == 0){
-												$stat = "<button onclick=\"status_update('1')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-success\"><i class=\"icon-ok\"></i>Activate Account</button>";
+												$stat = "<button onclick=\"status_dialog('1');\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-success\"><i class=\"icon-ok\"></i>Activate Account</button>";
 												$stat .= "<input type=\"hidden\" name=\"user_id\" value=\"$user_id\" id=\"user_id\">";
 											}
 											elseif ($stat == 1){
-												$stat = "<button onclick=\"status_update('0')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-danger\"><i class=\"icon-remove\"></i>Deactivate Account</button>";
+												$stat = "<button onclick=\"status_dialog('0');\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-danger\"><i class=\"icon-remove\"></i>Deactivate Account</button>";
 												$stat .= "<input type=\"hidden\" name=\"user_id\" value=\"$user_id\" id=\"user_id\">";
 											}
 											else{
-												$stat ="<button onclick=\"status_update('$stat')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-\">Invalid Status</button>";
+												$stat ="<button onclick=\"status_dialog('$stat');\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-\">Invalid Status</button>";
 											}
 										?>
 										<form id="edit_user" method="post" action="<?php echo base_url();?>manage/edit_user/<?php echo $user_id?>">
@@ -590,12 +575,12 @@
 													<input id="phone" class="input-mask-phone" style="width: 94%" type="text" name="phone" value="<?php echo $row->phone;?>">
 												</div>
 											</div>
-											<div class="control-group">
+											<!-- <div class="control-group">
 												<label for="email" class="control-label">Email address (<span class="required">*</span>): </label>
 												<div class="controls">
 													<input style="width: 94%" type="email" id="email" name="email"  value="<?php echo $row->email;?>">
 												</div>
-											</div>
+											</div> -->
 												<hr>
 												<span class="pull-right">
 												<button type="submit" class="btn btn-success btn-small"><i class="icon-edit icon-white"></i> Edit User</button>
@@ -632,9 +617,11 @@
 											<td style="width:30%">Username :</td>
 											<td><?php echo $username;?></td>
 										</tr>
-									</table>
-									
-									<button class="btn btn-info btn-mini"><i class="icon-user"></i> Change Username</button>
+										<tr class="info">
+											<td style="width:30%">Email :</td>
+											<td><?php echo $email;?></td>
+										</tr>
+									</table> 
 									<button class="btn btn-info btn-mini"><i class="icon-user"></i> Change Password</button>
 									<form id=""> 
 									 	<div class="control-group">
@@ -649,7 +636,7 @@
 											<button class="btn btn-mini span6" type="reset">
 												<i class="icon-undo bigger-110"></i>
 												Reset
-											</button>
+											</button>    
 										</div>
 										-->
 									</form>
@@ -731,6 +718,12 @@
 						else title.text($title);
 					}
 				}));
+
+
+				jQuery.validator.addMethod("nameValidation", function(value, element) {
+		          return this.optional(element) || /^[a-z\-.,\s]+$/i.test(value);
+		        }, "Name must not contain special characters except comma, dash and period.");
+
 				jQuery.validator.addMethod("phone", function (value, element) {
 		          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
 		        }, "Enter a valid phone number.");
@@ -739,8 +732,8 @@
 		          debug: true,
 		          //success: "valid"
 		        });
-		    $('#edit_user').validate({
-		          
+			    $('#edit_user').validate({
+			          
 		          errorElement: 'span',
 		          errorClass: 'help-inline',
 		          focusInvalid: false,
@@ -749,19 +742,20 @@
 		            first_name: {
 		              required: true,
 		              minlength:2,
-		              letterswithbasicpunc:true,
+		              nameValidation:true,
 		            },
 		            last_name: {
 		              required: true,
 		               minlength:2,
-		               letterswithbasicpunc:true,
+		              nameValidation:true,
 		            },
 		            middle_name: {
 		            	minlength:2,
-		            	letterswithbasicpunc:true,
+		            	nameValidation:true,
 		            },
 		          	phone:{
 		          		required: true,
+		          		phone: true,
 		          	},
 		    
 		            email: {
@@ -845,7 +839,7 @@
 		          },
 
 		        });
-						
+					
 
 				
 				$.extend($.gritter.options, { 
@@ -858,70 +852,141 @@
 			
 			})
 			
-
-		var status_update = function(id) {
-					//id = $('#')
-			//$.gritter.removeAll();
-			console.log(id);
-			user_name = $('#first_name').val() + ' ' + $('#last_name').val();
-			user_id = $('#user_id').val();
-			//client_name = $('#client_name').val();
-			if(id == 0){
-				console.log("Account will be Activated");
-				new_stat = "<button onclick=\"status_update('1')\" id=\"status_update\" value=\"1\" class=\"btn btn-mini btn-success\"><i class=\"icon-ok\"></i>Activate Account</button>";
+			var status_dialog = function(id){
+				console.log(id);
+				if(id == 0){
+				$("#edit_dialog").removeClass('hide').dialog({
+				//dialogClass: "no-close",
+				resizable: false,
+				modal: true,
+				closeOnEscape: true,
+				title: "<div class='widget-header'><h4 class='smaller'><i class='icon-edit'></i> Account Status.</h4></div>",
+				title_html: true,
+				width: 400,
+				//maxHeight: 800,
+				buttons: [
+						{
+					      html: "<i class=\"icon-ok\"></i>Yes",
+					      "class" : "btn btn-success btn-mini",
+					      click: function() {
+					       /* $(this).dialog( "close" );
+					        document.location.href='<?php echo base_url();?>client/edit_info/' + id;*/
+					        $(this).dialog( "close" );
+					        status_update(id);
+					      }
+					    },
+					    {
+					      html: "No",
+					      "class" : "btn btn-mini",
+					      click: function() {
+					        $(this).dialog( "close" );
+					      }
+					    }
+					  ]
+				 
+				});
 			}
 			else if(id == 1){
-				console.log("Account will be Deactivated");
-				new_stat = "<button onclick=\"status_update('0')\" id=\"status_update\" value=\"0\" class=\"btn btn-mini btn-danger\"><i class=\"icon-remove\"></i>Deactivate Account</button>";
+				$("#edit_dialog2").removeClass('hide').dialog({
+				//dialogClass: "no-close",
+				resizable: false,
+				modal: true,
+				closeOnEscape: true,
+				title: "<div class='widget-header'><h4 class='smaller'><i class='icon-edit'></i> Account Status.</h4></div>",
+				title_html: true,
+				width: 400,
+				//maxHeight: 800,
+				buttons: [
+						{
+					      html: "<i class=\"icon-ok\"></i>Yes",
+					      "class" : "btn btn-success btn-mini",
+					      click: function() {
+					       /* $(this).dialog( "close" );
+					        document.location.href='<?php echo base_url();?>client/edit_info/' + id;*/
+					        $(this).dialog( "close" );
+					        status_update(id);
+					      }
+					    },
+					    {
+					      html: "No",
+					      "class" : "btn btn-mini",
+					      click: function() {
+					        $(this).dialog( "close" );
+					      }
+					    }
+					  ]
+				 
+			});
 			}
 			else{
-				new_stat = "<button onclick=\"status_update()\" id=\"status_update\" value=\"\" class=\"btn btn-mini btn-\">Invalid Status</button>";
+
 			}
-			$.ajax({
-				url :"<?php echo base_url();?>manage/updateAccountStatus",
-				type : "POST",
-				data :{ id:id,
-						user_id : user_id	
-						},
 
-				success: function(e) {
-                    //data is the html of the page where the request is made.
-                    //showBatchResult(e);
-                   
-                    console.log(e);
 
-            		$('#status_update').fadeToggle();
-            		$('#status_update').remove();
-            		$('#widget_stat').append(new_stat);
-            		$('#status_update').css('display:block');
-            		
-            		if(e==1){
+			}
+			var status_update = function(id) {
+				//id = $('#')
+				//$.gritter.removeAll();
+				console.log(id);
+				user_name = $('#first_name').val() + ' ' + $('#last_name').val();
+				user_id = $('#user_id').val();
+				//client_name = $('#client_name').val();
+				if(id == 0){
+					console.log("Account will be Activated");
+					new_stat = "<button onclick=\"status_dialog('1')\" id=\"status_update\" value=\"1\" class=\"btn btn-mini btn-success\"><i class=\"icon-ok\"></i>Activate Account</button>";
+				}
+				else if(id == 1){
+					console.log("Account will be Deactivated");
+					new_stat = "<button onclick=\"status_dialog('0')\" id=\"status_update\" value=\"0\" class=\"btn btn-mini btn-danger\"><i class=\"icon-remove\"></i>Deactivate Account</button>";
+				} 
+				else{
+					new_stat = "<button onclick=\"status_dialog()\" id=\"status_update\" value=\"\" class=\"btn btn-mini btn-\">Invalid Status</button>";
+				}
+				$.ajax({
+					url :"<?php echo base_url();?>manage/updateAccountStatus",
+					type : "POST",
+					data :{ id:id,
+							user_id : user_id	
+							},
 
-                	var active_grit = $.gritter.add({
+					success: function(e) {
+	                    //data is the html of the page where the request is made.
+	                    //showBatchResult(e);
+	                   
+	                    console.log(e);
+
+	            		$('#status_update').fadeToggle();
+	            		$('#status_update').remove();
+	            		$('#widget_stat').append(new_stat);
+	            		$('#status_update').css('display:block');
+	            		
+	            		if(e==1){
+
+	                	var active_grit = $.gritter.add({
+									title: 'Account Status!',
+									text:   user_name + ' account has been activated.',
+									class_name: 'gritter-success'
+								});
+						}
+						else if(e==0){
+						var deactive_grit =	$.gritter.add({
 								title: 'Account Status!',
-								text:   user_name + ' account has been activated.',
-								class_name: 'gritter-success'
+								text:   user_name + ' account has been deactivated.',
+								class_name: 'gritter-error'
 							});
-					}
-					else if(e==0){
-					var deactive_grit =	$.gritter.add({
-							title: 'Account Status!',
-							text:   user_name + ' account has been deactivated.',
-							class_name: 'gritter-error'
-						});
-					}
-					else{
-						$.gritter.add({
-							title: 'Account Status!',
-							text: 'No Records',
-							class_name: 'gritter-regular'
-						});
+						}
+						else{
+							$.gritter.add({
+								title: 'Account Status!',
+								text: 'No Records',
+								class_name: 'gritter-regular'
+							});
 
-					}
+						}
 
-               	}
-			});
-		}
+	               	}
+				});
+			}
 
 	
 		</script>
@@ -933,7 +998,12 @@
 	</div>
 	<div id="edit_dialog" style="display:none">
 		<div class="center">
-		<div class="alert alert-info">Edit Client Information or deactive/activate its account.</div>
+			<div class="alert alert-info">Do you want to deactivate this account?</div>
+		</div>
+	</div>
+	<div id="edit_dialog2" style="display:none">
+		<div class="center">
+			<div class="alert alert-info">Do you want to activate this account?</div>
 		</div>
 	</div>
 </html>

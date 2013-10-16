@@ -3,41 +3,16 @@
 class Administrative extends CI_Controller {
 
 	function __construct() {
+
 		parent::__construct();
+
+		
 	}
 
 	function index() {
+
 		redirect(base_url() . 'index.php/dashboard');
 
-	}
-
-	function audit(){
-
-		//check kung naka-login
-		if($this->session->userdata('is_logged_in')) {
-			
-			$this->load->model('administrative_model');
-			$query = $this->administrative_model->list_users();
-			$data['records'] = $query;			
-			$this->load->view('admin/audit_view', $data);
-		}
-		else {
- 			$this->session->set_userdata('login_type', 'employee');
-    		$this->load->view('login_view');
-		}	
-
-	}
-
-	function backup() {
-		
-		if($this->session->userdata('is_logged_in')) {
-			
-			$this->load->view('admin/backup_view');
-		}
-		else {
-			$this->session->set_userdata('login_type', 'employee');
-    		$this->load->view('login_view');
-		}	
 	}
 	
 	function confirm_request() {
@@ -61,7 +36,8 @@ class Administrative extends CI_Controller {
 		}
 	}
 
-	function viewRequest(){
+	function viewRequest() {
+
 		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     	
 			$id = $this->input->post('id');
@@ -69,7 +45,9 @@ class Administrative extends CI_Controller {
 			$data = $this->request_model->viewRequest($id);
 
 			 foreach($data as $row) {
+
 			 	$stat = $row->confirmed;
+
 		        if ($stat==0) {
 		        	$stat = "<span class=\"label label-lg label-warning arrowed-right\">Not Confirmed</span>";
 		        }
@@ -86,6 +64,7 @@ class Administrative extends CI_Controller {
 		        $is_to = $row->is_to;
 
 		        $emp_type = $row->emp_type;
+
 		        if($emp_type == 1){
 					$emp_type = "Contractual";
 				}
@@ -102,20 +81,24 @@ class Administrative extends CI_Controller {
 
 				$emp_gender = $row->emp_gender;
 				
-				if($emp_gender == 1){
+				if($emp_gender == 1) {
+
 					$emp_gender  = "Male Only";
 				}
-				if($emp_gender == 2){
+				if($emp_gender == 2) {
+
 					$emp_gender  = "Female Only";
 				}
-				if($emp_gender == 3){
+				if($emp_gender == 3) {
+
 					$emp_gender  = "Male / Female";
 				}
 
 				$remarks = $row->remarks;
 				$remarks = preg_replace('/\.$/', '', $remarks); //Remove dot at end if exists
 				$array = explode(',', $remarks); //split string into array seperated by ', '
-				$remarks ="";
+				$remarks = "";
+
 				foreach($array as $value) //loop over values
 				{
 				  $remarks .= $value ."<br>"; //print value
@@ -125,13 +108,11 @@ class Administrative extends CI_Controller {
 				$emp_reqdocuments = preg_replace('/\.$/', '', $emp_reqdocuments); //Remove dot at end if exists
 				$array = explode(',', $emp_reqdocuments); //split string into array seperated by ', '
 				$emp_reqdocuments ="";
+
 				foreach($array as $value) //loop over values
 				{
 				  $emp_reqdocuments .= $value ."<br>"; //print value
 				}
-
-
-
 			 }
 	        
 			/********************* OUTPUT *************************/
@@ -175,7 +156,129 @@ class Administrative extends CI_Controller {
 
 	}
 
+	//---------------------------------------------------
+	/*
+	 *
+	 * Maintenance Tool
+	 *
+	 */
 
+	function audit() {
+
+		//check kung naka-login
+		if($this->session->userdata('is_logged_in')) {
+			
+			$this->load->model('administrative_model');
+			$query = $this->administrative_model->list_users();
+			$data['records'] = $query;			
+			$this->load->view('admin/audit_view', $data);
+		}
+		else {
+ 			$this->session->set_userdata('login_type', 'employee');
+    		$this->load->view('login_view');
+		}	
+
+	}
+
+	var $path;
+
+	function backup() {
+
+		$this->path = "db" . DIRECTORY_SEPARATOR . "backup"
+			 . DIRECTORY_SEPARATOR;
+		if($this->session->userdata('is_logged_in')) {
+
+			$this->load->helper('number');
+			$data['tables'] = $this->db->query('SHOW TABLE STATUS')->result();
+			$data['backups'] = get_dir_file_info($this->path);
+			
+			$this->load->view('admin/backup_view', $data);
+			//var_dump($this->db->query('SHOW TABLE STATUS')->result());
+		} 
+		else {
+			$this->session->set_userdata('login_type', 'employee');
+    		$this->load->view('login_view');
+		}	
+	}
+
+	//---------------------------------------------------------------
+
+	/**
+	 * Repairs database tables.
+	 *
+	 * @access public
+	 *
+	 * @param array $tables Array of tables to repair
+	 *
+	 * @return mixed
+	 */
+	public function repair()
+	{
+
+		$tables = $this->db->list_tables();
+
+		if (is_array($tables))
+		{
+			$count = count($tables);
+			$failed = 0;
+
+			$this->load->dbutil();
+
+			foreach ($tables as $table)
+			{
+				if (!$this->dbutil->repair_table($table))
+				{
+					$failed += 1;
+				}
+			}
+
+			// Tell them the results
+			$quality = $failed == 0 ? 'success' : 'alert';
+
+			//Template::set_message(($count - $failed) .' of '. $count .' tables were successfully repaired.', $quality);
+			//redirect(SITE_AREA .'/developer/database');
+
+			$this->session->set_flashdata('message', '<div class="alert alert-success">Database tables successfully repaired.</div>');
+
+			redirect(base_url().'administrative/backup');
+		}
+		else
+		{
+			//Template::set_message(lang('db_repair_none'), 'error');
+			//redirect(SITE_AREA .'/developer/database');
+		}//end if
+
+		return;
+
+	}//end repair()
+
+	//---------------------------------------------------------------
+
+	/**
+	 * Optimize the entire database
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function optimize()
+	{
+		$this->load->dbutil();
+
+		$result = $this->dbutil->optimize_database();
+
+		if ($result == FALSE)
+		{
+			$this->session->set_flashdata('message', '');
+		}
+		else
+		{
+			$this->session->set_flashdata('message', '<div class="alert alert-success">Database is successfully optimized.</div>');
+		}
+
+		//redirect(SITE_AREA .'/developer/database', 'location');
+		redirect(base_url().'administrative/backup');
+	}//end optimize()
 }
 
 /* End of file administrative.php */

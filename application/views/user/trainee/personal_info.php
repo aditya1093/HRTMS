@@ -34,7 +34,7 @@
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/datepicker.css" />
 		<!--<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
 		/*Barcode
@@ -203,7 +203,7 @@
 				<!--
 					<li class="green">
 						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-							<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+							<i class="icon-envelope-alt icon-only icon-animated-vertical"></i> Inbox
 							<span class="badge badge-success"></span>
 						</a>
 
@@ -424,188 +424,39 @@
 					<div class="row-fluid">
 			
 						  <!-- Tab 1 -->
-				<form>
+				<form id="personal_info_form">
                 <div class="" id="personal_info">
                 <?php if(isset($records)) : foreach($records as $row) : ?>
                     
                     <!-- Employe Name -->
-                        <label>First Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <!-- <label>First Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         &nbsp; &nbsp; &nbsp; &nbsp;Last Name &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Middle Name &nbsp;
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Nickname</label>
-                          <input type="text" class="input-large" name = "first_name" value="<?php echo $row->first_name;?>">
-                          <input type="text" class="input-large" name = "last_name" value="<?php echo $row->last_name;?>">
-                          <input type="text" class="input-medium" name = "middle_name" value="<?php echo $row->middle_name;?>">
-                          <input type="text" class="input-medium" name = "nickname" value="<?php echo $row->nickname;?>">
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Nickname</label> -->
+
+
+               			<div class="control-group">
+							<label class="control-label" for="">Full Name</label>
+							<div class="controls">
+								<input type="text" class="input-large" name = "first_name" value="<?php echo $row->first_name;?>" placeholder="First Name">
+		                        <input type="text" class="input-large" name = "last_name" value="<?php echo $row->last_name;?>" placeholder="Last Name">
+		                        <input type="text" class="input-medium" name = "middle_name" value="<?php echo $row->middle_name;?>" placeholder="Middle Name">		
+							</div> 
+						</div>
+
+                         
+                        <input type="text" class="input-medium" name = "nickname" value="<?php echo $row->nickname;?>" placeholder="Nickname">
                         <label >Date of Birth&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                          &nbsp; &nbsp; Place of Birth</label>
-                          <input class ="input-medium"  id="dob" type="date" name="birthdate" value="<?php echo $row->birthdate;?>">
+                          <!-- <input class ="input-medium"  id="dob" type="date" name="birthdate" value="<?php echo $row->birthdate;?>"> -->
+                          	<span class="input-append">
+								<span class="add-on">	
+									<i class="icon-calendar"></i>
+								</span>
+								<input  class="span6 input-date datepicker" id="dob" type="text" name="birthdate" value="<?php echo $row->birthdate;?>">	
+							</span>		
                           <input type="text" class="input-large" name = "place_of_birth" value ="<?php echo $row->place_of_birth;?>"> &nbsp;
                     <!-- End of Employee Name -->
-                    <!-- Gender -->
-
-                        <label>Gender</label>
-                        <div class="form-inline">
-                        <label >
-			            <input type="radio" value="Male"  name="gender" <?php if($row->gender=='Male') echo 'checked'; else echo 'disabled';?>>
-			            <span class = "lbl">Male</span> 
-			          	</label>
-			          	<label >&nbsp;
-			            <input type="radio" value="Female"  name="gender"  <?php if($row->gender=='Female') echo 'checked'; else echo 'disabled';?>>
-			            <span class = "lbl">Female</span>
-			         	</label>
-                        </div>
-                        
-                    <!-- end of Gender -->
-                    <!-- allergy -->
-                    <br>
-                     <label>If allergic to anything - food, medicine, others - please specify below</label>
-                     <input type="text" class="input-medium" name = "allergy"  value="<?php echo $row->allergy;?>">
-                    <!-- end of allergy -->
-                    <br><br>
-                    <!-- Citizenship / Civil Status / Height / Weight / Blood Type / Religion / Home & Mobile No. -->
-                        <label>Citizenship &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          &nbsp; &nbsp; &nbsp; &nbsp;Civil Status</label>
-                        <input type="text" class="input-medium" name = "citizenship" value="<?php echo $row->citizenship;?>">
-                        <select id="" name = "civil_status">
-                          <option disabled = "disabled" selected = "selected" value="">Select Status..</option>
-                          <option value = "Single" <?php if($row->civil_status=='Single') echo 'selected';?>>Single</option>
-                          <option value = "Married" <?php if($row->civil_status=='Married') echo 'selected';?>>Married</option>
-                          <option value = "Separated" <?php if($row->civil_status=='Separated') echo 'selected';?>>Separated</option>
-                          <option value = "Widowed" <?php if($row->civil_status=='Widowed') echo 'selected';?>>Widowed</option>
-                          <option value = "Divorced" <?php if($row->civil_status=='Divorced') echo 'selected';?>>Divorced</option>
-                        </select>
-                        <label>Height
-                          <i>(cm)</i> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Weight
-                          <i>(kg)</i> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Blood Type</label>
-                        <input type="text" class="input-medium" name = "height" value="<?php echo $row->height;?>">
-                        <input type="text" class="input-medium" name = "weight" value="<?php echo $row->weight;?>">
-                        <select name = "blood_type">
-                          <option disabled = "disabled" selected = "selected" value="">Select Blood Type...</option>
-                          <option value = "A" <?php if($row->blood_type=='A') echo 'selected';?>>A</option>
-                          <option value = "B" <?php if($row->blood_type=='B') echo 'selected';?>>B</option>
-                          <option value = "O" <?php if($row->blood_type=='O') echo 'selected';?>>O</option>
-                          <option value = "AB" <?php if($row->blood_type=='AB') echo 'selected';?>>AB</option>
-                        </select>
-                        <label for="religion" >Religion</label>
-                          <input type="text" class="input-medium" id="religion"  name = "religion" value="<?php echo $row->religion;?>">
-                        <label>Home Tel. No. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          &nbsp; &nbsp; Mobile no. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          &nbsp; &nbsp; &nbsp; &nbsp; Alternate Contact No.</label>
-                          <input class="input-mask-tel input-medium" type="text" id="" name="home_no" value="<?php echo $row->home_no;?>" />
-                          <input class="input-mask-phone input-medium" type="text" id="" name="mobile_no" value="<?php echo $row->mobile_no;?>" />
-                          <input class="input-mask-alt input-medium" type="text" id="" name="alternative_no" value="<?php echo $row->alternative_no;?>" />
-                    <!-- End of Citizenship / Civil Status / Height / Weight / Blood Type / Religion / Home & Mobile No. -->
-                    <!-- Employee Address -->
-                        <label>Present Home Address &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          &nbsp; &nbsp; City &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          &nbsp; &nbsp; Province</label>
-                          <input type="text" class="input-xlarge" name="present_address" value="<?php echo $row->present_address;?>">&nbsp;
-                          <input type="text" class="input-large" name="present_city" value="<?php echo $row->present_city;?>">&nbsp;
-                          <input type="text" class="input-large" name="present_province" value="<?php echo $row->present_province;?>">&nbsp;
-                          <label>Provincial Address</label>
-                    	  <label>
-								<input type="checkbox" class="ace" name="sameashome" value="checkbox" onClick="sameadd(this.form);">
-								<span class="lbl"> <i>Same As Present Home Address</i></span>
-						  </label>
-                          <label class="checkbox">
-                           
-                            <span>Address &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          &nbsp; &nbsp; City &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          &nbsp; &nbsp; Province
-                            </span>
-                          </label>
-                            <input type="text" class="input-xlarge" name="provincial_address" value="<?php echo $row->provincial_address;?>">&nbsp;
-                            <input type="text" class="input-large" name="provincial_city" value="<?php echo $row->provincial_city;?>">&nbsp;
-                            <input type="text" class="input-large" name="provincial_province" value="<?php echo $row->provincial_province;?>">&nbsp;
-                          
-                          <label>Mailing Address</label>
-                           <label>
-								<input type="checkbox" class="ace" name="sameashome2" value="checkbox" onClick="sameadd2(this.form);">
-								<span class="lbl"> <i>Same As Present Home Address</i></span>
-						  </label>
-                          <label class="checkbox">
-                          
-                            Address &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          &nbsp; &nbsp; City &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          &nbsp; &nbsp; Province
-                          </label>
-                            <input type="text" class="input-xlarge" name ="mailing_address" value="<?php echo $row->mailing_address;?>">&nbsp;
-                            <input type="text" class="input-large" name ="mailing_city" value="<?php echo $row->mailing_city;?>">&nbsp;
-                            <input type="text" class="input-large" name ="mailing_province" value="<?php echo $row->mailing_province;?>">&nbsp;
-                    <!-- End of Employee Address -->
-                    <!-- Parents Information -->
-                      <!-- Father's Information -->
-                           <div class="control-group">
-                            <label class="control-label">
-                              <b>Employee's Father's Information</b> 
-                            </label>
-                              <div class="controls">
-                                <label for="father_name">Full Name</label>
-                                <input type="text" class="input-xlarge" id="father_name" name ="father_name" value="<?php echo $row->father_name;?>">
-                                <label for="father_age">Age</label>
-                                <input type="text" class="input-mini" id="father_age" name="father_age" value="<?php echo $row->father_age?>">
-                                <label for="father_occupation" >Occupation</label>
-                                <input type="text" class="input-xlarge" id="father_occupation"  name ="father_occupation" value="<?php echo $row->father_occupation;?>">
-                               
-                                <label for="father_emp_loc" >Address/Location of Employment</label>
-                                <input type="text" class="input-xxlarge"  id="father_emp_loc" name = "father_occupation_address" value="<?php echo $row->father_occupation_address;?>">
-                                <label for="father_address" >Home Address</label>
-                                <label>
-								<input type="checkbox" class="ace" name="sameasfather" value="checkbox" onClick="sameaddfather(this.form);">
-								<span class="lbl"> <i>Same As Present Home Address</i></span>
-						  		</label>
-                                <input type="text" class="input-xxlarge"  id="father_address" name ="father_address" value="<?php echo $row->father_address;?>">
-                                <label for="father_contact" >Contact No.</label>
-                                <input type="text" class="input-mask-phone input-medium" id="father_contact"  name ="father_contact_no" value="<?php echo $row->father_contact_no;?>"> 
-                              </div>
-                            </div>
-                        <!-- End of Father's Information -->
-                        <!-- Mother's Information -->
-                            <div class="control-group">
-                              <label class="control-label">
-                                <b>Employee's Mother's Information</b> 
-                              </label>
-                                <div class="controls">
-                                  <label for="mother_name">Full Name</label>
-                                  <input type="text" class="input-xlarge" name = "mother_name" id="mother_name"value="<?php echo $row->mother_name;?>">
-                                  <label for="mother_age" >Age</label>
-                                  <input type="text" name = "mother_age"  id="mother_age" value="<?php echo $row->mother_age;?>">
-                                  <label for="mother_occupation" >Occupation</label>
-                                  <input type="text" class="input-large" id="mother_occupation" name = "mother_occupation"  value="<?php echo $row->mother_occupation;?>">
-                                  <label for="mother_emp_loc" >Address/Location of Employment</label>
-                                  <input type="text" class="input-xxlarge" id="mother_emp_loc" name = "mother_occupation_address" value="<?php echo $row->mother_occupation_address;?>">
-                                  <label for="mother_address" >Home Address</label>
-                                  <label>
-								  <input type="checkbox" class="ace" name="sameasmother" value="checkbox" onClick="sameaddmother(this.form);">
-							      <span class="lbl"> <i>Same As Present Home Address</i></span>
-						  		  </label>
-                                   <input type="text" class="input-xxlarge"  id="mother_address" name = "mother_address"  value="<?php echo $row->mother_address;?>">
-                                  <label for="mother_contact" >Contact No.</label>
-                                  <input type="text" class="input-mask-phone input-medium" id="mother_contact" name = "mother_contact_no"  value="<?php echo $row->mother_contact_no;?>"> 
-                               		
-                                </div>
-                            </div>
-                        <!-- End of Mother's Information -->
-                      <!-- End of Parents Information -->
-                      <!--Skills-->
-	                     
-	                            <div class="control-group wrapper">
-	                            <small class="muted" >Enter for another input</small>
-									<label class="control-label" for="skills">Skills</label>
-									<div class="controls">
-									<input class="" id="skills" name="skills" value="<?php echo $row->skills;?>">
-									</div>
-									<label class="control-label" for="hobbies">Hobbies</label>
-									<div class="controls">
-									<input class="" id="hobbies" name="hobbies" value="<?php echo $row->hobbies;?>">
-									</div>
-									<label class="control-label" for="interests">Interest</label>
-									<div class="controls">
-									<input class="" id="interests" name="interests" value="<?php echo $row->interests;?>">
-									</div>
-								</div>
-
 
                       <div class = "pager">
                         <div class="btn-group">
@@ -648,26 +499,25 @@
 
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootstrap-tag.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>>
+		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
+		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
+		
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
+		<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+	    <script src="<?php echo base_url();?>assets/js/additional-methods.min.js"></script>
+
+
 	
 
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">
-		function sameadd(form){
+			function sameadd(form){
 	          	if(form.sameashome.checked){
 	                form.provincial_address.value = form.present_address.value;
 	                form.provincial_city.value = form.present_city.value;
@@ -700,7 +550,7 @@
 	                     form.Mailing_City.value = "";
 	                     form.Mailing_Zip.value = "";*/
 	                }
-	          }
+	        	}
 	        function sameadd2(form){
 	          if(form.sameashome2.checked){
 	              form.mailing_address.value = form.present_address.value;
@@ -758,65 +608,72 @@
 		
 		$( document ).ready(function() {
 
-				$.mask.definitions['~']='[+-]';
-      			$('.input-mask-tel').mask('999-99-99');
-      			$('.input-mask-phone').mask('(999) 999-9999');
-      			$('.input-mask-alt').mask('(999) 999-9999');
+			$('.datepicker').datepicker({
+			  	format: "yyyy-mm-dd",
+			    //startDate: "now",
+			    //todayBtn: true,
+			    orientation: "top auto", 
+			    autoclose: true
+			}) 
 
 
-				var tag_input = $('#skills');	
-				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
-				{
-					tag_input.tag(
-					  {
-						placeholder:tag_input.attr('placeholder'),
-						//enable typeahead by specifying the source array
-						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
-					  }
-					);
-				}
-				else {
-					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
-					tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
-					//$('#skill').autosize({append: "\n"});
-				}
-
-				var tag_input2 = $('#hobbies');
-				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
-				{
-					tag_input2.tag(
-					  {
-						placeholder:tag_input2.attr('placeholder'),
-						//enable typeahead by specifying the source array
-						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
-					  }
-					);
-				}
-				else {
-					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
-					tag_input2.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
-					//$('#hobbies').autosize({append: "\n"});
-				}
-				var tag_input3 = $('#interests');
-				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
-				{
-					tag_input3.tag(
-					  {
-						placeholder:tag_input3.attr('placeholder'),
-						//enable typeahead by specifying the source array
-						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
-					  }
-					);
-				}
-				else {
-					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
-					tag_input3.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
-					//$('#interest').autosize({append: "\n"});
-				}
-			
+			$.mask.definitions['~']='[+-]';
+  			$('.input-mask-tel').mask('999-99-99');
+  			$('.input-mask-phone').mask('(999) 999-9999');
+  			$('.input-mask-alt').mask('(999) 999-9999');
 
 
-					
+			var tag_input = $('#skills');	
+			if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
+			{
+				tag_input.tag(
+				  {
+					placeholder:tag_input.attr('placeholder'),
+					//enable typeahead by specifying the source array
+					source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
+				  }
+				);
+			}
+			else {
+				//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+				tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+				//$('#skill').autosize({append: "\n"});
+			}
+
+			var tag_input2 = $('#hobbies');
+			if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
+			{
+				tag_input2.tag(
+				  {
+					placeholder:tag_input2.attr('placeholder'),
+					//enable typeahead by specifying the source array
+					source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
+				  }
+				);
+			}
+			else {
+				//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+				tag_input2.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+				//$('#hobbies').autosize({append: "\n"});
+			}
+			var tag_input3 = $('#interests');
+			if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
+			{
+				tag_input3.tag(
+				  {
+					placeholder:tag_input3.attr('placeholder'),
+					//enable typeahead by specifying the source array
+					source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
+				  }
+				);
+			}
+			else {
+				//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+				tag_input3.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+				//$('#interest').autosize({append: "\n"});
+			}
+		
+	
 			$.extend($.gritter.options, { 
 		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
 				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
@@ -824,8 +681,109 @@
 				time: 1000 // hang on the screen for...
 			});
 		
-          
-				
+          		jQuery.validator.addMethod("nameValidation", function(value, element) {
+	          return this.optional(element) || /^[a-z\-.,\s]+$/i.test(value);
+	        }, "Name must not contain special characters except comma, dash and period.");
+
+			jQuery.validator.addMethod("phone", function (value, element) {
+	          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+	        }, "Enter a valid phone number.");
+
+			jQuery.validator.setDefaults({
+	          debug: true,
+	          //success: "valid"
+	        });
+ 
+	        $('#personal_info_form').validate({
+	          errorElement: 'span',
+	          errorClass: 'help-inline',
+	          focusInvalid: false,
+	          groups: {
+			      nameGroup: "first_name last_name middle_name"
+			  },
+	          rules: {
+	            first_name: {
+	              required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	            },
+	            last_name: {
+	              required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	            },
+	            middle_name: {
+	              //required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	            },
+	        
+
+	          },
+	      
+	          messages: {
+	          	first_name: {
+	          		required: "First Name is required.",
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	},
+	          	last_name: {
+	          		required: "First Name is required.",
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	},
+	          	middle_name: {
+	          		required: "First Name is required.",
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	},
+	          	
+	          	
+	 			
+	  
+	          },
+	      
+	          invalidHandler: function (event, validator) { //display error alert on form submit   
+	            $('.alert-error', $('.login-form')).show();
+	          },
+	      
+	          highlight: function (e) {
+	            $(e).closest('.control-group').removeClass('success').addClass('error');
+	          },
+	      
+	          success: function (e) {
+	            $(e).closest('.control-group').removeClass('error').addClass('success');
+	            $(e).remove();
+	          },
+	      
+	          errorPlacement: function (error, element) {
+	            if(element.is(':checkbox') || element.is(':radio')) {
+	              var controls = element.closest('.controls');
+	              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+	              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+	            }
+	            else if(element.is('.select2')) {
+	              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+	            }
+	            else if(element.is('.chzn-select')) {
+	              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+	            }
+	            else error.insertAfter(element);
+	          },
+	          showErrors: function(errorMap, errorList) {
+	            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+	              + this.numberOfInvalids()
+	              + " errors, see details below.</div>");
+	              this.defaultShowErrors();
+	          },
+	          submitHandler: function (form) {
+	            console.log('SUBMIT DEPENDENT FORM');
+	            dependent_submit();
+	            $('input').closest('.control-group').removeClass('success');
+	          },
+	          invalidHandler: function (form) {
+	            
+	          },
+
+	        });
+			/*	
 			//SEND FORM VIA AJAX
 			$( "form" ).on( "submit", function( event ) {
 			  event.preventDefault();
@@ -859,7 +817,7 @@
 
 	            });
 			});
-
+*/
 			
 
 		});

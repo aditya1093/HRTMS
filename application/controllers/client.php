@@ -358,8 +358,7 @@ class Client extends CI_Controller {
 				{
 					$data = array(
 						'client_location' => $this->input->post('client_location'),
-	        			'client_email' => $this->input->post('client_email'),
-	        			'client_tel' => $this->input->post('client_tel'),
+	          			'client_tel' => $this->input->post('client_tel'),
 	        			'client_mobile' => $this->input->post('client_phone'),
 	        			'contact_first_name' => $this->input->post('first_name'),
 	        			'contact_last_name' => $this->input->post('last_name'),

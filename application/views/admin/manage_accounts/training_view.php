@@ -193,25 +193,10 @@
 						</li>
 					-->
 						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+							<a href="messenger">
+								<i class="icon-envelope-alt icon-only"></i> Inbox
 								<span class="badge badge-success"></span>
 							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-envelope"></i>
-									Messages
-								</li>
-
-								
-								<li>
-									<a href="messenger">
-										See all messages
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
 						</li>
 
 						<li class="light-blue user-profile">
@@ -772,14 +757,19 @@
 				}
 			}));
 
+			
+			jQuery.validator.addMethod("nameValidation", function(value, element) {
+	          return this.optional(element) || /^[a-z\-.,\s]+$/i.test(value);
+	        }, "Name must not contain special characters except comma, dash and period.");
+
 			jQuery.validator.addMethod("phone", function (value, element) {
-		          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
-		        }, "Enter a valid phone number.");
-		        
-		        jQuery.validator.setDefaults({
-		          debug: true,
-		          //success: "valid"
-		        });
+		        return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+	        }, "Enter a valid phone number.");
+	        
+	        jQuery.validator.setDefaults({
+	          debug: true,
+	          //success: "valid"
+	        });
 		    $('#add_trainer').validate({
 		          
 		          errorElement: 'span',
@@ -790,16 +780,20 @@
 		            first_name: {
 		              required: true,
 		              minlength:2,
+		              nameValidation:true,
 		            },
 		            last_name: {
 		              required: true,
 		               minlength:2,
+		               nameValidation:true,
 		            },
 		            middle_name: {
 		            	minlength:2,
+		            	nameValidation:true,
 		            },
 		          	phone:{
 		          		required: true,
+		          		phone: true,
 		          	},
 		        	username:{
 		          		required: true,
@@ -901,7 +895,7 @@
 			$( ".view_user" ).on(ace.click_event,function() {
 				var id = $(this).attr("value");
 			 	$.ajax({
-				url: "<?php echo base_url();?>/manage/view_user",
+				url: "<?php echo base_url();?>manage/view_user",
 				type: "post",
 				data: {
 					id: id

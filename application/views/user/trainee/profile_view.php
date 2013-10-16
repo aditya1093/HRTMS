@@ -197,7 +197,7 @@
 					<!--
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i> Inbox
 								<span class="badge badge-success"></span>
 							</a>
 

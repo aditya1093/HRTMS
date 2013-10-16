@@ -192,75 +192,10 @@
 					-->
 
 						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+							<a href="messenger">
+								<i class="icon-envelope-alt icon-only"></i> Inbox
 								<span class="badge badge-success"></span>
 							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-envelope"></i>
-									Messages
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="messenger">
-										See all messages
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
 						</li>
 
 						<li class="light-blue user-profile">
@@ -506,27 +441,29 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Users Account
+							Backup & Maintenance
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Logs
+								Database
 							</small>
 						</h1>
 					</div><!--/.page-header-->
 					<div class="row-fluid">
 						<div class="span12 center">
-							<h4 class="grey lighter smaller">
-								
-								[ This Section is Under Development Stage. But we are working
-								<i class="icon-wrench icon-animated-wrench bigger-125 red"></i>
-								on it! ]
-							</h4>
+							<?php echo $this->session->flashdata('message');?>
 						</div>
 					</div>
-
+					<div class="row-fluid">
+						<div class="span12 center loading">
+							<h3><i class="icon-spinner icon-spin icon-large green"></i> <span class="grey">Restoring Database..</span></h3>
+							
+						</div>
+					</div>
+					
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-						<div class="span7">
+						<div class="span12">
+							
 
 
 							<div class="box">
@@ -536,34 +473,123 @@
 									<div class="row-fluid">
 										
 										<div class="widget-box">
-											<div class="widget-header">
-												<h4 class="smaller">
-													Backup and Maintenance
-													<small>Logs</small>
-												</h4>
+											<div class="widget-header header-color-dark">
+												<h5 class="smaller">Maintenance Module</h5>
+
+												<div class="widget-toolbar no-border">
+													<ul class="nav nav-tabs" id="myTab">
+														<li class="active">
+															<a data-toggle="tab" href="#maintenance">Maintenance</a>
+														</li>
+
+														<li class="">
+															<a data-toggle="tab" href="#backups">Backups</a>
+														</li>
+
+														
+													</ul>
+												</div>
+
 											</div>
 
 											<div class="widget-body">
-												<div class="widget-main">
-													<table class="table">
-														<thead>
+												<div class="widget-main padding-6">
+													<div class="tab-content">
+														<div id="maintenance" class="tab-pane active">
+															<div class="" style="align:right;">
+																<a href="<?php echo base_url();?>db_backup" class="btn btn-small btn-success" ><i class="icon-download-alt"></i> Backup Database</a>
+																<a href="<?php echo base_url();?>administrative/repair" class="btn btn-small btn-primary" ><i class="icon-wrench"></i> Repair</a>
+																<a href="<?php echo base_url();?>administrative/optimize" class="btn btn-small btn-warning" ><i class="icon-bolt"></i> Optimize</a>
+															
+																<a data-toggle="tab" href="#backups" class="btn btn-small btn-danger" ><i class="icon-refresh"></i> Restore</a>
+															</div>
+															<hr>
+															<table id="db_list" class="table table-striped table-bordered table-hover">
+															<thead>
 															<tr>
-																<td>Operation</td>
-																<td>Date Performed</td>
 																
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<td>Backup Database</td>
-																<td>00-00-0000</td>
-															</tr>
-															<tr>
-																<td>Restore Database</td>
-																<td>00-00-0000</td>
-															</tr>
-														</tbody>
-													</table>
+																<th>
+																	Table Name
+																</th>
+																<th>
+																	# Records
+																</th>												
+																<th class="hidden-480">
+																	Data Size
+																</th>
+																<th class="hidden-phone">													
+																	Index Size
+																</th>
+																<th class="hidden-480">
+																	Data Free
+																</th>
+																<th> 
+																	Engine
+																</th>
+															</tr> 
+															</thead>
+															<tbody>
+																<?php foreach ($tables as $table) : ?>
+																	<tr>
+																		
+																		<td>
+																			<a href="<?php echo base_url() .'db_backup/browse/?tb='. encrypt($table->Name) ?>">
+																				<?php echo $table->Name ?>
+																			</a>
+																		</td>
+																		<td style="text-align: center"><?php echo $table->Rows?></td>
+																		<td><?php echo byte_format($table->Data_length) ?></td>
+																		<td><?php echo byte_format($table->Index_length) ?></td>
+																		<td><?php echo byte_format($table->Data_free) ?></td>
+																		<td><?php echo $table->Engine ?></td>
+																	</tr>
+																<?php endforeach; ?>
+															</tbody>
+															</table>
+														</div>
+
+														<div id="backups" class="tab-pane">
+															
+															<?php if (isset($backups) && is_array($backups) && count($backups) > 0) : ?>
+																<?php echo form_open($this->uri->uri_string(), array('style' => 'padding: 0')); ?>
+																	<table class="tb-backups table table-striped">
+																		<thead>
+																			<tr>
+																				
+																				<th>File Name<?php //echo lang('db_filename'); ?></th>
+																				<th style="width: 6.5em">File Size<?php //echo lang('bf_size'); ?></th>
+																			</tr>
+																		</thead>
+																		
+																		<tbody>
+																		<?php foreach ($backups as $file => $atts) :?>
+																			<tr class="hover-toggle">
+																				
+																				<td>
+																					<?php echo $file ?>
+																					<div class="hover-item small">
+																						<a href="<?php echo base_url().'db/backup/'.$file ?>" download="<?php echo $file ?>" title="Download this file">Download<?php //cho lang('bf_action_download'); ?></a> |
+																						<a id="restore" href="<?php echo base_url().'db_backup/restore/?restore='.encrypt($file) ?>" title="Restore this file">Restore<?php //echo lang('db_restore'); ?></a> | 
+																						<a href="<?php echo base_url().'db_backup/delete/?delete='.encrypt($file) ?>" title="Restore this file">Delete<?php //echo lang('db_restore'); ?></a>
+																					</div>
+																				</td>
+																				<td><?php echo round($atts['size'] / 1024 , 3) ?> KB</td>
+																			</tr>
+																		<?php endforeach; ?>
+																		</tbody>
+																	</table>
+
+																	</form>
+
+																<?php else : ?>
+																	<div class="alert alert-info">
+																		No Backups Exist
+																	</div>
+																<?php endif; ?>
+														</div>
+
+														
+													</div>
 												</div>
 											</div>
 										</div>
@@ -573,48 +599,14 @@
 								</div>
 							</div>			
 						</div>
-						<div class="span5">
-
-
-							<div class="box">
-								
-								<div class="box-content"> 
-
-									<div class="row-fluid">
-										
-										<div class="widget-box">
-											<div class="widget-header">
-												<h4 class="smaller">
-													Backup and Maintenance
-													<small>Database Control</small>
-												</h4>
-											</div>
-
-											<div class="widget-body">
-												<div class="widget-main">
-													<p align="center">
-														
-													</p>
-													<p align="center">
-														
-														<a href="<?php echo base_url();?>db_backup" class="btn btn-inverse" ><i class="icon-wrench"></i> Restore Database</a>
-														<a href="<?php echo base_url();?>db_backup" class="btn btn-purple" ><i class="icon-download-alt"></i> Backup Database</a>
-														
-													</p>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									
-								</div>
-							</div>			
-						</div> 
-
+						
 						
 
 						<!--PAGE CONTENT ENDS HERE-->
-					</div><!--/row-->
+					</div>
+
+					
+					<!--/row-->
 				</div><!--/#page-content-->
 
 			</div><!--/#main-content-->
@@ -663,6 +655,14 @@
 
 		<script type="text/javascript">
 			$(function() {
+
+				$("#db_list").dataTable();
+				$(".tb-backups").dataTable();
+				$(".loading").hide();
+
+				$("#restore").click(function() {
+					$(".loading").show();
+				});
 			
 				$('.dialogs,.comments').slimScroll({
 			        height: '300px'
@@ -695,6 +695,12 @@
 			
 				$('[data-rel=tooltip]').tooltip();
 
+				var selectedTab = localStorage['selectedTab'];
+				if (selectedTab) $('#myTab a[href="'+selectedTab+'"]').tab('show');
+
+				$('a[data-toggle="tab"]').on('shown', function (e) {
+				   localStorage['selectedTab']=$(e.target).attr('href');
+				});	
 			});	
 		</script>
 	</body>

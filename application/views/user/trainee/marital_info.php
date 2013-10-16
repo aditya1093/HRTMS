@@ -33,7 +33,6 @@
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/datepicker.css" />
 		<!--<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
@@ -45,6 +44,8 @@
 		<![endif]--> 
 
 		<!--inline styles if any-->
+
+
 		
 	
 		
@@ -211,7 +212,7 @@
 					<!--
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i> Inbox
 								<span class="badge badge-success"></span>
 							</a>
 
@@ -442,7 +443,13 @@
 		               
 		                    <h4>Marriage Information</h4>
 		                    <label>Date of Marriage</label>
-		                        <input type="date" name = "marriage_date"  class="input-medium" value="<?php echo $row->marriage_date;?>">
+		                        <!-- <input type="date" name = "marriage_date"  class="input-medium" value="<?php echo $row->marriage_date;?>"> -->
+								<span class="input-append">
+									<span class="add-on">	
+										<i class="icon-calendar"></i>
+									</span>
+									<input  class="span6 input-date datepicker" id="marriage_date"  name="marriage_date" type="text" value="<?php echo $row->marriage_date;?>">	
+								</span>
 		                    <label>Place of Marriage</label>
 		                        <input type="text" class="input-large" name = "marriage_place" value="<?php echo $row->marriage_place;?>">
 		                    <label>
@@ -455,11 +462,17 @@
 		                        <input type="text" class="input-medium" name = "spouse_middle_name" value="<?php echo $row->spouse_middle_name;?>">
 		                        <input type="text" class="input-medium" name = "spouse_last_name" value="<?php echo $row->spouse_last_name;?>">
 		                    <label>Date of Birth</label>
-		                        <input type = "date"  class="input-medium" name = "spouse_birthdate" value="<?php echo $row->spouse_birthdate;?>">
+		                       <!--  <input type = "date"  class="input-medium" name = "spouse_birthdate" value="<?php echo $row->spouse_birthdate;?>"> -->
+								<span class="input-append">
+									<span class="add-on">	
+										<i class="icon-calendar"></i>
+									</span>
+									<input  class="span6 input-date datepicker" id="spouse_birthdate"  name="spouse_birthdate" type="text" value="<?php echo $row->spouse_birthdate;?>">	
+								</span>
 		                    <label>Occupation</label>
 		                        <input type="text" class="input-medium" name = "spouse_occupation" value="<?php echo $row->spouse_occupation;?>">
 		                    <label>Contact No.</label>
-		                    <input type="text" class="input-medium" name = "spouse_contact_no" value="<?php echo $row->spouse_contact_no;?>">
+		                    <input type="text" class="input-medium phone" name = "spouse_contact_no" value="<?php echo $row->spouse_contact_no;?>">
 		                   
 		                    <br>
 		                    <br>
@@ -481,7 +494,7 @@
 	               				<tr>
 	               					<th>Name</th>
 	               					<th>Birthdate</th>
-	               					<th>School / Work</th>
+	               					<th>School / Work</th> 
 	               					<th></th>
 	               				</tr>
 	               			</thead>
@@ -526,8 +539,12 @@
 
 									<div class="controls">
 										<!--  <input type ="date"  id="child_dob"  class="input-medium" name="child_dob"> -->
-										 <input class="date_start input-date" id="child_dob"  class="input-medium" name="child_dob" type="text" data-date-format="yyyy-mm-dd">
-													 
+										<span class="input-append">
+											<span class="add-on">	
+												<i class="icon-calendar"></i>
+											</span>
+											<input  class="span6 input-date datepicker" id="child_dob"  class="input-medium" name="child_dob" type="text">	
+										</span>			 
 									</div>
 								</div>
 
@@ -537,7 +554,7 @@
 									<div class="controls">
 										<input type="text" id="child_work_school" name="child_school_work">
 									</div>
-								</div>
+								</div> 
 		                      	<div class="form-actions">
 									<button class="btn btn-info btn-small" type="submit">
 										<i class="icon-ok bigger-110"></i>
@@ -623,7 +640,8 @@
 
 			// /var stat = $this->session->flashdata('civil_status');
 			var stat = $('#status').val();
-		/*	if(stat == 'Single'){
+			$('.phone').mask('(999) 999-9999');
+		/*	if(stat == 'Single'){ 
 				$('#single_message').show();
 				//alert('Show ' + stat );
 			    $("#marital a").click(function (e) { 
@@ -641,10 +659,17 @@
 			}
 			
 		*/
-			$(".date_start").datepicker().next().on(ace.click_event, function() {
+			/*$(".date_start").datepicker().next().on(ace.click_event, function() {
 				$(this).prev().focus();
-			});
-
+			});*/
+			$('.datepicker').datepicker({
+			  	format: "yyyy-mm-dd",
+			    //startDate: "now",
+			    //todayBtn: true,
+			    orientation: "top auto", 
+			    autoclose: true
+			}) 
+			
 			
 	      	$( "#add" ).click(function() {
 	      	  
@@ -740,7 +765,7 @@
 	          success: function (e) {
 	            $(e).closest('.control-group').removeClass('error').addClass('success');
 	            $(e).remove();
-	          },
+	          }, 
 	      
 	          errorPlacement: function (error, element) {
 	            if(element.is(':checkbox') || element.is(':radio')) {
@@ -765,18 +790,20 @@
 	          submitHandler: function (form) {
 	            console.log('SUBMIT CHILDREN FORM');
 	            children_submit();
-	          },
-	          invalidHandler: function (form) {
+	            $('input').closest('.control-group').removeClass('success');
+	          }, 
+	          invalidHandler: function (form) { 
 	            
-	          },
+	          },  
 
 	        });
 
           	$( "#marital_info" ).on( "submit", function( event ) {
+          	  this.disabled = 'true';
 			  event.preventDefault();
 			  var sData = $(this).serialize();
 			  console.log(sData);
-			  var clicked = this;
+			  var clicked = this; 
 			  $.ajax({
 	               url:"<?php echo base_url();?>hris/updateMaritalInfo",
 	                type:'POST',
@@ -815,6 +842,7 @@
 		});
 
 		var children_submit = function(){
+			this.disabled = 'true';
 			var sData = $('#children_form').serialize();
 			  console.log(sData);
 			  $.ajax({
@@ -829,12 +857,12 @@
 						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Child/Children has been updated.',
 						class_name: 'gritter-success gritter-center gritter-light'
 					});
-					$( '#children' ).each(function(){
-					    this.reset();
+					$( '#children_form' ).each(function(){
+					    this.reset(); 
 					});
 					$('#childDiv').slideUp();
 					$("#addDiv").slideDown();
-					$('#cancelDiv').hide();
+					$('#cancelDiv').hide(); 
 
 					console.log(result);
 					var str,str2="";

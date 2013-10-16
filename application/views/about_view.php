@@ -189,75 +189,10 @@
 						</li>
 
 						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+							<a href="messenger">
+								<i class="icon-envelope-alt icon-only"></i> Inbox
 								<span class="badge badge-success"></span>
 							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-envelope"></i>
-									Messages
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="messenger">
-										See all messages
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
 						</li>
 
 						<li class="light-blue user-profile">
@@ -442,24 +377,19 @@
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 
-						<div class="span12">
-							
-							<pre style="background-color: black; color:#00FF1E ;" class="">
-  ___   ___  __  ___         ______ _____ _   _ ______  _____ _______ _____  ________      __     _____ _____         ___  
- |__ \ / _ \/_ |/ _ \       |  ____|_   _| \ | |  ____|/ ____|__   __|  __ \|  ____\ \    / /    / ____|  __ \       / _ \ 
-    ) | | | || | | | |______| |__    | | |  \| | |__  | (___    | |  | |  | | |__   \ \  / /____| (___ | |__) |_____| | | |
-   / /| | | || | | | |______|  __|   | | | . ` |  __|  \___ \   | |  | |  | |  __|   \ \/ /______\___ \|  _  /______| | | |
-  / /_| |_| || | |_| |      | |     _| |_| |\  | |____ ____) |  | |  | |__| | |____   \  /       ____) | | \ \      | |_| |
- |____|\___/ |_|\___/       |_|    |_____|_| \_|______|_____/   |_|  |_____/|______|   \/       |_____/|_|  \_\      \___/ 
- ----------------------------------------------------------------------------------------------------------------------------
- <span style="color: red;">Leo Jeremiah Vicente
- Niel Pio Lozano
- <span class="icon-animated-bell" style="font-style: courier;">Paul John Marabe</span>
- Dannah Patricia Abat
- Jaylord Minay
- Ruben Raymundo
- </span>
-							</pre>
+						<div class="span12 stealth-mode">
+							 <span class="span4 offset2 members">
+								Leo Jeremiah Vicente<br>
+								Niel Pio Lozano<br>
+								<span class="icon-animated-bell" style="font-family: 'Open Sans'; font-size: 13px;">
+									Paul John Marabe
+								</span><br>
+								Ruben Raymundo<br>
+								<span style="color:#666;">
+									Dannah Patricia Abat<br>
+									Jaylord Minay
+								</span> 
+							 </span>
 						</div>
 
 						<!--PAGE CONTENT ENDS HERE-->

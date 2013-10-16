@@ -196,26 +196,10 @@
 						</li>
 					-->
 						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+							<a href="messenger">
+								<i class="icon-envelope-alt icon-only"></i> Inbox
 								<span class="badge badge-success"></span>
 							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-envelope"></i>
-									Messages
-								</li>
-
-								
-
-								<li>
-									<a href="messenger">
-										See all messages
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
 						</li>
 
 						<li class="light-blue user-profile">
@@ -553,17 +537,17 @@
 										<?php $stat = $row->is_active;
 											  $user_id = $row->user_id;
 											  $username = $row->username;
-											  $email = $row->client_email;
+											  $email = $row->email;
 											if ($stat == 0){
-												$stat = "<button onclick=\"status_update('1')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-success\"><i class=\"icon-ok\"></i>Activate Account</button>";
+												$stat = "<button onclick=\"status_dialog('1')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-success\"><i class=\"icon-ok\"></i>Activate Account</button>";
 												$stat .= "<input type=\"hidden\" name=\"user_id\" value=\"$user_id\" id=\"user_id\">";
 											}
 											elseif ($stat == 1){
-												$stat = "<button onclick=\"status_update('0')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-danger\"><i class=\"icon-remove\"></i>Deactivate Account</button>";
+												$stat = "<button onclick=\"status_dialog('0')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-danger\"><i class=\"icon-remove\"></i>Deactivate Account</button>";
 												$stat .= "<input type=\"hidden\" name=\"user_id\" value=\"$user_id\" id=\"user_id\">";
 											}
 											else{
-												$stat ="<button onclick=\"status_update('$stat')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-\">Invalid Status</button>";
+												$stat ="<button onclick=\"status_dialog('$stat')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-\">Invalid Status</button>";
 											}
 										?>
 										<form method="post" id="edit_client" action="<?php echo base_url();?>client/edit_info/<?php echo $row->user_id;?>">
@@ -720,9 +704,7 @@
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">
-		
-			
+		<script type="text/javascript">			
 			$(function() {
 			
 				$.mask.definitions['~']='[+-]';
@@ -756,18 +738,21 @@
 				jQuery.validator.addMethod("phone", function (value, element) {
 		          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
 		        }, "Enter a valid phone number.");
+
+		         jQuery.validator.addMethod("telephone", function (value, element) {
+		          return this.optional(element) || /^\d{3}\-\d{2}\-\d{2}( x\d{1,6})?$/.test(value);
+		        }, "Enter a valid telephone number.");
 		        
 		        jQuery.validator.setDefaults({
 		          debug: true,
 		          //success: "valid"
 		        });
 		        $('#edit_client').validate({
-		          
 		          errorElement: 'span',
 		          errorClass: 'help-inline',
 		          focusInvalid: false,
 		          rules: {
-		          	 client_name: {
+		          	client_name: {
 		              required: true,
 		              minlength:2,
 		              remote: {
@@ -794,9 +779,11 @@
 		          	},
 		          	client_phone:{
 		          		required: true,
+		          		phone:true,
 		          	},
 		          	client_tel:{
-		          		required: true,
+		          		required: true, 
+		          		telephone: true,
 		          	},
 		          	client_username:{
 		          		required: true,
@@ -920,11 +907,79 @@
 						
 
 
-				
-			
 			})
 			
+		var status_dialog = function(id){
+			console.log(id);
+			if(id == 0){
+				$("#edit_dialog").removeClass('hide').dialog({
+				//dialogClass: "no-close",
+				resizable: false,
+				modal: true,
+				closeOnEscape: true,
+				title: "<div class='widget-header'><h4 class='smaller'><i class='icon-edit'></i> Account Status.</h4></div>",
+				title_html: true,
+				width: 400,
+				//maxHeight: 800,
+				buttons: [
+						{
+					      html: "<i class=\"icon-ok\"></i>Yes",
+					      "class" : "btn btn-success btn-mini",
+					      click: function() {
+					       /* $(this).dialog( "close" );
+					        document.location.href='<?php echo base_url();?>client/edit_info/' + id;*/
+					        $(this).dialog( "close" );
+					        status_update(id);
+					      }
+					    },
+					    {
+					      html: "No",
+					      "class" : "btn btn-mini",
+					      click: function() {
+					        $(this).dialog( "close" );
+					      }
+					    }
+					  ]
+				 
+				});
+			}
+			else if(id == 1){
+				$("#edit_dialog2").removeClass('hide').dialog({
+				//dialogClass: "no-close",
+				resizable: false,
+				modal: true,
+				closeOnEscape: true,
+				title: "<div class='widget-header'><h4 class='smaller'><i class='icon-edit'></i> Account Status.</h4></div>",
+				title_html: true,
+				width: 400,
+				//maxHeight: 800,
+				buttons: [
+						{
+					      html: "<i class=\"icon-ok\"></i>Yes",
+					      "class" : "btn btn-success btn-mini",
+					      click: function() {
+					       /* $(this).dialog( "close" );
+					        document.location.href='<?php echo base_url();?>client/edit_info/' + id;*/
+					        $(this).dialog( "close" );
+					        status_update(id);
+					      }
+					    },
+					    {
+					      html: "No",
+					      "class" : "btn btn-mini",
+					      click: function() {
+					        $(this).dialog( "close" );
+					      }
+					    }
+					  ]
+				 
+			});
+			}
+			else{
 
+			}
+
+		}
 		var status_update = function(id) {
 					//id = $('#')
 			//$.gritter.removeAll();
@@ -934,14 +989,14 @@
 			client_name = $('#client_name').val();
 			if(id == 0){
 				console.log("Account will be Activated");
-				new_stat = "<button onclick=\"status_update('1')\" id=\"status_update\" value=\"1\" class=\"btn btn-mini btn-success\"><i class=\"icon-ok\"></i>Activate Account</button>";
+				new_stat = "<button onclick=\"status_dialog('1')\" id=\"status_update\" value=\"1\" class=\"btn btn-mini btn-success\"><i class=\"icon-ok\"></i>Activate Account</button>";
 			}
 			else if(id == 1){
 				console.log("Account will be Deactivated");
-				new_stat = "<button onclick=\"status_update('0')\" id=\"status_update\" value=\"0\" class=\"btn btn-mini btn-danger\"><i class=\"icon-remove\"></i>Deactivate Account</button>";
+				new_stat = "<button onclick=\"status_dialog('0')\" id=\"status_update\" value=\"0\" class=\"btn btn-mini btn-danger\"><i class=\"icon-remove\"></i>Deactivate Account</button>";
 			}
 			else{
-				new_stat = "<button onclick=\"status_update()\" id=\"status_update\" value=\"\" class=\"btn btn-mini btn-\">Invalid Status</button>";
+				new_stat = "<button onclick=\"status_dialog()\" id=\"status_update\" value=\"\" class=\"btn btn-mini btn-\">Invalid Status</button>";
 			}
 			$.ajax({
 				url :"<?php echo base_url();?>client/updateAccountStatus",
@@ -999,7 +1054,12 @@
 	</div>
 	<div id="edit_dialog" style="display:none">
 		<div class="center">
-		<div class="alert alert-info">Edit Client Information or deactive/activate its account.</div>
+			<div class="alert alert-info">Do you want to deactivate this account?</div>
+		</div>
+	</div>
+	<div id="edit_dialog2" style="display:none">
+		<div class="center">
+			<div class="alert alert-info">Do you want to activate this account?</div>
 		</div>
 	</div>
 </html>

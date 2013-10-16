@@ -70,7 +70,7 @@ overflow: visible;
 			
 				<li class="green">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-				<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+				<i class="icon-envelope-alt icon-only icon-animated-vertical"></i> Inbox
 				<span class="badge badge-success unread"></span>
 				</a>
 				<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">

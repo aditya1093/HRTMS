@@ -29,6 +29,7 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui-1.10.3.full.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
@@ -205,75 +206,10 @@
 						</li>-->
 
 						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+							<a href="messenger">
+								<i class="icon-envelope-alt icon-only"></i> Inbox
 								<span class="badge badge-success"></span>
 							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-envelope"></i>
-									Messages
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<?php echo base_url();?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="messenger">
-										See all messages
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
 						</li>
 
 						<li class="light-blue user-profile">
@@ -524,7 +460,7 @@
 											</li>
 
 											<li class="">
-												<a data-toggle="tab" href="#profile"><span class="badge badge-warning">2</span> Examination Sets</a>
+												<a data-toggle="tab" href="#profile"><span class="badge badge-warning">2</span> Deploy Exam</a>
 											</li>
 
 											
@@ -537,9 +473,13 @@
 										<div class="tab-content">
 											<div id="home" class="tab-pane active">
 
+												<div class="alert alert-info">
+													<b>Note:</b> When a module exam is active, the containing items are read-only.
+												</div>
+
 												<div class="well well-small"> 
 													<fieldset>
-														<label>Examination Name (<span class="required">*</span>): </label>
+														<label>Module Examination Name (<span class="required">*</span>): </label>
 															<input required autofocus type="text" id="examination_name" name="examination_name">
 															<br><button id="create_exam" class="btn btn-purple btn-mini"><i class="icon-pencil icon-white"></i> Create Examination</button>		
 														<span class="help-block"></span>
@@ -550,7 +490,7 @@
 													<thead>
 														<tr>
 															<th class="center">
-																Module Exam
+																Module Examination Name
 															</th>
 															<th width="70px" class="center">
 																Items
@@ -690,7 +630,7 @@
 													<div class="span7">
 														<div class="widget-box transparent">
 															<div class="widget-header">
-																<h4 class="lighter"><i class="icon-info orange"></i> List of Examination Set</h4>
+																<h4 class="lighter"><i class="icon-info orange"></i> Batch Examination Sets</h4>
 
 																
 															</div>
@@ -734,10 +674,23 @@
 																					<td><?php echo $row->items;?></td>
 																					<td><?php echo $row->is_active;?></td>
 																					<td>
-																						<button id="<?php echo $row->batch_id;?>" class="btn btn-success btn-mini btn_activate"><i class="icon-power-off icon-white"></i></button>
-																						<button id="<?php echo $row->batch_id;?>" class="btn btn-warning btn-mini btn_info"><i class="icon-info-sign icon-white"></i></button>
+																						<div class="btn-group">
+																							
+																									<button id="<?php echo $row->batch_id;?>" class="btn btn-mini btn-success btn_activate"><i class="icon-play"></i></button>
+																								
+
+																								
+																									<button id="<?php echo $row->batch_id;?>" class="btn btn-mini btn-purple btn_info"><i class="icon-info"></i></button>
+																								
+
+																								
+																									<button id="<?php echo $row->batch_id;?>" class="btn btn-mini btn-danger btn-del-set"><i class="icon-trash"></i></button>
+																								
+
+			
+																							
+																						</div>
 																						
-																						<button id="<?php echo $row->batch_id;?>" class="btn btn-mini btn-danger btn-del-set"><i class="icon-remove"></i></button>
 																					</td>
 																				</tr>
 
@@ -833,7 +786,7 @@
 				        var id = $(this).val();
 				       	if(id && $.trim($("#examination_name2").val())!="" && $("#batch_id").val()!=0) {
 						    $.ajax({
-								url: "<?php echo base_url();?>/examination/set_exam",
+								url: "<?php echo base_url();?>examination/set_exam",
 								type: "post",
 								data: {
 									id: id,
@@ -979,10 +932,10 @@
 							"bSortable": false,
 							"fnRender": function (o) {
 
-		                    return '<button onClick="activate_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-purple" id=' + o.aData['examination_id'] + '>' + '<i class="icon-time icon-white"></i>  Toggle Exam' + '</button> '+
+		                    return '<div class="btn-group"><button onClick="activate_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-purple" id=' + o.aData['examination_id'] + '>' + '<i class="icon-time icon-white"></i>  Toggle Exam' + '</button> '+
 		                    '<button onClick="edit_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-success" id=' + o.aData['examination_id'] + '>' + '<i class="icon-edit icon-white"></i>  Edit' + '</button> '+
 		                    '<button onClick="rename_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-info" id=' + o.aData['examination_id'] + '>' + '<i class="icon-pencil icon-white"></i>  ' + '</button> '+
-		                    '<button onClick="delete_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-danger" id=' + o.aData['examination_id'] + '>' + '<i class="icon-trash icon-white"></i>' + '</button>';
+		                    '<button onClick="delete_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-danger" id=' + o.aData['examination_id'] + '>' + '<i class="icon-trash icon-white"></i>' + '</button></div>';
 
 		                	}
 						}
@@ -1090,8 +1043,8 @@
 			var activate_exam = function(id) {
 				//var id = $(this).attr("id");
 
-				var str = '<h3>Toggle Examination</h3><div class="alert alert-info">';
-				str += 'When you <strong>Activate</strong> the Examination';
+				var str = '<h3>Toggle Module</h3><div class="alert alert-info">';
+				str += 'When you <strong>Activate</strong> the Module Exams';
 				str += ', the items cannot be modified.';
 				str += '<br>';
 				str += '</div>';

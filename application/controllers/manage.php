@@ -14,29 +14,46 @@ class Manage extends CI_Controller {
 
 	/******************* USERS UNIQUE VALUES ***************************************/
 	function email_exists(){ 
-		$email = $this->input->post('email');
-		//$email = "jdc@mail.com";
-		if ($this->manage_model->email_exists($email) == TRUE ) {
-	      echo json_encode(FALSE); 
-	    } else {
-	      echo json_encode(TRUE); 
-	    }
+	    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+			$email = $this->input->post('email');
+			//$email = "jdc@mail.com";
+			if ($this->manage_model->email_exists($email) == TRUE ) {
+		      echo json_encode(FALSE); 
+		    } else {
+		      echo json_encode(TRUE); 
+		    }
+
+	   }
+	   else {
+		    header( 'Location: ../dashboard' );
+		}
 	}
 	function username_exists(){ 
-		$username = $this->input->post('username');
-		if ( $this->manage_model->username_exists($username) == TRUE ) {
-	      echo json_encode(FALSE);
-	    } else {
-	      echo json_encode(TRUE);
-   	 	}
+   	 	if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+			$username = $this->input->post('username');
+			if ( $this->manage_model->username_exists($username) == TRUE ) {
+		      echo json_encode(FALSE);
+		    } else {
+		      echo json_encode(TRUE);
+	   	 	}
+
+	   }
+	   else {
+		    header( 'Location: ../dashboard' );
+		}
 	}
-	function clientname_exists(){ 
-		$client_name = $this->input->post('client_name');
-		if ( $this->manage_model->clientname_exists($client_name) == TRUE ) {
-	      echo json_encode(FALSE);
-	    } else { 
-	      echo json_encode(TRUE);
-   	 	}
+	function clientname_exists(){
+   	 	if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+			$client_name = $this->input->post('client_name');
+			if ( $this->manage_model->clientname_exists($client_name) == TRUE ) {
+		      echo json_encode(FALSE);
+		    } else { 
+		      echo json_encode(TRUE);
+	   	 	}
+	   }
+	   else {
+		    header( 'Location: ../dashboard' );
+		}
 	} 
 
 	/******************* List HR USER ***************************************/
@@ -51,8 +68,9 @@ class Manage extends CI_Controller {
 			$this->load->view('admin/manage_accounts/hr_view', $data);
 		}
 		else {
+	    	$this->session->set_userdata('login_type', 'employee');
+	     	$this->load->view('login_view');
 
-    		$this->load->view('login_view');
 		}	
 	}
 
@@ -151,7 +169,9 @@ class Manage extends CI_Controller {
 		}
 		else {
 
-    		$this->load->view('login_view');
+	    	$this->session->set_userdata('login_type', 'employee');
+	     	$this->load->view('login_view');
+
 		}	
 	}
 
@@ -335,8 +355,9 @@ class Manage extends CI_Controller {
 
 		}
 		else {
+		   	$this->session->set_userdata('login_type', 'employee');
+	     	$this->load->view('login_view');
 
-    		$this->load->view('login_view');
 		}
 
 	}
@@ -393,7 +414,7 @@ class Manage extends CI_Controller {
 				
 				$this->form_validation->set_rules('first_name', 'First Name', 'required');
 				$this->form_validation->set_rules('last_name', 'Last Name', 'required');
-				$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+				//$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 				$this->form_validation->set_rules('phone', 'Phone Number', 'required');
 			
 				if ($this->form_validation->run() == true)
@@ -402,7 +423,6 @@ class Manage extends CI_Controller {
 						'first_name' => $this->input->post('first_name'),
 	        			'last_name' => $this->input->post('last_name'),
 	        			'middle_name' => $this->input->post('middle_name'),
-	        			'email' => $this->input->post('email'),
 	        			'phone' => $this->input->post('phone'),
 						'date_change'	=> date('Y-m-d H:i:s'),
 					);
@@ -433,7 +453,7 @@ class Manage extends CI_Controller {
 						);
 				
 					if(empty($query)){
-						echo "No Records";
+						$this->load->view('error_404');
 					}
 					else
 					{	
@@ -446,14 +466,15 @@ class Manage extends CI_Controller {
 			}
 			else
 			{
-				echo "Errrr";
+				//echo "Errrr";
+				$this->load->view('error_404');
 			}
 			
 	
 	    	
 	    }
 	    else {
-
+	    	$this->session->set_userdata('login_type', 'employee');
 	     	$this->load->view('login_view');
 	     
 	    }
@@ -461,8 +482,7 @@ class Manage extends CI_Controller {
 	}
 
   	function updateAccountStatus() {
-  			//check kung naka-login
-		if($this->session->userdata('is_logged_in')) {
+  		if($this->session->userdata('is_logged_in')) {
 			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 				$id = $this->input->post('id');
 				$user_id = $this->input->post('user_id');
@@ -473,8 +493,15 @@ class Manage extends CI_Controller {
 
 		   }
 		   else {
-			    header( 'Location: ../Client' );
+			    header( 'Location: ../dashboard' );
 			}
+
+		 }
+		else{
+
+	    	$this->session->set_userdata('login_type', 'employee');
+	     	$this->load->view('login_view');
+	    
 
 		 }
 

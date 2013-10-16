@@ -34,7 +34,6 @@
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/datepicker.css" />
 		<!--<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
@@ -207,7 +206,7 @@
 					<!--
 					<li class="green">
 						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-							<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+							<i class="icon-envelope-alt icon-only icon-animated-vertical"></i> Inbox
 							<span class="badge badge-success"></span>
 						</a>
 
@@ -501,8 +500,12 @@
 
 												<div class="controls">
 													 <!-- <input type ="date"  id="dependent_dob"  class="input-medium" name="dependent_dob"> -->
-													 <input class="date_start input-date" id="dependent_dob"  class="input-medium" name="dependent_dob" type="text" data-date-format="yyyy-mm-dd">
-															
+													<span class="input-append">
+														<span class="add-on">	
+															<i class="icon-calendar"></i>
+														</span>
+														<input  class="span6 input-date datepicker" id="dependent_dob"  class="input-medium" name="dependent_dob" type="text">	
+													</span>				
 												</div> 
 											</div>
 
@@ -592,8 +595,12 @@
 
 												<div class="controls">
 													<!-- <input type ="date"  id="beneficiary_dob"  class="input-medium" name="beneficiary_dob"> -->
-													<input class="date_start input-date"  id="beneficiary_dob"  class="input-medium" name="beneficiary_dob" type="text" data-date-format="yyyy-mm-dd">
-													 
+													<span class="input-append">
+														<span class="add-on">	
+															<i class="icon-calendar"></i>
+														</span>
+														<input  class="span6 input-date datepicker" id="beneficiary_dob"  class="input-medium" name="beneficiary_dob" type="text" >	
+													</span>		 
 												</div>
 											</div>
 
@@ -757,7 +764,7 @@
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootstrap-tag.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>>
+		<script src="<?php echo base_url();?>assets/js/jquery.maskedinput.min.js"></script>
 		<!--ace scripts-->
 
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
@@ -775,7 +782,8 @@
 		<script type="text/javascript">
 		
 		$( document ).ready(function() {
- 
+
+
 			var selectedTab = localStorage['selectedTab'];
 			if (selectedTab) $('#myTab a[href="'+selectedTab+'"]').tab('show');
 
@@ -784,10 +792,19 @@
 			});		
 
 			$('.input-mask-phone').mask('(999) 999-9999');
-  
+  			/*
 			$(".date_start").datepicker().next().on(ace.click_event, function() {
 				$(this).prev().focus();
-			});
+			});*/
+
+			$('.datepicker').datepicker({
+			  	format: "yyyy-mm-dd",
+			    //startDate: "now",
+			    //todayBtn: true,
+			    orientation: "top auto", 
+			    autoclose: true
+			}) 
+			
 
 			$.extend($.gritter.options, { 
 	        position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
@@ -850,14 +867,14 @@
 			  "aLengthMenu": [[5, 10, 15, 25, -1], [5, 10, 15, 25, "All"]],
 				"iDisplayLength" : 5
 			   } );
-		
+			
 			//datatable initializatino
 			var oTable2 = $('#table_beneficiary').dataTable( {
 			"aoColumns": [
 		     	null, null, null,
 			  { "bSortable": false }],
-			  "aLengthMenu": [[5, 10, 15, 25, -1], [5, 10, 15, 25, "All"]],
-				"iDisplayLength" : 5,
+			  	"aLengthMenu": [[3], [3]],
+				"iDisplayLength" : 3,
 				});
 
 			//datatable initializatino
@@ -868,6 +885,7 @@
 			  "aLengthMenu": [[5, 10, 15, 25, -1], [5, 10, 15, 25, "All"]],
 				"iDisplayLength" : 5,
 			 } );
+
 				
 			$('[data-rel=tooltip]').tooltip();
 
@@ -877,7 +895,18 @@
 				fade_out_speed: 2000, // how fast the notices fade out
 				time: 1000 // hang on the screen for...
 			});
-		
+			
+
+ 			var	beneficiarySize = oTable2.fnGetData().length;
+ 			if(beneficiarySize >= 3){
+ 				/*$('#addBeneficiary').addClass('disabled');*/
+ 				
+ 				$('#addBeneficiary').attr('disabled', 'disabled');
+ 			} 
+ 			else
+ 			{
+ 				$('#addBeneficiary').removeClass('disabled');
+ 			} 
 
 			
 		/**************** Validations *******************/
@@ -893,7 +922,7 @@
 	          debug: true,
 	          //success: "valid"
 	        });
-
+ 
 	        $('#dependent_form').validate({
 	          errorElement: 'span',
 	          errorClass: 'help-inline',
@@ -911,7 +940,7 @@
 	          	dependent_relationship: {
 	              required: true,
 	              minlength:2,
-             	  nameValidation:true,
+             	  //nameValidation:true,
 	            },
 
 	          },
@@ -922,7 +951,7 @@
 	          	},
 	          	dependent_relationship: {
 	          		minlength: jQuery.format("At least {0} characters required."),
-	          		nameValidation: "Relationship must not contain special characters except comma, dash and period.",
+	          		//nameValidation: "Relationship must not contain special characters except comma, dash and period.",
 	          	},
 	 			
 	  
@@ -964,6 +993,7 @@
 	          submitHandler: function (form) {
 	            console.log('SUBMIT DEPENDENT FORM');
 	            dependent_submit();
+	            $('input').closest('.control-group').removeClass('success');
 	          },
 	          invalidHandler: function (form) {
 	            
@@ -989,7 +1019,7 @@
 	          	beneficiary_relationship: {
 	              required: true,
 	              minlength:2,
-             	  nameValidation:true,
+             	  //nameValidation:true,
 	            },
 
 	          },
@@ -1000,7 +1030,7 @@
 	          	},
 	          	beneficiary_relationship: {
 	          		minlength: jQuery.format("At least {0} characters required."),
-	          		nameValidation: "Relationship must not contain special characters except comma, dash and period.",
+	          		//nameValidation: "Relationship must not contain special characters except comma, dash and period.",
 	          	},
 	 			
 	  
@@ -1042,6 +1072,7 @@
 	          submitHandler: function (form) {
 	            console.log('SUBMIT BENEFICIARY FORM');
 	            beneficiary_submit();
+	            $('input').closest('.control-group').removeClass('success');
 
 	          },
 	          invalidHandler: function (form) {
@@ -1060,12 +1091,12 @@
 	            CR_name: {
 	              required: true,
 	              minlength:2,
-             	  nameValidation:true,
+             	  //nameValidation:true,
 	            },
 	            CR_company_name: {
 	              required: true,
 	              minlength:2,
-             	  nameValidation:true,
+             	  //nameValidation:true,
 	          	},
 	          	CR_contact_no: {
 	              required: true,
@@ -1123,6 +1154,7 @@
 	          submitHandler: function (form) {
 	            console.log('SUBMIT CHARACTER REFERENCE FORM');
 	            character_reference_submit();
+	            $('input').closest('.control-group').removeClass('success');
 	          },
 	          invalidHandler: function (form) {
 	            
@@ -1137,8 +1169,8 @@
 		});
 		
 		var dependent_submit = function() {
-		
-		  //event.preventDefault();
+			
+		  this.disabled = 'true';
 		  var sData = $('#dependent_form').serialize();
 		  console.log(sData);
 		  $.ajax({
@@ -1154,7 +1186,7 @@
 							class_name: 'gritter-success gritter-center gritter-light'
 						});
 
-		                $( '#dependent' ).each(function(){
+		                $( '#dependent_form' ).each(function(){
 						    this.reset();
 						});
 						$('#dependentDiv').slideUp();
@@ -1191,6 +1223,7 @@
 		var beneficiary_submit =  function(){
 		
 		  //event.preventDefault();
+		  this.disabled = 'true';
 		  var sData = $('#beneficiary_form').serialize();
 		  console.log(sData);
 		  $.ajax({
@@ -1205,7 +1238,7 @@
 					text: '<i class="icon-spinner icon-spin green icon-2x"></i> Beneficiary/Beneficiaries has been updated.',
 					class_name: 'gritter-success gritter-center gritter-light'
 				});
-                $( '#beneficiary' ).each(function(){
+                $( '#beneficiary_form' ).each(function(){
 				    this.reset();
 				});
 				$('#beneficiaryDiv').slideUp();
@@ -1241,6 +1274,7 @@
 		
 		var character_reference_submit = function() {
 		  //event.preventDefault();
+		  this.disabled = 'true';
 		  var sData = $('#character_reference_form').serialize();
 		  console.log(sData);
 		   $.ajax({
@@ -1262,7 +1296,7 @@
 					class_name: 'gritter-success gritter-center gritter-light'
 				});
 				
-	           	$( '#character_reference' ).each(function(){
+	           	$( '#character_reference_form' ).each(function(){
 				    this.reset();
 				});
 				$('#characterReferenceDiv').slideUp();

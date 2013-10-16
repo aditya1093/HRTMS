@@ -194,26 +194,10 @@
 						</li>
 					-->
 						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+							<a href="messenger">
+								<i class="icon-envelope-alt icon-only"></i> Inbox
 								<span class="badge badge-success"></span>
 							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-envelope"></i>
-									Messages
-								</li>
-
-								
-
-								<li>
-									<a href="messenger">
-										See all messages
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
 						</li>
 
 						<li class="light-blue user-profile">
@@ -786,6 +770,9 @@
 				jQuery.validator.addMethod("phone", function (value, element) {
 		          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
 		        }, "Enter a valid phone number.");
+		        jQuery.validator.addMethod("telephone", function (value, element) {
+		          return this.optional(element) || /^\d{3}\-\d{2}\-\d{2}( x\d{1,6})?$/.test(value);
+		        }, "Enter a valid telephone number.");
 		        
 		        jQuery.validator.setDefaults({
 		          debug: true,
@@ -797,6 +784,17 @@
 		          errorClass: 'help-inline',
 		          focusInvalid: false,
 		          rules: {
+		          	client_name: {
+		              required: true,
+		              minlength:2,
+		              remote: {
+		                url: "<?php echo base_url();?>manage/clientname_exists",
+		                type: "post",
+		                data: {
+		                  client_name: function(){ return $("#client_name").val(); }
+		                }
+		              }
+				    },
 		            first_name: {
 		              required: true,
 		              minlength:2,
@@ -813,9 +811,11 @@
 		          	},
 		          	client_phone:{
 		          		required: true,
+		          		phone: true,
 		          	},
 		          	client_tel:{
-		          		required: true,
+		          		required: true, 
+		          		telephone: true
 		          	},
 		          },
 		      
@@ -1089,6 +1089,7 @@
 					);
 
 			}*/	
+
 	
 		</script>
 		

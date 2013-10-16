@@ -35,7 +35,6 @@
 
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
 		<!--<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
 		/*Barcode
@@ -206,7 +205,7 @@
 					<!--
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i>
+								<i class="icon-envelope-alt icon-only icon-animated-vertical"></i> Inbox
 								<span class="badge badge-success"></span>
 							</a>
 
@@ -616,20 +615,10 @@
 
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
-		
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootstrap-tag.min.js"></script>
 
 		
-
-	
 
 		<!--ace scripts-->
 
@@ -767,7 +756,7 @@
 	            EH_company_name: {
 	              required: true,
 	              minlength:2,
-             	  nameValidation:true,
+             	  //nameValidation:true,
 	            },
 	            EH_company_location: {
 	              required: true,
@@ -862,6 +851,8 @@
 	          submitHandler: function (form) {
 	            console.log('SUBMIT DEPENDENT FORM');
 	            employment_submit();
+	            $('input').closest('.control-group').removeClass('success');
+
 	          },
 	          invalidHandler: function (form) {
 	            
@@ -875,6 +866,7 @@
 		});//function End
 
 		var employment_submit = function(){
+			  this.disabled = 'true';
 			  var sData = $('#employment_form').serialize();
 			  console.log(sData);
 			   $.ajax({
