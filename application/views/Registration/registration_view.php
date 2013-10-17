@@ -629,6 +629,7 @@
           },
       
           errorPlacement: function (error, element) {
+         
 
             if(element.is(':checkbox') || element.is(':radio')) {
               var controls = element.closest('.controls');
@@ -655,6 +656,7 @@
 
           },
           invalidHandler: function (form) {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
             
           },
 

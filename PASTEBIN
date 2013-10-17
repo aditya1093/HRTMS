@@ -1,0 +1,33 @@
+==========================================================================
+Mini Paste-bin
+==========================================================================
+
+UPDATE registration
+SET email = concat('samplemail', (FLOOR(1 + RAND() * 1000)), '@mail.com')
+
+SELECT (1983 + FLOOR(RAND() * (1995 - 1983 + 1 ))) AS Age
+
+###################################################################
+
+UPDATE registration
+SET birth_date = CONCAT((1983 + FLOOR(RAND() * (1995 - 1983 + 1 ))) , '-' ,
+	(1 + FLOOR(RAND() * (12 - 1 + 1 ))) , '-' , 
+	(1 + FLOOR(RAND() * (28 - 1 + 1 ))));
+
+UPDATE hris
+SET birthdate = CONCAT((1983 + FLOOR(RAND() * (1995 - 1983 + 1 ))) , '-' ,
+	(1 + FLOOR(RAND() * (12 - 1 + 1 ))) , '-' , 
+	(1 + FLOOR(RAND() * (28 - 1 + 1 ))));
+
+
+UPDATE registration
+LEFT JOIN hris
+ON registration.register_id=hris.register_id
+SET registration.birth_date=hris.birthdate;
+
+192.184.90.236
+
+(926) 835-8872
+
+UPDATE hris
+SET mobile_no=CONCAT('(926) ', (100 + FLOOR(RAND() * (999 - 100 + 1 ))), '-', (1000 + FLOOR(RAND() * (9999 - 1000 + 1 ))))

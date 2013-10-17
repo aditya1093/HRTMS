@@ -211,9 +211,9 @@ class record > per batch
 
 trainee
 ---------------
-accessible modules for their training only
+//accessible modules for their training only
 //divide examination by module
-show score after exam
+//show score after exam
 //remove profile tab
 require filling of hris
 

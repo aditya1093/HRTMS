@@ -21,5 +21,13 @@ class Register_model extends CI_Model {
 		return (isset($id)) ? $id : FALSE;		
 	}
 
+	public function getRequestInfo(){
+		$this->db->select('*');
+		$this->db->where('confirmed',1);
+		$this->db->from('request');
+		$query = $this->db->get();
+		return $query->result();
+
+	}
 
 }

@@ -53,8 +53,8 @@
 	</head>
 
 	<body>
-	 	<?php if(isset($records)) : foreach($records as $row) : ?>
-	 		<input type="hidden" value="<?php echo $row->civil_status?>" id="status">
+	 	<?php if(isset($records3)) : foreach($records as $row) : ?>
+	 		<input type="hidden" value="<?php echo $row->civil_status?>" id="civil_status">
 	 	<?php endforeach;?>
 		<?php endif; ?>
 			<div class="navbar navbar-inverse">
@@ -274,7 +274,7 @@
 								</li>
 
 								<li>
-									<a href="messenger">
+									<a href="<?php echo base_url(); ?>messenger">
 										See all messages
 										<i class="icon-arrow-right"></i>
 									</a>
@@ -285,7 +285,7 @@
 
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
+								<img class="nav-user-photo" src="<?php if($this->session->userdata('image_file')=='') { echo base_url().'assets/avatars/user.jpg'; } else { echo base_url().'assets/avatars/'.$this->session->userdata('image_file');}?>" alt="User's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
 									<?php echo $this->session->userdata('username');?>
@@ -296,9 +296,14 @@
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
 
-								
+								<li>
+									<a href="<?php echo base_url();?>myprofile">
+										<i class="icon-cog"></i>
+										Settings
+									</a>
+								</li>
 
-
+								<li class="divider"></li>
 
 								<li>
 									<a href="<?php echo base_url();?>logout">
@@ -380,7 +385,7 @@
 					</li>-->
 
 					<li>
-						<a href="about">
+						<a href="<?php echo base_url(); ?>about">
 							<i class="icon-info"></i>
 							<span>About the Developers</span>
 						</a>
@@ -419,170 +424,225 @@
 				</div>
 
 			<div id="page-content" class="clearfix">
-						<div class="page-header position-relative">
-							<h1>
-								HRIS
-								<small>
-									<i class="icon-double-angle-right"></i>
-									Marital Information
-								</small>
-							</h1>
-						</div><!--/.page-header-->
+				<div class="page-header position-relative">
+					<h1>
+						HRIS
+						<small>
+							<i class="icon-double-angle-right"></i>
+							Marital Information (If you are married)
+						</small>
+					</h1>
+				</div><!--/.page-header-->
 
 					
 			<div class="row-fluid">
-						
-		            
-		        	<?php if(isset($records)) : foreach($records as $row) : ?>
-		                	
-		             <div class="" id="profile3">
-		                	
-	                
-	            		<div class="marital_div" id="marital">
-		                <form id="marital_info">
-		               
-		                    <h4>Marriage Information</h4>
-		                    <label>Date of Marriage</label>
-		                        <!-- <input type="date" name = "marriage_date"  class="input-medium" value="<?php echo $row->marriage_date;?>"> -->
-								<span class="input-append">
-									<span class="add-on">	
-										<i class="icon-calendar"></i>
-									</span>
-									<input  class="span6 input-date datepicker" id="marriage_date"  name="marriage_date" type="text" value="<?php echo $row->marriage_date;?>">	
+		       	<?php if(isset($records)) : foreach($records as $row) : ?>           
+	                <form id="marital_info_form" class="form-horizontal">
+	               		
+	                    <h4>Marriage Information</h4>
+	                    <div class="control-group">
+	                    	<label class="control-label" for="marriage_date">Date of Marriage</label>
+	                    	<div class="controls">
+	                    		<span class="input-append">
+								<span class="add-on">	
+									<i class="icon-calendar"></i>
 								</span>
-		                    <label>Place of Marriage</label>
-		                        <input type="text" class="input-large" name = "marriage_place" value="<?php echo $row->marriage_place;?>">
-		                    <label>
-		                      <b>Spouse's Name</b> 
-		                    </label>
-		                    <label>First Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Middle Name &nbsp; &nbsp; &nbsp; &nbsp;
-		                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Last Name</label>
-		                        <input type="text" class="input-medium" name = "spouse_first_name" value="<?php echo $row->spouse_first_name;?>">
-		                        <input type="text" class="input-medium" name = "spouse_middle_name" value="<?php echo $row->spouse_middle_name;?>">
-		                        <input type="text" class="input-medium" name = "spouse_last_name" value="<?php echo $row->spouse_last_name;?>">
-		                    <label>Date of Birth</label>
-		                       <!--  <input type = "date"  class="input-medium" name = "spouse_birthdate" value="<?php echo $row->spouse_birthdate;?>"> -->
-								<span class="input-append">
+								<input  class="span6 input-date datepicker" id="marriage_date"  name="marriage_date" type="text" value="<?php echo $row->marriage_date;?>">	
+							</span>
+	                    	</div>	
+	                    </div> 
+	                   	
+	                   	<div class="control-group">
+	                   		<label class="control-label" for="marriage_place">Place of Marriage</label>
+	                   		<div class="controls">
+	                   			<input type="text" class="input-large" id="marriage_place" name="marriage_place" value="<?php echo $row->marriage_place;?>">
+	                   		</div>
+	                   	</div>
+	                 
+	                    <b>Spouse's Information</b> 
+	                    <div class="control-group">
+	                    	<label class="control-label" for="spouse_first_name">First Name</label>
+	                    	<div class="controls">
+	                    		<input type="text" class="input-medium" id="spouse_first_name" name="spouse_first_name" value="<?php echo $row->spouse_first_name;?>">
+	                    	</div>
+	                    </div> 	
+	                    <div class="control-group">
+	                    	<label class="control-label" for="spouse_last_name">Last Name</label>
+	                    	<div class="controls">
+	                    		<input type="text" class="input-medium" id="spouse_last_name" name="spouse_last_name" value="<?php echo $row->spouse_last_name;?>">
+	                    	</div>
+	                    </div>
+	                    <div class="control-group">
+	                    	<label class="control-label" for="spouse_middle_name">Middle Name</label>
+	                    	<div class="controls">
+	                    		<input type="text" class="input-medium" id="spouse_middle_name" name="spouse_middle_name" value="<?php echo $row->spouse_middle_name;?>">
+	                    	</div>
+	                    </div>
+	                    <div class="control-group">
+	                    	<label class="control-label" for="spouse_birthdate">Date of Birth</label>
+	                    	<div class="controls">
+	                    		<div class="span3 input-prepend">
 									<span class="add-on">	
 										<i class="icon-calendar"></i>
 									</span>
 									<input  class="span6 input-date datepicker" id="spouse_birthdate"  name="spouse_birthdate" type="text" value="<?php echo $row->spouse_birthdate;?>">	
+	                    		</div>
+	                    		
+	                    	</div>
+	                    </div>
+	                    <div class="control-group">
+	                    	<label class="control-label" for="spouse_contact_no">Contact No.</label>
+	                    	<div class="controls">
+	                    		<div class="span3 input-prepend">
+	                    			<span class="add-on">
+						        		<i class="icon-phone"></i>
+						      		</span>
+	                    		 <input type="text" id="spouse_contact_no" class="input-medium phone" name = "spouse_contact_no" value="<?php echo $row->spouse_contact_no;?>">
+	                    	
+	                    		</div>
+	                    	</div>
+	                    </div>
+	                    <div class="control-group">
+	                    	<label class="control-label" for="spouse_occupation">Occupation</label>
+	                    	<div class="controls">
+	                    		<input type="text" id="spouse_occupation" class="input-medium" name = "spouse_occupation" value="<?php echo $row->spouse_occupation;?>">
+	                    	</div>
+	                    </div>
+	                    <div class="control-group">
+           					<label class="control-label" for="spouse_occupation_address">Address/Location of Employment</label>
+           					<div class="controls">
+           						<input type="text" class="input-xlarge" id="spouse_occupation_address" name ="spouse_occupation_address" value="<?php echo $row->spouse_occupation_address;?>">
+           					</div>
+           				</div>
+	                 
+	                    <!-- <label>First Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Middle Name &nbsp; &nbsp; &nbsp; &nbsp;
+	                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Last Name</label>
+	                        <input type="text" class="input-medium" name = "spouse_first_name" value="<?php echo $row->spouse_first_name;?>">
+	                        <input type="text" class="input-medium" name = "spouse_middle_name" value="<?php echo $row->spouse_middle_name;?>">
+	                        <input type="text" class="input-medium" name = "spouse_last_name" value="<?php echo $row->spouse_last_name;?>"> -->
+	                     <!--
+	                     <label>Date of Birth</label>
+	                        <input type = "date"  class="input-medium" name = "spouse_birthdate" value="<?php echo $row->spouse_birthdate;?>"> -
+							<span class="input-append">
+								<span class="add-on">	
+									<i class="icon-calendar"></i>
 								</span>
-		                    <label>Occupation</label>
-		                        <input type="text" class="input-medium" name = "spouse_occupation" value="<?php echo $row->spouse_occupation;?>">
-		                    <label>Contact No.</label>
-		                    <input type="text" class="input-medium phone" name = "spouse_contact_no" value="<?php echo $row->spouse_contact_no;?>">
-		                   
-		                    <br>
-		                    <br>
-	                        <div class = "pager">
-	                        <div class="btn-group">
-	                           <button type="submit" class="btn btn-info btn-small">Save changes</button>
-	                        </div>
-	                      	</div>
-	                      	<div id="output"></div>
+								<input  class="span6 input-date datepicker" id="spouse_birthdate"  name="spouse_birthdate" type="text" value="<?php echo $row->spouse_birthdate;?>">	
+							</span>
+	                    <label>Occupation</label>
+	                        <input type="text" class="input-medium" name = "spouse_occupation" value="<?php echo $row->spouse_occupation;?>">
+	                    <label>Contact No.</label>
+	                    <input type="text" class="input-medium phone" name = "spouse_contact_no" value="<?php echo $row->spouse_contact_no;?>">
+	                   -->
+	                    <br>
+	                    <br>
+                        <div class = "pager">
+                        <div class="btn-group">
+                           <button type="submit" class="btn btn-info btn-small">Save changes</button>
+                        </div>
+                      	</div>
+                      	<div id="output"></div>
 		                </form>
-		                <?php endforeach;?>
-						<?php endif; ?>
-			                <div class="table-header">
-								<b>Name(s) of Children</b>
-	                  			<i>(if none, proceed to the next step)</i> 
+                <?php endforeach;?>
+				<?php endif; ?>
+	                <div class="table-header">
+						<b>Name(s) of Children</b>
+              			<i>(if none, proceed to the next step)</i> 
+					</div>
+					<table id="table_children" class="table table-striped table-bordered table-hover">
+           			<thead>
+           				<tr>
+           					<th>Name</th>
+           					<th>Birthdate</th>
+           					<th>School / Work</th> 
+           					<th></th> 
+           				</tr>
+           			</thead>
+           			<tbody>
+	              	<?php if(isset($records2)) : foreach($records2 as $row) : ?>
+	              			
+            			<tr>
+            				<td><?php echo $row->children_name;?></td>
+            				<td><?php echo $row->children_birthdate;?></td>
+            				<td><?php echo $row->children_school_or_work;?></td>
+            				<td><div class="btn-group"><button class="btn btn-mini btn-info">
+									<i class="icon-edit bigger-120"></i>
+								</button>
+								<button class="btn btn-mini btn-danger">
+									<i class="icon-trash bigger-120"></i>
+								</button>
+								</div>
+							</td>
+            			</tr>
+                			
+	                <?php endforeach;?>
+					<?php endif; ?>
+					</tbody>
+					</table>
+					<small>Page rendered in: {elapsed_time} seconds</small>
+					<hr>
+		
+					<div id="childDiv" style="display:none">
+						<h2>Child Information</h2>
+	               		<form id="children_form" class="form-horizontal">
+	               			<div class="control-group">
+								<label class="control-label" for="child_name">Full Name</label>
+
+								<div class="controls">
+									<input type="text" id="child_name" name="child_name">
+								</div>
 							</div>
-							<table id="table_children" class="table table-striped table-bordered table-hover">
-	               			<thead>
-	               				<tr>
-	               					<th>Name</th>
-	               					<th>Birthdate</th>
-	               					<th>School / Work</th> 
-	               					<th></th>
-	               				</tr>
-	               			</thead>
-	               			<tbody>
-			              	<?php if(isset($records2)) : foreach($records2 as $row) : ?>
-			              			
-                    			<tr>
-                    				<td><?php echo $row->children_name;?></td>
-                    				<td><?php echo $row->children_birthdate;?></td>
-                    				<td><?php echo $row->children_school_or_work;?></td>
-                    				<td><div class="btn-group"><button class="btn btn-mini btn-info">
-											<i class="icon-edit bigger-120"></i>
-										</button>
-										<button class="btn btn-mini btn-danger">
-											<i class="icon-trash bigger-120"></i>
-										</button>
-										</div>
-									</td>
-                    			</tr>
-	                    			
-			                <?php endforeach;?>
-							<?php endif; ?>
-							</tbody>
-							</table>
-							<small>Page rendered in: {elapsed_time} seconds</small>
-							<hr>
-			
-							<div id="childDiv" style="display:none">
-							<h2>Child Information</h2>
 
-		               		<form id="children_form" class="form-horizontal">
-		               			<div class="control-group">
-									<label class="control-label" for="child_name">Full Name</label>
+	               			<div class="control-group">
+								<label class="control-label" for="child_dob">Date of Birth</label>
 
-									<div class="controls">
-										<input type="text" id="child_name" name="child_name">
-									</div>
+								<div class="controls">
+									<!--  <input type ="date"  id="child_dob"  class="input-medium" name="child_dob"> -->
+									<span class="input-append">
+										<span class="add-on">	
+											<i class="icon-calendar"></i>
+										</span>
+										<input  class="span6 input-date datepicker" id="child_dob"  class="input-medium" name="child_dob" type="text">	
+									</span>			 
 								</div>
+							</div>
 
-		               			<div class="control-group">
-									<label class="control-label" for="child_dob">Date of Birth</label>
+	               			<div class="control-group">
+								<label class="control-label" for="child_work_school">Name of School or Place of Work</label>
 
-									<div class="controls">
-										<!--  <input type ="date"  id="child_dob"  class="input-medium" name="child_dob"> -->
-										<span class="input-append">
-											<span class="add-on">	
-												<i class="icon-calendar"></i>
-											</span>
-											<input  class="span6 input-date datepicker" id="child_dob"  class="input-medium" name="child_dob" type="text">	
-										</span>			 
-									</div>
+								<div class="controls">
+									<input type="text" id="child_work_school" name="child_school_work">
 								</div>
-
-		               			<div class="control-group">
-									<label class="control-label" for="child_work_school">Name of School or Place of Work</label>
-
-									<div class="controls">
-										<input type="text" id="child_work_school" name="child_school_work">
-									</div>
-								</div> 
-		                      	<div class="form-actions">
-									<button class="btn btn-info btn-small" type="submit">
-										<i class="icon-ok bigger-110"></i>
-										Submit
-									</button>
-									<button class="btn btn-small" type="reset">
-										<i class="icon-undo bigger-110"></i>
-										Reset
-									</button>
-								</div>
-			                </form>
-			                </div>
-			                <div class="pager" >    
-			   	         		<div class="btn-group" id="addDiv" >
-		                       		<a href="#" id="add" class="btn btn-info copy1" rel=".child">Add <i class="icon-plus"></i></a>
-		                      		<span class="help-inline">Click Add+ to add more Children's Information.</span>
-		                       	</div>
-		                       	<div class="btn-group" id="cancelDiv" style="display:none">
-		                       		<a href="#" id="cancel" class="btn btn-info copy1" rel=".child"><i class="icon-remove"></i>Cancel</a>
-		                       	</div>
-							</div>   
-							<br>
-							<br>  
-							<br>  
-							<br>
+							</div> 
+	                      	<div class="form-actions">
+								<button class="btn btn-info btn-small" type="submit">
+									<i class="icon-ok bigger-110"></i>
+									Submit
+								</button>
+								<button class="btn btn-small" type="reset">
+									<i class="icon-undo bigger-110"></i>
+									Reset
+								</button>
+							</div>
+		                </form>
+		            </div>
+	                <div class="pager" >    
+	   	         		<div class="btn-group" id="addDiv" >
+                       		<a href="#" id="add" class="btn btn-info copy1" rel=".child">Add <i class="icon-plus"></i></a>
+                      		<span class="help-inline">Click Add+ to add more Children's Information.</span>
+                       	</div>
+                       	<div class="btn-group" id="cancelDiv" style="display:none">
+                       		<a href="#" id="cancel" class="btn btn-info copy1" rel=".child"><i class="icon-remove"></i>Cancel</a>
+                       	</div>
+					</div>   
+					<br>
+					<br>  
+					<br>  
+					<br>
 
 
-				</div>	
+					
 				</div><!--/row-->
 
 			</div><!--/#page-content-->
@@ -638,18 +698,23 @@
 		<script type="text/javascript">
 		$(document).ready(function(){
 
-			// /var stat = $this->session->flashdata('civil_status');
-			var stat = $('#status').val();
+			var data = $('#marital_info_form').serialize();
+			console.log(data);
+
+			
+			var stat = $('#civil_status').val();
+			alert(stat); 
 			$('.phone').mask('(999) 999-9999');
-		/*	if(stat == 'Single'){ 
+			if(stat == 'Single'){ 
 				$('#single_message').show();
 				//alert('Show ' + stat );
-			    $("#marital a").click(function (e) { 
+			    $("#marital_info_form a").click(function (e) { 
 			        $(this).fadeTo("fast", .5).removeAttr("href"); 
 			        //e.preventDefault();
 			    });
-			    $('#marital').hide();
-			    $('#profile3').find(':input:not(:disabled)').prop('disabled',true)
+			    //$('#marital_info_form').hide();
+			    $('#marital_info_form').find(':input:not(:disabled)').prop('disabled',true)
+			    //$("#marital_info_form :input").attr("disabled", true);
 			}
 			if(stat == 'Married' || stat == 'Separated' || stat == 'Widowed' || stat == 'Divorced' )
 			{
@@ -657,8 +722,8 @@
 				//alert('Hide ' + stat );
 				
 			}
-			
-		*/
+			 
+		 
 			/*$(".date_start").datepicker().next().on(ace.click_event, function() {
 				$(this).prev().focus();
 			});*/
@@ -718,6 +783,118 @@
 			jQuery.validator.setDefaults({
 	          debug: true,
 	          //success: "valid"
+	        });
+	        $('#marital_info_form').validate({
+	          errorElement: 'span', 
+	          errorClass: 'help-inline',
+	          focusInvalid: false,
+	          rules: {
+	          	marriage_date:{
+	          	  required:true,
+	          	},
+	          	marriage_place:{
+	          	  required:true
+	          	},
+	            spouse_first_name: {
+	              required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	            },
+	            spouse_middle_name: {
+	              required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	            },
+	            spouse_last_name: {
+	              required: true,
+	              minlength:2,
+             	  nameValidation:true,
+	            },
+	            spouse_birthdate: {
+	              required:true,
+	              date:true,
+	          	},
+	          	spouse_contact_no:{
+	          	  required: true,
+	          	  phone:true
+	          	},
+	          	spouse_occupation: {
+	              required: true,
+	              minlength:2,
+             	  //nameValidation:true,
+	            },
+				spouse_occupation_address: {
+	              required: true,
+	              minlength:2,
+             	  //nameValidation:true,
+	            },
+
+	          },
+	       
+	          messages: {
+	          	spouse_first_name: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	},
+	          	spouse_middle_name: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	},
+	          	spouse_last_name: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          	},
+	          	spouse_occupation: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          		//nameValidation: "School/Work must not contain special characters except comma, dash and period.",
+	          	},
+	          	spouse_occupation_address: {
+	          		minlength: jQuery.format("At least {0} characters required."),
+	          		//nameValidation: "School/Work must not contain special characters except comma, dash and period.",
+	          	},
+	 			
+	  
+	          },
+	      
+	          invalidHandler: function (event, validator) { //display error alert on form submit   
+	            $('.alert-error', $('.login-form')).show();
+	          },
+	      
+	          highlight: function (e) {
+	            $(e).closest('.control-group').removeClass('success').addClass('error');
+	          },
+	      
+	          success: function (e) {
+	            $(e).closest('.control-group').removeClass('error').addClass('success');
+	            $(e).remove();
+	          }, 
+	      
+	          errorPlacement: function (error, element) {
+	            if(element.is(':checkbox') || element.is(':radio')) {
+	              var controls = element.closest('.controls');
+	              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+	              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+	            }
+	            else if(element.is('.select2')) {
+	              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+	            }
+	            else if(element.is('.chzn-select')) {
+	              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+	            }
+	            else error.insertAfter(element);
+	          },
+	          showErrors: function(errorMap, errorList) {
+	            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+	              + this.numberOfInvalids()
+	              + " errors, see details below.</div>");
+	              this.defaultShowErrors();
+	          },
+	          submitHandler: function (form) {
+	            console.log('SUBMIT CHILDREN FORM');
+	            submit_form();
+	            $('input').closest('.control-group').removeClass('success');
+	          }, 
+	          invalidHandler: function (form) { 
+	            $("html, body").animate({ scrollTop: 0 }, "slow");
+	          },  
+
 	        });
 
 	        $('#children_form').validate({
@@ -798,39 +975,8 @@
 
 	        });
 
-          	$( "#marital_info" ).on( "submit", function( event ) {
-          	  this.disabled = 'true';
-			  event.preventDefault();
-			  var sData = $(this).serialize();
-			  console.log(sData);
-			  var clicked = this; 
-			  $.ajax({
-	               url:"<?php echo base_url();?>hris/updateMaritalInfo",
-	                type:'POST',
-	                data:sData,
-	               // dataType:"json",
-	                success:function(result){
-	                //$("#success").show();
-	                //$("#success").attr('class', 'alert alert-success');
-	                //var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
-	               // $("#success").html(output_string);
-	                //$("#result_table").hide();
-	                // location.reload();
-	                $.gritter.add({
-						title: 'Human Resource Information Update',
-						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Marital Information has been updated.',
-						class_name: 'gritter-success gritter-center gritter-light'
-					});
-					
-					
-		            //$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
-		            //$("#personal_info")[0].reset();
-	                $("html, body").animate({ scrollTop: 0 }, "slow");
-
-	                }
-
-	            });
-
+          	$( "#marital_info_form" ).on( "submit", function( event ) {
+          	 
 			});
 
 			$( "#children" ).on( "submit", function( event ) {
@@ -840,7 +986,29 @@
 
 				
 		});
+		var submit_form = function(){
+			var sData = $('#marital_info_form').serialize();
+			console.log(sData);
+			var clicked = this; 
+			$.ajax({
+               	url:"<?php echo base_url();?>hris/updateMaritalInfo",
+                type:'POST',
+                data:sData, 
+              
+                success:function(result){  
+                $.gritter.add({
+					title: 'Human Resource Information Update',
+					text: '<i class="icon-spinner icon-spin green icon-2x"></i> Marital Information has been updated.',
+					class_name: 'gritter-success gritter-center gritter-light'
+				});
+				
+                $("html, body").animate({ scrollTop: 0 }, "slow");
 
+                }
+
+	        });
+
+		}
 		var children_submit = function(){
 			this.disabled = 'true';
 			var sData = $('#children_form').serialize();

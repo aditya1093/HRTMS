@@ -72,7 +72,7 @@
 					<ul class="nav ace-nav pull-right">		
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
+								<img class="nav-user-photo" src="<?php if($this->session->userdata('image_file')=='') { echo base_url().'assets/avatars/user.jpg'; } else { echo base_url().'assets/avatars/'.$this->session->userdata('image_file');}?>" alt="User's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
 									<?php echo $this->session->userdata('username');?>
@@ -81,6 +81,16 @@
 								<i class="icon-caret-down"></i>
 							</a>
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
+
+								<li>
+									<a href="<?php echo base_url();?>myprofile">
+										<i class="icon-cog"></i>
+										Settings
+									</a>
+								</li>
+
+								<li class="divider"></li>
+
 								<li>
 									<a href="<?php echo base_url();?>logout">
 										<i class="icon-off"></i>
@@ -159,7 +169,7 @@
 					</li>-->
 
 					<li>
-						<a href="about">
+						<a href="<?php echo base_url(); ?>about">
 							<i class="icon-info"></i>
 							<span>About the Developers</span>
 						</a>
@@ -207,6 +217,11 @@
 						</small>
 					</h1>
 				</div><!--/.page-header-->
+				<div class="row-fluid">
+					<div class="alert alert-info">
+						<i class="icon-exclamation"></i> <b>Notice:</b> Please fill-up your <a href="profile/hris">HRIS Information</a>.
+					</div>
+				</div>
 				
 				<?php if($this->session->userdata("is_active")==0) { ?>
 				<div class="row-fluid">

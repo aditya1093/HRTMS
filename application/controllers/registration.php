@@ -142,8 +142,21 @@ class Registration extends CI_Controller {
 	
 	} 
 
+	function vacancy(){
+		if($this->session->userdata('is_logged_in')) {
 
+			redirect(base_url() . 'dashboard');
+		}
+		else {
 
+			$this->load->model('register_model');
+			$data['records'] = $this->register_model->getRequestInfo();
+			//var_dump($data['records']);
+			$this->load->view('registration/vacancy',$data);
+		}
+	}
+
+ 
 	//Location - SITE MAP
 	public function site_map(){
 		if($this->session->userdata('is_logged_in')) {
@@ -157,7 +170,7 @@ class Registration extends CI_Controller {
 	} 
 
 	/* Requirements */
-
+ 
 
 	public function requirements(){
 		if($this->session->userdata('is_logged_in')) {
@@ -177,6 +190,7 @@ class Registration extends CI_Controller {
 		}
 		
 	}
+
 
 
 	//Photo

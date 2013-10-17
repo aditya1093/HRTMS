@@ -31,8 +31,11 @@ class Hris extends CI_Controller {
 			//$this->load->model('hris_model');
 		$query = $this->hris_model->profile_trainee($id);
 		$data['records'] = $query;
-		$query2 = $this->hris_model->marital_info($id);
+		$query2 = $this->hris_model->marital_info($id); 
 		$data['records2'] = $query2;
+
+		$query3 = $this->hris_model->civilStatus($id); 
+		$data['records3'] = $query3;
 
 		$this->load->view('user/trainee/marital_info',$data);
 	}
@@ -71,6 +74,13 @@ class Hris extends CI_Controller {
 		$name = $this->input->post('first_name') .' ' .$m[0].' '.$this->input->post('last_name'); 
 		$id = $this->session->userdata('user_id');
 		//$this->output->set_output(json_encode($name));
+
+		$this->form_validation->set_rules('first_name', 'first_name', 'trim|xss_clean');
+		$this->form_validation->set_rules('last_name', 'last_name', 'trim|xss_clean');
+		$this->form_validation->set_rules('middle_name', 'middle_name', 'trim|xss_clean');
+		$this->form_validation->set_rules('nickname', 'nickname', 'trim|xss_clean');
+		$this->form_validation->set_rules('birthdate', 'birthdate', 'trim|xss_clean');
+		 
 		$personal_info = array(
         			'first_name' => $this->input->post('first_name'),
         			'last_name' => $this->input->post('last_name'),
@@ -144,22 +154,30 @@ class Hris extends CI_Controller {
         			'philhealth_no' => $this->input->post('philhealth_no'),
         			'pagibig_no' => $this->input->post('pagibig_no'),
         			'tax_status' => $this->input->post('tax_status'),
-        			'passport_no' => $this->input->post('passport_no'),
+        			/*'passport_no' => $this->input->post('passport_no'),
         			'passport_issue_date' => $this->input->post('passport_issue_date'),
         			'passport_issue_country' => $this->input->post('country'),
         			'passport_issue_place' => $this->input->post('passport_issue_place'),
-        			'passport_expiration_date' => $this->input->post('passport_expiration_date'),
+        			'passport_expiration_date' => $this->input->post('passport_expiration_date'),*/
         			'license_type' => $this->input->post('license_type'),
-        			'license_issue_date' => $this->input->post('license_issue_date'),
+        			//'license_issue_date' => $this->input->post('license_issue_date'),
         			'license_issue_place' => $this->input->post('license_issue_place'),
         			'license_expiration_date' => $this->input->post('license_expiration_date'),
         			'date_edit' => date('Y-m-d H:i:s')
         		);
 		//$name .= $this->input->post('present_address') . $this->input->post('present_city') . $this->input->post('present_province');
 		//echo $name;
-    			
-		$this->load->model('hris_model');
-		$this->hris_model->personal_info($personal_info,$id);
+		$date = $this->input->post('license_issue_date');
+    	if($date){
+    		//array_push($personal_info, "'license_issue_date' => $date");	
+    		$personal_info['license_issue_date'] = $date;
+    	}
+    	else
+    	{
+    		$personal_info['license_issue_date'] = null;
+    	}
+			$this->load->model('hris_model');
+			$this->hris_model->personal_info($personal_info,$id);
 	
 		}
 		else {
@@ -175,6 +193,7 @@ class Hris extends CI_Controller {
 		//$name = $this->input->post('first_name') .' ' .$m[0].' '.$this->input->post('last_name'); 
 		//$name = $this->input->post('passport_issue_date');
 		//$this->output->set_output(json_encode($name));
+			$id = $this->session->userdata('user_id');
 			$personal_info = array(
         			'marriage_date' => $this->input->post('marriage_date'),
         			'marriage_place' => $this->input->post('marriage_place'),
@@ -182,19 +201,28 @@ class Hris extends CI_Controller {
         			'spouse_middle_name' => $this->input->post('spouse_middle_name'),
         			'spouse_last_name' => $this->input->post('spouse_last_name'),
         			'spouse_birthdate' => $this->input->post('spouse_birthdate'),
+        			'spouse_contact_no' => $this->input->post('spouse_contact_no'),
         			'spouse_occupation' => $this->input->post('spouse_occupation'),
-           			'spouse_contact_no' => $this->input->post('spouse_contact_no'),
+           		
         			'date_edit' => date('Y-m-d H:i:s')
         		);
-			//$this->load->model('hris_model');
-			$this->hris_model->personal_info($personal_info);
+			$date = $this->input->post('spouse_occupation_address');
+			if($date){
+				$personal_info['spouse_occupation_address'] = $date;
+			}
+			else{
+				//$personal_info['spouse_occupation_address'] = null;
+			}
+			$this->load->model('hris_model');
+			$this->hris_model->personal_info($personal_info,$id);
         
-	
+	 
 		}
 		else {
 
 			 header( 'Location: Marital_info' ) ;
 		}
+
 		
 	}
 	function updateEducation(){

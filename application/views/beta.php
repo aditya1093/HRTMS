@@ -46,12 +46,17 @@
       display:inline; margin:0px; padding:0px;
     }
     .ui-dialog .ui-dialog-content {
-  position: relative;
-  border: 0;
-  padding: .5em 1em;
-  background: 0;
-  overflow: visible;
-  }
+    position: relative;
+    border: 0;
+    padding: .5em 1em;
+    background: 0;
+    overflow: visible;
+    }
+    .table-header {
+
+
+      background-color: #777;
+    }
 
   </style>
 </head>
@@ -70,54 +75,36 @@
           
           
             <li class="green">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-            <i class="icon-envelope-alt icon-only icon-animated-vertical"></i> Inbox
-            <span class="badge badge-success unread"></span>
-            </a>
-            <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-              <li class="nav-header">
-              <i class="icon-envelope"></i>
-              <span class="unread"></span> Messages </li>
-              <!--<li>
-              <a href="#">
-              <img src="<?php echo base_url();?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" /> <span class="msg-body">
-              <span class="msg-title">
-              <span class="blue">Alex:</span>
-              Ciao sociis natoque penatibus et auctor ... </span>
-              <span class="msg-time">
-              <i class="icon-time"></i>
-              <span>a moment ago</span>
-              </span>
-              </span>
+              <a href="<?php echo base_url(); ?>messenger">
+                <i class="icon-envelope-alt icon-only"></i> Inbox
+                <span class="badge badge-success"></span>
               </a>
-              </li>-->
-              
-              <li>
-              <a href="messenger">
-              See all messages <i class="icon-arrow-right"></i>
-              </a>
-              </li>
-            </ul>
             </li>
             <li class="light-blue user-profile">
             <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-            <img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" /> <span id="user_info">
+            <img class="nav-user-photo" src="<?php if($this->session->userdata('image_file')=='') { echo base_url().'assets/avatars/user.jpg'; } else { echo base_url().'assets/avatars/'.$this->session->userdata('image_file');}?>" alt="User's Photo" /> <span id="user_info">
             <small>Welcome,</small>
             <?php echo $this->session->userdata('username');?></span>
             <i class="icon-caret-down"></i>
             </a>
             <ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-              <li>
-              <a href="#">
-              <i class="icon-user"></i>
-              Profile </a>
-              </li>
-              <li class="divider"></li>
-              <li>
-              <a href="<?php echo base_url();?>index.php/logout"> <i class="icon-off"></i>
-              Logout </a>
-              </li>
-            </ul>
+
+                <li>
+                  <a href="<?php echo base_url();?>myprofile">
+                    <i class="icon-user"></i>
+                    Profile
+                  </a>
+                </li>
+
+                <li class="divider"></li>
+
+                <li>
+                  <a href="<?php echo base_url();?>logout">
+                    <i class="icon-off"></i>
+                    Logout
+                  </a>
+                </li>
+              </ul>
             </li>
           </ul>
           <!--/.ace-nav-->
@@ -204,9 +191,7 @@
                 <div class="btn-group">
                   <button class="btn btn-small btn-purple" id="btn-compose"><i class="icon-edit"></i> Compose</button> 
                 </div>
-                <div class="btn-group">
-                  <button class="btn btn-small btn-primary"><i class="icon-refresh"></i> Refresh</button>
-                </div>
+                
                 
               </div>
 
@@ -305,18 +290,158 @@
                         </tr>
                       </tbody>
                     </table>
+                    
                   </div>
 
                   <div id="sent" class="tab-pane">
-                    <p>[sent]</p>
+                    <div class="table-header">
+                      
+                      <div class="btn-group">
+                        <button class="btn btn-small btn-success"><i class="icon-mail-forward"></i> Forward</button>
+                      </div>
+                      <div class="btn-group">
+                        <button data-toggle="dropdown" class="btn btn-info btn-small dropdown-toggle">
+                          Actions
+                          <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-info pull-right">
+                          <li>
+                            <a href="#"><i class="icon-eye-open green"></i> Mark As Read</a>
+                          </li>
+
+                          <li>
+                            <a href="#"><i class="icon-eye-close blue"></i> Mark As Unread</a>
+                          </li>
+                          <li class="divider"></li>
+                          <li>
+                            <a href="#"><i class="icon-flag red"></i> Flag</a>
+                          </li>
+                      
+                        </ul>
+                      </div>
+                      <div class="btn-group">
+                        <button class="btn btn-small btn-danger"><i class="icon-trash"></i> Delete</button>
+                      </div>
+                    </div>
+                    <table class="inbox-table table">
+                      <thead>
+                        <tr role="row">
+                          <th style="width: 50px;" class="center sorting_disabled" role="columnheader" colspan="1" rowspan="1"><input type="checkbox"></th>
+                          <th style="width: 200px;">From</th>
+                          <th>Messages</th>
+                          <th style="width: 200px;" >Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
+                          <td><a><b>asdf</b></a></td>
+                          <td><i class="icon-flag red"></i> <a><b>asdf</b></a></td>
+                          <td><a><b>asdf</b></a></td>
+                        </tr>
+                        <tr>
+                          <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
+                          <td>asdf</td>
+                          <td>asdf</td>
+                          <td>asdf</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
 
                   <div id="draft" class="tab-pane">
-                    <p>[draft]</p>
+                    <div class="table-header">
+                      <div class="btn-group">
+                        <button class="btn btn-small btn-success"><i class="icon-pencil"></i> Edit</button>
+                      </div>
+                      <div class="btn-group">
+                        <button data-toggle="dropdown" class="btn btn-info btn-small dropdown-toggle">
+                          Actions
+                          <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-info pull-right">
+                          <li>
+                            <a href="#"><i class="icon-eye-open green"></i> Mark As Read</a>
+                          </li>
+
+                          <li>
+                            <a href="#"><i class="icon-eye-close blue"></i> Mark As Unread</a>
+                          </li>
+                          <li class="divider"></li>
+                          <li>
+                            <a href="#"><i class="icon-flag red"></i> Flag</a>
+                          </li>
+                      
+                        </ul>
+                      </div>
+                      <div class="btn-group">
+                        <button class="btn btn-small btn-danger"><i class="icon-trash"></i> Delete</button>
+                      </div>
+                    </div>
+                    <table class="inbox-table table">
+                      <thead>
+                        <tr role="row">
+                          <th style="width: 50px;" class="center sorting_disabled" role="columnheader" colspan="1" rowspan="1"><input type="checkbox"></th>
+                          <th style="width: 200px;">From</th>
+                          <th>Messages</th>
+                          <th style="width: 200px;" >Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
+                          <td><a><b>asdf</b></a></td>
+                          <td><i class="icon-flag red"></i> <a><b>asdf</b></a></td>
+                          <td><a><b>asdf</b></a></td>
+                        </tr>
+                        <tr>
+                          <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
+                          <td>asdf</td>
+                          <td>asdf</td>
+                          <td>asdf</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
 
                   <div id="trash" class="tab-pane">
-                    <p>[trash]</p>
+                    <div class="table-header">
+                      <div class="btn-group">
+                        <button class="btn btn-small btn-purple"><i class=""></i> Restore</button>
+                      </div>
+                      <div class="btn-group">
+                        <button class="btn btn-small btn-success"><i class="icon-undo"></i> Restore All</button>
+                      </div>
+                      <div class="btn-group">
+                        <button class="btn btn-small btn-danger"><i class="icon-trash"></i> Empty</button>
+                      </div>
+                    </div>
+                    <table class="inbox-table table">
+                      <thead>
+                        <tr role="row">
+                          <th style="width: 50px;" class="center sorting_disabled" role="columnheader" colspan="1" rowspan="1"><input type="checkbox"></th>
+                          <th style="width: 200px;">From</th>
+                          <th>Messages</th>
+                          <th style="width: 200px;" >Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
+                          <td><a><b>asdf</b></a></td>
+                          <td><i class="icon-flag red"></i> <a><b>asdf</b></a></td>
+                          <td><a><b>asdf</b></a></td>
+                        </tr>
+                        <tr>
+                          <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
+                          <td>asdf</td>
+                          <td>asdf</td>
+                          <td>asdf</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -368,6 +493,34 @@
       $(function(){
 
         $("#mailer").hide();
+
+        var selectedTab = localStorage['selectedTab'];
+        if (selectedTab) $('#myTab a[href="'+selectedTab+'"]').tab('show');
+
+        $('a[data-toggle="tab"]').on('shown', function (e) {
+           localStorage['selectedTab']=$(e.target).attr('href');
+        }); 
+        
+        $(document).bind('click', function(e) {
+
+          if(!$(e.target).is('#editor1')) {
+            
+            if($("#editor1").text()=="") {
+
+              $("#editor1").text("[ Type Your Message Here ]");
+              
+            }
+          }
+          else {
+
+            if($("#editor1").text()=="[ Type Your Message Here ]") {
+
+              $("#editor1").text("");
+              
+            }            
+          }
+        });
+
 
         function initToolbarBootstrapBindings() {
 
@@ -447,6 +600,18 @@
         });
         
       });
+  
+      $('.inbox-table th input:checkbox').on('click' , function(){
+        var that = this;
+        $(this).closest('.inbox-table').find('tr > td:first-child input:checkbox')
+        .each(function(){
+          this.checked = that.checked;
+          $(this).closest('tr').toggleClass('selected');
+        });
+          
+      });
+
+
     </script>
 
 
@@ -463,7 +628,7 @@
           <a href="#" data-action="collapse">
             <i style="display:none;" class="icon-chevron-down"></i> <img style="margin-top: 5px;" src="<?php echo base_url();?>assets/images/min.png">
           </a>
-
+          
           <a href="#" data-action="" id="close-message">
             <i class="icon-remove red"></i>
           </a>
@@ -637,14 +802,14 @@
               
             </div>
 
-            <div class="wysiwyg-editor" id="editor1">Type Your Message Here</div>
+            <div class="wysiwyg-editor" id="editor1">[ Type Your Message Here ]</div>
             <div class="well well-small" style="margin:0;">
 
               <div class="btn-group" style="margin-bottom:5px;">
-                <button class="btn btn-primary btn-small">Send</button> 
+                <button class="btn btn-success btn-small btn-send"><i class="icon-envelope"></i> Send</button> 
               </div>
               <div class="btn-group" style="margin-bottom:5px;">
-                <button class="btn btn-primary btn-small">Save To Drafts</button> 
+                <button class="btn btn-purple btn-small"><i class="icon-save"></i> Save To Drafts</button> 
               </div>
             </div>
             

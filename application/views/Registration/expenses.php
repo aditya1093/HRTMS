@@ -252,7 +252,7 @@
     <script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
     <!--inline scripts related to this page-->
-s
+
     <script type="text/javascript"> 
 
     

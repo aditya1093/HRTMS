@@ -29,6 +29,7 @@ class Login_model extends CI_Model{
                 'password' => $row->password,
                 'last_name' => $row->last_name,
                 'middle_name' => $row->middle_name,
+                'image_file' => $row->image_file,
                 'first_name' => $row->first_name,
                 'phone' => $row->phone,
                 'security_question' => $row->security_question,

@@ -77,20 +77,41 @@
     <!-- End  menu tablet and phone-->
 
     <!-- First Section -->
+    
     <div class="row-fluid">
       <div class="span8">
+      
         <h1 align="center">A management solutions provider for the semiconductor and electronics industry</h1>
         <p>
           
         </p>
       </div>
       <div class="span4 ">
-        <div class="hiring">
-          <h2>We are hiring!</h2>
-          <p>If you are looking for a job that will meet your career goals as well as your personal needs, 
-            you've come to the right place.<br>
-          <a class="metro metro-green pull-right" style="background: #94BA65;" href="<?php echo base_url();?>Registration" role="button" data-toggle="modal" id="join-us">
-            <i class="icon-user"></i> Join our team!</a></p>
+        <div class="" style="
+            position: relative;
+            background-color: #eee;
+            min-height: 200px;
+            min-width: 200px;
+            display: block;
+            float: left;">
+          <div style="margin-left:20px;margin-right:20px">
+            <h2>We are hiring!</h2>
+            <p>If you are looking for a job that will meet your career goals as well as your personal needs, 
+              you've come to the right place.<br>
+              <!--   <a class="metro metro-green" style="background: #94BA65;" href="<?php echo base_url();?>Registration" role="button" data-toggle="modal" id="join-us">
+              <i class="icon-user"></i> View vacancy!</a> -->
+              <!--  <a class="metro metro-green pull-left" style="background: #94BA65;" href="<?php echo base_url();?>Registration" role="button" data-toggle="modal" id="join-us">
+              <i class="icon-user"></i> Join our team!</a> -->
+              <div class="">
+                <a class="metro metro-green" style="background: #58792F;" href="<?php echo base_url();?>registration/vacancy" role="button">
+                  <i class="icon-ok"></i> View vacancy!
+                </a>
+                <a class="metro metro-green" style="background: #94BA65;" href="<?php echo base_url();?>Registration" role="button">
+                  <i class="icon-user"></i> Join our team!
+                </a>
+              </div>
+            </p>
+          </div>
         </div>
       </div>
       

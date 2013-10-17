@@ -26,7 +26,7 @@ class Client extends CI_Controller {
 	}
 
 	function add_client() {
-		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+
 			$this->form_validation->set_rules('client_name', 'Client Name', 'required|xss_clean|is_unique[client.client_name]');
 			$this->form_validation->set_rules('client_location', 'Location', 'required|xss_clean');
 			$this->form_validation->set_rules('client_username', 'Username', 'trim|required|xss_clean|min_length[6]|is_unique[user_table.username]|alpha_dash');
@@ -91,13 +91,13 @@ class Client extends CI_Controller {
 				$this->client_model->add_client($data,$count,$userTable);
 
 
-
+ 
 				$config['hostname'] = 'ftp.jemnuine.com';
 		        $config['username'] = 'jemnuin2@jemnuine.com';
 		        $config['password'] = 'bakerking123';
 		        $config['debug']    = TRUE;
 
-
+ 
 		        $success_string = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Client account has successfully added.</div>';
 	 			$this->session->set_flashdata('client_message',$success_string); 
 
@@ -138,11 +138,7 @@ class Client extends CI_Controller {
 			}
 
 			redirect(base_url().'client', 'refresh');	
-		}
-		else {
-
-		 	header( 'Location: ../client' ) ;
-		}
+		
 	}
 
 	/********************* Delete Client ************************/

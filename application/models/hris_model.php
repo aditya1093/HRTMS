@@ -17,6 +17,15 @@ class Hris_model extends CI_Model{
         $query = $this->db->get();
         return $query->result();
     } 
+    function civilStatus($id){
+        $this->db->select('civil_status');
+        $this->db->where('trainee_id', $id);
+        $this->db->from('hris');
+        $query = $this->db->get();
+        return $query->result();
+
+    }
+
     function marital_info($id) {
 
         $this->db->select('*');    

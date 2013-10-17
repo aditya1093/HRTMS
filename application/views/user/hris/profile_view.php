@@ -193,7 +193,7 @@
 					-->
 
 						<li class="green">
-							<a href="messenger">
+							<a href="<?php echo base_url(); ?>messenger">
 								<i class="icon-envelope-alt icon-only"></i> Inbox
 								<span class="badge badge-success"></span>
 							</a>
@@ -201,7 +201,7 @@
 
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
+								<img class="nav-user-photo" src="<?php if($this->session->userdata('image_file')=='') { echo base_url().'assets/avatars/user.jpg'; } else { echo base_url().'assets/avatars/'.$this->session->userdata('image_file');}?>" alt="User's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
 									<?php echo $this->session->userdata('username');?>
@@ -214,8 +214,8 @@
 
 								<li>
 									<a href="#">
-										<i class="icon-user"></i>
-										Profile
+										<i class="icon-cog"></i>
+										Settings
 									</a>
 								</li>
 
@@ -317,7 +317,7 @@
 					</li>-->
 
 					<li>
-						<a href="about">
+						<a href="<?php echo base_url(); ?>about">
 							<i class="icon-info"></i>
 							<span>About the Developers</span>
 						</a>

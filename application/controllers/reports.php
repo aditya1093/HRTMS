@@ -691,7 +691,7 @@ class Reports extends CI_Controller {
 		if($this->session->userdata('is_logged_in')) {
 
 			/*$this->load->model('report_model');
-			$query = $this->report_model->gradesheet();
+			$query = $this->report_model->certificate();
 			$data['records'] = $query;
 			*/
 			
@@ -707,9 +707,9 @@ class Reports extends CI_Controller {
 
 			// set document information
 			$pdf->SetCreator(PDF_CREATOR);
-			$pdf->SetAuthor('Nicola Asuni');
-			$pdf->SetTitle('TCPDF Example 051');
-			$pdf->SetSubject('TCPDF Tutorial');
+			$pdf->SetAuthor('PJONG');
+			$pdf->SetTitle('Certificate of Completion');
+			$pdf->SetSubject('Certificate of Completion');
 			$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
 			// set header and footer fonts
@@ -741,7 +741,7 @@ class Reports extends CI_Controller {
 			// ---------------------------------------------------------
 
 			// set font
-			$pdf->SetFont('times', '', 48);
+			$pdf->SetFont('kozminproregular', '', 48);
 
 			
 
@@ -758,24 +758,24 @@ class Reports extends CI_Controller {
 			// disable auto-page-break
 			$pdf->SetAutoPageBreak(false, 0);
 			// set bacground image
-			$img_file = K_PATH_IMAGES.'cert2.jpg';
+			$img_file = K_PATH_IMAGES.'AMI Certificate.jpg';
 			$pdf->Image($img_file, 0, 0, 0, 0);
 			// restore auto-page-break status
 			$pdf->SetAutoPageBreak($auto_page_break, $bMargin);
 			// set the starting point for the page content
 			$pdf->setPageMark();
-
+			$pdf->SetXY(40,75);
 
 			// Print a text
-			$html = '<span style="color:white;text-align:center;font-weight:bold;font-size:80pt;">Enter Name Here</span>';
+			$html = '<span style="color:black;text-align:center;font-weight:bold;font-size:50pt;">Paul John Marabe</span>';
 			$pdf->writeHTML($html, true, false, true, false, '');
 
-			
+			$html = '<span style="text-align:center; font-size:72pt">';
 
 			// ---------------------------------------------------------
 
 			//Close and output PDF document
-			$pdf->Output('example_051.pdf', 'I');
+			$pdf->Output('Certificate of Completion.pdf', 'I');
 		}
 		else {
 

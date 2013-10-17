@@ -267,7 +267,7 @@
 								</li>
 
 								<li>
-									<a href="messenger">
+									<a href="<?php echo base_url(); ?>messenger">
 										See all messages
 										<i class="icon-arrow-right"></i>
 									</a>
@@ -278,7 +278,7 @@
 
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
+								<img class="nav-user-photo" src="<?php if($this->session->userdata('image_file')=='') { echo base_url().'assets/avatars/user.jpg'; } else { echo base_url().'assets/avatars/'.$this->session->userdata('image_file');}?>" alt="User's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
 									<?php echo $this->session->userdata('username');?>
@@ -290,10 +290,14 @@
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
 
+								<li>
+									<a href="<?php echo base_url();?>myprofile">
+										<i class="icon-cog"></i>
+										Settings
+									</a>
+								</li>
 
-								
-
-
+								<li class="divider"></li>
 
 								<li>
 									<a href="<?php echo base_url();?>logout">
@@ -375,7 +379,7 @@
 					</li>-->
 
 					<li>
-						<a href="about">
+						<a href="<?php echo base_url(); ?>about">
 							<i class="icon-info"></i>
 							<span>About the Developers</span>
 						</a>
@@ -432,12 +436,61 @@
                 <?php if(isset($records)) : foreach($records as $row) : ?>
                 	
                <div class="" id="profile4">
-               		<form id="education">
+               		<form id="education_form" class="form">
                         <h4></h4>            
                         <label>
                           <i>Please Specify your highest educational attainment</i> 
                         </label>
-                      
+                      	<div class="control-group">
+                      		<label class="control-label" for="level_educ">Level of Education</label>
+                      		<div class="controls">
+                      			<select  id="level_educ" name ="highest_educ">
+                      				<option value="" selected=""></option>
+                      				<option value="High School" <?php if($row->educational_level=='High School') echo 'selected';?>>High School</option>
+                      				<option value="Vocational" <?php if($row->educational_level=='Vocational') echo 'selected';?>>Vocational</option>
+                      				<option value="College" <?php if($row->educational_level=='College') echo 'selected';?>>College</option>
+                      				<option value="Masteral" <?php if($row->educational_level=='Masteral') echo 'selected';?>>Masteral</option>
+                      				<option value="Doctorate" <?php if($row->educational_level=='Doctorate') echo 'selected';?>>Doctorate</option>
+                      			</select>
+                      		</div>
+                      	</div>
+                      	<div class="control-group">
+                      		<label class="control-label" for="school">Name of School</label>
+                      		<div class="controls">
+                      			<input type="text" class="span8" id="school"  name ="school" value="<?php echo $row->school_name;?>">
+                      		</div>
+                      	</div>
+                      	<div class="control-group">
+                      		<label class="control-label" for="school_s">From</label>
+                      		<div class="controls">
+                      			<input type="text" id="school_s" name ="school_s" value="<?php echo $row->education_from;?>">
+                      		</div> 
+                      	</div>
+                      	<div class="control-group">
+                      		<label class="control-label" for="school_e">To</label>
+                      		<div class="controls">
+                      			 <input type="text" id="school_e" name ="school_e" value="<?php echo $row->education_to;?>">
+                      		</div>
+                      	</div>
+                      	<div class="control-group">
+                      		<label class="control-label" for="course">Course Taken</label>
+                      		<div class="controls">
+                      			<input type="text" class="input-xxlarge"  id="course" name = "course" value="<?php echo $row->education_course;?>" />
+                      		</div>
+                      	</div>
+                      	<div class="control-group">
+                      		<label class="control-label" for="honors">Honors</label>
+                      		<div class="controls">
+                      			<input id="honors" name="school_honor" value="<?php echo $row->honors;?>" placeholder="Enter for input">
+                      		</div>
+                      	</div>
+                      	<div class="control-group">
+                      		<label>How did you learn the position vacancy? Please specify</label>
+                      		<div class="controls">
+                      			<textarea name = "vacancy" ><?php echo $row->vacancy;?></textarea>
+                      		</div>
+                      	</div>
+						<!-- 
                         <label for="level_educ">Level of Education</label>
                           <input type="text" class="input-medium"  id="level_educ"name ="highest_educ" value="<?php echo $row->educational_level;?>">
                         <label for="school" >Name of School</label>
@@ -453,116 +506,118 @@
                           <label class="control-label" for="honors">Honors <small class="muted">(Enter for another input)</small></label>
 							<div class="controls">
 							<input id="honors" name="school_honor" value="<?php echo $row->honors;?>">
-							</div>
-							<br>
+							</div> 
+							<br> 
+						 
                         <label>How did you learn the position vacancy? Please specify</label>
                           <textarea name = "vacancy" ><?php echo $row->vacancy;?></textarea>
+                        -->
                     	<div class="form-actions">
                             <button type="submit" class="btn btn-info btn-small">Save changes</button>
                         </div>
                     </form> 
-                    <?php endforeach;?>
+                    <?php endforeach;?> 
 				<?php endif; ?>
                     <div class="table-header">
 								<h3>Employment History</h3> 
 					</div>
 					<table id="table_employment_history" class="table table-striped table-bordered table-hover">
-           			<thead>
-           				<tr>
-           					<th>Company</th>
-           					<th>Location</th>
-           					<th>Position</th>
-           					<th>From</th>
-           					<th>To</th>
-           					<th>Reason for Leaving</th>
-           					<th></th>
-           				</tr>
-           			</thead>
-           			<tbody>
-	              	<?php if(isset($records2)) : foreach($records2 as $row) : ?>
-	              			
-                			<tr>
-                				<td><?php echo $row->employment_company_name;?></td>
-                				<td><?php echo $row->employment_location;?></td>
-                				<td><?php echo $row->employment_position;?></td>
-                				<td><?php echo $row->employment_from;?></td>
-                				<td><?php echo $row->employment_to;?></td>
-                				<td><?php echo $row->employment_reason_leave;?></td>
-                				<td><div class="btn-group"><button class="btn btn-mini btn-info">
-										<i class="icon-edit bigger-120"></i>
-									</button>
-									<button class="btn btn-mini btn-danger">
-										<i class="icon-trash bigger-120"></i>
-									</button>
-									</div>
-								</td>
-                			</tr>
-                				
-	                <?php endforeach;?>
-					<?php endif; ?>
-					</tbody>
+	           			<thead>
+	           				<tr>
+	           					<th>Company</th>
+	           					<th>Location</th>
+	           					<th>Position</th>
+	           					<th>From</th>
+	           					<th>To</th>
+	           					<th>Reason for Leaving</th>
+	           					<th></th>
+	           				</tr>
+	           			</thead>
+	           			<tbody>
+		              	<?php if(isset($records2)) : foreach($records2 as $row) : ?>
+		              			
+	                			<tr>
+	                				<td><?php echo $row->employment_company_name;?></td>
+	                				<td><?php echo $row->employment_location;?></td>
+	                				<td><?php echo $row->employment_position;?></td>
+	                				<td><?php echo $row->employment_from;?></td>
+	                				<td><?php echo $row->employment_to;?></td>
+	                				<td><?php echo $row->employment_reason_leave;?></td>
+	                				<td><div class="btn-group"><button class="btn btn-mini btn-info">
+											<i class="icon-edit bigger-120"></i>
+										</button>
+										<button class="btn btn-mini btn-danger">
+											<i class="icon-trash bigger-120"></i>
+										</button>
+										</div>
+									</td>
+	                			</tr>
+	                				
+		                <?php endforeach;?>
+						<?php endif; ?>
+						</tbody>
 					</table>
 					<small>Page rendered in: {elapsed_time} seconds</small>
 					<div id="employmentDiv" style="display:none">
 						<h2>Employment Information</h2>
                     <form id="employment_form" class="form-horizontal">
-		               			<div class="control-group">
-									<label class="control-label" for="comp_name">Company Name</label>
+	               			<div class="control-group">
+								<label class="control-label" for="comp_name">Company Name</label>
 
-									<div class="controls">
-										<input type="text" id="comp_name" name="EH_company_name">
-									</div>
+								<div class="controls">
+									<input type="text" id="comp_name" name="EH_company_name">
 								</div>
+							</div>
 
-		               			<div class="control-group">
-									<label class="control-label" for="comp_loc">Location</label>
- 
-									<div class="controls">
-										<input type="text" id="comp_loc" name="EH_company_location">
-									</div>
+	               			<div class="control-group">
+								<label class="control-label" for="comp_loc">Location</label>
+
+								<div class="controls">
+									<input type="text" id="comp_loc" name="EH_company_location">
 								</div>
- 
-		               			<div class="control-group">
-									<label class="control-label" for="position_title">Position Title</label>
+							</div>
 
-									<div class="controls">
-										<input type="text" id="position_title" name="EH_company_position">
-									</div>
+	               			<div class="control-group">
+								<label class="control-label" for="position_title">Position Title</label>
+
+								<div class="controls">
+									<input type="text" id="position_title" name="EH_company_position">
 								</div>
-								<div class="control-group">
-									<label class="control-label" for="from">From</label>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="from">From</label>
 
-									<div class="controls">
-										<input type="text" class="span2" id="from" name = "EH_company_date_s">
-									</div>  
+								<div class="controls">
+									<input type="text" class="span2" id="from" name = "EH_company_date_s">
+								</div>  
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="to">To</label>
+
+								<div class="controls">
+									<input type="text" class="span2" id="to"  name = "EH_company_date_e">
 								</div>
-								<div class="control-group">
-									<label class="control-label" for="to">To</label>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="reason">Reason for Leaving</label>
 
-									<div class="controls">
-										<input type="text" class="span2" id="to"  name = "EH_company_date_e">
-									</div>
+								<div class="controls">
+									 <textarea  id="reason" name="reason"></textarea>
 								</div>
-								<div class="control-group">
-									<label class="control-label" for="reason">Reason for Leaving</label>
+							</div> 
+	                      	<div class="form-actions">
+								<button class="btn btn-info btn-small" type="submit">
+									<i class="icon-ok bigger-110"></i>
+									Submit
+								</button>
 
-									<div class="controls">
-										 <textarea  id="reason" name="reason"></textarea>
-									</div>
-								</div> 
-		                      	<div class="form-actions">
-									<button class="btn btn-info btn-small" type="submit">
-										<i class="icon-ok bigger-110"></i>
-										Submit
-									</button>
-
-									&nbsp; &nbsp; &nbsp;
-									<button class="btn btn-small" type="reset">
-										<i class="icon-undo bigger-110"></i>
-										Reset
-									</button>
-								</div>
-			            </form>
+								&nbsp; &nbsp; &nbsp;
+								<button class="btn btn-small" type="reset">
+									<i class="icon-undo bigger-110"></i>
+									Reset
+								</button>
+							</div>
+		            </form>
 			             
 			        </div>
 			         <div class="pager" >    
@@ -676,7 +731,7 @@
 				time: 1000 // hang on the screen for...
 			});
 		
-          	$("#education").on( "submit", function( event ) {
+          /*	$("#education").on( "submit", function( event ) {
 			  event.preventDefault();
 			  var sData = $(this).serialize();
 			  console.log(sData);
@@ -707,7 +762,7 @@
 
 	            });
 
-			});
+			});*/
 			//datatable initializatino
 			var oTable1 = $('#table_employment_history').dataTable( {
 			"aoColumns": [
@@ -748,7 +803,7 @@
 			var yearNow = d.getFullYear();
 			var yearValid = yearNow - 55;
 
-	        $('#employment_form').validate({
+	        $('#education_form').validate({
 	          errorElement: 'span',
 	          errorClass: 'help-inline',
 	          focusInvalid: false, 
@@ -872,16 +927,9 @@
 			   $.ajax({
 	                url:"<?php echo base_url();?>hris/insertEmploymentHistory",
 	                type:'POST',
-	                data:sData,
-	               	//dataType:"json",
-	               
+	                data:sData,	               
 	                success:function(result){
-	                //$("#success").show();
-	                //$("#success").attr('class', 'alert alert-success');
-	                //var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
-	               // $("#success").html(output_string);
-	                //$("#result_table").hide();
-	                // location.reload();
+	         
 	                $.gritter.add({
 						title: 'Human Resource Information Update',
 						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Employment History has been updated.',

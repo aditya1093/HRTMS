@@ -298,7 +298,7 @@
 								</li>
 
 								<li>
-									<a href="messenger">
+									<a href="<?php echo base_url(); ?>messenger">
 										See all messages
 										<i class="icon-arrow-right"></i>
 									</a>
@@ -309,7 +309,7 @@
 
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
+								<img class="nav-user-photo" src="<?php if($this->session->userdata('image_file')=='') { echo base_url().'assets/avatars/user.jpg'; } else { echo base_url().'assets/avatars/'.$this->session->userdata('image_file');}?>" alt="User's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
 									<?php echo $this->session->userdata('username');?>
@@ -320,10 +320,14 @@
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
 
+								<li>
+									<a href="<?php echo base_url();?>myprofile">
+										<i class="icon-cog"></i>
+										Settings
+									</a>
+								</li>
 
-								
-
-
+								<li class="divider"></li>
 
 								<li>
 									<a href="<?php echo base_url();?>logout">
@@ -405,7 +409,7 @@
 					</li>-->
 
 					<li>
-						<a href="about">
+						<a href="<?php echo base_url(); ?>about">
 							<i class="icon-info"></i>
 							<span>About the Developers</span>
 						</a>
@@ -457,60 +461,71 @@
 				
 					<div class="row-fluid">
 						  <!-- Tab 1 -->
-				<form>
+				<form class="form-horizontal" id="personal_acc_form">
                 
                 <?php if(isset($records)) : foreach($records as $row) : ?>
-                    <!-- Tab 2 -->
-                <div class="" id="profile2">
-                    <!-- SSS No. / Tin / Philhealth No. / PAG-IBIG No.  -->
-                      <label>SSS No. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TIN &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp; &nbsp; Philhealth No. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;PAG-IBIG No.</label>
-                        <input type="text" class="input-medium" name = "sss_no"  value="<?php echo $row->sss_no;?>">
-                        <input type="text" class="input-medium" name = "tin_no"  value="<?php echo $row->tin_no;?>">
-                        <input type="text" class="input-medium" name = "philhealth_no"  value="<?php echo $row->philhealth_no;?>">
-                        <input type="text" class="input-medium" name = "pagibig_no"  value="<?php echo $row->pagibig_no;?>">
-                    <!-- End of SSS No. / Tin / Philhealth No. / PAG-IBIG No.  -->
-                    <!--  <label>If allergic to anything - food, medicine, others - please specify below</label>
-                      <input type="text" class="input-medium" name = "allergy"  value="<?php echo $row->allergy;?>">
-                    <!-- Tax Status Dropdown-->
-                        <label>Tax status</label>
-                        <select name = "tax_status">
-                          <option disabled = "disabled" selected = "selected" value="">Select Status...</option>
-                          <option value = "Single" <?php if($row->tax_status=='Single') echo 'selected';?>>Single</option>
-                          <option value = "Married" <?php if($row->tax_status=='Married') echo 'selected';?>>Married</option>
-                          <option value = "Head_of_Family" <?php if($row->tax_status=='Head_of_Family') echo 'selected';?>>Head of Family</option>
-                        </select>
-                    <!-- End of Tax Status Dropdown-->
-                      <label>Passport No. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp; Date Issued</label>
-                      <input type="text" class="input-medium" name = "passport_no"  value="<?php echo $row->passport_no;?>">
-                      <input type="date" class="input-medium" name = "passport_issue_date"  value="<?php echo $row->passport_issue_date;?>">
-                      <label>Country Issued &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Place Issued</label>
-                      <input type="text" name="country" class = "autocomplete"  value="<?php echo $row->passport_issue_country;?>">
-                      
-                      <input type="text" class="input-medium" name ="passport_issue_place" value="<?php echo $row->passport_issue_place;?>">
-                      <label>Expiration Date</label>
-                          <input type="date"  class="input-medium" name = "passport_expiration_date"  value="<?php echo $row->passport_expiration_date;?>">
-                      <label>Other License Type &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Date Issued</label>
-                          <input type="text" class="input-medium" name ="license_type"  value="<?php echo $row->license_type;?>">
-                          <input type="date"  class="input-medium" name = "license_issue_date"  value="<?php echo $row->license_issue_date;?>">
-                      <label>Place Issued</label>
-                          <input type="text" class="input-medium" name ="license_issue_place"  value="<?php echo $row->license_issue_place;?>">
-                      <label>Expiration Date</label>
-                          <input type="date"  class="input-medium" name = "license_expiration_date"  value="<?php echo $row->license_expiration_date;?>">
-                
-                    </div>
-                     <div class = "pager">
-                        <div class="btn-group">
-                           <button type="submit" class="btn btn-info btn-small">Save changes</button>
-                        </div>
-                      </div>
-                <!-- End of Tab 2 --> 
-                
+                	<h4 class="lighter block green">&nbsp;&nbsp;&nbsp;&nbsp;Accounts</h4>
+                	<div class="control-group">
+                		<label class="control-label" for="sss_no">SSS No.</label>
+                		<div class="controls">
+                			<input type="text" class="input-medium"  id="sss_no" name = "sss_no"  value="<?php echo $row->sss_no;?>">
+                		</div>
+                	</div>
+                	<div class="control-group">
+                		<label class="control-label" for="tin_no">TIN No.</label>
+                		<div class="controls">
+                			<input type="text" class="input-medium"  id="tin_no" name = "tin_no"  value="<?php echo $row->tin_no;?>">
+                		</div>
+                	</div>
+                	<div class="control-group">
+                		<label class="control-label" for="philhealth_no">Philhealth No.</label>
+                		<div class="controls">
+                			<input type="text" class="input-medium"  id="philhealth_no" name = "philhealth_no"  value="<?php echo $row->philhealth_no;?>">
+                		</div>
+                	</div>
+                	<div class="control-group">
+                		<label class="control-label" for="pagibig_no">PAG-IBIG No.</label>
+                		<div class="controls">
+                			<input type="text" class="input-medium"  id="pagibig_no" name = "pagibig_no"  value="<?php echo $row->pagibig_no;?>"> 
+                		</div>
+                	</div>
+               		<div class="hr hr-dotted"></div>
+               		<div class="control-group">
+               			<label class="control-label" for="">Tax Status</label>
+               			<div class="controls">
+	               			<select name = "tax_status" id="" >
+	                          <option disabled = "disabled" selected = "selected" value="">Select Status...</option>
+	                          <option value = "Single" <?php if($row->tax_status=='Single') echo 'selected';?>>Single</option>
+	                          <option value = "Married" <?php if($row->tax_status=='Married') echo 'selected';?>>Married</option>
+	                          <option value = "Head_of_Family" <?php if($row->tax_status=='Head_of_Family') echo 'selected';?>>Head of Family</option>
+	                        </select>             				
+               			</div> 
+               		</div>
+
+               		<div class="control-group">
+               			<label class="control-label">Other License Type</label>
+               			<div class="controls">
+               				<input type="text" class="input-medium" name ="license_type"  value="<?php echo $row->license_type;?>">
+               			</div>
+               		</div>
+               		<div class="control-group">
+               			<label class="control-label">Place Issued</label>
+               			<div class="controls">
+               				 <input type="text" class="input-medium" name ="license_issue_place"  value="<?php echo $row->license_issue_place;?>">
+               			</div>
+               		</div>
+               		<div class="control-group">
+               			<label class="control-label">Date Issue</label>
+               			<div class="controls">
+               				<input type="text"  class="input-medium datepicker" name = "license_issue_date"  value="<?php echo $row->license_issue_date;?>">
+               			</div>
+               		</div>
+
+               	 	<div class="form-actions">
+	                    <button type="submit" class="btn btn-success btn-small">Submit</button>
+	                    <button type="reset" class="btn btn-danger btn-small">Reset</button>
+	                </div>
+
                 <?php endforeach;?>
 				<?php endif; ?>
 				</form>
@@ -548,7 +563,7 @@
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
-
+		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<!-- Autocomplete Countries -->
 
 		<!--ace scripts-->
@@ -564,48 +579,164 @@
 
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">
-		
+		$( document ).ready(function() {
+			var data = $('#personal_acc_form').serialize();
+			console.log(data);
+
+			
+
 			$.extend($.gritter.options, { 
 		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
 				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
 				fade_out_speed: 2000, // how fast the notices fade out
 				time: 1000 // hang on the screen for...
 			});
+			jQuery.validator.addMethod("nameValidation", function(value, element) {
+	          return this.optional(element) || /^[a-z\-.,\s]+$/i.test(value);
+	        }, "Name must not contain special characters except comma, dash and period.");
 
-          $( "form" ).on( "submit", function( event ) {
-			  event.preventDefault();
-			  var sData = $(this).serialize();
-			  //console.log(sData);
-			  var clicked = this;
-			   $.ajax({
-	               url:"<?php echo base_url();?>hris/updatePersonalAcc",
-	                type:'POST',
-	                data:sData,
-	               // dataType:"json",
-	                success:function(result){
-	                //$("#success").show();
-	                //$("#success").attr('class', 'alert alert-success');
-	                //var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
-	               // $("#success").html(output_string);
-	                //$("#result_table").hide();
-	                // location.reload();
-	                 $(clicked).closest('tr').remove();
-	                $.gritter.add({
-						title: 'Human Resource Information Update',
-						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Personal accounts has been updated.',
-						class_name: 'gritter-success gritter-center gritter-light'
-					});
-					
-		            //$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
-		            //$("#personal_info")[0].reset();
-	                $("html, body").animate({ scrollTop: 0 }, "slow");
+			jQuery.validator.addMethod("mobile", function (value, element) {
+	          return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+	        }, "Enter a valid mobile number.");
+			jQuery.validator.addMethod("telephone", function (value, element) {
+		          return this.optional(element) || /^\d{3}\-\d{2}\-\d{2}( x\d{1,6})?$/.test(value);
+		        }, "Enter a valid telephone number.");
+			jQuery.validator.setDefaults({
+	          debug: true,
+	          //success: "valid"
+	        });
+  
+	        $('#personal_acc_form').validate({
+	          ignore:"",
+	          errorElement: 'span',
+	          errorClass: 'help-inline',
+	          focusInvalid: false,
+	          rules: {
+	            sss_no: {
+	              
 
-	                }
+	            }, 
+	            philhealth_no: { 
+	             
 
-	            });
+	            },	
+	            pagibig_no: {
+	             
 
-		});
-			
+	            },
+	            license_type: {
+	             
+	             
+	            },
+	            license_issue_place: {
+	             
+
+	            },
+	          
+	        	
+
+	          },
+	           
+	       
+	          messages: {
+	          	
+	          	sss_no: {
+	              
+
+	            }, 
+	            philhealth_no: { 
+	             
+
+	            },	
+	            pagibig_no: {
+	             
+
+	            },
+	            license_type: {
+	             
+	             
+	            },
+	            license_issue_place: {
+	             
+
+	            },
+	          },
+	      
+	          invalidHandler: function (event, validator) { //display error alert on form submit   
+	            $('.alert-error', $('.login-form')).show();
+	          },
+	      
+	          highlight: function (e) {
+	            $(e).closest('.control-group').removeClass('success').addClass('error');
+	          },
+	      
+	          success: function (e) {
+	            $(e).closest('.control-group').removeClass('error').addClass('success');
+	            $(e).remove();
+	          },
+	       
+	          errorPlacement: function (error, element) {
+	          	//var controls = element.closest('.controls');
+	          	
+ 
+	            if(element.is(':checkbox') || element.is(':radio')) {
+	              var controls = element.closest('.controls');
+	              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+	              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+	            }
+	            else if(element.is('.select2')) {
+	              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+	            }
+	            else if(element.is('.chzn-select')) {
+	              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+	            }
+	            else error.insertAfter(element);
+	          },
+	          showErrors: function(errorMap, errorList) {
+	            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+	              + this.numberOfInvalids()
+	              + " errors, see details below.</div>");
+	              this.defaultShowErrors();
+	          },
+	          submitHandler: function (form) {
+	            console.log('SUBMIT PERSONAL INFORMATION FORM');
+	            submit_form();
+	            //$('input').closest('.control-group').removeClass('success');
+	          },
+	          invalidHandler: function (form) {
+	          	$("html, body").animate({ scrollTop: 0 }, "slow");
+	            
+	          }, 
+
+	        });
+        });
+         
+        var submit_form = function(){
+        	
+		  var sData = $('#personal_acc_form').serialize();
+		  console.log(sData);
+		  var clicked = this;
+		   $.ajax({
+               url:"<?php echo base_url();?>hris/updatePersonalAcc",
+                type:'POST',
+                data:sData,
+               // dataType:"json",
+                success:function(result){
+
+                $.gritter.add({
+					title: 'Human Resource Information Update',
+					text: '<i class="icon-spinner icon-spin green icon-2x"></i> Personal accounts has been updated.',
+					class_name: 'gritter-success gritter-center gritter-light'
+				});
+				
+	            //$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
+	            //$("#personal_info")[0].reset();
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+
+                }
+
+            });
+        }
 		</script>
 		
 	</body>

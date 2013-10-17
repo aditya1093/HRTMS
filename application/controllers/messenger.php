@@ -28,7 +28,7 @@ class Messenger extends CI_Controller {
 
 		$data['user_records'] = $query;
 
-		$this->load->view('chat_view', $data);
+		$this->load->view('beta', $data);
 		//echo $this->session->userdata('sender_id');
 		
 	}

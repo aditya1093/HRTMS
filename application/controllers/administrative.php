@@ -121,7 +121,7 @@ class Administrative extends CI_Controller {
 			$output_string .= "<colgroup>";
 			$output_string .= "<col span=\"1\" style=\"width: 40%;\">";
 			$output_string .= "<col span=\"1\" style=\"width: 60%;\">";
-			$output_string .= "</colgroup>";
+			$output_string .= "</colgroup>"; 
 
 			$output_string .= "<tr><td><h4>Manpower Info</h4></td><td></td></tr>";
 			$output_string .= "<tr><td>Status</td>";
@@ -141,7 +141,7 @@ class Administrative extends CI_Controller {
 			$output_string .= "<tr><td>Remarks :</td>";
 			$output_string .= "<td>".$remarks."</td></tr>";
 			$output_string .= "<tr><td>Documents :</td>";
-			$output_string .= "<td>".$emp_reqdocuments."</td><tr>";
+			$output_string .= "<td>".$emp_reqdocuments."</td><tr>"; 
 			$output_string .= "</table></div>";
 
 			/********************* OUTPUT *************************/

@@ -196,7 +196,7 @@
 					-->
 
 						<li class="green">
-							<a href="messenger">
+							<a href="<?php echo base_url(); ?>messenger">
 								<i class="icon-envelope-alt icon-only"></i> Inbox
 								<span class="badge badge-success"></span>
 							</a>
@@ -204,7 +204,7 @@
 
 						<li class="light-blue user-profile">
 							<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="User's Photo" />
+								<img class="nav-user-photo" src="<?php if($this->session->userdata('image_file')=='') { echo base_url().'assets/avatars/user.jpg'; } else { echo base_url().'assets/avatars/'.$this->session->userdata('image_file');}?>" alt="User's Photo" />
 								<span id="user_info">
 									<small>Welcome,</small>
 									<?php echo $this->session->userdata('username');?>
@@ -214,11 +214,10 @@
 							</a>
 
 							<ul class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer" id="user_menu">
-
 								<li>
-									<a href="#">
-										<i class="icon-user"></i>
-										Profile
+									<a href="<?php echo base_url();?>myprofile">
+										<i class="icon-cog"></i>
+										Settings
 									</a>
 								</li>
 
@@ -404,7 +403,7 @@
 					</li>-->
 
 					<li>
-						<a href="about">
+						<a href="<?php echo base_url(); ?>about">
 							<i class="icon-info"></i>
 							<span>About the Developers</span>
 						</a>
@@ -786,22 +785,40 @@
 		          		required: true,
 		          		phone: true
 		          	},
-		        	username:{
-		          		required: true,
-		          		minlength:6
-		          	},
-		          	password: {
+		        	username: {
 		              required: true,
-		              minlength: 6
+		              minlength:6,
+		              maxlength:20,
+		              alphanumeric:true,
+		              remote: {
+		                url: "<?php echo base_url();?>manage/username_exists",
+		                type: "post",
+		                data: {
+		                  username: function(){ return $("#username").val(); }
+		                }
+		              }
+		            },
+		          	password: {
+		               	required: true,
+		             	minlength: 6,
+		              	maxlength:20,
+		              	alphanumeric:true,
 		            },
 		            password_confirm: {
-		              required: true,
-		              minlength: 6,
-		              equalTo: "#client_password"
+		              	required: true,
+		              	minlength: 6,
+		              	equalTo: "#password"
 		            },
 		            email: {
-		               required: true,
-		               email : true	
+		               	required: true,
+		               	email : true,
+		               	remote: {
+			                url: "<?php echo base_url();?>manage/email_exists",
+			                type: "post",
+			                data: {
+			                  email: function(){ return $("#email").val(); }
+			                }
+			            }
 		            } 
 		          },
 		      
@@ -822,16 +839,18 @@
 
 		            email: {
 		              required: "Please provide a valid email.",
-		              email: "Please provide a valid email."
+		              email: "Please provide a valid email.",
+		              remote: "This email is not available.",
 		            },
-		            client_username: {
-		           	  minlength: jQuery.format("At least {0} characters required.")
+		            username: {
+		           	  minlength: jQuery.format("At least {0} characters required."),
+		           	  remote: "This username is not available.",
 		            },
-		            client_password: {
+		            password: {
 		              required: "Please specify a password.",
 		              minlength: jQuery.format("Please specify a secure password. At least {0} characters required.")
 		            }, 
-		            client_password_confirm: {
+		            password_confirm: {
 		              minlength: jQuery.format("At least {0} characters required.")
 		            }
 		          },

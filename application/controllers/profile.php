@@ -317,6 +317,9 @@ class Profile extends CI_Controller {
 			$id = $this->session->userdata('user_id');
   			$this->profile_model->change_info($id,$data);
   			$success_message = "Changes Successfully";
+
+  			//Register on user_table as well
+  			$this->db->query("UPDATE user_table SET image_file='$file_name' WHERE user_id='$id'");
   		 	//$this->session->set_flashdata('message2',"Changes Successfully"); 
 	       
 	       	$this->session->set_flashdata('success',$success_message); 
@@ -328,6 +331,94 @@ class Profile extends CI_Controller {
 		
 	}
 
+	function change_avatar()
+	{
+		$config['upload_path'] = './assets/avatars/';	
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '';
+		$config['overwrite'] = true;
+		$config['file_name'] = $this->input->post('user_id');
+		//$config['max_width']  = '1024';
+		//$config['max_height']  = '768';
+
+		$this->load->library('upload', $config);
+
+		$this->upload->initialize($config); 
+
+		$id = $this->session->userdata('user_id');
+
+		$this->upload->do_upload();
+
+		$file_name = $config['file_name'].".jpg";
+
+		$data = array(
+			'image_file' => $file_name
+			);
+		
+		$this->db->query("UPDATE user_table SET image_file='$file_name' WHERE user_id='$id'");
+
+		$success_message = "Changes Successfully";
+       
+       	$this->session->set_flashdata('success',$success_message); 
+       	$this->session->set_userdata('image_file', $file_name);
+
+       	redirect(base_url().'myprofile','refresh');
+
+	}
+
+	function change_pass() {
+
+		$oldpassword = md5($this->input->post('old_password'));
+		$newpassword = md5($this->input->post('password'));
+		$id = $this->session->userdata('user_id');
+
+		$q = $this->db->query("SELECT password FROM user_table WHERE user_id='$id'");
+
+		if(md5($q->row()->password) == md5($oldpassword)) {
+
+			$this->db->query("UPDATE user_table SET password='$newpassword' WHERE user_id='$id'");
+			$this->session->set_userdata('password', $newpassword);
+			$this->session->set_flashdata('message', '<div class="alert alert-success">Password successfully changed.</div>'); 
+			redirect(base_url().'myprofile','refresh');
+		}
+		else {
+			$this->session->set_flashdata('message', '<div class="alert alert-danger">Invalid password.</div>'); 
+			redirect(base_url().'myprofile','refresh');
+		}
+
+	}
+
+	function change_email() {
+
+		
+		$password = md5($this->input->post('password'));
+		$email = $this->input->post('email');
+		$id = $this->session->userdata('user_id');
+
+		$q = $this->db->query("SELECT password FROM user_table WHERE user_id='$id'");
+
+		$this->form_validation->set_rules('email', 'email', 'is_unique[user_table.email]');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('message', '<div class="alert alert-warning">Email is existing.</div>'); 
+			redirect(base_url().'myprofile','refresh');
+			return false;
+		}
+
+		if(md5($q->row()->password) == md5($password)) {
+
+			$this->db->query("UPDATE user_table SET email='$email' WHERE user_id='$id'");
+			$this->session->set_userdata('email', $email);
+			$this->session->set_flashdata('message', '<div class="alert alert-success">Email successfully changed.</div>'); 
+			redirect(base_url().'myprofile','refresh');
+		}
+		else {
+			$this->session->set_flashdata('message', '<div class="alert alert-danger">Invalid password.</div>'); 
+			redirect(base_url().'myprofile','refresh');
+		}
+
+	}
 }
 
 /* End of file profile.php */
