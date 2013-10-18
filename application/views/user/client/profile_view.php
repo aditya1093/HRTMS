@@ -1,9 +1,9 @@
-<?php if($this->session->userdata('permission') != 'Trainee') { redirect(base_url() . '404');} ?>
+<?php if($this->session->userdata('permission') != 'Client') { redirect(base_url() . '404');} ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Dashboard - AMI</title>
+		<title>Profile - AMI</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,13 +27,11 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace/ace.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-skins.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
-		<script src="<?php echo base_url();?>assets/js/jquery-latest.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery-barcode.js"></script>
-
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
 		<![endif]-->
@@ -48,7 +46,7 @@
 					<a href="#" class="brand">
 						<small>
 							<img src="<?php echo base_url();?>assets/images/logo.png">
-							AMI - HRTMS Administration
+							AMI - Profile
 						</small>
 					</a><!--/.brand-->
 
@@ -206,7 +204,7 @@
 									<small>Welcome,</small>
 									<?php echo $this->session->userdata('username');?>
 								</span>
-
+ 
 								<i class="icon-caret-down"></i>
 							</a>
 
@@ -241,7 +239,7 @@
 			</a>
 
 			<div id="sidebar">
-				<div id="sidebar-shortcuts">
+				<!-- <div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
 						<button class="btn btn-small btn-success">
 							<i class="icon-signal"></i>
@@ -269,52 +267,25 @@
 
 						<span class="btn btn-danger"></span>
 					</div>
-				</div>
+				</div> -->
 
 				<!--#sidebar-shortcuts-->
 
 				<ul class="nav nav-list">
 					
-					<li class="active">
+					<li class="">
 						<a href="<?php echo base_url();?>dashboard">
 							<i class="icon-bar-chart"></i>
 							<span>Control Panel</span>
 						</a>
 					</li>
 
-					
-					<li>
-						<a href="#" class="dropdown-toggle">
-							<i class="icon-shield"></i>
-							<span>Registration</span>
-
-							<b class="arrow icon-angle-down"></b>
+					<li class="active">
+						<a href="<?php echo base_url();?>Profile">
+							<i class  ="icon-user"></i>
+							<span>Profile</span>
 						</a>
-
-						<ul class="submenu">
-							<li >
-								<a href="<?php echo base_url();?>applicant">
-									<i class="icon-archive"></i>
-									<span>Applicants</span>
-								</a>
-							</li>
-
-							<li>
-								<a href="<?php echo base_url();?>applicant/accept">
-									<i class="icon-user"></i>
-								   	<span>Accept</span>
-								</a>
-							</li>
-						</ul>
 					</li>
-
-					<!--<li>
-						
-						<a href="help">
-							<i class="icon-question-sign"></i>
-							<span>Help</span>
-						</a>
-					</li>-->
 
 					<li>
 						<a href="<?php echo base_url(); ?>about">
@@ -331,7 +302,7 @@
 			</div>
 
 
-		<div id="main-content" class="clearfix">
+			<div id="main-content" class="clearfix">
 				<div id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
@@ -361,7 +332,7 @@
 							Control Panel
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Dashboard
+								Profile
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -369,96 +340,198 @@
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
 						<div class="span12">
+							<?php if(isset($records)) : foreach($records as $row) : ?>
+						<div id="user-profile-2" class="user-profile row-fluid">
+							<div class="tabbable">
+								<ul class="nav nav-tabs padding-18">
+									<li class="active">
+										<a data-toggle="tab" href="http://192.69.216.111/themes/preview/ace/profile.html#home">
+											<i class="green icon-user bigger-120"></i>
+											Profile
+										</a>
+									</li>
+								</ul>
 
+								<div class="tab-content no-border padding-24">
+									<div id="home" class="tab-pane in active">
+										<div class="row-fluid">
+										<!-- 	<div class="span3 center">
+												<span class="profile-picture">
+													<img class="editable" alt="Alex&#39;s Avatar" id="avatar2" src="<?php 
+														if($this->session->userdata('image_file')=='') {
+																echo base_url().'assets/avatars/user.jpg';
+															}
+															else
+															{
+																echo base_url().'assets/avatars/'.$this->session->userdata('image_file');
+															}
+														?>">
+												</span>
+												
+												<div class="width-80 label label-info label-large arrowed-in arrowed-in-right">
+													<div class="inline position-relative">
+														<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+															<i class="icon-circle light-green middle"></i>
+															&nbsp;
+															<span class="white middle bigger-120"><?php 
+
+																$m = $row->middle_name[0];
+
+																echo $row->first_name.' '.$m.'. '.$row->last_name;?></span>
+														</a>
+													</div>
+												</div>
+												<div class="space space-4"></div>
+								
+
+											</div><!--/span--> 
+
+											<div class="span9">
+
+												<div class="profile-user-info">
+													<div class="profile-info-row">
+														<div class="profile-info-name"> Name</div>
+
+														<div class="profile-info-value">
+															<span><?php echo $row->client_name;?></span>
+														</div>
+													</div>
+												
+
+													<div class="profile-info-row">
+														<div class="profile-info-name"> Location </div>
+
+														<div class="profile-info-value">
+															<i class="icon-map-marker light-orange bigger-110"></i>
+															<span><?php echo $row->client_location?></span>
+															<span>PH</span>
+														</div>
+													</div>
+
+													<div class="profile-info-row">
+														<div class="profile-info-name"> Email </div>
+
+														<div class="profile-info-value">
+															<span><?php echo $row->email;?></span>
+														</div>
+													</div>
+
+													<div class="profile-info-row">
+														<div class="profile-info-name"> Phone </div>
+
+														<div class="profile-info-value">
+															<span><i class="icon-phone"></i> <?php echo $row->client_tel;?></span>
+														</div> 
+													</div>
+														<div class="profile-info-row">
+														<div class="profile-info-name"> Mobile </div>
+
+														<div class="profile-info-value">
+															<span><i class="icon-mobile-phone"></i> <?php echo $row->client_mobile;?></span>
+														</div>
+													</div>
+													<div class="profile-info-row">
+														<div class="profile-info-name"> Username</div>
+
+														<div class="profile-info-value">
+															<span><?php echo $row->username;?></span>
+														</div>
+													</div>
+													<div class="profile-info-row">
+														<div class="profile-info-name"> Contact Person</div>
+
+														<div class="profile-info-value">
+															<span><?php echo $this->session->userdata('first_name');?> <?php echo $this->session->userdata('last_name');?></span>
+														
+														</div>
+													</div> 
+												</div>
+
+												<div class="hr hr-8 dotted"></div>
+
+												<div class="profile-user-info">
+													<!-- <div class="profile-info-row">
+														<div class="profile-info-name"> Website </div>
+
+														<div class="profile-info-value">
+															<a href="" target="_blank">www.<?php echo $row->username;?>.com</a>
+														</div>
+													</div>
+
+													<div class="profile-info-row">
+														<div class="profile-info-name">
+															<i class="middle icon-facebook-sign bigger-150 blue"></i>
+														</div>
+
+														<div class="profile-info-value">
+															<a href="">Find me on Facebook</a>
+														</div>
+													</div>
+
+													<div class="profile-info-row">
+														<div class="profile-info-name">
+															<i class="middle icon-twitter-sign bigger-150 light-blue"></i>
+														</div>
+
+														<div class="profile-info-value">
+															<a href="">Follow me on Twitter</a>
+														</div>
+													</div> -->
+
+													<div class="profile-info-row">
+														<div class="profile-info-name">
+															<i class="middle icon-edit bigger-150 light-blue"></i>
+														</div>
+
+														<div class="profile-info-value">
+															<a href="<?php echo base_url();?>myprofile">Edit Account</a>
+														</div>
+													</div>
+												</div>
+											</div><!--/span-->
+										</div><!--/row-fluid-->
+
+										<div class="space-20"></div>
+
+										<!-- <div class="row-fluid">
+											<div class="span12">
+												<div class="widget-box transparent">
+													<div class="widget-header widget-header-small">
+														<h4 class="smaller">
+															<i class="icon-check bigger-110"></i>
+															Little About Me
+														</h4>
+													</div>
+
+													<div class="widget-body">
+														<div class="widget-main">
+															<p>
+																My job is mostly lorem ipsuming and dolor sit ameting as long as consectetur adipiscing elit.
+															</p>
+															<p>
+																Sometimes quisque commodo massa gets in the way and sed ipsum porttitor facilisis.
+															</p>
+															<p>
+																The best thing about my job is that vestibulum id ligula porta felis euismod and nullam quis risus eget urna mollis ornare.
+															</p>
+															<p>
+																Thanks for visiting my profile.
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										
+										</div> -->
+									</div><!--#home-->
+								</div>
+							</div>
+						</div>
+						<?php endforeach;?>
+						<?php endif; ?>
 						
-						<table>
-								<tr>
-
-									<td><h3>Personal Details</h3></td>
-									<td>&nbsp;</td>
-								</tr>
-								
-								<tr>
-									<td>Name: </td>
-									<td><?php echo $this->session->userdata('last_name').", ".$this->session->userdata('first_name')." ".$this->session->userdata('middle_name');?></td>
-								</tr>
-							
-								<tr>
-									<td>Address: </td>
-									<td><?php echo $this->session->userdata('address');?></td>
-								</tr>
-								<tr>
-									<td>Address 2: </td>
-									<?php if($this->session->userdata('address_2') == null) {
-										?>
-											<td><i class="muted">none</i></td>
-									<?php } else { ?>
-											
-											<td><?php echo $this->session->userdata('address_2');?></td>
-									<?php } ?>
-								</tr>
-								<tr>
-									<td>City: </td>
-									<td><?php echo $this->session->userdata('city');?></td>
-								</tr>
-								<tr>
-									<td>State: </td>
-									<td><?php echo $this->session->userdata('state');?></td>
-								</tr>
-								<tr>
-									<td>Country: </td>
-									<td><?php echo $this->session->userdata('country');?></td>
-								</tr>
-								<tr>
-									<td>Address: </td>
-									<td><?php echo $this->session->userdata('address');?></td>
-								</tr>
-								<tr>
-									<td>Zipcode: </td>
-									<td><?php echo $this->session->userdata('zipcode');?></td>
-								</tr>
-								<tr>
-									<td>Phone: </td>
-									<td><?php echo $this->session->userdata('phone');?></td>
-								</tr>
-
-								
-								
-								<tr>
-									<td><h3>Account Details</h3></td>
-									<td>&nbsp;</td>
-								</tr>
-								<tr>
-									<td>Username: </td>
-									<td><?php echo $this->session->userdata('username');?></td>
-								</tr>
-								<tr>
-									<td>Email Address: </td>
-									<td><?php echo $this->session->userdata('email');?></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>&nbsp;</td>
-								</tr>
-								<tr>
-									<td><div class="bcTarget"></div>  </td>
-									<td></td>
-
-								</tr>
-								
-							</table>
-							<p>
-
-							<?php
-								
-								echo '<script type="text/javascript">$(".bcTarget").barcode("';
-								echo $this->session->userdata('id');
-								echo '", "code39");</script>';
-
-							?> 
-						</p>
-						
-
+						</div>
 						<!--PAGE CONTENT ENDS HERE-->
 					</div><!--/row-->
 
@@ -507,73 +580,6 @@
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">
-    
-    	function generateBarcode(){
-        var value = $("#barcodeValue").val();
-        var btype = $("input[name=btype]:checked").val();
-        var renderer = $("input[name=renderer]:checked").val();
-        
-		var quietZone = false;
-        if ($("#quietzone").is(':checked') || $("#quietzone").attr('checked')){
-          quietZone = true;
-        }
 		
-        var settings = {
-          output:renderer,
-          bgColor: $("#bgColor").val(),
-          color: $("#color").val(),
-          barWidth: $("#barWidth").val(),
-          barHeight: $("#barHeight").val(),
-          moduleSize: $("#moduleSize").val(),
-          posX: $("#posX").val(),
-          posY: $("#posY").val(),
-          addQuietZone: $("#quietZoneSize").val()
-        };
-        if ($("#rectangular").is(':checked') || $("#rectangular").attr('checked')){
-          value = {code:value, rect: true};
-        }
-        if (renderer == 'canvas'){
-          clearCanvas();
-          $("#barcodeTarget").hide();
-          $("#canvasTarget").show().barcode(value, btype, settings);
-        } else {
-          $("#canvasTarget").hide();
-          $("#barcodeTarget").html("").show().barcode(value, btype, settings);
-        }
-      }
-          
-      function showConfig1D(){
-        $('.config .barcode1D').show();
-        $('.config .barcode2D').hide();
-      }
-      
-      function showConfig2D(){
-        $('.config .barcode1D').hide();
-        $('.config .barcode2D').show();
-      }
-      
-      function clearCanvas(){
-        var canvas = $('#canvasTarget').get(0);
-        var ctx = canvas.getContext('2d');
-        ctx.lineWidth = 1;
-        ctx.lineCap = 'butt';
-        ctx.fillStyle = '#FFFFFF';
-        ctx.strokeStyle  = '#000000';
-        ctx.clearRect (0, 0, canvas.width, canvas.height);
-        ctx.strokeRect (0, 0, canvas.width, canvas.height);
-      }
-      
-      $(function(){
-        $('input[name=btype]').click(function(){
-          if ($(this).attr('id') == 'datamatrix') showConfig2D(); else showConfig1D();
-        });
-        $('input[name=renderer]').click(function(){
-          if ($(this).attr('id') == 'canvas') $('#miscCanvas').show(); else $('#miscCanvas').hide();
-        });
-        generateBarcode();
-      });
-  
-    </script>
 	</body>
 </html>

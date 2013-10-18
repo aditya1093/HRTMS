@@ -524,6 +524,7 @@
 					<table id="table_employment_history" class="table table-striped table-bordered table-hover">
 	           			<thead>
 	           				<tr>
+	           					<th></th>
 	           					<th>Company</th>
 	           					<th>Location</th>
 	           					<th>Position</th>
@@ -537,6 +538,7 @@
 		              	<?php if(isset($records2)) : foreach($records2 as $row) : ?>
 		              			
 	                			<tr>
+	                				<td><?php echo $row->id;?></td>
 	                				<td><?php echo $row->employment_company_name;?></td>
 	                				<td><?php echo $row->employment_location;?></td>
 	                				<td><?php echo $row->employment_position;?></td>
@@ -555,7 +557,7 @@
 	                				
 		                <?php endforeach;?>
 						<?php endif; ?>
-						</tbody>
+						</tbody> 
 					</table>
 					<small>Page rendered in: {elapsed_time} seconds</small>
 					<div id="employmentDiv" style="display:none">
@@ -766,7 +768,9 @@
 			//datatable initializatino
 			var oTable1 = $('#table_employment_history').dataTable( {
 			"aoColumns": [
+			  { "bVisible" : true}, 
 		    	 null,
+			  }
 			  { "bSortable": false },
 			  { "bSortable": false },
 			  { "bSortable": false },
@@ -792,6 +796,12 @@
   
 			    return $('#to').val() >=  $('#from').val() ;
  
+			}); 
+			$.validator.addMethod('minStrict2', function (value, el, param) {
+				//alert( $('#from').val());
+  
+			    return $('#school_e').val() >=  $('#school_s').val() ;
+ 
 			}); 	 
   
 			jQuery.validator.setDefaults({
@@ -803,7 +813,101 @@
 			var yearNow = d.getFullYear();
 			var yearValid = yearNow - 55;
 
-	        $('#education_form').validate({
+			$('#education_form').validate({
+	          errorElement: 'span',
+	          errorClass: 'help-inline',
+	          focusInvalid: false, 
+	          rules: {
+	            highest_educ: {
+	              required: true,
+	           
+	            },
+	            school: {
+	              required: true,
+	              minlength:2,
+	            },
+	            school_s: {
+	              required: true,
+	              min:2,
+	              max:yearNow
+	            }, 
+	            school_e: {
+	              required: true,
+	              min:2,
+	              minStrict2: true,
+	              max:yearNow
+	            },
+	          	vacancy: {
+	          		required:true
+	          	}
+	          
+
+	          },
+	      
+	          messages: {
+	          	highest_educ: {
+	          		
+	          	},
+	          	school: {
+	          		min: jQuery.format("At least {0} characters required."),
+	          	}, 
+	          	school_s: {
+	          		min: jQuery.format("At least {0} characters required."),
+	       
+	          	}, 
+	          	school_e: {
+	          		min: jQuery.format("At least {0} characters required."),
+	          		minStrict2: "Must be more than or equal the starting year.",
+	          	}, 
+	  			
+	  
+	          },
+	      
+	          invalidHandler: function (event, validator) { //display error alert on form submit   
+	            $('.alert-error', $('.login-form')).show();
+	          },
+	      
+	          highlight: function (e) {
+	            $(e).closest('.control-group').removeClass('success').addClass('error');
+	          },
+	      
+	          success: function (e) {
+	            $(e).closest('.control-group').removeClass('error').addClass('success');
+	            $(e).remove();
+	          },
+	      
+	          errorPlacement: function (error, element) {
+	            if(element.is(':checkbox') || element.is(':radio')) {
+	              var controls = element.closest('.controls');
+	              if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+	              else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+	            }
+	            else if(element.is('.select2')) {
+	              error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+	            }
+	            else if(element.is('.chzn-select')) {
+	              error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+	            }
+	            else error.insertAfter(element);
+	          },
+	          showErrors: function(errorMap, errorList) {
+	            $("#summary").html("<div class=\"alert alert-error\">Your form contains "
+	              + this.numberOfInvalids()
+	              + " errors, see details below.</div>");
+	              this.defaultShowErrors();
+	          },
+	          submitHandler: function (form) {
+	            console.log('SUBMIT EDUCATION FORM');
+	           	submit_form();
+	            //$('input, textarea, select').closest('.control-group').removeClass('success');
+
+	          },
+	          invalidHandler: function (form) {
+	            
+	          },
+
+	        });
+	        $('#employment_form').validate({
 	          errorElement: 'span',
 	          errorClass: 'help-inline',
 	          focusInvalid: false, 
@@ -904,7 +1008,7 @@
 	              this.defaultShowErrors();
 	          },
 	          submitHandler: function (form) {
-	            console.log('SUBMIT DEPENDENT FORM');
+	            console.log('SUBMIT EMPLOYMENT HISTORY FORM');
 	            employment_submit();
 	            $('input').closest('.control-group').removeClass('success');
 
@@ -919,7 +1023,37 @@
 
 
 		});//function End
+	
+		var submit_form = function(){
+			  var sData = $('#education_form').serialize();
+			  console.log(sData);
+			   $.ajax({
+	                url:"<?php echo base_url();?>hris/updateEducation",
+	                type:'POST',
+	                data:sData,
+	                //dataType:"json",
+	               
+	                success:function(result){
+	                //$("#success").show();
+	                //$("#success").attr('class', 'alert alert-success');
+	                //var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
+	               // $("#success").html(output_string);
+	                //$("#result_table").hide();
+	                // location.reload();
+	                $.gritter.add({ 
+						title: 'Human Resource Information Update',
+						text: '<i class="icon-spinner icon-spin green icon-2x"></i> Background Education has been updated.',
+						class_name: 'gritter-success gritter-center gritter-light'
+					});
+					console.log(result);
+		            //$('#personal_info').load('<?php echo base_url();?>Hris/personal_info');
+		            //$("#personal_info")[0].reset();
+	                $("html, body").animate({ scrollTop: 0 }, "slow");
 
+	                }
+
+	            });
+		}
 		var employment_submit = function(){
 			  this.disabled = 'true';
 			  var sData = $('#employment_form').serialize();
@@ -969,6 +1103,8 @@
 	            });//Ajax Request End
 		
 		}
+
+
 	    </script>
 		
 

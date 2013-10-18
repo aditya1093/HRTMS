@@ -21,10 +21,20 @@ class Attendance extends CI_Controller {
 			$this->load->view('user/training/attendance_view',$data);
 		}
 		else {
-   
+   			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}	
 	}
+
+// 	function present_applicant(){
+
+// 		$data = array(
+//  			   'name' => $name,
+//     			'email' => $email
+// );
+
+// 		$this->
+// 	}
 
 	
 

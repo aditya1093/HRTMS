@@ -543,7 +543,7 @@
 											else{
 												$stat ="<button onclick=\"status_dialog('$stat')\" id=\"status_update\" value=\"$stat\" class=\"btn btn-mini btn-\">Invalid Status</button>";
 											}
-										?>
+										?> 
 										<form method="post" id="edit_client" action="<?php echo base_url();?>client/edit_info/<?php echo $row->user_id;?>">
 											<label for="client_name" >Name : <?php echo $row->client_name?></label>
 											<input id="client_name" value="<?php echo $row->client_name;?>" type="hidden">

@@ -262,16 +262,13 @@
 													<div class="span3 center">
 														<span class="profile-picture">
 															<img class="editable" alt="Avatar" style="height:226px;width:226px;" id="avatar2" src="<?php 
-																		$link = $row->image_url;
-																		$filename = './assets/avatars/$link';
-																		$path2 = base_url()."assets/images/profile-pic.jpg";
-																		$path = base_url()."assets/avatars/$link";
-																if ($link != "") {
-																	echo $path;
-																}
-																else{
-																	echo $path2;
-																}
+																		if($this->session->userdata('image_file')=='') {
+																			echo base_url().'assets/avatars/user.jpg';
+																		}
+																		else
+																		{
+																			echo base_url().'assets/avatars/'.$this->session->userdata('image_file');
+																		}
 															 ?>">
 														</span>
 														
@@ -450,18 +447,14 @@
 
 								?> 
 							<div class="profile-picture "><img class="editable" alt="Avatar" style="height:226px;width:226px;" id="avatar2" src="<?php 
-																		$link = $row->image_url;
-																		$filename = './assets/avatars/$link';
-																		$path2 = base_url()."assets/images/profile-pic.jpg";
-																		$path = base_url()."assets/avatars/$link";
-																if ($link != "") {
-																	echo $path;
-																}
-																else{
-																	echo $path2;
-																}
-															 ?>
-								">
+														if($this->session->userdata('image_file')=='') {
+															echo base_url().'assets/avatars/user.jpg';
+														}
+														else
+														{
+															echo base_url().'assets/avatars/'.$this->session->userdata('image_file');
+														}
+													?>">
 							</div>
 							
 						</span>	<address class="pull-left" style="margin-left:50px">
@@ -484,7 +477,7 @@
 					
 					<div class="space-20"></div><div class="space-20"></div><div class="space-20"></div><div class="space-20"></div><div class="space-20"></div>
 					
-					<div class="span9">
+					<div class="span">
 
 						<div class="profile-user-info" style="width:50%">
 							<div class="profile-info-row">
@@ -566,8 +559,8 @@
 						<div class="space-20"></div>
 						
 						<footer>
-									<p class="pull-left">&copy; <a href="" target="_blank">Alliance Mansols Incorporated</a> 2013</p>
-									<p class="pull-right">Powered by: <a href="">TDC</a></p>
+							<p class="pull-left">&copy; <a href="" target="_blank">Alliance Mansols Incorporated</a> 2013</p>
+							<p class="pull-right">Powered by: <a href="">TDC</a></p>
 						</footer>
 
 					</div><!--/span-->
@@ -602,15 +595,7 @@
 
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/style-editable.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/bootstrap-editable.min.js"></script>
 	
 

@@ -26,7 +26,7 @@ class Examination extends CI_Controller {
 			
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}	
 
@@ -153,7 +153,7 @@ class Examination extends CI_Controller {
 			}
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}
 
@@ -331,6 +331,8 @@ class Examination extends CI_Controller {
 				if($ans == $row->key_answer) {
 
 					//echo "Your answer on question no. ".$c." is correct\n";
+					$this->item_record(1, 1, $j);
+
 					$d++;
 
 					//do something
@@ -338,6 +340,7 @@ class Examination extends CI_Controller {
 				else {
 
 					//echo "Your answer on question no. ".$c." is wrong\n";
+					$this->item_record(0, 1, $j);
 				}
 
 			}
@@ -350,11 +353,13 @@ class Examination extends CI_Controller {
 				if(trim($ans) == trim($row->key_answer)) {
 
 					//echo "Your answer on question no. ".$c." is correct\n";
+					$this->item_record(1, 1, $j);
 					$d++;
 				}
 				else {
 
 					//echo "Your answer on question no. ".$c." is wrong\n";
+					$this->item_record(0, 1, $j);
 				}
 			}
 
@@ -378,6 +383,11 @@ class Examination extends CI_Controller {
 			echo "true";
 		}
 		
+	}
+
+	function item_record($correct = 0, $taker = 1, $id) {
+
+		$this->db->query('UPDATE questions SET no_got_correct = no_got_correct + '.$correct.', no_of_takers = no_of_takers + '.$taker.' WHERE question_id="'.$id.'"');
 	}
 
 	function _cheat() {

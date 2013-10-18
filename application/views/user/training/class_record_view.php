@@ -51,142 +51,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<!--<li class="grey">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-tasks"></i>
-								<span class="badge badge-grey">4</span>
-							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-ok"></i>
-									4 Tasks to complete
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 1</span>
-											<span class="pull-right">65%</span>
-										</div>
-
-										<div class="progress progress-mini ">
-											<div style="width:65%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 2</span>
-											<span class="pull-right">35%</span>
-										</div>
-
-										<div class="progress progress-mini progress-danger">
-											<div style="width:35%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 3</span>
-											<span class="pull-right">15%</span>
-										</div>
-
-										<div class="progress progress-mini progress-warning">
-											<div style="width:15%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Task 4</span>
-											<span class="pull-right">90%</span>
-										</div>
-
-										<div class="progress progress-mini progress-success progress-striped active">
-											<div style="width:90%" class="bar"></div>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										See tasks with details
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="purple">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-bell-alt icon-only icon-animated-bell"></i>
-								<span class="badge badge-important">8</span>
-							</a>
-
-							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
-								<li class="nav-header">
-									<i class="icon-warning-sign"></i>
-									8 Notifications
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-pink icon-comment"></i>
-												New Comments
-											</span>
-											<span class="pull-right badge badge-info">+12</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<i class="btn btn-mini btn-primary icon-user"></i>
-										Bob just signed up as an editor ...
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-success icon-shopping-cart"></i>
-												New Members
-											</span>
-											<span class="pull-right badge badge-success">+8</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-info icon-twitter"></i>
-												Followers
-											</span>
-											<span class="pull-right badge badge-info">+11</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										See all notifications
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>-->
+						
 
 						<li class="green">
 							<a href="<?php echo base_url(); ?>messenger">
@@ -378,17 +243,49 @@
 						<!--PAGE CONTENT STARTS HERE-->
 
 						<div class="span8">
+							
+							<?php echo $this->session->flashdata('message')?>
 							<div class="widget-box">
 								<div class="widget-header">
 									<h4 class="smaller">
 										Examination Scores
 										<small>Performance Assessment</small>
 									</h4>
+
+									<div class="widget-toolbar no-border">
+										<ul class="nav nav-tabs" id="myTab">
+											<li class="active">
+												<a data-toggle="tab" href="#passers"><i class="icon-ok green"></i> Passers</a>
+											</li>
+
+											<li>
+												<a data-toggle="tab" href="#fail"><i class="icon-remove red"></i> For Removal Exam</a>
+											</li>
+
+											
+										</ul>
+									</div>
 								</div>
 
 								<div class="widget-body">
-									<div class="widget-main">
-										<div id="result_table"></div>
+									<div class="widget-main padding-6">
+										<div class="tab-content">
+											<div id="passers" class="tab-pane in active">
+												<div class="alert alert-success">
+													<i class="icon-info"></i> Select batch to view examination scores.
+												</div>
+												<div id="result_table"></div>
+											</div>
+
+											<div id="fail" class="tab-pane">
+												<div class="alert alert-success">
+													<i class="icon-info"></i> Select batch to view examination scores.
+												</div>
+												<div id="result_table2"></div>
+											</div>
+
+											
+										</div>
 									</div>
 								</div>
 							</div>
@@ -396,7 +293,7 @@
 
 						<div class="span4">
 							<div class="widget-box">
-								<div class="widget-header">
+								<div class="widget-header header-color-dark">
 									<h4 class="smaller">
 										Summary
 										<small>Finished Tests</small>
@@ -407,13 +304,13 @@
 									<div class="widget-main">
 										<form class="form-inline" method="POST" action="">
 		
-											<label for="batch">Batch :</label>
+											Batch :<br>
 											<select class="chzn-select" id="batch" name="batch">
 													<option selected></option>
-												<?php if(isset($records2)) : foreach($records2 as $row) : ?>
-													<option value="<?php echo $row->batch_id;?>"><?php echo $row->batch_id;?></option>
-												<?php endforeach;?>
-												<?php endif; ?>
+													<?php if(isset($records2)) : foreach($records2 as $row) : ?>
+														<option value="<?php echo $row->batch_id;?>"><?php echo $row->batch_id;?></option>
+													<?php endforeach;?>
+													<?php endif; ?>
 											</select><br><br>
 													
 										<div id="exam_set"></div>
@@ -504,6 +401,7 @@
 			})
 
   		var exam_id = function(){
+
         	 $('#exam').change(function () {
                 var exam_id =  $(this).find("option:selected").attr('value');
                 var batch =  $('#batch').find("option:selected").attr('value');
@@ -525,7 +423,29 @@
                         $('#result_table').html(output_string);
                         var oTable1 = $('#table_report').dataTable( {
 						"aoColumns": [
-					      null, null,null,
+					      null, null,
+						  { "bSortable": false }
+						] } );
+                       
+                    } 
+                });
+				
+				$.ajax({    
+                    url: "<?php echo base_url();?>class_record/removalQueue", //The url where the server req would we made.
+                    async: false, 
+                    type: "POST", //The type which you want to use: GET/POST
+                    data: {id : exam_id, batch : batch, name : name}, //The variables which are going.
+                    dataType: 'json', //Return data type (what we expect).
+                     
+                    //This is the function which will be called if ajax call is successful.
+                    success: function(output_string) {
+                        //data is the html of the page where the request is made.
+                        //alert(selState); 
+                        console.log(output_string);
+                        $('#result_table2').html(output_string);
+                        var oTable1 = $('#table_report2').dataTable( {
+						"aoColumns": [
+					      null, null,
 						  { "bSortable": false }
 						] } );
                        

@@ -17,7 +17,7 @@ class Training extends CI_Controller {
 		$this->load->view('trainee/trainee_view',$data);
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}	
 	}

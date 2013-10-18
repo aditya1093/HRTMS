@@ -199,6 +199,7 @@
                     <li>Diploma</li>
                     <li>Form - 137 for Undergraduate</li>
                     <li>Transcript of Record for Graduate</li>
+                    <li>Additional documents from the available vacancy. <a href="<?php echo base_url();?>registration/vacancy">Click here.</a></li>
                     </ul>
                      
                   </div>

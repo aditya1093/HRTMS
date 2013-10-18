@@ -11,59 +11,105 @@ class Hris extends CI_Controller {
 
 	public function personal_info()
 	{
-		$id = $this->session->userdata('user_id');
+
+		
+		if($this->session->userdata('is_logged_in'){
+			$id = $this->session->userdata('user_id');
 			//$this->load->model('hris_model');
-		$query = $this->hris_model->profile_trainee($id);
-		$data['records'] = $query;
-		$this->load->view('user/trainee/personal_info',$data);
+			$query = $this->hris_model->profile_trainee($id);
+			$data['records'] = $query;
+			$this->load->view('user/trainee/personal_info',$data);
+		}
+		else
+		{
+			$this->session->set_userdata('login_type', 'candidate');
+			$this->load->view('login_view_training');
+		}
+	
 	}
 	public function personal_accounts()
 	{
-		$id = $this->session->userdata('user_id');
+		
+		if($this->session->userdata('is_logged_in'){
+			$id = $this->session->userdata('user_id');
 			//$this->load->model('hris_model');
-		$query = $this->hris_model->profile_trainee($id);
-		$data['records'] = $query;
-		$this->load->view('user/trainee/personal_acc',$data);
+			$query = $this->hris_model->profile_trainee($id);
+			$data['records'] = $query;
+			$this->load->view('user/trainee/personal_acc',$data);
+		}
+		else
+		{
+			$this->session->set_userdata('login_type', 'candidate');
+			$this->load->view('login_view_training');
+		}
+		
 	}
 	public function marital_info()
 	{
-		$id = $this->session->userdata('user_id');
+		
+		if($this->session->userdata('is_logged_in'){
+			$id = $this->session->userdata('user_id');
 			//$this->load->model('hris_model');
-		$query = $this->hris_model->profile_trainee($id);
-		$data['records'] = $query;
-		$query2 = $this->hris_model->marital_info($id); 
-		$data['records2'] = $query2;
+			$query = $this->hris_model->profile_trainee($id);
+			$data['records'] = $query;
+			$query2 = $this->hris_model->marital_info($id); 
+			$data['records2'] = $query2;
 
-		$query3 = $this->hris_model->civilStatus($id); 
-		$data['records3'] = $query3;
+			$query3 = $this->hris_model->civilStatus($id); 
+			$data['records3'] = $query3;
 
-		$this->load->view('user/trainee/marital_info',$data);
+			$this->load->view('user/trainee/marital_info',$data);
+		}
+		else
+		{
+			$this->session->set_userdata('login_type', 'candidate');
+			$this->load->view('login_view_training');
+		}
+	
 	}
 	public function educational_background()
 	{
-		$id = $this->session->userdata('user_id');
+		
+		if($this->session->userdata('is_logged_in'){
+			$id = $this->session->userdata('user_id');
 			//$this->load->model('hris_model');
-		$query = $this->hris_model->profile_trainee($id);
-		$data['records'] = $query;
-		$query2 = $this->hris_model->employment_history($id);
-		$data['records2'] = $query2;
+			$query = $this->hris_model->profile_trainee($id);
+			$data['records'] = $query;
+			$query2 = $this->hris_model->employment_history($id);
+			$data['records2'] = $query2;
 
-		$this->load->view('user/trainee/educational_background',$data);
-	}
+			$this->load->view('user/trainee/educational_background',$data);
+		}
+		else
+		{
+			$this->session->set_userdata('login_type', 'candidate');
+			$this->load->view('login_view_training');
+		} 
+		
+	} 
 	public function others()
 	{
-		$id = $this->session->userdata('user_id');
-		//Dependent Table
-		$query = $this->hris_model->dependent($id);
-		$data['records'] = $query;
-		//Beneficiary Table
-		$query2 = $this->hris_model->beneficiary($id);
-		$data['records2'] = $query2;
-		//Beneficiary Table
-		$query3 = $this->hris_model->character_reference($id);
-		$data['records3'] = $query3;
+		
+		if($this->session->userdata('is_logged_in'){
+			//Dependent Table
+			$query = $this->hris_model->dependent($id);
+			$data['records'] = $query;
+			//Beneficiary Table
+			$query2 = $this->hris_model->beneficiary($id);
+			$data['records2'] = $query2;
+			//Beneficiary Table
+			$query3 = $this->hris_model->character_reference($id);
+			$data['records3'] = $query3;
 
-		$this->load->view('user/trainee/others',$data);
+			$this->load->view('user/trainee/others',$data);
+		}
+		else
+		{
+			$this->session->set_userdata('login_type', 'candidate');
+			$this->load->view('login_view_training');
+		}
+		$id = $this->session->userdata('user_id');
+	
 	}
 
 

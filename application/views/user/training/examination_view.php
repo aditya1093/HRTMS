@@ -931,7 +931,7 @@
 							//"bVisible": false,
 							"bSortable": false,
 							"fnRender": function (o) {
-
+									
 		                    return '<div class="btn-group"><button onClick="activate_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-purple" id=' + o.aData['examination_id'] + '>' + '<i class="icon-time icon-white"></i>  Toggle Exam' + '</button> '+
 		                    '<button onClick="edit_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-success" id=' + o.aData['examination_id'] + '>' + '<i class="icon-edit icon-white"></i>  Edit' + '</button> '+
 		                    '<button onClick="rename_exam(' + o.aData['examination_id'] + ')" class="btn btn-small btn-info" id=' + o.aData['examination_id'] + '>' + '<i class="icon-pencil icon-white"></i>  ' + '</button> '+

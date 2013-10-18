@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Attendace - AMI</title>
+		<title>Attendance - AMI</title>
 
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -373,7 +373,7 @@
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
-							Attendace Checker
+							Attendance Checker
 							<small>
 								<i class="icon-double-angle-right"></i>
 								Class Management
@@ -400,7 +400,7 @@
 											<div class="alert alert-success"><b>Heads Up!</b> You can use a barcode reader for attendance checking.</div>
 											<div class="widget-main">
 												
-													<input autofocus type="text" style="width:95%">
+													<input id="trainee_id" autofocus type="text" style="width:95%">
 													<button class="btn btn-success btn-block btn-small"><i class="icon-check"></i> Mark As Present</button>
 												
 											</div>

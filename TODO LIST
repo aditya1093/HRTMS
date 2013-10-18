@@ -240,11 +240,11 @@ manual/cd
 
 
 /*$.ajax({
-						url: "http://192.168.0.222/HRTMS/_cheat",
-						type: "post",
-						success: function(e) {
-							console.log(e);
-							$('#view').html(e);
-							showDialog(e);
-						}
-					});*/
+	url: "http://192.168.0.222/HRTMS/_cheat",
+	type: "post",
+	success: function(e) {
+		console.log(e);
+		$('#view').html(e);
+		showDialog(e);
+	}
+});*/

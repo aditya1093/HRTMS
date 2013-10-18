@@ -9,6 +9,7 @@ class Class_Record extends CI_Controller {
 	function index() {
 		//check kung naka-login
 		if($this->session->userdata('is_logged_in')) {
+
 			$this->load->model('report_model');
 			$query2 = $this->report_model->exam_set_batch();
 			$data['records2'] = $query2;
@@ -16,7 +17,7 @@ class Class_Record extends CI_Controller {
 			$this->load->view('user/training/class_record_view',$data);
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}	
 	}
@@ -53,7 +54,8 @@ class Class_Record extends CI_Controller {
     }
 
 	
-    function gradesheetByExamId(){
+    function gradesheetByExamId() {
+
     	$exam_id = $this->input->post('id');
     	$batch = $this->input->post('batch');
     	$exam_name = $this->input->post('name');
@@ -86,25 +88,24 @@ class Class_Record extends CI_Controller {
                                 <th class='center'>
                                     Scores
                                 </th>
-                                <th  class='center'>
+                                <!--<th  class='center'>
                                     Status
-                                </th>
+                                </th>-->
                             </tr> 
                             </thead>        
                     ";  
             $str .= "<tbody>"; 
-			   foreach ($query->result() as $row)
-			   {
-			     	
-			   		$str .= "<tr> 
-	                            <td> $row->trainee_id</td>
-	                            <td> $row->last_name, $row->first_name $row->middle_name</td>
-	                            <td class='center'> $row->score/$row->over</td>
-	                            <td class='center'> ". strtoupper($row->status)."</td>
-	                        </tr>";
-			   
-			  
+		   	foreach ($query->result() as $row)
+		   	{
+		     	
+		   		$str .= "<tr> 
+                            <td> $row->trainee_id</td>
+                            <td> $row->last_name, $row->first_name $row->middle_name</td>
+                            <td class='center'> $row->score/$row->over</td>
+                            <!--<td class='center'> ". strtoupper($row->status)."</td>-->
+                        </tr>";
 			}
+
 			$str .= "</tbody></table>";
 			
 		}
@@ -113,6 +114,77 @@ class Class_Record extends CI_Controller {
 			$str .= "NO RESULT";
 		}
 		echo json_encode($str);
+    }
+
+    function removalQueue() {
+
+    	$exam_id = $this->input->post('id');
+    	$batch = $this->input->post('batch');
+    	$exam_name = $this->input->post('name');
+    	//echo json_encode($exam_id);
+
+
+    	$this->db->select('hris.trainee_id ,hris.first_name, hris.last_name, hris.middle_name, gradesheet.score, gradesheet.over, gradesheet.status');
+    	$this->db->from('hris');
+    	$this->db->join('gradesheet', 'hris.trainee_id = gradesheet.trainee_id');
+        $this->db->where('gradesheet.exam_id',$exam_id);
+        $this->db->where('gradesheet.status','FAILED');
+        $query = $this->db->get();
+
+      	/*  $query = $this->db->query('select hris.trainee_id ,hris.first_name, hris.last_name, hris.middle_name, gradesheet.score, gradesheet.over, gradesheet.status 
+        	from hris inner join gradesheet on hris.trainee_id = gradesheet.trainee_id where exam_id = '.$exam_id .'where status = "PASSED"');
+        *///$this->db->order_by("hris.trainee_id", "asc"); 
+        //
+        $str = "";
+        $b = encrypt($batch);
+        if ($query->num_rows() > 0)
+		{	
+			$str .= "<a class='btn btn-danger btn-small' style='margin-bottom:10px;' href='class_record/retake?bid=$b'>Perform One-Time Removal Exam</a>";
+			$str .= "  <table class='table table-striped table-bordered' id='table_report2' > 
+                            <thead>
+                            <tr>
+                                <th class='center'>
+                                    Training ID
+                                </th>
+                                <th class='center'> Name
+                                </th>
+                                <th class='center'>
+                                    Scores
+                                </th>
+                                <!--<th  class='center'>
+                                    Status
+                                </th>-->
+                            </tr> 
+                            </thead>        
+                    ";  
+            $str .= "<tbody>"; 
+		   	foreach ($query->result() as $row)
+		   	{
+		     	
+		   		$str .= "<tr> 
+                            <td> $row->trainee_id</td>
+                            <td> $row->last_name, $row->first_name $row->middle_name</td>
+                            <td class='center'> $row->score/$row->over</td>
+                            <!--<td class='center'> ". strtoupper($row->status)."</td>-->
+                        </tr>";
+			}
+
+			$str .= "</tbody></table>";
+			
+		}
+		else
+		{
+			$str .= "NO RESULT";
+		}
+		echo json_encode($str);
+    }
+
+    function retake() {
+
+    	$bid = decrypt($this->input->get("bid"));
+    	$r = $this->db->query("DELETE FROM gradesheet WHERE batch_id='$bid' AND status='failed'");
+    	$this->session->set_flashdata('message', '<div class="alert alert-info"><i class="icon-spin icon-spinner"></i> Removal Exam is now available.</div>');
+    	redirect(base_url().'class_record','refresh');
     }
 }
 

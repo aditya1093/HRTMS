@@ -52,7 +52,7 @@ class Dashboard extends CI_Controller {
 	        	$this->session->set_userdata("show_exam","1");
 
 	        }
-	        else {
+	        else { 
 
 	        	$this->session->unset_userdata("take_exam_id");
 	        	$this->session->set_userdata("show_exam","0");
@@ -61,7 +61,7 @@ class Dashboard extends CI_Controller {
 
 	        $is_took = $this->examination_model->check_gradesheet($id, $b_id, $this->input->get("take_exam"));
 	        
-	        if($is_took==0) {
+	        if($is_took == 0) {
 
 	        	$this->session->set_userdata("is_taken","0");
 	        }
@@ -77,15 +77,26 @@ class Dashboard extends CI_Controller {
 	        $data["modules"] = $this->module_model->list_company_module();
 
 			$this->load->view('User/trainee/dashboard_view',$data);
+
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Applicant') {
-			
-			$this->load->view('User/Applicant/dashboard_view');
+			$id = $this->session->userdata('user_id');
+			$this->load->model('profile_model');
+			$query = $this->profile_model->incDocuments($id);
+			if($query){
+				$data['records'] = $query;
+				//echo "Meron";
+			}
+			else
+			{
+				$data = "";
+			} 
+			$this->load->view('User/Applicant/dashboard_view',$data);
 		}
 		else {
 
 			$data = 0 ;
-    		$this->load->view('login_view', $data);
+    		$this->load->view('index', $data);
 		}
 		
 	}

@@ -223,16 +223,13 @@
 												<span class="profile-picture">
 													<img class="editable" alt="Alex&#39;s Avatar" id="avatar" style="height:226px;width:226px;" 
 													src="<?php 
-																$link = $row->image_url;
-																$filename = './assets/avatars/$link';
-																$path2 = base_url()."assets/images/profile-pic.jpg";
-																$path = base_url()."assets/avatars/$link";
-														if ($link != "") {
-															echo $path;
-														}
-														else{
-															echo $path2;
-														}
+																if($this->session->userdata('image_file')=='') {
+																			echo base_url().'assets/avatars/user.jpg';
+																		}
+																		else
+																		{
+																			echo base_url().'assets/avatars/'.$this->session->userdata('image_file');
+																		}
 													 ?>">
 												</span>	
 											
@@ -243,10 +240,9 @@
 															&nbsp;
 															<span class="white middle bigger-120"><?php 
 
-																$mid = $row->middle_name;
+															$mid = $row->middle_name;
 															if($mid != null)	{$m = $row->middle_name[0].'.';} else { $m = $mid;}
 																
-
 																echo $row->first_name.' '.$m.' '.$row->last_name;?></span>
 														</a>
 													</div>

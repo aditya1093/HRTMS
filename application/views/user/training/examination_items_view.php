@@ -391,18 +391,26 @@
 
 					<div class="row-fluid">
 						<!--PAGE CONTENT STARTS HERE-->
-
+						
 						<div class="span<?php if($this->session->userdata("editable") == '1') { echo 8; } else { echo 12;}?>">
+
 							<div class="widget-box">
 								<div class="widget-header">
 									<h4 class="smaller">
 										Examination Items
 										<small>Test Modules</small>
 									</h4>
+									<div>
+					                  
+					                </div>
+					                <div class="widget-toolbar">
+										<a href="<?php echo base_url()?>examination"><i class="icon-reply"></i> Back</a>
+									</div>
 								</div>
 
 								<div class="widget-body">
 									<div class="widget-main">
+
 										<div class="loader">
 											<h4 align="center" class="smaller lighter grey">
 												<i class="icon-spinner icon-spin orange bigger-125"></i>
@@ -410,6 +418,7 @@
 												<small></small>
 											</h4>
 										</div>
+
 										<table id="item_table" class="table table-striped table-bordered">
 											<thead>
 												<tr>
@@ -608,6 +617,10 @@
 	
 			});
 
+			var scrolltop = function() {
+
+				$("html, body").animate({scrollTop:0});
+			}
 
 			
 			/********************** SAVE ADDING SETTINGS STATE ************************/
@@ -855,11 +868,60 @@
 					//obj[i].module_name
 
 					str += '<div class="pull-right">';
-					
+
+					var percent = 0;
+					var no_got_correct = parseInt(obj[i].no_got_correct,10);
+					var no_of_takers = parseInt(obj[i].no_of_takers,10);
+					var percent = (no_got_correct/no_of_takers)*100;
+
+					/*if(percent==0) {
+
+						str += '<small style="color:#ccc;">[Not yet answered]</small><br>';
+					}
+					else {
+
+						if(isNaN(percent)) {
+
+							str += '<small style="color:#ccc;">[Not yet answered]</small><br>';
+						} 
+						else {
+
+							var arrow = '';
+							if(percent > 50) {
+								
+								arrow = 'icon-arrow-up';
+							}
+							else {
+
+								arrow = 'icon-arrow-down';
+							}
+
+							str += '<small class=""><i class="'+arrow+' green"></i> '+percent+'% takers got correct</small><br>';
+						}
+					}*/
+					if(obj[i].percent!=null) {
+
+						var arrow = '';
+						if(parseInt(obj[i].percent) > 50) {
+							
+							arrow = 'icon-arrow-up green';
+						}
+						else {
+
+							arrow = 'icon-arrow-down red';
+						}
+
+						str += '<small class=""><i class="'+arrow+'"></i> '+obj[i].percent+'% of '+no_of_takers+' trainees got correct</small><br>';
+						
+					}
+					else {
+
+						str += '<small style="color:#ccc;">[Not yet answered]</small><br>';
+					}
 					<?php if($this->session->userdata("editable") == '1') {?>
 
 						str += '<button id="'+obj[i].question_id+'" class="close" onclick="delete_item('+obj[i].question_id+')"><i class="icon-remove"></i></button> ';
-						str += '<button id="'+obj[i].question_id+'" class="btn-edit close"><i class="icon-pencil"></i></button> ';
+						str += '<button id="'+obj[i].question_id+'" class="btn-edit close" onclick="scrolltop()"><i class="icon-pencil"></i></button> ';
 					
 					<?php } else {?>
 
@@ -867,7 +929,7 @@
 
 					<?php }?>
 					
-		   			
+
 					str += '</div>';
 					str += '<p id="q'+obj[i].question_id+'">'+obj[i].question+'</p>';
 
@@ -974,7 +1036,7 @@
 							if($.trim(text_array[i])=="") {
 								//gritter
 								alert("Please fill the answers!");
-								return;
+								return false;
 							}
 
 							answers += $.trim(text_array[i]) + separator;
@@ -999,7 +1061,7 @@
 							if(l=="") {
 
 								alert("Please specify the correct answer!");
-							    return;
+							    return false;
 							}
 						}
 						//arrange
@@ -1019,7 +1081,7 @@
 							if(m=="") {
 
 								alert("Please specify the correct answer!");
-							    return;
+							    return false;
 							}
 						}
 						//multiple choice
@@ -1030,7 +1092,7 @@
 							if (!$("#choices:checked").val()) {
 
 							    alert("Please specify the correct answer!");
-							    return;
+							    return false;
 							}
 						}
 
@@ -1040,7 +1102,7 @@
 
 						no_of_choices = 2;
 						answers = "true" + separator + "false";
-						key_answer = $("#tf").val();
+						key_answer = $("input[name='tf']:checked").val();
 					}
 					//identification
 					else if($(".item_type").val() == 3) {
@@ -1052,7 +1114,7 @@
 						if($.trim(key_answer)=="") {
 
 							alert("Please enter the correct answer!");
-							return;
+							return false;
 						}
 
 					}
@@ -1067,19 +1129,27 @@
 					if($(".item_type").val()==0) {
 										
 						alert("Please select the type of question!");	
-						return;	
+						return false;	
 					}
 					if($.trim(question)=="") {
 
 						alert("Please enter a question!");
-						return;
+						return false;
 					}
+
+					return true;
 				}
+
 
 				$(".add_item").click(function(){
 
-					strip_item();
+					//strip_item();
 					//send data
+					
+
+					
+					if(!strip_item()) return false;
+
 					var request = $.ajax({
 			        	url: "<?php echo base_url();?>examination/add_item",
 			        	type: 'POST',
@@ -1134,9 +1204,10 @@
 
 				$(".edit_item").click(function() {
 					
-
-					strip_item();
 					//send data
+
+					if(!strip_item()) return false;
+					
 					var request = $.ajax({
 			        	url: "<?php echo base_url();?>examination/edit_item",
 			        	type: 'POST',
@@ -1157,7 +1228,7 @@
 			        	console.log(response);
 						reset_field(1);	
 
-						
+
 				    });
 
 				    setTimeout(function() {

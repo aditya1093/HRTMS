@@ -143,17 +143,17 @@ class Registration extends CI_Controller {
 	} 
 
 	function vacancy(){
-		if($this->session->userdata('is_logged_in')) {
+		/*if($this->session->userdata('is_logged_in')) {
 
 			redirect(base_url() . 'dashboard');
 		}
-		else {
+		else {*/
 
 			$this->load->model('register_model');
 			$data['records'] = $this->register_model->getRequestInfo();
 			//var_dump($data['records']);
-			$this->load->view('registration/vacancy',$data);
-		}
+			$this->load->view('registration/vacancy',$data); 
+		//}
 	}
 
  

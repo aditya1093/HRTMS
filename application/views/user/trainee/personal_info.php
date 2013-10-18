@@ -446,7 +446,7 @@
 	 
 	                        <div class="controls">
 	                          <div class="span12">
-	                            <input type="text" name="first_name" id="first_name" class="span6" value="<?php echo $row->first_name;?>"/>
+	                            <input type="text" name="first_name" id="first_name" class="span6" value="<?php echo $row->first_name;?>" readonly/>
 	                          </div>
 	                        </div>
 	                    </div>
@@ -455,7 +455,7 @@
 
 	                        <div class="controls">
 	                          <div class="span12">
-	                            <input type="text" name="last_name" id="last_name" class="span6" value="<?php echo $row->last_name;?>" />
+	                            <input type="text" name="last_name" id="last_name" class="span6" value="<?php echo $row->last_name;?>" readonly />
 	                          </div>
 	                        </div>
                       	</div>
@@ -463,9 +463,9 @@
 	                    	<label class="control-label" for="middle_name">Middle Name:</label>
 	                        <div class="controls">
 	                          <div class="span12">
-	                            <input type="text" name="middle_name" id="middle_name" class="span6" value="<?php echo $row->middle_name;?>"/>
+	                            <input type="text" name="middle_name" id="middle_name" class="span6" value="<?php echo $row->middle_name;?>" readonly/>
 	                          </div>
-	                        </div>
+	                        </div> 
 	                    </div>
 	                    <div class="control-group">
 			              	<label class="control-label" for="nickname">Nickname</label>
@@ -475,7 +475,7 @@
 				        </div>
 
                       	<div class="hr hr-dotted"></div>
-                 
+                  
                       	<div class="control-group">
 	                        <label class="control-label">Gender(<span class="required">*</span>):</label>
 	                        <div class="controls">
@@ -521,16 +521,17 @@
                       	<div class="control-group">
                         	<label class="control-label" for="civil_status">Civil Status(<span class="required">*</span>):</label>
                         	<div class="controls">
-	                          <select id="civil_status" name = "civil_status" class="span2">
+                        		<input type="text" id="civil_status" name="civil_status" value="<?php echo $row->civil_status?>" readonly>
+	                         <!--  <select id="civil_status" name = "civil_status" class="span2" readonly>
 	                            <option selected = "selected" value="">Select Status..</option>
 	                            <option value = "Single" <?php if($row->civil_status=='Single') echo 'selected';?>>Single</option>
 	                            <option value = "Married" <?php if($row->civil_status=='Married') echo 'selected';?>>Married</option>
 	                            <option value = "Separated" <?php if($row->civil_status=='Separated') echo 'selected';?>>Separated</option>
 	                            <option value = "Widowed" <?php if($row->civil_status=='Widowed') echo 'selected';?>>Widowed</option>
 	                            <option value = "Divorced" <?php if($row->civil_status=='Divorced') echo 'selected';?>>Divorced</option>
-	                          </select>
+	                          </select> -->
                         	</div> 
-                      	</div>
+                      	</div> 
                       	<div class="control-group">
 						  	<label class="control-label" for="height">Height <span class="muted">(cm)</span>(<span class="required">*</span>):</label>
 							<div class="controls">
@@ -562,7 +563,7 @@
 							</div>
 						</div>
 						<div class="control-group">
-						  	<label class="control-label" for="religion">Religion(<span class="required">*</span>):</label>
+						  	<label class="control-label" for="religion">Religion:</label>
 							<div class="controls">
 							    <div class="span12">
 							        <input type="text" id="religion"  name="religion" value="<?php echo $row->religion;?>">
@@ -570,7 +571,7 @@
 							</div>
 						</div>
 						<div class="control-group">
-						  	<label class="control-label" for="allergy">Allergy(<span class="required">*</span>):</label>
+						  	<label class="control-label" for="allergy">Allergy:</label>
 							<div class="controls">
 							    <div class="span12">
 							        <input type="text" id="allergy" class="span6" name = "allergy" value="<?php echo $row->allergy;?>" placeholder="If allergic to anything - food, medicine, others - please specify ">
@@ -618,7 +619,7 @@
 						      		</span>
 						      		<input class="input-mask-phone input-medium" type="text" id="" name="mobile_no" value="<?php echo $row->mobile_no;?>" />
 						    	</div>
-						  	</div>
+						  	</div> 
 						</div>
 						<div class="control-group">
 						 	<label class="control-label" for="phone">Alt. Mobile(<span class="required">*</span>):</label>
@@ -887,13 +888,13 @@
 		$( document ).ready(function() {
 			var data = $('#personal_info_form').serialize();
 			console.log(data);
-			$('.datepicker').datepicker({
+			/*$('.datepicker').datepicker({
 			  	format: "yyyy-mm-dd",
 			    //startDate: "now",
 			    //todayBtn: true,
 			    orientation: "top auto", 
 			    autoclose: true
-			}) 
+			}) */
 
 
 			$.mask.definitions['~']='[+-]';
@@ -981,7 +982,7 @@
 	          errorClass: 'help-inline',
 	          focusInvalid: false,
 	          rules: {
-	            first_name: {
+	           /* first_name: {
 	              required: true,
 	              minlength:2,
              	  nameValidation:true,
@@ -995,22 +996,22 @@
 	              //required: true,
 	              minlength:2,
              	  nameValidation:true,
-	            },
+	            },*/
 	            nickname: {
 	              //required: true,
 	              minlength:2,
              	  nameValidation:true,
 	            },
-	            gender: "required",
+	            /*gender: "required",
 	            birthdate: "required",
 	            civil_status: "required",
 	            height: {
 	              required: true ,
 	              number: true,
 	              min: 50
-	            },
+	            },*/
 	            weight: {
-	              required: true ,
+	              //required: true ,
 	              number: true,
 	              min: 30
 	            },
@@ -1018,9 +1019,9 @@
 	              minlength:2,
 	              letterswithbasicpunc:true,
 	            },
-	            skills : "required",
+	          /*  skills : "required",
 	            hobbies : "required",
-	            interests : "required",
+	            interests : "required",*/
 	            home_no : {
 	              //required: true,
 	              telephone: true,
@@ -1107,9 +1108,6 @@
 	            mother_contact_no:{
 
 	            }
-
-
-
 	        	
 
 	          },

@@ -218,6 +218,30 @@ class Applicant_model extends CI_Model{
 
     }
 
+
+    /*************************/ 
+    function is_registration_queue($id){
+        $this->db->select('*');
+        $this->db->where('register_id',$id);
+        $this->db->from('registration_queue');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function insertIncDocuments($data){
+        $this->db->insert('registration_queue', $data);
+        $id = $this->db->insert_id();
+        return (isset($id)) ? $id : TRUE;   
+
+    }
+
+    function updateIncDocuments($id,$data){
+        
+        $this->db->where('register_id',$id);
+        $this->db->update('registration_queue',array('requirements'=>$data));
+        return TRUE;
+    }
+
 /************************** Accept Applicant  *********************************/ 
 
 

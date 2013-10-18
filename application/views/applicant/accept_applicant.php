@@ -553,7 +553,7 @@
 		$(function() {
 
 			$('.input-id').mask('aaa9999-aaa-9999');
-
+			//$('#form_accept').closest('fieldset').find(':checkbox').prop('checked', this.checked);
 
 		   //set the css3 blur to an element
         	function blurElement(element, size){
@@ -566,9 +566,9 @@
 	              .css('msFilter',filterVal);
        		 }
        		$.extend($.gritter.options, { 
-		        position: 'bottom-left', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+		        position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
 				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
-				fade_out_speed: 1000, // how fast the notices fade out
+				fade_out_speed: 2000, // how fast the notices fade out
 				time: 1000 // hang on the screen for...
 			});
 
@@ -581,42 +581,143 @@
 		   		return false;
 			});
         
-			function submitFormAjax() {
-				var dataString = $("#id").val();
-				 $.ajax({ 
-		           url: "<?php echo base_url();?>applicant/searchApplicant",
+		
+		});	
+		function submitFormAjax() {
+			var dataString = $("#id").val();
+			 $.ajax({ 
+	           url: "<?php echo base_url();?>applicant/searchApplicant",
+	     	   async: false,
+	           type: "POST",			          
+	           data: "id="+dataString, 
+	           dataType: 'json',
+
+	           success: function(response){
+	               //alert(dataString); 
+	                //$('#result_table').html(output_string);
+	               
+              if ( response.length == 0 ) {
+              		no_search();
+             	}
+              else{	
+              	 	console.log(response);
+          			$('#first_load').hide();
+          			$('#scnd_load').hide();
+                	output_string = $('#user').render(response);     	
+                	$('#success').hide();
+                	$('#result_table').show();
+              		$('#result_table').html(output_string);
+              		
+              		getBatch();
+              		selectBatch();
+              		
+
+			    	
+			    
+				    	
+				}//end else
+	            	
+	           }//end success
+	  
+	         });//end ajax
+	  
+	        return false;  //stop the actual form post !important!
+		}
+		var no_search = function(){
+				$('#first_load').hide();
+              	$('#scnd_load').hide();
+              	$('#success').hide();
+              	$('#result_table').show();
+              	output_string = '"There is no applicant or the applicant has been accepted."';
+              	$('#result_table').html('<br><br><br><br><div class="center"><b>'+output_string +'</b></div><br><br><br><br><br><br>');
+		}
+		var getBatch = function(){
+			$.ajax({ 
+		           url: "<?php echo base_url();?>applicant/getBatch",
 		     	   async: false,
-		           type: "POST",			          
-		           data: "id="+dataString, 
-		           dataType: 'json',
+		           //dataType: 'json',
 
 		           success: function(response){
-		               //alert(dataString); 
-		                //$('#result_table').html(output_string);
-		               
-	              if ( response.length == 0 ) {
-	              		no_search();
-	             	}
-	              else{	
-	              	 	console.log(response);
-              			$('#first_load').hide();
-              			$('#scnd_load').hide();
-	                	output_string = $('#user').render(response);     	
-	                	$('#success').hide();
-	                	$('#result_table').show();
-	              		$('#result_table').html(output_string);
-	              		
+		            	//console.log(response);
+		            	var obj = $.parseJSON(response);
+		            	console.log(obj);
+                        if (isEmpty(obj) ) {
+		              		//no_search()
+		              			$('#result_table').hide();
+								var	str = "No batch active. Create a batch.";
 
-	              		checkall();
-	              		getBatch();
-	              		selectBatch();
-	              		
+								bootbox.dialog(str, [{
+										"label" : "<i class=\'icon-edit\'></i> Ok",
+										"class" : "btn-small btn-info",
+										"callback": function() {
+											//Example.show("great success");
+												document.location.href='<?php echo base_url();?>applicant/batch_control';
+											
+										}
+										}]
+									);
+														
 
-				    	$('#form_accept').submit(function() {
+		             		}
+		              	else{
+		              				//$output_string = $('#batchTable').render(response);
+				            	var obj = $.parseJSON(response);
+				            	var list = $("#batch_no");
+				            	$.each(obj, function(index,item){
+				            		output_string = "<option value=\""+ this['batch_control_no'] +"\" >"+ this['batch_control_no']+"</option>";
+				            		item =  this['batch_control_no'];
+				            		console.log(item);
+				            		list.append(new Option(item, item));
+				
+				            	});
+
+				         		$(".chzn-select").chosen(); 
+								$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+		                       
+                   			
+                   		}
+		            	
+						
+		         		
+		           }//end success
+		  
+		    });//end ajax
+		}
+		function isEmpty(obj) {
+		    for(var prop in obj) {
+		        if(obj.hasOwnProperty(prop))
+		            return false;
+		    }
+
+		    return true;
+		}
+
+		var selectBatch = function(){
+			$('#batch_no').change(function () {
+             	$('#batch_result').slideToggle('fast');
+                var batch = $(this).find("option:selected").attr('value')
+                console.log(batch);
+                $.ajax({    
+                    url: "<?php echo base_url();?>applicant/getBatchInfo", //The url where the server req would we made.
+                    async: false, 
+                    type: "POST", //The type which you want to use: GET/POST
+                    data: "batch_no="+batch, //The variables which are going.        
+                    //This is the function which will be called if ajax call is successful.
+                    success: function(e) {
+                        	//data is the html of the page where the request is made.
+	                        showBatchResult(e);
+	                		$('#form_accept input:checkbox').attr('checked', 'checked');
+	              			checkall();
+	              			$('#form_accept').submit(function() {
 				    		a = $("#batch_control_no").val();
 				    		if ( a == null)
 				    		{
-				    			bootbox.alert('Select a batch for this Applicant');
+				    			//bootbox.alert('Select a batch for this Applicant');
+				    			$.gritter.add({
+								//title: 'Applicant Accepted!',
+								text:  'Select a batch for this Applicant',
+								class_name: 'gritter-error gritter'
+								});
 				    		}
 
 				    		else{
@@ -629,469 +730,384 @@
 	 										//e.preventDefault();
 									        setTimeout(accept, 200);
 									   		//return false;  
-										}
+										}  
 									});
 									return false;
 						        } else {
-						            bootbox.alert('Accept applicant with complete requirements.');
-						            return false;
-						        }
+						        	var sList = "";
+									$('input[name=documents]:not(:checked)').each(function () {
+									    sList += $(this).val() + ",";
+									}); 
+								    id = $("#register_id").val();
+									console.log (sList); 
+									 
+						            //bootbox.alert('Accept applicant with complete requirements.');
+						            bootbox.dialog("This applicant has incomplete requirements.\nPrompt the applicant for incomplete requirements", [{
+										"label" : "Yes",
+										"class" : "btn-mini btn-danger",
+										"callback": function() {
+											console.log(register_id);
+											$.ajax({
+												url: "<?php echo base_url();?>applicant/incompleteDocuments",
+												type: "post",
+												data: {
+													id: id,
+											 		reqList: sList
+												},
+												success: function(e) {
+													//console.log(e);
+													//location.reload();
+													$("#result_table").hide();
+													$.gritter.add({
+														title: e,
+														text: 'The prompt has been sent to the applicant.',
+														class_name: 'gritter-info gritter-center'
+													});
+ 
+												}
+											});
+										}  
+										}, {
+										"label" : "Cancel", 
+										"class" : "btn-mini"
+										}]
+									);
+						            
+						        } 
 					    	}
 					    	return false;
 					    });
-				    
-					    	
-					}//end else
-		            	
-		           }//end success
-		  
-		         });//end ajax
-		  
-		         return false;  //stop the actual form post !important!
-			}
-			var no_search = function(){
-					$('#first_load').hide();
-	              	$('#scnd_load').hide();
-	              	$('#success').hide();
-	              	$('#result_table').show();
-	              	output_string = '"There is no applicant or the applicant has been accepted."';
-	              	$('#result_table').html('<br><br><br><br><div class="center"><b>'+output_string +'</b></div><br><br><br><br><br><br>');
-			}
-			var getBatch = function(){
+                   		} 
+                })
+          
+            });
+		}
+		var showBatchResult = function(e){
+	     	console.log(e);
+            var obj = $.parseJSON(e);
+            //var val ="";
+    		$.each(obj, function(){
+    			batch_no = this['batch_control_no']
+    			client = this['client'];
+    			schedule = this['date_start'];
+    			training_days = this['training_days'];
+    			limit_no = this['limit_no'];
+    			current = this['current'];
+    			emp_department = this['emp_department'];
+    			
+    			// Department
+    			if(this['emp_type']== 1){
+					emp_type  = "Contractual";
+				}
+				if(this['emp_type']== 2){
 
-				$.ajax({ 
-			           url: "<?php echo base_url();?>applicant/getBatch",
-			     	   async: false,
-			           //dataType: 'json',
+					emp_type  = "Regular";
+				}
+				if(this['emp_type']== 3){
 
-			           success: function(response){
-			            	//console.log(response);
-			            	var obj = $.parseJSON(response);
-			            	console.log(obj);
-                            if (isEmpty(obj) ) {
-			              		//no_search()
-			              			$('#result_table').hide();
-									var	str = "No batch active. Create a batch.";
+					emp_type  = "Probation";
+				}
+				// Gender
+    			if(this['emp_gender']== 1){
+					emp_gender = "Male Only";
+				}
+				if(this['emp_gender']== 2){
+					emp_gender = "Female Only";
+				}
+				if(this['emp_gender']== 3){
+					emp_gender = "Male / Female";
+				}
+				// Documents
+				var str = this['emp_reqdocuments'];
+		        var str_array = str.split(',');
+		        emp_documents = "<ul>";
+		        req_documents = "";
+				for(var i = 0; i < str_array.length; i++)
+				{
+				   	str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");					  
+				 	emp_documents += "<li>" +str_array[i] +  "</li>";
+				 	req_documents += "<label><input name=\"documents\" type=\"checkbox\" class=\"ace\" value=\""+str_array[i]+"\" /><span class=\"lbl\"> "+str_array[i]+"</span></label>"; 
+				}
+				emp_documents += "</ul>";
 
-									bootbox.dialog(str, [{
-											"label" : "<i class=\'icon-edit\'></i> Ok",
-											"class" : "btn-small btn-info",
-											"callback": function() {
-												//Example.show("great success");
-													document.location.href='<?php echo base_url();?>applicant/batch_control';
-												
-											}
-											}]
-										);
-															
+				// Remarks 
+				var str = this['remarks'];
+		        var str_array = str.split(',');
+		        emp_remarks = "<ul>"; 
+				for(var i = 0; i < str_array.length; i++)
+				{
+				   	str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
+				   
+				 	emp_remarks += "<li>" +str_array[i] +  "</li>";
+				 
+				}
+				emp_remarks += "</ul>";
 
-			             		}
-			              	else{
-			              				//$output_string = $('#batchTable').render(response);
-					            	var obj = $.parseJSON(response);
-					            	var list = $("#batch_no");
-					            	$.each(obj, function(index,item){
-					            		output_string = "<option value=\""+ this['batch_control_no'] +"\" >"+ this['batch_control_no']+"</option>";
-					            		item =  this['batch_control_no'];
-					            		console.log(item);
-					            		list.append(new Option(item, item));
-					
-					            	});
-
-					         		$(".chzn-select").chosen(); 
-									$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
-			                       
-                       			
-                       		}
-			            	
-							
-			         		
-			           }//end success
-			  
-			    });//end ajax
-			}
-			function isEmpty(obj) {
-			    for(var prop in obj) {
-			        if(obj.hasOwnProperty(prop))
-			            return false;
-			    }
-
-			    return true;
-			}
-
-			var selectBatch = function(){
-				$('#batch_no').change(function () {
-                 	$('#batch_result').slideToggle('fast');
-                    var batch = $(this).find("option:selected").attr('value')
-                    console.log(batch);
-                    $.ajax({    
-                        url: "<?php echo base_url();?>applicant/getBatchInfo", //The url where the server req would we made.
-                        async: false, 
-                        type: "POST", //The type which you want to use: GET/POST
-                        data: "batch_no="+batch, //The variables which are going.
-                         
-                        //This is the function which will be called if ajax call is successful.
-                        success: function(e) {
-                            //data is the html of the page where the request is made.
-                            showBatchResult(e);
-                    
-                       		}
-                    })
-              
-                });
-			}
-			var showBatchResult = function(e){
-		     	console.log(e);
-
-
-                var obj = $.parseJSON(e);
-                //var val ="";
-        		$.each(obj, function(){
-        			batch_no = this['batch_control_no']
-        			client = this['client'];
-        			schedule = this['date_start'];
-        			training_days = this['training_days'];
-        			limit_no = this['limit_no'];
-        			current = this['current'];
-        			emp_department = this['emp_department'];
-        			
-        			// Department
-        			if(this['emp_type']== 1){
-						emp_type  = "Contractual";
-					}
-					if(this['emp_type']== 2){
-
-						emp_type  = "Regular";
-					}
-					if(this['emp_type']== 3){
-
-						emp_type  = "Probation";
-					}
-					// Gender
-        			if(this['emp_gender']== 1){
-						emp_gender = "Male Only";
-					}
-					if(this['emp_gender']== 2){
-						emp_gender = "Female Only";
-					}
-					if(this['emp_gender']== 3){
-						emp_gender = "Male / Female";
-					}
-					// Documents
-					var str = this['emp_reqdocuments'];
-			        var str_array = str.split(',');
-			        emp_documents = "<ul>"; 
-					for(var i = 0; i < str_array.length; i++)
-					{
-					   	str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");					  
-					 	emp_documents += "<li>" +str_array[i] +  "</li>";
-					 	
-					}
-					emp_documents += "</ul>";	
-					// Remarks
-					var str = this['remarks'];
-			        var str_array = str.split(',');
-			        emp_remarks = "<ul>"; 
-					for(var i = 0; i < str_array.length; i++)
-					{
-					   	str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
-					   
-					 	emp_remarks += "<li>" +str_array[i] +  "</li>";
-					 	
-					}
-					emp_remarks += "</ul>";
-
-
-    		/**************** OUTPUT *****************************/
-    			output_string = "<table class=\"table table-striped\" style=\"width: 100%; word-wrap:break-word; table-layout: fixed;\">";
-    			output_string += "<colgroup>";
-    			output_string += "<col span=\"1\" style=\"width: 30%;\">";
-    			output_string += "<col span=\"1\" style=\"width: 70%;\">";
-    			output_string += "</colgroup>";
-
-    			output_string += "<tr>";
-    				output_string += "<td>Client</td>";	
-    				output_string += "<td>"+client+"</td>";
-    			output_string += "</tr>";
-    			output_string += "<tr>";
-    				output_string += "<td>Type</td>";	
-    				output_string += "<td>"+emp_type+"</td>";
-    			output_string += "</tr>";
-    			output_string += "<tr>";
-    				output_string += "<td>Department</td>";	
-    				output_string += "<td>"+emp_department+"</td>";
-    			output_string += "</tr>";
-    			output_string += "<tr>";
-    				output_string += "<td>Schedule</td>";	
-    				output_string += "<td>"+schedule+"</td>";
-    			output_string += "</tr>";
-    			output_string += "<tr>";
-    				output_string += "<td>Training Days</td>";	
-    				output_string += "<td>"+training_days+"</td>";
-    			output_string += "</tr>";
-    			output_string += "<tr>";
-    				output_string += "<td>Current Trainee</td>";	
-    				output_string += "<td>"+current+" / "+limit_no+"</td>";
-    			output_string += "</tr>";
-    			output_string += "<tr>";
-    				output_string += "<td><b>Requirements</b></td>";	
-    				output_string += "<td>&nbsp;</td>";
-    			output_string += "</tr>";
-    			output_string += "<tr>";
-    				output_string += "<td>Gender</td>";	
-    				output_string += "<td>"+emp_gender+"</td>";
-    			output_string += "</tr>";
-    			output_string += "<tr>";
-    				output_string += "<td>Documents</td>";	
-    				output_string += "<td>"+emp_documents+"</td>";
-    			output_string += "</tr>";
-    			output_string += "<tr>";
-    				output_string += "<td>Remarks</td>";	
-    				output_string += "<td>"+emp_remarks+"</td>";
-    			output_string += "</tr>";
-
-    			output_string += "</table>";
 
 			/**************** OUTPUT *****************************/
+			output_string = "<table class=\"table table-striped\" style=\"width: 100%; word-wrap:break-word; table-layout: fixed;\">";
+			output_string += "<colgroup>";
+			output_string += "<col span=\"1\" style=\"width: 30%;\">";
+			output_string += "<col span=\"1\" style=\"width: 70%;\">";
+			output_string += "</colgroup>";
 
-    		/**************** HIDDEN INPUT *****************************/
+			output_string += "<tr>";
+				output_string += "<td>Client</td>";	
+				output_string += "<td>"+client+"</td>";
+			output_string += "</tr>";
+			output_string += "<tr>";
+				output_string += "<td>Type</td>";	
+				output_string += "<td>"+emp_type+"</td>";
+			output_string += "</tr>";
+			output_string += "<tr>";
+				output_string += "<td>Department</td>";	
+				output_string += "<td>"+emp_department+"</td>";
+			output_string += "</tr>";
+			output_string += "<tr>";
+				output_string += "<td>Schedule</td>";	
+				output_string += "<td>"+schedule+"</td>";
+			output_string += "</tr>";
+			output_string += "<tr>";
+				output_string += "<td>Training Days</td>";	
+				output_string += "<td>"+training_days+"</td>";
+			output_string += "</tr>";
+			output_string += "<tr>";
+				output_string += "<td>Current Trainee</td>";	
+				output_string += "<td>"+current+" / "+limit_no+"</td>";
+			output_string += "</tr>";
+			output_string += "<tr>";
+				output_string += "<td><b>Requirements</b></td>";	
+				output_string += "<td>&nbsp;</td>";
+			output_string += "</tr>";
+			output_string += "<tr>";
+				output_string += "<td>Gender</td>";	
+				output_string += "<td>"+emp_gender+"</td>";
+			output_string += "</tr>";
+			output_string += "<tr>";
+				output_string += "<td>Documents</td>";	
+				output_string += "<td>"+emp_documents+"</td>";
+			output_string += "</tr>";
+			output_string += "<tr>";
+				output_string += "<td>Remarks</td>";	
+				output_string += "<td>"+emp_remarks+"</td>";
+			output_string += "</tr>";
 
-    			output_string +="<input type=\"hidden\" name=\"batch_control_no\" id=\"batch_control_no\" value=\""+ batch_no +"\">";
-    			output_string +="<input type=\"hidden\" name=\"client\" id=\"client\" value=\""+ client +"\">";
-    			output_string +="<input type=\"hidden\" name=\"training_days\" id=\"training_days\" value=\""+ training_days +"\">";
-    			output_string +="<input type=\"hidden\" name=\"current\" id=\"current\" value=\""+ current +"\">";
-    			output_string +="";
+			output_string += "</table>";
 
-    		/**************** HIDDEN INPUT *****************************/
  
-        			
-        		});
-        		$('#batch_result').html(output_string);
-           		$('#batch_result').slideToggle('fast');
+	       	/* Documents */
+	       	output_string += "<h3 class=\"header smaller lighter blue\">Documents<small>Check the documents before accepting.</small></h3>";
+	       	output_string += "<form id=\"form_accept\">";
+	       	output_string += "<fieldset>";
+	       	output_string += "<div class=\"control-group\">";
+	       	output_string += "<div class=\"controls\">";
+	       	output_string += "<label><input name=\"\" type=\"checkbox\" class=\"ace ace-switch\" id=\"checkall\" /><span class=\"lbl\">&nbsp;Check all</span></label>";
+	       	output_string += "<div id=\"req\">";
+	       	output_string += "<label><input name=\"documents\" type=\"checkbox\" class=\"ace\" value=\"Resume\"/><span class=\"lbl\" > Resume</span></label>";
+	       	output_string += "<label><input name=\"documents\" type=\"checkbox\" class=\"ace\" value=\"Diploma\"/><span class=\"lbl\"> Diploma</span></label>";
+	       	output_string += "<label><input name=\"documents\" type=\"checkbox\" class=\"ace\" value=\"Medical Result\"/><span class=\"lbl\" > Medical Result</span></label>";
+	       	output_string += "<label><input name=\"documents\" type=\"checkbox\" class=\"ace\" value=\"Form - 137 for Undergrad / Transcript of Record for Graduate\"/><span class=\"lbl\" > Form - 137 for Undergrad / Transcript of Record for Graduate</span></label>";
+	       	output_string += req_documents;
+	       	output_string += "</div>";
+	       	output_string += "</div>"; 
+	       	output_string += "</div>";
+	       	output_string += "</fieldset>"; 
+	       	output_string += "<button class=\"btn btn-success btn-block\" type=\"\" id=\"bootbox-confirm\">Accept Applicant</button>";
+	       	output_string += "</form>";
+			/**************** OUTPUT *****************************/
 
-			}
+			/**************** HIDDEN INPUT *****************************/
 
-			var checkall = function(){
+			output_string +="<input type=\"hidden\" name=\"batch_control_no\" id=\"batch_control_no\" value=\""+ batch_no +"\">";
+			output_string +="<input type=\"hidden\" name=\"client\" id=\"client\" value=\""+ client +"\">";
+			output_string +="<input type=\"hidden\" name=\"training_days\" id=\"training_days\" value=\""+ training_days +"\">";
+			output_string +="<input type=\"hidden\" name=\"current\" id=\"current\" value=\""+ current +"\">";
+			output_string +="";
 
-          		$('#checkall').on('click', function () {
-			        $(this).closest('fieldset').find(':checkbox').prop('checked', this.checked);
-			    });
-			   
+			/**************** HIDDEN INPUT *****************************/
 
-			}
+    			
+    		});
+    		$('#batch_result').html(output_string);
+       		$('#batch_result').slideToggle('fast');
 
-			var accept = function(){
+		}
 
-		            first_name = $("#first_name").val();
-		            middle_name = $("#middle_name").val();
-		            last_name = $("#last_name").val();
-		            address = $("#address").val();
-		            birth_date = $("#birth_date").val();
-		            city = $("#city").val();
-		            province = $("#province").val();
-		            gender = $("#gender").val();
-		            phone = $("#phone").val();
-		            username = $("#username").val();
-	              	password = $("#password").val();
-	                email = $("#email").val();
-	                register_id = $("#register_id").val();
-	                height = $("#height").val();
-	                civil_status = $("#civil_status").val();
-	                batch_control_no = $('#batch_control_no').val();
-	                client = $('#client').val();
-	                training_days = $('#training_days').val();
-	                current = $('#current').val();
+		var checkall = function(){
 
-		          
-		            var datastr = 'first_name='+first_name + '&middle_name='+middle_name + '&last_name='+last_name + '&address='+address + '&birth_date='+birth_date + '&city='+city + '&province='+province + '&gender='+gender + '&phone='+phone + '&username='+username + '&password='+password + '&email='+email + '&register_id='+register_id + '&height='+height+ '&civil_status='+civil_status+ '&batch_control_no='+batch_control_no+ '&client='+client+ '&training_days='+training_days+ '&current='+current;    
-		           	//var datastr = 'first_name='+first_name + '&middle_name='+middle_name + '&last_name='+last_name + '&address='+address + '&birth_date='+birth_date + '&city='+city + '&province='+province + '&gender='+gender + '&phone='+phone + '&username='+username + '&password='+password + '&email='+email + '&register_id='+register_id + '&height='+height+ '&civil_status='+civil_status;  
-		           	console.log(datastr);
-		            $.ajax({
-		                url:"<?php echo base_url();?>applicant/acceptApp",
-		                type:'POST',
-		                data:datastr,
-		                dataType:"json",
-		                success:function(result){
-		                $("#success").show();
-		                //$("#success").attr('class', 'alert alert-success');
-		                var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
-		                $("#success").html(output_string);
-		                $("#result_table").hide();
-		                $.gritter.add({
-							title: 'Applicant Accepted!',
-							text: result + ' has been added in AMI trainee.',
-							class_name: 'gritter-info gritter-center'
-						});
-							
+      		$('#checkall').on('click', function () {
+		        $(this).closest('fieldset').find(':checkbox').prop('checked', this.checked);
+		    });
+		   
 
-		                }
+		}
 
-		            });
+		var accept = function(){
 
-			}
+	            first_name = $("#first_name").val();
+	            middle_name = $("#middle_name").val();
+	            last_name = $("#last_name").val();
+	            address = $("#address").val();
+	            birth_date = $("#birth_date").val();
+	            city = $("#city").val();
+	            province = $("#province").val();
+	            gender = $("#gender").val();
+	            phone = $("#phone").val();
+	            username = $("#username").val();
+              	password = $("#password").val();
+                email = $("#email").val();
+                register_id = $("#register_id").val();
+                height = $("#height").val();
+                civil_status = $("#civil_status").val();
+                batch_control_no = $('#batch_control_no').val();
+                client = $('#client').val();
+                training_days = $('#training_days').val();
+                current = $('#current').val();
+
+	          
+	            var datastr = 'first_name='+first_name + '&middle_name='+middle_name + '&last_name='+last_name + '&address='+address + '&birth_date='+birth_date + '&city='+city + '&province='+province + '&gender='+gender + '&phone='+phone + '&username='+username + '&password='+password + '&email='+email + '&register_id='+register_id + '&height='+height+ '&civil_status='+civil_status+ '&batch_control_no='+batch_control_no+ '&client='+client+ '&training_days='+training_days+ '&current='+current;    
+	           	//var datastr = 'first_name='+first_name + '&middle_name='+middle_name + '&last_name='+last_name + '&address='+address + '&birth_date='+birth_date + '&city='+city + '&province='+province + '&gender='+gender + '&phone='+phone + '&username='+username + '&password='+password + '&email='+email + '&register_id='+register_id + '&height='+height+ '&civil_status='+civil_status;  
+	           	console.log(datastr);
+	            $.ajax({
+	                url:"<?php echo base_url();?>applicant/acceptApp",
+	                type:'POST',
+	                data:datastr,
+	                dataType:"json",
+	                success:function(result){
+	                $("#success").show();
+	                //$("#success").attr('class', 'alert alert-success');
+	                var output_string = "<div class=\"alert alert-block alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class=\"icon-remove\"></i></button><p><strong><i class=\"icon-ok\"></i>Well done!</strong> You successfully added an applicant.</p><p><a class=\"btn btn-small btn-success\" href=\"<?php echo base_url();?>training\">Trainee List</a><button class=\"btn btn-small\">Or This One</button></p></div>";
+	                $("#success").html(output_string);
+	                $("#result_table").hide();
+	                $.gritter.add({
+						title: 'Applicant Accepted!',
+						text: result + ' has been added in AMI trainee.',
+						class_name: 'gritter-info gritter-center'
+					});
+						
+
+	                }
+
+	            });
+
+		}
 
 
 
-		
-		});	
-
+		 
 		</script>
  
 		<script type="text/template" id="user">
 		<div class="row-fluid">
-		<div class="span6">
-		
-	    <table class="table table-striped" style="width: 100%; word-wrap:break-word; table-layout: fixed;">
-	    	<colgroup>
-		       <col span="1" style="width: 35%;">
-		       <col span="1" style="width: 65%;">
-		    </colgroup>
-	    	<tr> 
-                <td><h3>Personal Details</h3></td>
+			<div class="span6">
+			
+		    <table class="table table-striped" style="width: 100%; word-wrap:break-word; table-layout: fixed;">
+		    	<colgroup>
+			       <col span="1" style="width: 35%;">
+			       <col span="1" style="width: 65%;">
+			    </colgroup>
+		    	<tr> 
+	                <td><h3>Personal Details</h3></td>
 
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>Registration ID :</td>
-                <td>${register_id}</td>
-            </tr>
-         	<tr>
-                <td>Name: </td>
-                <td>${last_name}, ${first_name} ${middle_name}</td>
-            </tr>
-             <tr>
-                <td>Gender: </td>
-                <td>${gender}</td>
-            </tr>
-            <tr>
-                <td>Birthday: </td>
-                <td>${birth_date}</td>
-            </tr>
-             <tr>
-                <td>Height: </td>
-                <td>${height} <span class="muted">cm</span></td>
-            </tr>
-             <tr>
-                <td>Civil Status: </td>
-                <td>${civil_status}</td>
-            </tr>
-            <tr>
-                <td>Address: </td>
-                <td>${address}</td>
-            </tr>
-            <tr>
-                <td>City: </td>
-                <td>${city}</td>
-            </tr>  
-            <tr>
-                <td>Province: </td> 
-                <td>${province}</td>
-            </tr>                              
-            <tr>
-                <td>Phone: </td>
-                <td>${phone}</td>
-            </tr>
-            <tr> 
-            	<td><h3>Account Details</h3></td>
-            	<td>&nbsp;</td>
-            </tr>
-            <td>Username: </td>
-                <td>${username}</td>
-            </tr>
-            <tr>
-                <td>Email Address: </td>
-                <td>${email}</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>&nbsp;</td>
-            </tr>
-         
-        </table>
-        
-  
-        </div>
-        <div class="span6">
-        	<table class="table table-striped" id="">
-				<tr>
-	            	<td width="165px"><h3>Assign to Batch: </h3></td>
-	            	<td class="center">&nbsp;<br><select class="chzn-select" id="batch_no"  name="batch_no"><option value="" selected disabled></option></select></td>
+	                <td>&nbsp;</td>
 	            </tr>
-	 
-	 		</table>
-	 		<div id="batch_result"></div>
-	 		
-        	<h3 class="header smaller lighter blue">
-				Documents
-				<small>Check the documents before accepting.</small>
-			</h3>
-	    
-			<form id="form_accept">
-			<fieldset>
-				<div class="control-group">
-					<label class="control-label"></label>
- 
-					<div class="controls">
-						<label>
-							<input name="" type="checkbox" class="ace ace-switch" id="checkall" />
-							<span class="lbl">&nbsp;Check all</span>
-						</label>
-						<label>
-							<input name="documents" type="checkbox" class="ace" />
-							<span class="lbl"> Registraton slip</span>
-						</label>
-
-						<label>
-							<input name="documents" type="checkbox" class="ace" />
-							<span class="lbl"> Resume</span>
-						</label>
-
-						<label>
-							<input name="documents" class="ace" type="checkbox" />
-							<span class="lbl"> Diploma</span>
-						</label>
-							<label>
-							<input name="documents" class="ace" type="checkbox" />
-							<span class="lbl"> Medical Result</span>
-						</label>
-
-						<label>
-							<input name="documents" class="ace" type="checkbox" />
-							<span class="lbl"> Form - 137 for Undergrad / Transcript of Record for Graduate</span>
-						</label>
-						
-					</div>
+	            <tr>
+	                <td>Registration ID :</td>
+	                <td>${register_id}</td>
+	            </tr>
+	         	<tr>
+	                <td>Name: </td>
+	                <td>${last_name}, ${first_name} ${middle_name}</td>
+	            </tr>
+	             <tr>
+	                <td>Gender: </td>
+	                <td>${gender}</td>
+	            </tr>
+	            <tr>
+	                <td>Birthday: </td>
+	                <td>${birth_date}</td>
+	            </tr>
+	             <tr>
+	                <td>Height: </td>
+	                <td>${height} <span class="muted">cm</span></td>
+	            </tr>
+	             <tr>
+	                <td>Civil Status: </td>
+	                <td>${civil_status}</td>
+	            </tr>
+	            <tr>
+	                <td>Address: </td>
+	                <td>${address}</td>
+	            </tr>
+	            <tr>
+	                <td>City: </td>
+	                <td>${city}</td>
+	            </tr>  
+	            <tr>
+	                <td>Province: </td> 
+	                <td>${province}</td>
+	            </tr>                              
+	            <tr>
+	                <td>Phone: </td>
+	                <td>${phone}</td>
+	            </tr>
+	            <tr> 
+	            	<td><h3>Account Details</h3></td>
+	            	<td>&nbsp;</td>
+	            </tr>
+	            <td>Username: </td>
+	                <td>${username}</td>
+	            </tr>
+	            <tr>
+	                <td>Email Address: </td>
+	                <td>${email}</td>
+	            </tr>
+	            <tr>
+	                <td></td>
+	                <td>&nbsp;</td>
+	            </tr>
+	         
+	        </table>
+	        
+	  
+	        </div>
+	        <div class="span6">
+	        	<table class="table table-striped" id="">
+					<tr>
+		            	<td width="165px"><h3>Assign to Batch: </h3></td>
+		            	<td class="center">&nbsp;<br><select class="chzn-select" id="batch_no"  name="batch_no"><option value="" selected disabled></option></select></td>
+		            </tr>
+		 
+		 		</table> 
+		 		<div id="batch_result"></div>
+		 		
+				<div class="center" id="scnd_load" style="display:none">
+					<div id="load"><i class="icon-spinner icon-spin blue icon-3x"></i></div><br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
 				</div>
-			</fieldset>
-				<button class="btn btn-success btn-block" type="" id="bootbox-confirm">Accept Applicant</button>
+	        </div>
+	        <form>
+	       		<input type="hidden" name="register_id" id="register_id" value="${register_id}">
+				<input type="hidden" name="first_name" id="first_name" value="${first_name}">
+				<input type="hidden" name="last_name" id="last_name" value="${last_name}"> 	
+				<input type="hidden" name="middle_name" id="middle_name"  value="${middle_name}">
+				<input type="hidden" name="birth_date" id="birth_date" value="${birth_date}"> 	
+				<input type="hidden" name="address" id="address" value="${address}"> 	
+				<input type="hidden" name="city" id="city"  value="${city}"> 	
+				<input type="hidden" name="province" id="province" value="${province}"> 	
+				<input type="hidden" name="gender" id="gender" value="${gender}"> 	
+				<input type="hidden" name="phone" id="phone" value="${phone}"> 	
+				<input type="hidden" name="username" id="username" value="${username}">
+				<input type="hidden" name="password" id="password" value="${password}">
+				<input type="hidden" name="email" id="email" value="${email}">
+				<input type="hidden" name="height" id="height" value="${height}">
+				<input type="hidden" name="civil_status" id="civil_status" value="${civil_status}">
 			</form>
-			<div class="center" id="scnd_load" style="display:none">
-				<div id="load"><i class="icon-spinner icon-spin blue icon-3x"></i></div><br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-			</div>
-        </div>
-        <form>
-       		<input type="hidden" name="register_id" id="register_id" value="${register_id}">
-			<input type="hidden" name="first_name" id="first_name" value="${first_name}">
-			<input type="hidden" name="last_name" id="last_name" value="${last_name}"> 	
-			<input type="hidden" name="middle_name" id="middle_name"  value="${middle_name}">
-			<input type="hidden" name="birth_date" id="birth_date" value="${birth_date}"> 	
-			<input type="hidden" name="address" id="address" value="${address}"> 	
-			<input type="hidden" name="city" id="city"  value="${city}"> 	
-			<input type="hidden" name="province" id="province" value="${province}"> 	
-			<input type="hidden" name="gender" id="gender" value="${gender}"> 	
-			<input type="hidden" name="phone" id="phone" value="${phone}"> 	
-			<input type="hidden" name="username" id="username" value="${username}">
-			<input type="hidden" name="password" id="password" value="${password}">
-			<input type="hidden" name="email" id="email" value="${email}">
-			<input type="hidden" name="height" id="height" value="${height}">
-			<input type="hidden" name="civil_status" id="civil_status" value="${civil_status}">
-		</form>
         </div>
 		
 		</script>

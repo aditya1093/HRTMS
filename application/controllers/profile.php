@@ -24,8 +24,12 @@ class Profile extends CI_Controller {
 			$this->load->view('User/training/profile_view');
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Client') {
-			
-			$this->load->view('User/client/profile_view');
+			$id = $this->session->userdata('user_id');
+			//$this->load->model('profile_model');
+			$query = $this->profile_model->profile_client($id);
+			$data['records'] = $query;	  
+			$this->load->view('User/client/profile_view',$data);
+	 
 		}
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Trainee') {
 			$id = $this->session->userdata('user_id');
@@ -33,12 +37,14 @@ class Profile extends CI_Controller {
 			$query = $this->profile_model->profile_trainee($id);
 			$data['records'] = $query;	
 			$this->load->view('User/trainee/profile_view',$data);
-		}
+		}  
 		else if($this->session->userdata('is_logged_in') && $this->session->userdata('permission') == 'Applicant') {
 			$id = $this->session->userdata('user_id');
 			//$this->load->model('profile_model');
 			$query = $this->profile_model->profile_applicant($id);
 			$data['records'] = $query;
+
+		
 			$this->load->view('User/applicant/profile_view',$data);
 		}
 		else {

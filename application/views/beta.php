@@ -121,34 +121,12 @@
       <span></span>
       </a>
       <div id="sidebar">
-        <div id="sidebar-shortcuts">
-          <div id="sidebar-shortcuts-large">
-            <button class="btn btn-small btn-success">
-            <i class="icon-ok"></i>
-            </button>
-            <button class="btn btn-small btn-info">
-            <i class="icon-puzzle-piece"></i>
-            </button>
-            <button class="btn btn-small btn-danger">
-            <i class="icon-star"></i>
-            </button>
-            <button class="btn btn-small btn-warning">
-            <i class="icon-print"></i>
-            </button>
-          </div>
-          <div id="sidebar-shortcuts-mini">
-            <span class="btn btn-success"></span>
-            <span class="btn btn-info"></span>
-            <span class="btn btn-danger"></span>
-            <span class="btn btn-warning"></span>
-          </div>
-        </div>
         <!--#sidebar-shortcuts-->
         <ul class="nav nav-list">
           <li>
           <a href="dashboard">
-          <i class="icon-bar-chart"></i>
-          <span>Control Panel</span>
+          <i class="icon-reply"></i>
+          <span>Back to Home</span>
           </a>
           </li>
           
@@ -187,13 +165,13 @@
           <div class="row-fluid">
             <div class="span12">
               <h3 class="header smaller lighter blue">AMI Mailer </h3>
-              <div class="btn-toolbar pull-right">
-                <div class="btn-group">
+              
+                <div class="btn-group pull-right">
                   <button class="btn btn-small btn-purple" id="btn-compose"><i class="icon-edit"></i> Compose</button> 
                 </div>
                 
                 
-              </div>
+              
 
 
               <br>

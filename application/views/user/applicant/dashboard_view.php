@@ -201,7 +201,25 @@
 
 					<div class="row-fluid">
 						<div class="span12">
-							
+						<?php if(isset($records)) : foreach($records as $row) : 
+
+							$incDOcs = $row->requirements;
+							$incDOcs = preg_replace('/\.$/', '', $incDOcs); //Remove dot at end if exists
+							$array = explode(',', $incDOcs,-1); //split string into array seperated by ', '
+							$incDOcs ="<ul>";
+
+							foreach($array as $value) //loop over values
+							{
+							  $incDOcs .= "<li>". $value ."</li>"; //print value
+							}
+							$incDOcs .= "</ul>";
+						?>
+							<div class="alert alert-danger">
+								You failed to submit the ff. :
+								<?php echo $incDOcs;?>
+							</div>
+						<?php endforeach;?>
+						<?php endif; ?>
 							<div class="widget-box">
 								<div class="widget-header">
 									<h4 class="smaller">
@@ -290,6 +308,7 @@
 					                    <li>Diploma</li>
 					                    <li>Form - 137 for Undergraduate</li>
 					                    <li>Transcript of Record for Graduate</li>
+					                    <li>Additional documents from the available vacancy. <a href="<?php echo base_url();?>registration/vacancy">Click here.</a></li>
 					                    </ul>
 									</div>
 								</div>

@@ -31,3 +31,6 @@ SET registration.birth_date=hris.birthdate;
 
 UPDATE hris
 SET mobile_no=CONCAT('(926) ', (100 + FLOOR(RAND() * (999 - 100 + 1 ))), '-', (1000 + FLOOR(RAND() * (9999 - 1000 + 1 ))))
+
+UPDATE questions
+SET no_got_correct=0, no_of_takers=0

@@ -42,7 +42,9 @@ class Examination_model extends CI_Model{
 
     function load_items() {
 
-        $str = "SELECT * FROM questions WHERE exam_id=".$this->session->userdata("eid");
+       // $str = "SELECT * FROM questions WHERE exam_id=".$this->session->userdata("eid");
+
+        $str = "SELECT question_id, question, answers, key_answer, question_type, exam_id, no_of_choices, no_got_correct, no_of_takers, ROUND((no_got_correct/no_of_takers)*100,2) AS percent FROM questions WHERE exam_id=".$this->session->userdata("eid");
         $query = $this->db->query($str);
         return $query->result();
     }

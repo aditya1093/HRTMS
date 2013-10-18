@@ -625,6 +625,31 @@ class Applicant extends CI_Controller {
 
     }
 
+ 
+   
+
+    function incompleteDocuments(){
+
+    	$incDoc = $this->input->post('reqList');
+    	$id = $this->input->post('id');
+
+    	$data = array(
+    		'register_id' => $id ,
+    		'requirements' => $incDoc 
+    		);
+    	$q = $this->applicant_model->is_registration_queue($id);
+
+    	if($q){
+    		$this->applicant_model->updateIncDocuments($id,$incDoc);
+    	}
+    	else
+    	{
+    		$this->applicant_model->insertIncDocuments($data);
+    	}
+
+    	echo $id;
+
+    }
 /************************** Accept Applicant  *********************************/
 
 	

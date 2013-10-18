@@ -150,6 +150,12 @@
 							<span>Manpower</span>
 						</a>
 					</li>
+					<li class="">
+						<a href="<?php echo base_url();?>Profile">
+							<i class="icon-user"></i>
+							<span>Profile</span>
+						</a>
+					</li>
 					<!--<li>
 						<a href="#">
 							<i class="icon-question-sign"></i>

@@ -144,8 +144,8 @@
 					
 					<li class="">
 						<a href="<?php echo base_url();?>dashboard">
-							<i class="icon-bar-chart"></i>
-							<span>Control Panel</span>
+							<i class="icon-reply"></i>
+          <span>Back to Home</span>
 						</a>
 					</li>
 

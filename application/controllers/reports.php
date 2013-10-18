@@ -23,7 +23,7 @@ class Reports extends CI_Controller {
 			$this->load->view('reports/list_trainee_view', $data);
 		}
 		else {
-
+			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}	
 	  
@@ -45,8 +45,8 @@ class Reports extends CI_Controller {
 			$this->load->view('reports/trainee_attendance_view', $data);
 		}
 		else {
-  
-    		$this->load->view('login_view' );
+  			$this->session->set_userdata('login_type', 'employee');
+    		$this->load->view('login_view' );	
 		}	
 	
 	}
@@ -593,7 +593,7 @@ class Reports extends CI_Controller {
 
 		}
 		else {
-  
+  			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}
 
@@ -942,7 +942,7 @@ class Reports extends CI_Controller {
     }
 	
 	
-	
+	 	
 }
 
 /* End of file reports.php */

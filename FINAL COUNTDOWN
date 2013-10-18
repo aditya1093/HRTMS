@@ -24,22 +24,24 @@ OK Edit Profile for users (Change Password, Avatar?) - all
 * Start A Tour - admin
 * Reports - admin, hr
 OK Certificate design
-* Lack Requirements prompt applicant (Accept) - admin
-* Create View Vacancies based on client request on homepage
+OK Lack Requirements prompt applicant (Accept) - admin
+OK Create View Vacancies based on client request on homepage
 * Registration Page > Applicants (HighCharts number of applicants) - admin
-* Training Page remove button - admin, hr
+OK? Training Page remove button - admin, hr
 * Training Page (HighCharts number of trainees) - admin, hr
 * Deployment Pooling - admin, hr
 * Audit Logs - admin
-* Item Analysis? - trainer
+OK Item Analysis? - trainer
 * Attendance Checker per batch - trainer
-* Class Record per batch - trainer
-* Reports (List of deployed, candidate information, gradesheet) - client
+OK Class Record per batch - trainer
+* Filtered Reports for client (List of deployed, candidate information, gradesheet) - client
 * Upload Modules - client
 * Prompt Trainee to fill up HRIS - trainee
-* Prompt Trainee to retake when failed on examination
+OK Prompt Trainee to retake when failed on examination
 * HighChart for the Score trainee
 * 
+
+
 
 ==========================================================================
 To Do List For Dummy Info

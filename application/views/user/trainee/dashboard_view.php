@@ -440,7 +440,6 @@
 												$total_modules_taken = $this->session->userdata('total_modules_taken');
 												$total_items_taken = $this->session->userdata('total_items_taken');
 												
-
 											?> 
 											<b>Overall Progess</b> (
 											<?php 
@@ -498,8 +497,8 @@
 								
 								<div class="widget-body">
 									<div class="widget-main">
+										<?php if($percent!=100) { ?>
 										<table class="table table-striped">
-
 											<?php if(isset($sets)) { 
 											foreach($sets as $row) {?>
 											<tr>
@@ -511,11 +510,13 @@
 												</span>
 												</td>
 											</tr>
-
 											<?php }}?>	
-
-											
 										</table>
+										<?php } else { ?>
+										<div class="alert alert-success">
+											<small><b>Info:</b> You have taken your examinations already.</small>
+										</div>	
+										<?php }?>
 									</div>
 								</div>
 									
@@ -579,7 +580,7 @@
 
 			/********************** SERIALIZE ******************************/
 
-			$( "#answers_form" ).on( "submit", function( event ) {
+			$( "#answers_form" ).on("submit", function( event ) {
 
 			  event.preventDefault();
 			  var sData = $(this).serialize();
@@ -596,6 +597,7 @@
 			                success:function(result){
 			                	
 			                	console.log(result);
+			                	location.reload();
 			                }
 
 			            });
@@ -852,6 +854,7 @@
 			}
 
 			var showDialog = function(id){
+
 				$( "#dialog" ).removeClass('hide').dialog({
 					dialogClass: "no-close",
 					resizable: false,
