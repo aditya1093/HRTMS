@@ -369,7 +369,7 @@
 						</form>
 					</div><!--#nav-search-->
 				</div>
-
+ 
 				<div id="page-content" class="clearfix">
 					<div class="page-header position-relative">
 						<h1>
@@ -398,10 +398,11 @@
 
 										<div class="widget-body">
 											<div class="alert alert-success"><b>Heads Up!</b> You can use a barcode reader for attendance checking.</div>
-											<div class="widget-main">
-												
-													<input id="trainee_id" autofocus type="text" style="width:95%">
-													<button class="btn btn-success btn-block btn-small"><i class="icon-check"></i> Mark As Present</button>
+											<div class="widget-main">			
+											<form>
+												<input id="trainee_id" autofocus type="text" style="width:95%">
+												<button id="attendance" class="btn btn-success btn-block btn-small"><i class="icon-check"></i> Mark As Present</button>
+											</form>		
 												
 											</div>
 										</div>
@@ -426,7 +427,7 @@
 
 									<div class="widget-body">
 										<div class="widget-main">
-											<table id="attendance-table" class="table table-striped table-bordered">
+											<table id="attendance_table" class="table table-striped table-bordered">
 												<thead>
 												<tr>
 													<th class="center">
@@ -454,16 +455,14 @@
 														</td>
 														<td>
 															<?php echo $row->batch_control_no;?>	
-														</td>
+														</td> 
 														<td>
 															<button class="btn btn-small btn-success">
-																<i class="icon-check"></i>
-																
+																<i class="icon-check"></i>	
 															</button>
-															<button class="btn btn-small btn-danger">
+															<!-- <button class="btn btn-small btn-danger">
 																<i class="icon-remove"></i>
-																
-															</button>
+															</button> -->
 														</td>
 													</tr>
 													<?php endforeach;?>
@@ -513,12 +512,6 @@
 
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
@@ -534,7 +527,7 @@
 
 		<script type="text/javascript">
 			$(function() {
-				var oTable1 = $('#attendance-table').dataTable( {
+				var oTable1 = $('#attendance_table').dataTable( {
 				"aoColumns": [
 			      null,
 			      null, 
@@ -542,20 +535,7 @@
 			      { "bSortable": false }
 				] } );
 				
-				
-				$('table th input:checkbox').on('click' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
-					});
-						
-				});
-			
-				$(".chzn-select").chosen(); 
-				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
-				
+		
 				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
 				
 				function tooltip_placement(context, source) {
@@ -571,36 +551,66 @@
 					return 'left';
 				}
 
-				$('.date-picker').datepicker().next().on(ace.click_event, function() {
-					$(this).prev().focus();
-				});
-
-				$( "#addBatchControl" ).on( "submit", function( event ) {
-				  event.preventDefault();
-				  var sData = $(this).serialize();
-				  console.log(sData);
-				  $.ajax({
-		               url:"<?php echo base_url();?>attendance/addBatchControl",
-		                type:'POST',
-		                data:sData,
-		                //dataType: "json",
-		                success:function(result){
-		    			console.log(result);
-		                $.gritter.add({
-							title: 'Batch Control',
-							text: '<i class="icon-spinner icon-spin green icon-2x"></i> Successfully added batch training .',
-							class_name: 'gritter-success gritter-center gritter-light'
-						});
-						$( '#addBatchControl' ).each(function(){
-						    this.reset();
-						});
-						
-		                }//End Success
-
-		            	});
-					});//End #addBatchControl Submit
-
+				$.extend($.gritter.options, { 
+		        position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+				fade_out_speed: 2000, // how fast the notices fade out
+				time: 1000 // hang on the screen for...
 			});
+
+			
+			});
+
+			$("#attendance").click(function(){
+				id = $('#trainee_id').val();
+				console.log(id);
+
+				$.ajax({
+					url:'<?php echo base_url();?>attendance/checker',
+					//async: false,
+		            type: "POST",			          
+		            data: "id="+id, 
+		            dataType: 'json',
+		            success: function(response){
+		            	if ( response.length < 1 ) {
+		              		$.gritter.add({
+							//title: 'Error!',
+							text:  'No Result',
+							class_name: 'gritter-error gritter'
+							});
+		             	}
+		              	else{	
+		              	 	console.log(response);
+		              	 	if(response == 1){
+		              	 		$.gritter.add({
+								//title: 'Error!',
+								text:  id + ' Present!',
+								class_name: 'gritter-success gritter'
+								});
+								$('#trainee_id').val('');
+		              	 	}
+		              	 	else
+		              	 	{
+		              	 		$.gritter.add({
+								//title: 'Error!',
+								text:  'Already Present!',
+								class_name: 'gritter-info gritter'
+								});
+		              	 	}
+
+		          			
+		        		}//end else
+		            },
+				});
+		   		return false;
+			});
+			
+
+			var attendance = function(){
+				
+				return false;
+			} 
+
 		</script>
 	</body>
 </html>

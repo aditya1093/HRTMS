@@ -11,8 +11,8 @@ class Examination extends CI_Controller {
 		if($this->session->userdata('is_logged_in')) {
 
 			$this->load->model('applicant_model');
-			$query = $this->applicant_model->trainee_list();
-			$data['records'] = $query;
+			/*$query = $this->applicant_model->trainee_list();
+			$data['records'] = $query;*/
 
 			$this->load->model("examination_model");
 

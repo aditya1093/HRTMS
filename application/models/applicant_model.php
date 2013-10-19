@@ -250,17 +250,6 @@ class Applicant_model extends CI_Model{
 
 
 
-/************************** Trainee HRIS *********************************/  
-    function trainee_list() {
-        
-        $this->db->select('*');
-
-        $query = $this->db->get('hris');
-        return $query->result();
-    }
-/************************** Trainee HRIS *********************************/ 
-   
-
   
     
 

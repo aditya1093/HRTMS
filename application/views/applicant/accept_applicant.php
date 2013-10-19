@@ -556,15 +556,7 @@
 			//$('#form_accept').closest('fieldset').find(':checkbox').prop('checked', this.checked);
 
 		   //set the css3 blur to an element
-        	function blurElement(element, size){
-	            var filterVal = 'blur//('+size+'px)';
-	            $(element)
-	              .css('filter',filterVal)
-	              .css('webkitFilter',filterVal)
-	              .css('mozFilter',filterVal)
-	              .css('oFilter',filterVal)
-	              .css('msFilter',filterVal);
-       		 }
+        	
        		$.extend($.gritter.options, { 
 		        position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
 				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
@@ -583,6 +575,15 @@
         
 		
 		});	
+		function blurElement(element, size){
+            var filterVal = 'blur//('+size+'px)';
+            $(element)
+              .css('filter',filterVal)
+              .css('webkitFilter',filterVal)
+              .css('mozFilter',filterVal)
+              .css('oFilter',filterVal)
+              .css('msFilter',filterVal);
+   		 }
 		function submitFormAjax() {
 			var dataString = $("#id").val();
 			 $.ajax({ 
@@ -593,29 +594,22 @@
 	           dataType: 'json',
 
 	           success: function(response){
-	               //alert(dataString); 
-	                //$('#result_table').html(output_string);
-	               
-              if ( response.length == 0 ) {
-              		no_search();
-             	}
-              else{	
-              	 	console.log(response);
-          			$('#first_load').hide();
-          			$('#scnd_load').hide();
-                	output_string = $('#user').render(response);     	
-                	$('#success').hide();
-                	$('#result_table').show();
-              		$('#result_table').html(output_string);
-              		
-              		getBatch();
-              		selectBatch();
-              		
-
-			    	
-			    
-				    	
-				}//end else
+	        
+	              if ( response.length == 0 ) {
+	              		no_search();
+	             	}
+	              else{	
+	              	 	console.log(response);
+	          			$('#first_load').hide();
+	          			$('#scnd_load').hide();
+	                	output_string = $('#user').render(response);     	
+	                	$('#success').hide();
+	                	$('#result_table').show();
+	              		$('#result_table').html(output_string);
+	              		
+	              		getBatch();
+	              		selectBatch();
+	        		}//end else
 	            	
 	           }//end success
 	  

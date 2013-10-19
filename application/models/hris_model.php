@@ -5,8 +5,17 @@ class Hris_model extends CI_Model{
     function __construct() {
         parent::__construct();
     }
-
-
+    
+     function trainee_list() {
+   
+        $this->db->select('*');     
+        $this->db->from('hris');
+        //$this->db->where('user_table.user_id',$id);
+        //$this->db->join('hris', 'hris.trainee_id = user_table.user_id');
+        $query = $this->db->get();
+        return $query->result();
+    } 
+ 
     //Display Information
     function profile_trainee($id) {
         

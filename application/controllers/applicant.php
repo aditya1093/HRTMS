@@ -580,6 +580,7 @@ class Applicant extends CI_Controller {
 		        		);
 		    	$attendance = array(
 		    				'training_id' => $train_id,
+		    				'batch_no' => $batch_control_no,
 		    				'training_days' => $this->input->post('training_days')
 		    			);	
 				

@@ -9,11 +9,9 @@ class Hris extends CI_Controller {
 		$this->load->library("form_validation");
 	}
 
-	public function personal_info()
-	{
-
+	public function personal_info(){
 		
-		if($this->session->userdata('is_logged_in'){
+		if($this->session->userdata('is_logged_in')){
 			$id = $this->session->userdata('user_id');
 			//$this->load->model('hris_model');
 			$query = $this->hris_model->profile_trainee($id);
@@ -30,7 +28,7 @@ class Hris extends CI_Controller {
 	public function personal_accounts()
 	{
 		
-		if($this->session->userdata('is_logged_in'){
+		if($this->session->userdata('is_logged_in')){
 			$id = $this->session->userdata('user_id');
 			//$this->load->model('hris_model');
 			$query = $this->hris_model->profile_trainee($id);
@@ -47,7 +45,7 @@ class Hris extends CI_Controller {
 	public function marital_info()
 	{
 		
-		if($this->session->userdata('is_logged_in'){
+		if($this->session->userdata('is_logged_in')){
 			$id = $this->session->userdata('user_id');
 			//$this->load->model('hris_model');
 			$query = $this->hris_model->profile_trainee($id);
@@ -70,7 +68,7 @@ class Hris extends CI_Controller {
 	public function educational_background()
 	{
 		
-		if($this->session->userdata('is_logged_in'){
+		if($this->session->userdata('is_logged_in')){
 			$id = $this->session->userdata('user_id');
 			//$this->load->model('hris_model');
 			$query = $this->hris_model->profile_trainee($id);
@@ -90,7 +88,7 @@ class Hris extends CI_Controller {
 	public function others()
 	{
 		
-		if($this->session->userdata('is_logged_in'){
+		if($this->session->userdata('is_logged_in')){
 			//Dependent Table
 			$query = $this->hris_model->dependent($id);
 			$data['records'] = $query;
@@ -128,17 +126,17 @@ class Hris extends CI_Controller {
 		$this->form_validation->set_rules('birthdate', 'birthdate', 'trim|xss_clean');
 		 
 		$personal_info = array(
-        			'first_name' => $this->input->post('first_name'),
-        			'last_name' => $this->input->post('last_name'),
-        			'middle_name' => $this->input->post('middle_name'),
+        			//'first_name' => $this->input->post('first_name'),
+        			//'last_name' => $this->input->post('last_name'),
+        			//'middle_name' => $this->input->post('middle_name'),
         			'nickname' => $this->input->post('nickname'),
-        			'birthdate' => $this->input->post('birthdate'),
+        			//'birthdate' => $this->input->post('birthdate'),
         			'place_of_birth' => $this->input->post('place_of_birth'),
         			'allergy' => $this->input->post('allergy'),
         			'citizenship' => $this->input->post('citizenship'),
-        			'place_of_birth' => $this->input->post('place_of_birth'),
-        			'civil_status' => $this->input->post('civil_status'),
-        			'height' => $this->input->post('height'),
+        			//'place_of_birth' => $this->input->post('place_of_birth'),
+        			//'civil_status' => $this->input->post('civil_status'),
+        			//'height' => $this->input->post('height'),
         			'weight' => $this->input->post('weight'),
         			'blood_type' => $this->input->post('blood_type'),
         			'religion' => $this->input->post('religion'),
@@ -148,7 +146,7 @@ class Hris extends CI_Controller {
         			'present_address' => $this->input->post('present_address'),
         			'present_city' => $this->input->post('present_city'),
         			'present_province' => $this->input->post('present_province'),
-        			'gender' => $this->input->post('gender'),
+        			//'gender' => $this->input->post('gender'),
         			'provincial_address' => $this->input->post('provincial_address'),
         			'provincial_city' => $this->input->post('provincial_city'),
         			'provincial_province' => $this->input->post('provincial_province'),
@@ -509,6 +507,9 @@ class Hris extends CI_Controller {
 		}
 		
 	}
+	
+
+	
 
 }
 

@@ -218,7 +218,7 @@
 					</h1>
 				</div><!--/.page-header-->
 				<div class="row-fluid">
-					<div class="alert alert-info">
+					<div class="alert alert-danger">
 						<i class="icon-exclamation"></i> <b>Notice:</b> Please fill-up your <a href="profile/hris">HRIS Information</a>.
 					</div>
 				</div>

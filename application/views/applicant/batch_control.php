@@ -1188,7 +1188,7 @@
 							</div>
 					
 						</div>
-
+ 
 						<div class="control-group">
 							<label class="control-label" for="edit_date_start">Date start (<span class="required">*</span>):</label>
 							<div class="controls" >
@@ -1199,7 +1199,7 @@
 									<input  class="span2 input-date date_start" name="edit_date_start" id="edit_date_start" type="text">
 																
 								</span> 
-							</div>
+							</div> 
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="edit_training_days">Training Days (<span class="required">*</span>):</label>

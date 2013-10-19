@@ -9,8 +9,8 @@ class Training extends CI_Controller {
 	function index() {
 		//check kung naka-login
 		if($this->session->userdata('is_logged_in')) {
-		$this->load->model('applicant_model');
-		$query = $this->applicant_model->trainee_list();
+		$this->load->model('hris_model');
+		$query = $this->hris_model->trainee_list();
 		$data['records'] = $query;
 
 		
