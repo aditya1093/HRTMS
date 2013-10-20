@@ -337,12 +337,14 @@
 						</a>
 					</li>
 
+					<?php if($this->session->userdata("permission")=="Administrator") {?>
 					<li>
 						<a href="<?php echo base_url();?>client">
 							<i class="icon-building"></i>
 							<span>Client Companies</span>
 						</a>
 					</li>
+					<?php }?>
 
 					<li>
 						<a href="<?php echo base_url();?>deployment">
@@ -501,7 +503,9 @@
 													<div id="company" style="display:none">
 														<label class="control-label" for="company_name">Company:</label>
 														<div class="controls">
-															<input type="text" id="company_name" disabled=""  name="">
+															<input type="text" id="company_name" readonly=""  name="">
+															<input type="text" id="date_range" readonly="">
+															<input type="hidden" id="date_end" readonly="">
 															<input type="hidden" id="company_name2" name="client_name">
 															<input type="hidden" id="client_id" name="client_id">
 														</div>
@@ -566,6 +570,7 @@
 									   
 									    <thead>
 									        <tr>
+									        	<th></th>
 									        	<th>Request ID</th>
 									            <th>Batch Control No.</th>
 												<th>Client</th>
@@ -581,6 +586,7 @@
 										<?php 
 						  					 
 						  				?>
+						  				<td><?php echo $row->id;?></td>
 						  				<td><?php echo $row->request_id;?></td>
 						  				<td><?php echo $row->batch_control_no;?></td>
 										<td><?php echo $row->client?></td>
@@ -673,29 +679,36 @@
 				//datatable initialization
 				var oTable1 = $('#table_report').dataTable( {
 				"aoColumns": [
+			      {"bVisible":false},
 			      null,null, null, null,
 				  { "bSortable": false }] ,
 				   "aLengthMenu": [[5, 10,-1], [5, 10, "All"]],
-					"iDisplayLength" : 5
+					"iDisplayLength" : 5,
+					"aaSorting": [[ 0, "desc" ]],
 				} );
 				
 
 				var nowTemp = new Date();
 				var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 
+				
+				//var end = function(){return $("#date_end").val(); }
+				end =  $("#date_end").val();
+
+				end = "2013-10-21";
 				$('.date_start').datepicker({
 				  	format: "yyyy-mm-dd",
 				    startDate: "now",
-				    //todayBtn: true,
+				    //endDate: (function(){return $("#date_end").val(); }),
 				    orientation: "top auto",
 				    autoclose: true
-				}) 
+				})  
 			
 				
 				$(".chzn-select").chosen(); 
 				$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
 				
-
+ 
 				$.extend($.gritter.options, { 
 		        position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
 				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
@@ -718,7 +731,7 @@
 		          //success: "valid"
 		        });
 
-		        $('#addBatchControl').validate({ 
+		       $('#addBatchControl').validate({ 
 		          ignore:[],
 		          errorElement: 'span',
 		          errorClass: 'help-inline',
@@ -897,19 +910,28 @@
 	                		$.each(obj, function(){
 	                			val = this['company'];
 	                			val2 = this['client_id'];
+	                			val3 = this['date_requested'] + " To " +this['is_to'];
+	                			val4 = this['is_to'];
 	                		});
-	                		//alert(val);
+	                		
+							
+	                		$('.date_start').datepicker({endDate:val4});
                       		$('#company').slideToggle('fast');
                         	$("#company_name").val(val);
                         	$("#company_name2").val(val);
                         	$('#client_id').val(val2);
-                        	
-                        } 
+                        	$('#date_range').val(val3);
+                        
+                        }   
                     })
                 });
 
 			});
-		
+			var date_start = function(val4){
+				
+
+			}
+
 			var resetForm = function(){
 				$('#addBatchControl').each(function(){
 				    this.reset();

@@ -326,12 +326,14 @@
 						</a>
 					</li>
 
+					<?php if($this->session->userdata("permission")=="Administrator") {?>
 					<li class="active">
 						<a href="<?php echo base_url();?>client">
 							<i class="icon-building"></i>
 							<span>Client Companies</span>
 						</a>
 					</li>
+					<?php }?>
 
 					<li>
 						<a href="<?php echo base_url();?>deployment">

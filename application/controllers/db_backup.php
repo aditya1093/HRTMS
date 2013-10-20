@@ -86,7 +86,7 @@ class Db_backup extends CI_Controller {
 			}//end foreach
 			
 			$this->session->set_flashdata('message', '<div class="alert alert-success">Database successfully restored.');
-
+			/redirect(base_url().'administrative/backup');
 			// Tell the results
 			//Template::set('results', $s);
 		}

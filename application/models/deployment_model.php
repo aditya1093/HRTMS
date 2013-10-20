@@ -17,17 +17,19 @@ class Deployment_model extends CI_Model{
    		
    	}
 
-    function list_trainee($id){
+    function list_trainee($str){
 
-	     $this->db->select('hris.trainee_id ,hris.first_name, hris.last_name, hris.middle_name, hris.mobile_no, hris.home_no');
-	     $this->db->from('hris');
-	     $this->db->join('batch_no', 'hris.batch_control_no = batch_no.batch_control_no');
-	     $this->db->where('batch_no.request_id',$id);
-	     $query = $this->db->get();
-	     return $query->result();
+    
+    $query = $this->db->query('SELECT * FROM deployment_pooling INNER JOIN HRIS ON deployment_pooling.training_id = hris.trainee_id where ('.$str.') && status = "pending"');
+	  return $query->result(); 
      
     }
     
+    function deploy($id){
+        $this->db->where('training_id',$id);
+        $this->db->update('deployment_pooling', array('status' => 'deployed'));
+        //return $id;
+    }
     
 
 }

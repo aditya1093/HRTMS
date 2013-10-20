@@ -222,12 +222,12 @@
                   <h1>Expenses</h1>
                   <br>
                   <p>Your medical fee will depend on whether the company will be charged for it or not. For assurance, bring extra money for your medical examination(x-ray, blood test, urine/stool test).</p>
-                  <p>Your medical examination will be done during your screening, for more information about your medical examination <a href="<?php echo base_url();?>index.php/pre_register/medical_referral">click here.</a></p>
+                  <p>Your medical examination will be done during your screening, for more information about your medical examination <a href="<?php echo base_url();?>index.php/Registration/screening">click here.</a></p>
                    
                 </div>
                 </div>                
               </div> 
-              </div>
+              </div> 
             <!--PAGE CONTENT ENDS HERE-->
           </div><!--/row-->
 

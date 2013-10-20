@@ -457,7 +457,7 @@
 															<?php echo $row->batch_control_no;?>	
 														</td> 
 														<td>
-															<button class="btn btn-small btn-success">
+															<button id="<?php echo $row->trainee_id;?>" class="btn btn-small btn-success btn-present">
 																<i class="icon-check"></i>	
 															</button>
 															<!-- <button class="btn btn-small btn-danger">
@@ -593,7 +593,7 @@
 		              	 	{
 		              	 		$.gritter.add({
 								//title: 'Error!',
-								text:  'Already Present!',
+								text:  'Present!',
 								class_name: 'gritter-info gritter'
 								});
 		              	 	}
@@ -605,6 +605,50 @@
 		   		return false;
 			});
 			
+			
+			$(".btn-present").click(function(){
+				id = $(this).attr("id");
+				console.log(id);
+
+				$.ajax({
+					url:'<?php echo base_url();?>attendance/checker',
+					//async: false,
+		            type: "POST",			          
+		            data: "id="+id, 
+		            dataType: 'json',
+		            success: function(response){
+		            	if ( response.length < 1 ) {
+		              		$.gritter.add({
+							//title: 'Error!',
+							text:  'No Result',
+							class_name: 'gritter-error gritter'
+							});
+		             	}
+		              	else{	
+		              	 	console.log(response);
+		              	 	if(response == 1){
+		              	 		$.gritter.add({
+								//title: 'Error!',
+								text:  id + ' Present!',
+								class_name: 'gritter-success gritter'
+								});
+								$('#trainee_id').val('');
+		              	 	}
+		              	 	else
+		              	 	{
+		              	 		$.gritter.add({
+								//title: 'Error!',
+								text:  'Present!',
+								class_name: 'gritter-info gritter'
+								});
+		              	 	}
+
+		          			
+		        		}//end else
+		            },
+				});
+		   		return false;
+			});
 
 			var attendance = function(){
 				

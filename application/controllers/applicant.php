@@ -22,7 +22,7 @@ class Applicant extends CI_Controller {
 			$this->session->set_userdata('login_type', 'employee');
     		$this->load->view('login_view');
 		}	
-	
+	 
 	}
 	function view_info($param = "") {
     	//check kung naka-login
@@ -187,14 +187,13 @@ class Applicant extends CI_Controller {
 		if($this->session->userdata('is_logged_in')) {
 
 			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-	    
 		       	$id =  $this->input->post('req_id');
 
 				$query = $this->applicant_model->getCompany($id);
 				echo json_encode ($query);
 			}
 			else {
-			      header( 'Location: batch_control' ) ;
+			      header('Location: batch_control') ;
 			}
 		}
 		else {
@@ -657,6 +656,20 @@ class Applicant extends CI_Controller {
 
 
   
+	function re_apply() {
+
+		//check kung naka-login
+		if($this->session->userdata('is_logged_in')) {
+	
+			$this->load->view('applicant/accept_applicant');
+		}
+		else {
+			$this->session->set_userdata('login_type', 'employee');
+    		$this->load->view('login_view');
+		}
+
+	
+	}
 
 }
 

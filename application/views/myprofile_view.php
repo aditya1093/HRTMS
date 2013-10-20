@@ -314,9 +314,8 @@
 											</form>
 											<div class="hr hr-8 dotted"></div>
 											<form id="profile-form" class="form-horizontal" method="POST" action="<?php echo base_url();?>profile/change_pass">
-			
 
-												<div class="profile-user-info">
+
 											
 													<div class="profile-info-row">
 														<div class="profile-info-name">Change Password </div>
@@ -327,15 +326,15 @@
 																<label class="control-label" for="first_name" >Old Password (<span class="required">*</span>)</label>
 
 																<div class="controls">
-																	<input type="password" id="old_password" name="old_password" value="<?php echo $this->session->userdata('password');?>">
+																	<input type="password" id="old_password" name="old_password" value="" placeholder="">
 																</div>
 															</div>
 
 															<div class="control-group">
-																<label class="control-label" for="password" >New Password (<span class="required">*</span>)</label>
+																<label class="control-label" for="re_password" >New Password (<span class="required">*</span>)</label>
 
 																<div class="controls">
-																	<input type="password" id="password" name="password">
+																	<input type="password" id="re_password" name="password">
 																</div>
 															</div>
 
@@ -464,6 +463,9 @@
 		          errorClass: 'help-inline',
 		          focusInvalid: false,
 		          rules: {
+		          	old_password:{
+		          		required:true
+		          	},
 		            password: {
 					  required: true,
 					  minlength: 6,
@@ -473,25 +475,19 @@
 					  required: true,
 					  minlength: 6,
 					  maxlength: 20,
-					  equalTo: '#password'
+					  equalTo: '#re_password'
 					}
 		          
 		          },
 		          messages: {
-		            first_name: {
-		              minlength: jQuery.format("At least {0} characters required."),
-
-		            },
-		            last_name: {
-		              minlength: jQuery.format("At least {0} characters required."),
-		            },
-		            middle_name: {
-		              minlength: jQuery.format("At least {0} characters required."),
-		            },
+		       
 		            email: {
 		              required: "Please provide a valid email.",
 		              email: "Please provide a valid email.",
 		              remote: "This email is not available.",
+		            },
+		            old_password:{
+		              required : "Type your old password",
 		            },
 		            username: {
 		              maxlength: jQuery.format("Must not contain more than {0} characters."),
@@ -507,8 +503,7 @@
 		            password2: {
 		              minlength: jQuery.format("At least {0} characters required.")
 		            },
-		            gender: "Please choose gender",
-		            agree: "Please accept our policy"
+
 		          },
 		      
 		          invalidHandler: function (event, validator) { //display error alert on form submit   
@@ -551,7 +546,7 @@
 
 		          },
 		          invalidHandler: function (form) {
-		            
+		           
 		          },
 
 		        });

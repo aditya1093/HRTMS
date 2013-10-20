@@ -66,7 +66,7 @@ class Applicant_model extends CI_Model{
 
     /********* EDIT BATCH ******/
     function getCompany($id){
-        $this->db->select('company,client_id');
+        $this->db->select('*');
         $this->db->where('request_id',$id);
         $this->db->from('request');
         $query = $this->db->get();

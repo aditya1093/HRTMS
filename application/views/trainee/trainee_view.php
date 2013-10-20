@@ -324,12 +324,14 @@
 						</a>
 					</li>
 
+					<?php if($this->session->userdata("permission")=="Administrator") {?>
 					<li>
 						<a href="<?php echo base_url();?>client">
 							<i class="icon-building"></i>
 							<span>Client Companies</span>
 						</a>
 					</li>
+					<?php }?>
 
 					<li>
 						<a href="<?php echo base_url();?>deployment">
@@ -485,7 +487,7 @@
 						  					 
 						  				?>
 						  				<td><?php echo $row->trainee_id?></td>
-						  				<td><?php echo $row->last_name.', '.$row->first_name.' '.$row->middle_name;?></td>
+						  				<td><?php echo $row->last_name.', '.$row->first_name.' '.$row->middle_name;?></span></td>
 										<td><?php echo $row->batch_control_no?></td>
 										
 										<td class="td-actions">
@@ -493,11 +495,11 @@
 											<!--
 											<a href="<?php echo base_url();?>index.php/registration/registered/get_info/<?php  echo $row->register_id; ?>" style="cursor:pointer;" class="btn btn-info"><i class="icon-edit icon-white"></i></a>
 											 !-->
-											 <div class="hidden-phone visible-desktop btn-group">
+											 <!-- <div class="hidden-phone visible-desktop btn-group">
 												<button class="btn btn-mini btn-success">
 													<i class="icon-ok bigger-120"></i>
 												</button>
-											</div>
+											</div> -->
 										</td>
 									</tr> 
 									<?php endforeach;?>

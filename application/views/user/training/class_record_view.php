@@ -27,6 +27,7 @@
 		<!--ace styles-->
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/chosen.css" />
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery.gritter.css">
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?php echo $this->session->userdata('permission');?>/custom.css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style-responsive.min.css" />
@@ -357,7 +358,7 @@
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 
 		<!--ace scripts-->
-
+		<script src="<?php echo base_url();?>assets/js/jquery.gritter.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/style.min.js"></script>
 
@@ -387,19 +388,38 @@
                     success: function(output_string) {
                         //data is the html of the page where the request is made.
                         //alert(selState); 
-
-                        $('#exam_set').html(output_string);
-                        $(".chzn-select").chosen(); 
+                        console.log(output_string);
+                        $('#result_table').html(output_string.overall);
+                        $('#exam_set').html(output_string.exam_id);
+                        $(".chzn-select").chosen();
+                        var oTable1 = $('#table_report').dataTable( {
+						"aoColumns": [
+					      null, null,
+						  { "bSortable": false }
+						] } );
                         exam_id();
                         //datatable initializatino
 						
                     } 
-                })
+                });
+
             });
 
       
 			})
 
+		var xf = function(){
+
+			$.gritter.add({
+			//title: 'Error!',
+			text:  'Batch is already added to Deployment Queue.',
+			class_name: 'gritter-info gritter'
+			});
+			
+			var t=setTimeout(function(){location.reload();},3000);
+		}
+
+		
   		var exam_id = function(){
 
         	 $('#exam').change(function () {
@@ -452,6 +472,8 @@
                     } 
                 })
             });
+
+			
 
         }  
 		</script>

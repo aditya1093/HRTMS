@@ -164,15 +164,15 @@
           
           <div class="row-fluid">
             <div class="span12">
+              <div class="alert alert-warning">
+                This section is for experimental purpose and needs a mail server.
+              </div>
+
               <h3 class="header smaller lighter blue">AMI Mailer </h3>
               
                 <div class="btn-group pull-right">
                   <button class="btn btn-small btn-purple" id="btn-compose"><i class="icon-edit"></i> Compose</button> 
                 </div>
-                
-                
-              
-
 
               <br>
               <div class="tabbable">
@@ -256,16 +256,11 @@
                       <tbody>
                         <tr>
                           <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
-                          <td><a><b>asdf</b></a></td>
-                          <td><i class="icon-flag red"></i> <a><b>asdf</b></a></td>
-                          <td><a><b>asdf</b></a></td>
+                          <td><a><b>[Sender]</b></a></td>
+                          <td><i class="icon-flag red"></i> <a><b>[Title]</b></a></td>
+                          <td><a><b>[Date]</b></a></td>
                         </tr>
-                        <tr>
-                          <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
-                          <td>asdf</td>
-                          <td>asdf</td>
-                          <td>asdf</td>
-                        </tr>
+                        
                       </tbody>
                     </table>
                     
@@ -314,16 +309,11 @@
                       <tbody>
                         <tr>
                           <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
-                          <td><a><b>asdf</b></a></td>
-                          <td><i class="icon-flag red"></i> <a><b>asdf</b></a></td>
-                          <td><a><b>asdf</b></a></td>
+                          <td><a><b>[Sender]</b></a></td>
+                          <td><i class="icon-flag red"></i> <a><b>[Title]</b></a></td>
+                          <td><a><b>[Date]</b></a></td>
                         </tr>
-                        <tr>
-                          <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
-                          <td>asdf</td>
-                          <td>asdf</td>
-                          <td>asdf</td>
-                        </tr>
+                        
                       </tbody>
                     </table>
                   </div>
@@ -370,16 +360,11 @@
                       <tbody>
                         <tr>
                           <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
-                          <td><a><b>asdf</b></a></td>
-                          <td><i class="icon-flag red"></i> <a><b>asdf</b></a></td>
-                          <td><a><b>asdf</b></a></td>
+                          <td><a><b>[Sender]</b></a></td>
+                          <td><i class="icon-flag red"></i> <a><b>[Title]</b></a></td>
+                          <td><a><b>[Date]</b></a></td>
                         </tr>
-                        <tr>
-                          <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
-                          <td>asdf</td>
-                          <td>asdf</td>
-                          <td>asdf</td>
-                        </tr>
+                        
                       </tbody>
                     </table>
                   </div>
@@ -408,16 +393,11 @@
                       <tbody>
                         <tr>
                           <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
-                          <td><a><b>asdf</b></a></td>
-                          <td><i class="icon-flag red"></i> <a><b>asdf</b></a></td>
-                          <td><a><b>asdf</b></a></td>
+                          <td><a><b>[Sender]</b></a></td>
+                          <td><i class="icon-flag red"></i> <a><b>[Title]</b></a></td>
+                          <td><a><b>[Date]</b></a></td>
                         </tr>
-                        <tr>
-                          <td class="center sorting_1" colspan="1" rowspan="1"><input type="checkbox"></td>
-                          <td>asdf</td>
-                          <td>asdf</td>
-                          <td>asdf</td>
-                        </tr>
+                        
                       </tbody>
                     </table>
                   </div>

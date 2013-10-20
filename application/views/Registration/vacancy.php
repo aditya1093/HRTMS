@@ -152,7 +152,7 @@
 
                 $emp_reqdocuments = substr($emp_reqdocuments, 0, -2);
                 $remarks = substr($remarks, 0, -2);
-                if ($i++ % 2) { 
+                //if ($i++ % 2) { 
         
               ?>
               <!--<div class="row-fluid">
@@ -211,7 +211,7 @@
                       </tr>
                       
                     
-            <?php } endforeach;?>
+            <?php  endforeach;?>
             <?php endif; ?>
               </table>
                 <div class="pull-right" style="margin-top:10px;">

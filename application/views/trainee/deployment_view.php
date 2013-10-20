@@ -534,12 +534,6 @@
 
 		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="<?php echo base_url();?>assets/js/chosen.jquery.min.js"></script>
 
 		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
@@ -584,6 +578,32 @@
 	                        } 
                     })
                 });
+
+			var confirm = function(id){
+				bootbox.dialog("Tag this applicant as deployed."+id, [{
+					"label" : "Confirm Availability",
+					"class" : "btn-small btn-success",
+					"callback": function() {
+						//Example.show("great success");
+						$.ajax({
+							url: "<?php echo base_url();?>deployment/deploy_trainee",
+							type: "post",
+							data: {
+							
+								id: id
+							},
+							success: function(e) {
+								console.log(e);
+								location.reload();
+							}
+						});
+					}
+					}, {
+					"label" : "Cancel",
+					"class" : "btn-small"
+					}]
+				);
+			}
 										 	
 		</script>
 	</body>
